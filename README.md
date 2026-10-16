@@ -8,7 +8,7 @@ A personal, static tennis site backed by scheduled GitHub Actions. It runs the r
 
 Every trusted main-branch run verifies all published runtime file hashes, downloads checksum-pinned public historical inputs into temporary runner storage, and reproduces four saved diagnostic predictions per model. Each model must pass its own checks before its predictions can be published. These checks establish recovery/port consistency, not calibration or predictive accuracy.
 
-The collector reads ESPN's ATP/WTA schedules for the next 24 hours. It requires two named players with source IDs, a valid future scheduled time, singles, and a reviewed tournament surface/format. It executes each model separately, checks the feed again, and removes fixtures that changed, disappeared or started. Individual model failures remain visible; there is no substituted model, default probability, synthetic fixture or aggregate probability.
+The collector reads ESPN and Tennis.com's public daily schedules for the next 24 hours, including ATP Challenger. It requires two named players with source IDs, a valid future scheduled time, singles, and automatically fetched tournament surface/format metadata. It executes each model separately, checks the feed again, and removes fixtures that changed, disappeared or started. Individual model failures remain visible; there is no substituted model, default probability, synthetic fixture or aggregate probability.
 
 The source package contains sanitized code and JSON fitted parameters explicitly approved for public release. Original NPZ float64 arrays were converted to JSON with exact numerical equality, then verified against original outputs (tolerance 1e-10). `engine/manifest.json` records file hashes and the original registration digest. Private authorization text, personal conversation references, unrelated model histories, original archives and binaries are excluded. Diagnostic cases are labeled synthetic identifiers and never enter the current match list.
 
@@ -16,11 +16,24 @@ The source package contains sanitized code and JSON fitted parameters explicitly
 
 - Champion state: October 5, 2026. Challenger state: September 26, 2026. Experimental fit: October 10, 2026. No training occurs in this workflow.
 - Public point-history snapshots are pinned to June 2026 to preserve the recovered model execution. Experimental completed-match updates extend through October 14. Current match inputs do **not** mean all model ratings are current.
-- Coverage is partial: available ATP, WTA and WTA 125 fixtures. ATP Challenger schedules are currently unavailable. A model named Challenger is separate from the ATP Challenger competition category.
-- Reviewed tournament metadata is in `config/tournaments.json`, with official evidence links and validity dates. Unknown tournaments are withheld and reported. Add reviewed entries as the calendar changes; current entries cover events through October 25, 2026. Never infer the match format from ESPN's `format.regulation.periods` field.
+- Coverage includes available ATP, WTA, ATP Challenger and WTA 125 fixtures. It remains partial: unknown players, unconfirmed times, unsupported surfaces/formats and conflicting source observations are withheld. A model named Challenger is separate from the ATP Challenger competition category.
+- Tournament metadata updates automatically every scan. The collector discovers tournament links from the daily score pages and current calendar, reads each current edition's surface, dates, timezone and singles category, and joins ESPN events by exact name or an unambiguous city/country/tour/edition match. There is no dated manual tournament table to expire. Indoor hard/clay map to the recovered models' Hard/Clay categories.
+- Only recognized standard best-of-three ATP/WTA/Challenger/125 categories with seven-point deciding tiebreaks are enabled. Grand Slams, Next Gen, team/exhibition events, carpet and unknown formats are withheld until a supported, tested scoring profile is available. New tournaments within supported categories are automatic; new rule systems are not guessed.
+- Provider markup/schema changes or outages are visible in the source health record. Public HTML is decoded as literal JSON, never executed. Requests are size/time bounded, use four concurrent metadata fetches at most, and discover at most 60 tournament pages per pass. A discovery cap is reported. Third-party win probabilities and market fields are never model inputs.
+- Cross-provider duplicate matches are merged only when scheduled time, surface and format agree; conflicts are withheld. Source status and fixture identity are rechecked after inference.
 - Some players lack usable history or an exact identity match. Their model result is unavailable. No fuzzy-name prediction is accepted.
 - These are research probabilities conditional on completion, not retirement/withdrawal probabilities, calibrated betting advice, or live in-play estimates. v3.4-A is experimental and uncalibrated. Agreement is not a calibrated ensemble.
 - Scheduled starts are estimates. Hourly refreshes can be delayed; the site withholds forecasts after 90 minutes and at scheduled start. GitHub can disable schedules after 60 days of public-repository inactivity. A green deployment means the site deployed; the public record separately reports actual inference health.
+
+## Explaining a forecast
+
+Each successful result includes a small numeric `explanation` produced by the actual recovered model. The site shows it under **Why these forecasts?**:
+
+- Champion: serve/return and Elo win probabilities, Elo blend weight and surface-adjusted ratings. Its final probability can be reconstructed as `(1-weight)*SR + weight*Elo`.
+- Challenger: raw and adjusted service-point probabilities, fitted serve/return surface terms, calibration settings and minimum point exposure.
+- Experimental: baseline probability, the change after dynamic-form adjustments, service probabilities, bounded logit shifts and effective point exposure.
+
+A/B always refer to the displayed player order. Service-point probabilities differ from match probabilities; the tennis scoring calculation connects them. Coefficients are in log-odds and are not percentage-point attributions. These explain the model computation, not causal facts about a player's health or an actual match outcome. Only finite allowlisted numbers are published; source notes, raw traces and private data are excluded. The latest public scan contains normalized tournament/scoring inputs so a breakdown can be tied to its exact run and model hashes.
 
 ## Zero-cost operation
 

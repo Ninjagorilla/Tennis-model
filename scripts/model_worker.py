@@ -1,5 +1,6 @@
 """Separate model execution; public output contains only a strict result projection."""
 import hashlib,json,math,sys
+import explanations
 from datetime import date
 from pathlib import Path
 def main():
@@ -34,14 +35,14 @@ def main():
                     if tour not in cache:cache[tour]=ChampionModel(reg,tour)
                     m=cache[tour]
                     if any(m.elo['counts'].get(e['player_'+side],0)<=0 for side in ('a','b')):raise ValueError('PLAYER_HISTORY_MISSING')
-                    result=m.predict(e);p=result['p_a'];state=result['state_observed_at'];identity=result['model_id'];artifact=result['artifact_sha256']
+                    result=m.predict(e);p=result['p_a'];state=result['state_observed_at'];identity=result['model_id'];artifact=result['artifact_sha256'];explanation=explanations.champion(result['breakdown'])
                 elif role=='challenger':
                     r=reg['models'][tour+'_SR_CORE_REGISTERED'];path=root/'native'/r['artifact']
                     if r['role']!='CHALLENGER_CORE' or r['tour']!=tour or filehash(path/'model.json')!=r['metadata_sha256'] or filehash(path/'weights.json')!=r['weights_sha256']:raise ValueError('CHALLENGER_ARTIFACT_MISMATCH')
                     if tour not in cache:cache[tour]=ServeReturnModel.load(path)
                     m=cache[tour]
                     if not m.fit_receipt.get('optimizer_success') or any(e['player_'+s] not in m.players for s in ('a','b')):raise ValueError('PLAYER_HISTORY_MISSING')
-                    p=m.explain(e)['distribution']['p_a'];state=r['as_of'];identity=r['model_id'];artifact=digest({'weights':r['weights_sha256'],'metadata':r['metadata_sha256']})
+                    detail=m.explain(e);p=detail['distribution']['p_a'];state=r['as_of'];identity=r['model_id'];artifact=digest({'weights':r['weights_sha256'],'metadata':r['metadata_sha256']});explanation=explanations.challenger(detail)
                 else:
                     if tour not in cache:
                         data=auto.load_archive(tour,list(range(2023,2027)),base/'data_cache',include_qual=True)
@@ -59,10 +60,10 @@ def main():
                     probs=r['service_probabilities'];n=100000
                     mc=simulate(probs['sr_a'],probs['sr_b'],probs['elo_bridge_a'],probs['elo_bridge_b'],probs['elo_weight'],e['best_of'],n,seed)
                     if abs(mc['p_a']-r['p_a'])>6*max(mc['mc_se'],1/(2*n)**.5)+.002:raise ValueError('MC_EXACT_DISAGREEMENT')
-                    p=r['p_a'];state=pkg['trained_through'];identity=VERSION;artifact=sha256_data(pkg)
+                    p=r['p_a'];state=pkg['trained_through'];identity=VERSION;artifact=sha256_data(pkg);explanation=explanations.experimental(r)
                 if not math.isfinite(p) or not 0<=p<=1:raise ValueError('INVALID_PROBABILITY')
                 if date.fromisoformat(state[:10])>cutoff:raise ValueError('FUTURE_MODEL_STATE')
-                row['result']={'p_a':float(p),'p_b':1-float(p),'model_id':identity,'state_date':state[:10],'artifact_sha256':artifact,'research_only':True}
+                row['result']={'p_a':float(p),'p_b':1-float(p),'model_id':identity,'state_date':state[:10],'artifact_sha256':artifact,'research_only':True,'explanation':explanation}
             except Exception as exc:
                 # Do not expose raw tracebacks or arbitrary source strings in public output.
                 row['error']='MODEL_INPUT_OR_EXECUTION_FAILED' if not isinstance(exc,ValueError) else str(exc).split(':')[0][:80]

@@ -2,8 +2,8 @@ import {execFileSync} from 'node:child_process';
 import {readFile,lstat} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 const manifest=JSON.parse(await readFile('engine/manifest.json','utf8'));
-const allowed=new Set(['.gitignore','.github/workflows/dashboard.yml','README.md','SECURITY.md','ATTRIBUTION.md','package.json','requirements.txt','config/models.json','config/recovery.json','config/tournaments.json','scripts/audit.mjs','scripts/build.mjs','scripts/status.mjs','scripts/runtime.py','scripts/model_worker.py','scripts/inference.py','scripts/collect.py','scripts/scan.py','test/status.test.mjs','test/test_scan.py','site/index.html','site/style.css','site/app.js','engine/manifest.json',...Object.keys(manifest.files).map(n=>'engine/'+n)]);
-allowed.add('.gitattributes');
+const allowed=new Set(['.gitignore','.github/workflows/dashboard.yml','README.md','SECURITY.md','ATTRIBUTION.md','package.json','requirements.txt','scripts/audit.mjs','scripts/build.mjs','scripts/status.mjs','scripts/runtime.py','scripts/model_worker.py','scripts/inference.py','scripts/collect.py','scripts/scan.py','test/status.test.mjs','test/test_scan.py','site/index.html','site/style.css','site/app.js','engine/manifest.json',...Object.keys(manifest.files).map(n=>'engine/'+n)]);
+for(const p of ['.gitattributes','scripts/tenniscom.py','scripts/explanations.py','test/test_sources.py'])allowed.add(p);
 const files=execFileSync('git',['ls-files','-z'],{encoding:'utf8'}).split('\0').filter(Boolean);
 let total=0;
 for(const path of files){

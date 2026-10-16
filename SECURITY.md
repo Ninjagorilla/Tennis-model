@@ -8,6 +8,8 @@ The runtime uses JSON numeric arrays, not pickle or executable binary serializat
 
 Actions are pinned by commit. Build has read-only repository permission and checkout does not persist credentials. Deployment is a separate main-only job with Pages/OIDC permissions; fork pull requests cannot deploy. No secrets are referenced. The free-runner guard excludes private repositories. The browser uses textContent for external labels, a restrictive CSP, no trackers and no authentication token.
 
-Only `dist/index.html`, `style.css`, `app.js`, `.nojekyll`, and `data/status.json` are deployable. Diagnostics and input documents stay in temporary runner storage. Worker output is projected to numeric results, model identities, state dates and digests; raw exceptions and traceback text are never sent to the website. Tests cover unsupported/expired fixtures, malformed probabilities, model verification and workflow permissions.
+Only `dist/index.html`, `style.css`, `app.js`, `.nojekyll`, and `data/status.json` are deployable. Diagnostics and input documents stay in temporary runner storage. Worker output is projected to numeric results, allowlisted finite explanation values, model identities, state dates and digests; raw exceptions and traceback text are never sent to the website. Tests cover unsupported/expired fixtures, malformed probabilities, model verification and workflow permissions.
 
 To report a suspected secret exposure, contact the repository owner privately; do not paste the suspected secret in a public issue.
+
+The new schedule adapter parses literal server-rendered JSON only; downloaded JavaScript is never executed. Remote fetches use a fixed host and discovered constrained slugs; arbitrary page URLs are not followed. Provider probabilities, market fields, images and commentary never enter model inputs. Tournament metadata is revalidated each run.
