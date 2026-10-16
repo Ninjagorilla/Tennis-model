@@ -1,0 +1,32 @@
+{
+  "kind": "local_diagnostic_preflight",
+  "checked_at": "2026-10-16T21:26:37.711526+00:00",
+  "archive_sha256": "4f540e2d1ee3a897e3582c13a09618529b9de147492898ad71a0ad2887f05fd6",
+  "report_sha256": "8d04c349295981bec138b64735b4a1bee0833d9b6c641f3fc9f395234d22435d",
+  "models": [
+    {
+      "id": "champion",
+      "successful_checks": 4,
+      "total_checks": 4,
+      "state_dates": [
+        "2026-10-05"
+      ]
+    },
+    {
+      "id": "challenger",
+      "successful_checks": 4,
+      "total_checks": 4,
+      "state_dates": [
+        "2026-09-26"
+      ]
+    },
+    {
+      "id": "experimental",
+      "successful_checks": 4,
+      "total_checks": 4,
+      "state_dates": [
+        "2026-10-10"
+      ]
+    }
+  ]
+}
