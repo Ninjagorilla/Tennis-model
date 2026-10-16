@@ -1,0 +1,2 @@
+# Preserve exact hash-pinned source and parameter bytes across Windows/Linux.
+* -text

@@ -15,6 +15,7 @@ node_modules/
 *.bin
 *.sqlite*
 *.csv
+!engine/experimental/TennisEngine_V3_4_A/data_cache/updates/manual_verified_results_2026_10.csv
 *.pem
 *.key
 __pycache__/

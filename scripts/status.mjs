@@ -1,22 +1,19 @@
-export const identities = Object.freeze({champion:'SR-Elo 1.0',challenger:'SR-GLM 0.2',experimental:'v3.4-A'});
-export function createStatus(registry, receipt, now = new Date(), env = {}) {
-  if (!Array.isArray(registry) || registry.length !== 3 || new Set(registry.map(m=>m.id)).size !== 3) throw new Error('Invalid registry');
-  for (const m of registry) {
-    if (identities[m.id] !== m.name || m.cloud_enabled !== false) throw new Error('Unverified model enablement rejected');
+export const identities={champion:'SR-Elo 1.0',challenger:'SR-GLM 0.2',experimental:'v3.4-A'};
+const roles=Object.keys(identities);
+export function validate(s,now=Date.now()){
+  if(s.schema_version!==2||!['available','unavailable','blocked'].includes(s.prediction_status)||!Array.isArray(s.matches)||s.matches.length>500)throw Error('Invalid snapshot');
+  const generated=Date.parse(s.generated_at),expiry=Date.parse(s.expires_at);
+  if(!Number.isFinite(generated)||generated>now+300000||!Number.isFinite(expiry)||expiry-generated!==90*60000)throw Error('Invalid freshness');
+  if(!Array.isArray(s.models)||s.models.length!==3||new Set(s.models.map(m=>m.id)).size!==3)throw Error('Invalid registry');
+  for(const m of s.models)if(identities[m.id]!==m.name||m.preflight.total!==4||!Number.isInteger(m.preflight.passed)||m.preflight.passed<0||m.preflight.passed>4||!['verified','unavailable'].includes(m.cloud_status)||m.cloud_status==='verified'&&m.preflight.passed!==4)throw Error('Unverified model');
+  for(const e of s.matches){
+    if(!Number.isFinite(Date.parse(e.starts_at))||!['ATP','WTA'].includes(e.tour)||!['main','wta125','challenger','main_qualifying','challenger_qualifying','wta125_qualifying'].includes(e.regime)||!['Hard','Clay','Grass'].includes(e.surface)||typeof e.name_a!=='string'||typeof e.name_b!=='string')throw Error('Invalid fixture');
+    for(const role of roles){const r=e.results[role];if(!r||!['ok','unavailable'].includes(r.status))throw Error('Missing model result');if(r.status==='ok'){
+      if(s.models.find(m=>m.id===role).cloud_status!=='verified'||!Number.isFinite(r.p_a)||r.p_a<0||r.p_a>1||!Number.isFinite(r.p_b)||Math.abs(r.p_a+r.p_b-1)>1e-9||!/^[a-f0-9]{64}$/.test(r.artifact_sha256)||!/^\d{4}-\d{2}-\d{2}$/.test(r.state_date)||Date.parse(r.state_date)>generated||r.research_only!==true)throw Error('Invalid probability evidence');
+    }}
   }
-  if (!receipt || receipt.kind !== 'local_diagnostic_preflight' || !Array.isArray(receipt.models)) throw new Error('Invalid receipt');
-  const checked = Date.parse(receipt.checked_at);
-  if (!Number.isFinite(checked) || checked > now.getTime()) throw new Error('Invalid verification timestamp');
-  const sha = /^[a-f0-9]{64}$/;
-  if (!sha.test(receipt.archive_sha256) || !sha.test(receipt.report_sha256)) throw new Error('Missing evidence hashes');
-  if (receipt.models.length !== 3 || new Set(receipt.models.map(m=>m.id)).size !== 3) throw new Error('Incomplete receipt');
-  const models = registry.map(m => {
-    const r = receipt.models.find(r=>r.id===m.id);
-    if (!r || !Number.isInteger(r.successful_checks) || r.successful_checks < 0 || r.successful_checks > 4 || r.total_checks !== 4) throw new Error('Invalid check count');
-    if (!Array.isArray(r.state_dates) || r.state_dates.some(d=>!/^\d{4}-\d{2}-\d{2}$/.test(d) || !Number.isFinite(Date.parse(d)) || Date.parse(d)>checked)) throw new Error('Invalid state date');
-    return {id:m.id,name:m.name,role:m.role,cloud_status:'unavailable',reason:'Runtime artifacts are local; no approved cloud artifact source is configured.',local_verification:{checked_at:receipt.checked_at,successful_checks:r.successful_checks,total_checks:4,state_dates:r.state_dates},research_only:m.id==='experimental'};
-  });
-  const commit = /^[a-f0-9]{40}$/.test(env.GITHUB_SHA || '') ? env.GITHUB_SHA : null;
-  const runId = /^\d+$/.test(env.GITHUB_RUN_ID || '') ? env.GITHUB_RUN_ID : null;
-  return {schema_version:1,generated_at:now.toISOString(),stale_after_hours:48,build:{status:'generated',commit,run_id:runId},prediction_status:'blocked',models,fixtures:{status:'not_collected',count:null,scopes:['ATP','WTA','ATP Challenger','WTA 125']},predictions:[],recovery:{archive_sha256:receipt.archive_sha256,report_sha256:receipt.report_sha256,checked_at:receipt.checked_at},limitations:['Local diagnostic checks are not a live scan or cloud execution.','Current fixture collection and verified cloud model delivery are not configured.','Experimental v3.4-A is uncalibrated. Agreement is not a calibrated consensus probability.']};
+  const any=s.matches.some(e=>roles.some(r=>e.results[r].status==='ok'));
+  if((s.prediction_status==='available')!==any)throw Error('Inconsistent prediction status');
+  return s;
 }
+export function blank(){const now=new Date();return {schema_version:2,generated_at:now.toISOString(),expires_at:new Date(+now+90*60000).toISOString(),prediction_status:'blocked',build:{},models:roles.map(id=>({id,name:identities[id],preflight:{passed:0,total:4},cloud_status:'unavailable',predictions:0})),matches:[],coverage:{coverage:'unavailable',note:'No execution snapshot supplied. Predictions are withheld.'},limitations:['No inference was performed in this build.']};}

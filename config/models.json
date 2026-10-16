@@ -1,5 +1,0 @@
-[
-  {"id":"champion","name":"SR-Elo 1.0","role":"Champion","cloud_enabled":false},
-  {"id":"challenger","name":"SR-GLM 0.2","role":"Challenger","cloud_enabled":false},
-  {"id":"experimental","name":"v3.4-A","role":"Experimental","cloud_enabled":false}
-]

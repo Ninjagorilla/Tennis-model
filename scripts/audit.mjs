@@ -1,14 +1,20 @@
 import {execFileSync} from 'node:child_process';
 import {readFile,lstat} from 'node:fs/promises';
-const allowed = new Set(['.gitignore','.github/workflows/dashboard.yml','README.md','SECURITY.md','package.json','config/models.json','config/recovery.json','scripts/audit.mjs','scripts/build.mjs','scripts/status.mjs','test/status.test.mjs','site/index.html','site/style.css','site/app.js']);
+import {createHash} from 'node:crypto';
+const manifest=JSON.parse(await readFile('engine/manifest.json','utf8'));
+const allowed=new Set(['.gitignore','.github/workflows/dashboard.yml','README.md','SECURITY.md','ATTRIBUTION.md','package.json','requirements.txt','config/models.json','config/recovery.json','config/tournaments.json','scripts/audit.mjs','scripts/build.mjs','scripts/status.mjs','scripts/runtime.py','scripts/model_worker.py','scripts/inference.py','scripts/collect.py','scripts/scan.py','test/status.test.mjs','test/test_scan.py','site/index.html','site/style.css','site/app.js','engine/manifest.json',...Object.keys(manifest.files).map(n=>'engine/'+n)]);
+allowed.add('.gitattributes');
 const files=execFileSync('git',['ls-files','-z'],{encoding:'utf8'}).split('\0').filter(Boolean);
 let total=0;
 for(const path of files){
-  if(!allowed.has(path))throw new Error('Unreviewed public file: '+path);
-  const s=await lstat(path);if(!s.isFile()||s.isSymbolicLink()||s.size>100000)throw new Error('Unsupported public file: '+path);total+=s.size;
-  const text=await readFile(path,'utf8');
-  const patterns=[/gh[pousr]_[A-Za-z0-9]{30,}/,/github_pat_[A-Za-z0-9_]{30,}/,/-----BEGIN [A-Z ]*PRIVATE KEY-----/,/C:\\\\Users\\\\/i,/chatgpt\.com\/c\/[a-f0-9-]+/i];
-  if(patterns.some(p=>p.test(text)))throw new Error('Potential private content: '+path);
+  if(!allowed.has(path))throw Error('Unreviewed public file: '+path);
+  const s=await lstat(path);if(!s.isFile()||s.isSymbolicLink()||s.size>4000000)throw Error('Unsupported public file: '+path);total+=s.size;
+  const raw=await readFile(path),text=raw.toString('utf8');
+  const patterns=[/gh[pousr]_[A-Za-z0-9]{30,}/,/github_pat_[A-Za-z0-9_]{30,}/,/-----BEGIN [A-Z ]*PRIVATE KEY-----/,/C:\\+Users\\+/i,/chatgpt\.com\/c\/[a-f0-9-]+/i,/USER_VIDEO_/,/USER_RECORDING_/,/user_instruction/];
+  // The audit's own regex literals are not private source content.
+  if(path!=='scripts/audit.mjs'&&patterns.some(p=>p.test(text)))throw Error('Potential private content: '+path);
+  if(path.startsWith('engine/')&&path!=='engine/manifest.json'&&createHash('sha256').update(raw).digest('hex')!==manifest.files[path.slice(7)])throw Error('Changed model artifact: '+path);
 }
-if(total>500000)throw new Error('Public source exceeds size budget');
-console.log(`Public file audit passed: ${files.length} files, ${total} bytes. Review content before every push; this is not a universal secret detector.`);
+for(const n of Object.keys(manifest.files))if(!files.includes('engine/'+n))throw Error('Missing runtime file: '+n);
+if(total>20000000)throw Error('Public source exceeds size budget');
+console.log(`Public audit passed: ${files.length} approved text files, ${total} bytes. No archives, model binaries, private history, runtime logs or historical raw datasets.`);

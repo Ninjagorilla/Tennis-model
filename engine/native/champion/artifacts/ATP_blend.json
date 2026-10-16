@@ -1,0 +1,20 @@
+{
+  "model": "Tennis Champion SR-Elo 1.0",
+  "tour": "ATP",
+  "parameters": {
+    "scale": 1.2831041250453687,
+    "beta": 0.13492208719782495,
+    "w_dense": 0.408476108765858,
+    "w_sparse": 0.8273261553424027
+  },
+  "calibration_n": 13767,
+  "calibration_min": "2024-01-01",
+  "calibration_max": "2024-12-30",
+  "optimizer_success": true,
+  "objective": 0.6228669660627822,
+  "message": "Optimization terminated successfully",
+  "iterations": 29,
+  "protocol_sha256": "dd6972b94f8d6ff373f057be2953f9e527fdb99fabe4419ad44ef937fc88a377",
+  "source_prediction_sha256": "9f5d173058388a468cc44796755efc31806b84667c78e1a3703202ec81d0dddb",
+  "saved_at": "2026-09-26T06:03:37.567949+00:00"
+}

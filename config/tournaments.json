@@ -1,0 +1,83 @@
+{
+  "315-2026": {
+    "tour": "ATP",
+    "key": "shanghai",
+    "regime": "main",
+    "surface": "Hard",
+    "from": "2026-10-07",
+    "through": "2026-10-18",
+    "source": "https://www.atptour.com/en/news/what-is-the-2026-atp-tour-calendar/"
+  },
+  "440-2026": {
+    "tour": "ATP",
+    "key": "brussels",
+    "regime": "main",
+    "surface": "Hard",
+    "from": "2026-10-17",
+    "through": "2026-10-25",
+    "source": "https://www.atptour.com/en/news/what-is-the-2026-atp-tour-calendar/"
+  },
+  "708-2026": {
+    "tour": "ATP",
+    "key": "almaty",
+    "regime": "main",
+    "surface": "Hard",
+    "from": "2026-10-17",
+    "through": "2026-10-25",
+    "source": "https://www.atptour.com/en/news/what-is-the-2026-atp-tour-calendar/"
+  },
+  "381-2026": {
+    "tour": "WTA",
+    "key": "wuhan",
+    "regime": "main",
+    "surface": "Hard",
+    "from": "2026-10-10",
+    "through": "2026-10-18",
+    "source": "https://www.wtatennis.com/tournaments/1075/wuhan/2026"
+  },
+  "1020-2026": {
+    "tour": "WTA",
+    "key": "mallorca",
+    "regime": "wta125",
+    "surface": "Clay",
+    "from": "2026-10-12",
+    "through": "2026-10-18",
+    "source": "https://www.wtatennis.com/tournaments/1128/mallorca-125/2026"
+  },
+  "1025-2026": {
+    "tour": "WTA",
+    "key": "rovereto",
+    "regime": "wta125",
+    "surface": "Hard",
+    "from": "2026-10-12",
+    "through": "2026-10-18",
+    "source": "https://www.wtatennis.com/tournaments/1140/rovereto-125/2026/scores/LS011"
+  },
+  "1079-2026": {
+    "tour": "WTA",
+    "key": "lisboa",
+    "regime": "wta125",
+    "surface": "Clay",
+    "from": "2026-10-12",
+    "through": "2026-10-18",
+    "source": "https://www.wtatennis.com/tournaments/1168/Lisboa/2026"
+  },
+  "345-2026": {
+    "tour": "WTA",
+    "key": "osaka",
+    "regime": "main",
+    "surface": "Hard",
+    "from": "2026-10-17",
+    "through": "2026-10-25",
+    "source": "https://www.wtatennis.com/tournaments/405/osaka/2026"
+  },
+  "963-2026": {
+    "tour": "WTA",
+    "key": "ningbo",
+    "regime": "main",
+    "surface": "Hard",
+    "from": "2026-10-17",
+    "through": "2026-10-25",
+    "source": "https://www.wtatennis.com/news/4581231/elena-rybakina-jessica-pegula-elina-svitolina-iga-swiatek-headline-ningbo-field"
+  }
+}

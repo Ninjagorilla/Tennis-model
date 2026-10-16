@@ -1,0 +1,40 @@
+"""Execute recovered models, recheck fixtures, and project only public results."""
+import json,math,os,sys
+from datetime import timedelta
+from pathlib import Path
+from collect import collect,utc,fingerprint
+from runtime import stage,sha,ENGINE
+from inference import execute,preflight,ROLES
+NAMES={'champion':'SR-Elo 1.0','challenger':'SR-GLM 0.2','experimental':'v3.4-A'}
+def project(row):
+    if not row or 'result' not in row:return {'status':'unavailable','reason':(row or {}).get('error','EXECUTION_UNAVAILABLE')}
+    r=row['result'];p=r.get('p_a');q=r.get('p_b')
+    if type(p) not in (int,float) or type(q) not in (int,float) or not math.isfinite(p) or not math.isfinite(q) or not 0<=p<=1 or abs(p+q-1)>1e-9:return {'status':'unavailable','reason':'INVALID_PROBABILITY'}
+    return {'status':'ok',**{k:r[k] for k in ('p_a','p_b','model_id','state_date','artifact_sha256','research_only')}}
+def scan():
+    start=utc();dest=Path('work/scan');dest.mkdir(parents=True,exist_ok=True);runtime=Path('work/runtime').resolve()
+    doc={'schema_version':2,'generated_at':start.isoformat(),'expires_at':(start+timedelta(minutes=90)).isoformat(),'prediction_status':'blocked','build':{'commit':os.getenv('GITHUB_SHA'),'run_id':os.getenv('GITHUB_RUN_ID')},'models':[],'matches':[],'coverage':{'coverage':'unavailable','note':'Scan did not complete.'},'limitations':['Frozen recovered model states: Champion 2026-10-05; Challenger 2026-09-26; v3.4-A fit 2026-10-10. No automatic retraining.','Historical point data is pinned to June 2026; experimental result updates extend through October 14. Current fixtures do not imply fully current ratings.','Research probabilities conditional on match completion. Experimental v3.4-A is uncalibrated; agreement is not a calibrated ensemble.','Partial fixture coverage. Scheduled times are estimates; refreshes are hourly and can be delayed.']}
+    checks={};outputs={};events=[]
+    try:
+        stage(runtime,os.getenv('OFFLINE_RUNTIME'))
+        checks=preflight(runtime,dest/'preflight')
+        events,coverage=collect();doc['coverage']=coverage
+        eligible=[r for r in ROLES if checks[r]['passed']==checks[r]['total']==4]
+        if eligible and events:outputs=execute(runtime,events,start.date().isoformat(),dest/'matches',eligible)
+        # No stale fixture survives a missing/changed/started second observation.
+        fresh,coverage=collect();doc['coverage']=coverage;current={fingerprint(e) for e in fresh}
+        for i,e in enumerate(events):
+            if fingerprint(e) not in current:continue
+            results={r:project(outputs.get(r,{}).get(i)) if r in eligible else {'status':'unavailable','reason':'PREFLIGHT_FAILED'} for r in ROLES}
+            doc['matches'].append({k:e[k] for k in ('source_match_id','tour','regime','tournament','surface','name_a','name_b','starts_at','round','event_source','surface_source','format_source')}|{'results':results})
+        doc['prediction_status']='available' if any(r['status']=='ok' for e in doc['matches'] for r in e['results'].values()) else 'unavailable'
+    except Exception as exc:
+        print('Scan blocked: '+type(exc).__name__,file=sys.stderr)
+        doc['failure_code']='RUNTIME_OR_SCAN_FAILED'
+    for role in ROLES:
+        check=checks.get(role,{'passed':0,'total':4});count=sum(e['results'][role]['status']=='ok' for e in doc['matches'])
+        doc['models'].append({'id':role,'name':NAMES[role],'preflight':check,'cloud_status':'verified' if check['passed']==4 else 'unavailable','predictions':count})
+    end=utc();doc.update(generated_at=end.isoformat(),expires_at=(end+timedelta(minutes=90)).isoformat(),runtime_manifest_sha256=sha(ENGINE/'manifest.json'))
+    Path('work/snapshot.json').write_text(json.dumps(doc,allow_nan=False,ensure_ascii=False),encoding='utf8')
+    print(json.dumps({'status':doc['prediction_status'],'matches':len(doc['matches']),'models':doc['models']}))
+if __name__=='__main__':scan()
