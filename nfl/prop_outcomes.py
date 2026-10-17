@@ -76,13 +76,21 @@ def audit(papers,inputs,out):
         try:v=threshold(point['probability'],stats[key][market],point['at_least'])
         except (ValueError,KeyError,TypeError):skips['invalid_threshold']+=1;continue
         metrics[market].append(v);graded.add(gid)
+      # The engine's anytime/2+ TD markets represent rushing + receiving scores.
+      # They cannot be equated with sportsbook anytime TD including returns/fumbles.
+      offensive=stats[key]['rushing_tds']+stats[key]['receiving_tds']
+      for market,prob,line in [('offensive_td_1plus',player.get('atd'),1),('offensive_td_2plus',player.get('two_plus_td'),2)]:
+       if prob is None:continue
+       try:v=threshold(prob,offensive,line)
+       except (ValueError,TypeError):skips['invalid_threshold']+=1;continue
+       metrics[market].append(v);graded.add(gid)
  report={'schema':'nfl-player-prop-research-1','graded_games':len(graded),'unique_frozen_games':len(grouped),
  'pending_games':len(set(pending)),'participation_unverified':skips['participation_unverified'],
  'source_conflicts':skips['source_conflict']+skips['fixture_conflict'],
  'invalid_thresholds':skips['invalid_threshold'],'publication_approved':False,'settlement_claim':False,
  'limits':['Research at-least threshold events, not sportsbook settlement','No missing-player zero imputation',
  'Participation requires identifiable PBP action; inactive/snap-only players remain ungraded',
- 'No push, void, odds, return or ROI inference','No promotion from this report'],'markets':{}}
+ 'Touchdown events are rushing/receiving only: returns and fumble recoveries are excluded', 'No push, void, odds, return or ROI inference','No promotion from this report'],'markets':{}}
  for market,vals in sorted(metrics.items()):
   n=len(vals);bins=[]
   for lo in range(0,100,10):
