@@ -1,3 +1,4 @@
+import {auditProspective,inputQuality} from './nfl-quality.mjs';
 'use strict';
 const $=id=>document.getElementById(id);let current;
 const el=(tag,text,cls)=>{const n=document.createElement(tag);if(text!==undefined)n.textContent=text;if(cls)n.className=cls;return n;};
@@ -15,6 +16,12 @@ function render(s){
  u.append(el('p',`${s.prospective?.unique_games_graded??s.validation.prospective_games_graded} prospectively graded games. A confidence interval crossing zero leaves the direction of improvement uncertain. No profit or betting-edge claim is made.`));
  u.append(el('p','2026-only caution: game-first log loss was 3.2054 versus 3.1879 for the baseline, and Brier was 0.9385 versus 0.9348. That subgroup worsened. Historical averages do not justify releasing the model yet.'));
  if(s.paper_history_restore?.status==='unavailable')u.append(el('p','Prior paper-history retrieval failed on this run. The displayed prospective coverage may be incomplete.'));
+ const audit=auditProspective(s.prospective);const panel=$('nfl-prospective');panel.replaceChildren();
+ panel.append(el('h3','Prospective performance audit'),el('p',audit.gradedGames+' unique games graded. Publication and promotion remain locked.'));
+ if(!audit.rows.length)panel.append(el('p','No independently graded paired results available yet. Historical research results are shown above, separately.'));
+ for(const v of audit.rows) panel.append(el('p',v.market+' first TD / '+v.n+' paired games / Δ log loss '+v.logLossDelta.toFixed(4)+' / Δ Brier '+v.brierDelta.toFixed(4)+' / '+v.status));
+ panel.append(el('small',audit.decision));
+ const q=inputQuality();const quality=$('nfl-quality');quality.replaceChildren(el('h3','Pregame input quality: '+q.label),el('p',q.verified+'/'+q.total+' verification categories established for public player-prop grading. Injury status, actual participation, contract rules and timestamped odds remain unverified by this public snapshot. Individual player prop outcomes are intentionally not scored.'));
  const limits=$('nfl-limits');limits.replaceChildren(...s.limits.map(x=>el('li',x)));renderFixtures();
 }
 function renderFixtures(){if(!current)return;const list=$('nfl-fixture-list');list.replaceChildren();if(current.execution_status!=='verified'||Date.now()>=Date.parse(current.expires_at)){list.append(el('p','A fresh, verified execution is required to display upcoming NFL fixtures.'));return;}
