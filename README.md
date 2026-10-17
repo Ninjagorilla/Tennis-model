@@ -57,3 +57,12 @@ node scripts/build.mjs
 The scan writes `work/snapshot.json`; only the allowlisted `dist` files are deployed. Missing runtime/source access yields a blocked or unavailable snapshot. A fresh checkout never needs local private model files. Pull requests run offline gate tests and build a blocked preview, with no deployment permissions or live inference.
 
 See [attribution](ATTRIBUTION.md) and [security boundaries](SECURITY.md).
+
+
+## NFL engine and paper research
+
+The NFL page at `nfl.html` shares this site without changing the tennis models. The complete recovered `NFL-v9.1-integrated-1` engine executes alongside a separately fitted first-TD Research Challenger 0.2.1. It covers game lines, team totals, all implemented passing/rushing/receiving ladders, anytime and multiple TDs, and game-first/team-first TDs.
+
+**Live NFL probability publication remains gated.** The page shows execution health, cross-checked future fixture identities and validation evidence. The first-TD retrospective test improved aggregate log loss, but game-first Brier improvement is uncertain and its 2026-only subgroup worsened. No Champion promotion or profitable-betting claim is made. See `nfl/README.md` for the evidence and remaining acceptance criteria.
+
+The existing hourly public workflow runs the full NFL engine in temporary storage. Small daily/manual paper artifacts retain immutable pregame forecasts and a carried-forward grade ledger for 14 days; no raw historical inputs or binary model archives are retained. Game and first-TD outcomes are graded only when reconciled final labels exist. Player-stat bet grading is withheld without participation and exact contract rules. Duplicate hourly forecasts do not increase the effective game count. No billing changes, paid runners, subscriptions or betting-account connections are used. Artifact restore failures are surfaced, not interpreted as zero prior results.
