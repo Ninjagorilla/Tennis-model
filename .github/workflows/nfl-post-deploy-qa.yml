@@ -1,0 +1,55 @@
+name: Verify deployed NFL and tennis pages
+on:
+  push:
+    branches: [nfl-full-engine-integration-20261017]
+    paths: ['.github/workflows/nfl-post-deploy-qa.yml']
+permissions:
+  contents: read
+jobs:
+  verify:
+    if: github.repository == 'Ninjagorilla/Tennis-model' && github.event.repository.private == false
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Verify deployed public page bytes and fresh real status
+        run: |
+          python - <<'PY'
+          import datetime,hashlib,json,pathlib,time,urllib.request
+          base='https://ninjagorilla.github.io/Tennis-model/'
+          output=pathlib.Path('qa');output.mkdir()
+          bodies={}
+          for path in ['', 'nfl.html','nfl.js','nfl.css','data/status.json','data/nfl-status.json']:
+              req=urllib.request.Request(base+path,headers={'User-Agent':'Courtside-deployment-verification','Cache-Control':'no-cache'})
+              for attempt in range(3):
+                  try:
+                      with urllib.request.urlopen(req,timeout=25) as r:
+                          assert r.status==200
+                          raw=r.read(2_000_001)
+                      assert len(raw)<2_000_001
+                      bodies[path]=raw
+                      break
+                  except Exception:
+                      if attempt==2:raise
+                      time.sleep(10)
+          assert b'nfl.html' in bodies[''] and b'nfl.js' in bodies['nfl.html']
+          tennis=json.loads(bodies['data/status.json']);nfl=json.loads(bodies['data/nfl-status.json'])
+          assert tennis['prediction_status']=='available' and len(tennis['matches'])>0
+          assert nfl['execution_status']=='verified' and nfl['paper_games']>0
+          assert nfl['publication_approved'] is False and nfl['games']==[]
+          assert nfl['engine_version']=='NFL-v9.1-integrated-1' and nfl['first_td_version']=='NFL-First-TD-Research-0.2.1'
+          now=datetime.datetime.now(datetime.timezone.utc)
+          for d in [tennis,nfl]:
+              assert datetime.datetime.fromisoformat(d['expires_at'])>now
+          receipt={'verified_at':now.isoformat(),'public_http_verified':True,'tennis_matches':len(tennis['matches']),'tennis_models':tennis['models'],'nfl_paper_games':nfl['paper_games'],'nfl_public_forecasts':len(nfl['games']),'nfl_prospective_grades':nfl['prospective']['unique_games_graded'],'nfl_generated_at':nfl['generated_at'],'responses':{k:{'bytes':len(v),'sha256':hashlib.sha256(v).hexdigest()} for k,v in bodies.items()}}
+          (output/'public_http_receipt.json').write_text(json.dumps(receipt,indent=2))
+          (output/'nfl-status.json').write_bytes(bodies['data/nfl-status.json'])
+          (output/'tennis-status.json').write_bytes(bodies['data/status.json'])
+          print(json.dumps(receipt,indent=2))
+          PY
+      - name: Retain small public deployment verification
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: public-deployment-verification
+          path: qa
+          retention-days: 2
+          if-no-files-found: error
