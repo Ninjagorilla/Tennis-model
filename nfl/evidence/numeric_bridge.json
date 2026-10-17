@@ -1,0 +1,8 @@
+{
+  "feature_rows_compared": 1473,
+  "parameter_bridge_max_mean_difference": 0.0,
+  "seeded_joint_forecast_exact_match": true,
+  "draws": 6000,
+  "seed": 111,
+  "parameter_changes": false
+}
