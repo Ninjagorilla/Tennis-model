@@ -1,4 +1,4 @@
-name: Tennis forecasts
+name: Tennis and NFL forecasts
 on:
   push:
     branches: [main]
@@ -9,6 +9,7 @@ on:
     - cron: '17 * * * *'
 permissions:
   contents: read
+  actions: read
 concurrency:
   group: tennis-dashboard-${{ github.ref }}
   cancel-in-progress: false
@@ -16,45 +17,80 @@ jobs:
   build:
     if: github.repository == 'Ninjagorilla/Tennis-model' && github.event.repository.private == false
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 25
     steps:
-      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
           persist-credentials: false
-      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
         with:
           node-version: '22'
-      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
         with:
           python-version: '3.11'
       - name: Audit sanitized public files
         run: npm run audit
-      - name: Test publication and fixture gates
+      - name: Install pinned inference and test dependencies
+        run: python -m pip install --no-cache-dir -r requirements.txt
+      - name: Test publication, fixture and settlement gates
+        env:
+          PYTHONPATH: nfl:nfl/engine
         run: |
           npm test
           python -m unittest discover -s test -p 'test_*.py'
-      - name: Install pinned inference dependencies
-        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
-        run: python -m pip install --no-cache-dir -r requirements.txt
-      - name: Verify models and score current matches
+          python -m pytest nfl/tests -q
+      - name: Verify tennis models and score current matches
         if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
         run: python scripts/scan.py
+      - name: Run complete NFL engine and grade paper forecasts
+        id: nfl
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        continue-on-error: true
+        timeout-minutes: 10
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python nfl/pipeline.py
+      - name: Select bounded daily paper retention
+        id: retention
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+        run: |
+          if [ "$EVENT_NAME" != "schedule" ] || [ "$(date -u +%H)" = "09" ]; then
+            echo 'save=true' >> "$GITHUB_OUTPUT"
+          else
+            echo 'save=false' >> "$GITHUB_OUTPUT"
+          fi
+      - name: Carry unresolved paper forecasts and cumulative grades forward
+        if: steps.retention.outputs.save == 'true' && steps.nfl.outcome == 'success'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: nfl-paper-${{ github.run_id }}
+          path: work/nfl/paper_archive
+          retention-days: 14
+          if-no-files-found: error
       - name: Build public forecast site
         run: npm run build
       - name: Record actual inference health
         if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
         run: |
           python - <<'PY'
-          import json,os
+          import json,os,pathlib
           d=json.load(open('work/snapshot.json'))
           with open(os.environ['GITHUB_STEP_SUMMARY'],'a') as f:
-              f.write('## Inference: '+d['prediction_status']+'\n\n')
+              f.write('## Tennis inference: '+d['prediction_status']+'\n\n')
               f.write(str(len(d['matches']))+' current verified fixtures; partial coverage.\n\n')
               for m in d['models']:f.write(m['name']+': '+str(m['preflight']['passed'])+'/4 checks, '+str(m['predictions'])+' predictions.\n\n')
+              p=pathlib.Path('work/nfl_snapshot.json')
+              n=json.loads(p.read_text()) if p.exists() else {'execution_status':'blocked','paper_games':0}
+              f.write('## NFL inference: '+n['execution_status']+'\n\n')
+              f.write(str(n['paper_games'])+' games paper-run. Public probability gate CLOSED. No promotion or wagering.\n\n')
+              f.write('Prospective grades: '+str(n.get('prospective',{}).get('unique_games_graded',0))+'.\n\n')
+              f.write('Paper history restore: '+str(n.get('paper_history_restore',{}).get('status','unavailable'))+'.\n')
           PY
       - name: Upload only public site
         if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
-        uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3
+        uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa
         with:
           path: dist
           retention-days: 1
@@ -72,4 +108,4 @@ jobs:
     steps:
       - name: Deploy forecast site
         id: deployment
-        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4
+        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e
