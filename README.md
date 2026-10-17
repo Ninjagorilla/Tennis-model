@@ -23,7 +23,7 @@ The source package contains sanitized code and JSON fitted parameters explicitly
 - Cross-provider duplicate matches are merged only when scheduled time, surface and format agree; conflicts are withheld. Source status and fixture identity are rechecked after inference.
 - Some players lack usable history or an exact identity match. Their model result is unavailable. No fuzzy-name prediction is accepted.
 - These are research probabilities conditional on completion, not retirement/withdrawal probabilities, calibrated betting advice, or live in-play estimates. v3.4-A is experimental and uncalibrated. Agreement is not a calibrated ensemble.
-- Scheduled starts are estimates. Hourly refreshes can be delayed; the site withholds forecasts after 90 minutes and at scheduled start. GitHub can disable schedules after 60 days of public-repository inactivity. A green deployment means the site deployed; the public record separately reports actual inference health.
+- Scheduled starts are estimates. Updates are requested twice hourly, but GitHub can delay them. Results remain visible as dated pre-match research after 90 minutes and after scheduled start; these are explicitly labeled and are never presented as live match status. GitHub can disable schedules after 60 days of public-repository inactivity. A green deployment means the site deployed; the public record separately reports actual inference health.
 
 ## Explaining a forecast
 
@@ -39,7 +39,7 @@ A/B always refer to the displayed player order. Service-point probabilities diff
 
 The workflow uses only standard `ubuntu-latest` runners in this public repository and GitHub Pages. The job refuses to run if the repository is private. No caches, releases, package hosting, large runners, external paid hosting, purchased domain, billing changes or card entry. Only the small Pages artifact is uploaded, with one-day retention. Raw historical inputs, runtime copies and logs are not uploaded. [GitHub standard public runner policy](https://docs.github.com/en/billing/concepts/product-billing/github-actions).
 
-Runs are requested hourly at minute 17 and may also be started by a collaborator using **Actions → Tennis forecasts → Run workflow**. Refresh on the site reloads the latest published scan; it does not launch a job or require browser credentials.
+Runs are requested at minutes 17 and 47 of each hour and may also be started by a collaborator using **Actions → Tennis forecasts → Run workflow**. Refresh on the site reloads the latest published scan and reports whether it changed, failed, or returned an older scan. It does not launch a job or require browser credentials. The latest successful scan is retained in a separate public results file across deployments, and validated results are cached on the device when storage is available. A failed or empty scan shows the latest attempt status alongside the last successful results and their original timestamp. A fresh device still needs network access; a total hosting outage cannot serve a page that has never been loaded. Use All scan results to see every match from the saved scan; Future scheduled starts is an optional filter.
 
 ## Local verification
 
