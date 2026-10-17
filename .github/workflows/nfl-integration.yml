@@ -1,0 +1,43 @@
+name: NFL integration validation
+on:
+  push:
+    branches: [nfl-full-engine-integration-20261017]
+    paths: ['.github/workflows/nfl-integration.yml', 'nfl/**']
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: nfl-integration-validation
+  cancel-in-progress: false
+jobs:
+  runtime:
+    if: github.repository == 'Ninjagorilla/Tennis-model' && github.event.repository.private == false
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.13'
+      - name: Acquire verified Parquet runtime
+        run: |
+          mkdir -p nfl_environment/wheels
+          python -m pip download --only-binary=:all: --no-deps pyarrow==21.0.0 -d nfl_environment/wheels
+          python -m pip install --no-index --find-links=nfl_environment/wheels pyarrow==21.0.0
+          python - <<'PY'
+          import hashlib,json,pathlib,platform,pyarrow,pyarrow.parquet as pq
+          p=pathlib.Path('nfl_environment')
+          pq.write_table(pyarrow.table({'a':[1,2,3]}),p/'roundtrip.parquet')
+          assert pq.read_table(p/'roundtrip.parquet').to_pydict()=={'a':[1,2,3]}
+          receipt={'python':platform.python_version(),'pyarrow':pyarrow.__version__,'parquet_roundtrip':True,'wheels':{f.name:hashlib.sha256(f.read_bytes()).hexdigest() for f in (p/'wheels').glob('*.whl')}}
+          (p/'receipt.json').write_text(json.dumps(receipt,indent=2))
+          PY
+          git archive --format=zip HEAD > nfl_environment/tennis_source.zip
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nfl-environment-preflight
+          path: nfl_environment
+          retention-days: 2
+          if-no-files-found: error
