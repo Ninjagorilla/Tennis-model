@@ -50,6 +50,10 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: python nfl/pipeline.py
+      - name: Grade verified player-stat research thresholds
+        if: steps.nfl.outcome == 'success'
+        continue-on-error: true
+        run: python -m nfl.prop_outcomes
       - name: Select bounded daily paper retention
         id: retention
         if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
