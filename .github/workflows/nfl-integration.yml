@@ -36,7 +36,8 @@ jobs:
           mkdir -p work/ci
           npm test
           python -m unittest discover -s test -p 'test_*.py'
-          python -m pytest nfl/tests -q --junitxml=work/ci/nfl-tests.xml
+          python -m pytest nfl/tests -q
+          python -m pytest test/test_prop_outcomes.py -q --junitxml=work/ci/nfl-tests.xml
       - name: Run full NFL engine with two-source pregame checks
         env:
           GH_TOKEN: ${{ github.token }}
