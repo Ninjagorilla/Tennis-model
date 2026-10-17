@@ -5,7 +5,7 @@ const manifest=JSON.parse(await readFile('engine/manifest.json','utf8'));
 const allowed=new Set(['.gitignore','.github/workflows/dashboard.yml','README.md','SECURITY.md','ATTRIBUTION.md','package.json','requirements.txt','scripts/audit.mjs','scripts/build.mjs','scripts/status.mjs','scripts/runtime.py','scripts/model_worker.py','scripts/inference.py','scripts/collect.py','scripts/scan.py','test/status.test.mjs','test/test_scan.py','site/index.html','site/style.css','site/app.js','engine/manifest.json',...Object.keys(manifest.files).map(n=>'engine/'+n)]);
 for(const p of ['.gitattributes','scripts/tenniscom.py','scripts/explanations.py','test/test_sources.py'])allowed.add(p);
 const nfl=JSON.parse(await readFile('nfl/manifest.json','utf8'));
-for(const n of ['.github/workflows/nfl-integration.yml','nfl/manifest.json','scripts/nfl-status.mjs','test/nfl-status.test.mjs','site/nfl.html','site/nfl.css','site/nfl.js',...Object.keys(nfl.files)])allowed.add(n);
+for(const n of ['.github/workflows/nfl-integration.yml','nfl/manifest.json','scripts/nfl-status.mjs','test/nfl-status.test.mjs','site/nfl.html','site/nfl.css','site/nfl.js','site/nfl-quality.mjs','test/nfl-quality.test.mjs',...Object.keys(nfl.files)])allowed.add(n);
 const files=execFileSync('git',['ls-files','-z'],{encoding:'utf8'}).split('\0').filter(Boolean);
 let total=0;
 for(const path of files){
