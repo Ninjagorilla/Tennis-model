@@ -29,3 +29,21 @@ function renderFixtures(){if(!current)return;const list=$('nfl-fixture-list');li
 }
 async function load(){try{const r=await fetch('data/nfl-status.json',{cache:'no-store'});if(!r.ok)throw Error('Unavailable');const s=await r.json();if(s.schema_version!==1||s.publication_approved!==false||s.games.length!==0||!Array.isArray(s.fixtures)||!s.validation?.results?.game||!Number.isFinite(Date.parse(s.expires_at)))throw Error('Invalid record');render(s);}catch(e){current=null;$('nfl-headline').textContent='NFL execution record unavailable';$('nfl-detail').textContent='No live probabilities are being substituted or invented.';$('nfl-fixture-list').replaceChildren(el('p','No verified fixtures available.'));}}
 $('nfl-refresh').addEventListener('click',load);setInterval(()=>{if(current&&Date.now()>=Date.parse(current.expires_at))render(current);else renderFixtures();},30000);load();
+
+async function propAudit(){
+ const panel=$('nfl-prop-content');
+ try{
+ const response=await fetch('data/nfl-props.json',{cache:'no-store'});if(!response.ok)throw Error('missing');
+ const d=await response.json();
+ if(d.schema!=='nfl-player-prop-research-1'||d.settlement_claim!==false||d.publication_approved!==false)throw Error('invalid');
+ panel.replaceChildren(el('h3',d.graded_games+' completed games with verified on-ball player outcomes'),el('p',(d.participation_unverified||0)+' player forecasts ungraded because participation cannot be confirmed in play-by-play.'));
+ const keys=Object.entries(d.markets||{});
+ if(!keys.length){panel.append(el('p','No completed, eligible frozen player prop outcomes have been graded.'));return;}
+ const table=el('table'),head=el('thead'),body=el('tbody'),row=el('tr');
+ for(const h of ['Market','Threshold events','Brier','Log loss','Predicted hit rate','Observed hit rate'])row.append(el('th',h));
+ head.append(row);
+ for(const [name,v] of keys){const tr=el('tr');for(const val of [name,v.threshold_events,v.brier,v.log_loss,(100*v.predicted_hit_rate).toFixed(1)+'%',(100*v.observed_hit_rate).toFixed(1)+'%'])tr.append(el('td',String(val)));body.append(tr);}
+ table.append(head,body);const wrap=el('div');wrap.className='table-wrap';wrap.append(table);panel.append(wrap,el('small','Threshold scores use recorded PBP actions and validated final scores. No sportsbook contracts or injury absence are inferred.'));
+ }catch(error){panel.replaceChildren(el('p','Player-prop outcome report unavailable. No grading statistics are assumed.'));}
+}
+propAudit();
