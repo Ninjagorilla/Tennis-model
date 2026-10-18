@@ -1,3 +1,16 @@
+# Sports engine location
+
+**This repository contains both tennis and NFL. Do not infer coverage from its name.**
+
+| Sport / layer | Actual entry point | Scope |
+|---|---|---|
+| NFL Champion | `nfl/pipeline.py`, `nfl/engine/nfl_champion_v9/` | Joint scores and player props |
+| NFL Research Challenger | `nfl/research.py`, `nfl/first_td_challenger/` | Game-first and team-first TD only |
+| NFL Devil's Advocate | `nfl/devils_advocate.py` via pipeline | Shadow sensitivity, same Champion draws |
+| Tennis three models | `scripts/scan.py`, `engine/` | Separate tennis models |
+
+Read `nfl/README.md` before running or reporting NFL results. An empty public forecast list is a publication gate, not proof the engine did not execute. Check `execution_status`, `layers`, timestamps and the paper receipt. No all-market independent NFL Challenger or third calibrated model is registered here.
+
 # Courtside tennis forecasts
 
 [Open the site](https://ninjagorilla.github.io/Tennis-model/) · [Run history](https://github.com/Ninjagorilla/Tennis-model/actions/workflows/dashboard.yml)

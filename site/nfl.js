@@ -9,6 +9,13 @@ function render(s){
  $('nfl-execution').textContent=ok?'Verified':stale?'Expired':s.execution_status.replaceAll('_',' ');
  $('nfl-paper').textContent=ok?String(s.paper_games):'Not current';$('nfl-date').textContent=s.state_date||'Unavailable';
  $('nfl-gate').textContent=s.publication_gate;
+ const layers=$('nfl-layers');layers.replaceChildren();
+ for(const [key,label] of [['champion','Champion'],['challenger','First-TD Challenger'],['devils_advocate',"Devil's Advocate"]]){
+  const entry=s.layers?.[key];const status=stale?'Expired':entry?.status||'No layer receipt';
+  layers.append(el('p',label+': '+status.replaceAll('_',' ')+(entry?' / '+entry.games+' games / '+entry.scope.replaceAll('_',' '):'')));
+ }
+ layers.append(el('small','Devil’s Advocate stresses the Champion’s own simulations. It is shadow sensitivity analysis, not an independently calibrated third model. Current sportsbook quotes remain unverified.'));
+
  const markets=$('nfl-markets');markets.replaceChildren();for(const m of s.markets){const card=el('article',undefined,'market-card');card.append(el('small','IMPLEMENTED / VALIDATION-GATED'),el('h3',m));markets.append(card);}
  const body=$('nfl-scores');body.replaceChildren();for(const [key,label]of [['game','Game-first TD'],['team','Team-first TD']]){const d=s.validation.results[key],r=el('tr');for(const value of [label,d.contracts,d.scores.baseline.log_loss.toFixed(4),d.scores.challenger.log_loss.toFixed(4),d.scores.baseline.brier.toFixed(4),d.scores.challenger.brier.toFixed(4)])r.append(el('td',String(value)));body.append(r);}
  const u=$('nfl-uncertainty');u.replaceChildren(el('h3','The release gate is still closed.'));

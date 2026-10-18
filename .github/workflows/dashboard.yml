@@ -74,6 +74,14 @@ jobs:
           path: work/nfl/paper_archive
           retention-days: 14
           if-no-files-found: error
+      - name: Retain shadow sensitivity reports for review
+        if: steps.retention.outputs.save == 'true' && steps.nfl.outcome == 'success'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: nfl-shadow-${{ github.run_id }}
+          path: work/nfl/shadow
+          retention-days: 1
+          if-no-files-found: ignore
       - name: Build public forecast site
         run: npm run build
       - name: Record actual inference health
