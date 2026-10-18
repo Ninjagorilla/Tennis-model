@@ -102,6 +102,7 @@ jobs:
               f.write('Paper history restore: '+str(n.get('paper_history_restore',{}).get('status','unavailable'))+'.\n')
           PY
       - name: Publish independent tennis results channel
+        continue-on-error: true
         if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
         env:
           GH_TOKEN: ${{ github.token }}
@@ -115,9 +116,15 @@ jobs:
           assert d['prediction_status'] in {'available','unavailable','blocked'}
           PY
           sha="$(gh api "repos/$GH_REPO/contents/public-results/latest.json?ref=scan-results" --jq '.sha' 2>/dev/null || true)"
-          args=(-f "message=Publish tennis scan ${{ github.run_id }}" -f "branch=scan-results" -f "content=$(base64 -w0 dist/data/status.json)")
-          if [ -n "$sha" ]; then args+=(-f "sha=$sha"); fi
-          gh api -X PUT "repos/$GH_REPO/contents/public-results/latest.json" "${args[@]}"
+          export RESULTS_SHA="$sha"
+          python - <<'PYCODE'
+          import base64, json, os, pathlib
+          payload={'message':'Publish tennis scan '+os.environ['GITHUB_RUN_ID'], 'branch':'scan-results',
+                   'content':base64.b64encode(pathlib.Path('dist/data/status.json').read_bytes()).decode('ascii')}
+          if os.environ.get('RESULTS_SHA'): payload['sha']=os.environ['RESULTS_SHA']
+          pathlib.Path('work/results-upload.json').write_text(json.dumps(payload))
+          PYCODE
+          gh api -X PUT "repos/$GH_REPO/contents/public-results/latest.json" --input work/results-upload.json
       - name: Upload only public site
         if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
         uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3
