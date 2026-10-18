@@ -8,7 +8,7 @@ on:
   schedule:
     - cron: '17,47 * * * *'
 permissions:
-  contents: read
+  contents: write
   actions: read
 concurrency:
   group: tennis-dashboard-${{ github.ref }}
@@ -93,6 +93,23 @@ jobs:
               f.write('Prospective grades: '+str(n.get('prospective',{}).get('unique_games_graded',0))+'.\n\n')
               f.write('Paper history restore: '+str(n.get('paper_history_restore',{}).get('status','unavailable'))+'.\n')
           PY
+      - name: Publish independent tennis results channel
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          python - <<'PY'
+          import json, pathlib
+          d=json.loads(pathlib.Path('dist/data/status.json').read_text())
+          assert d['schema_version']==2 and isinstance(d['matches'],list)
+          assert {m['id'] for m in d['models']}=={'champion','challenger','experimental'}
+          assert d['prediction_status'] in {'available','unavailable','blocked'}
+          PY
+          sha="$(gh api "repos/$GH_REPO/contents/public-results/latest.json?ref=scan-results" --jq '.sha' 2>/dev/null || true)"
+          args=(-f "message=Publish tennis scan ${{ github.run_id }}" -f "branch=scan-results" -f "content=$(base64 -w0 dist/data/status.json)")
+          if [ -n "$sha" ]; then args+=(-f "sha=$sha"); fi
+          gh api -X PUT "repos/$GH_REPO/contents/public-results/latest.json" "${args[@]}"
       - name: Upload only public site
         if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
         uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3
