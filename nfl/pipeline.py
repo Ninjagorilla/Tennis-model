@@ -6,6 +6,7 @@ artifacts. A failed NFL run never replaces a valid tennis snapshot.
 from __future__ import annotations
 from pathlib import Path
 from datetime import datetime,timezone,timedelta
+from zoneinfo import ZoneInfo
 import argparse,copy,hashlib,json,math,sys
 import numpy as np
 import pandas as pd
@@ -41,7 +42,15 @@ def verify_manifest():
 
 def fixture_evidence(games):
     """ESPN second-source status, identity and kickoff check, without odds ingestion."""
-    records={};days=sorted({g['kickoff_utc'][:10].replace('-','') for g in games})
+    records={};days=set()
+    for g in games:
+        start=datetime.fromisoformat(g['kickoff_utc'].replace('Z','+00:00'))
+        if start.tzinfo is None:raise ValueError('Timezone-aware kickoff required')
+        # ESPN groups overnight UTC kickoffs under the US Eastern calendar day.
+        # Query both dates and deduplicate identical provider events.
+        days.update([start.astimezone(ZoneInfo('America/New_York')).strftime('%Y%m%d'),
+                     start.astimezone(timezone.utc).strftime('%Y%m%d')])
+    days=sorted(days)
     aliases={'LAR':'LA','WSH':'WAS'}
     for day in days:
         url='https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?dates='+day+'&limit=100'
@@ -52,9 +61,13 @@ def fixture_evidence(games):
             status=event.get('status',{}).get('type',{})
             if set(sides)!={'home','away'}:continue
             key=(sides['home'],sides['away'])
-            if key in records:raise ValueError('Ambiguous independent fixture')
-            records[key]={'source':'ESPN','source_event_id':str(event.get('id','')),'starts_at':event.get('date'),
+            candidate={'source':'ESPN','source_event_id':str(event.get('id','')),'starts_at':event.get('date'),
                           'state':status.get('state'),'completed':status.get('completed'), 'checked_at_utc':checked}
+            if key in records:
+                prior=records[key]
+                if any(prior[k]!=candidate[k] for k in ['source_event_id','starts_at','state','completed']):
+                    raise ValueError('Ambiguous independent fixture')
+            records[key]=candidate
     return records
 
 def verified(g,evidence):
@@ -149,11 +162,21 @@ def execute(args):
     inputs=Path(args.inputs) if args.inputs else work/'inputs'
     if args.inputs:
         source_manifest=json.loads((inputs/'source_manifest.json').read_text())
+        for entry in source_manifest:
+            if entry['status']=='SUCCESS' and sha(inputs/entry['name'])!=entry['sha256']:
+                raise ValueError('Saved input does not match its acquisition receipt')
     else:source_manifest=acquire(inputs,manifest['historical_input_hashes'])
+    print('NFL refreshing Champion state from verified inputs',flush=True)
     bundle,players,teams=fresh_bundle(inputs,work)
+    print('NFL building prior-only first-TD state',flush=True)
     records,dataset,state=build_dataset(inputs,work/'first_td_dataset')
     fitted=from_portable(json.loads((ROOT/'nfl/first_td_parameters.json').read_text()))
-    games=slate(inputs);evidence={} if args.offline else fixture_evidence(games)
+    games=slate(inputs)
+    if getattr(args,'event',None):
+        games=[g for g in games if g['event_id']==args.event]
+        if not games:raise ValueError('Requested event absent from future slate')
+    print('NFL verifying',len(games),'future fixtures',flush=True)
+    evidence={} if args.offline else fixture_evidence(games)
     snapshot=[];excluded=[];shadow=[];sources_at=max(s['retrieved_at_utc'] for s in source_manifest if s['status']=='SUCCESS')
     for i,g in enumerate(games):
         if not args.offline and not verified(g,evidence):
@@ -221,7 +244,7 @@ def execute(args):
 
 def main():
     ap=argparse.ArgumentParser();ap.add_argument('--inputs');ap.add_argument('--work',default=str(ROOT/'work/nfl'))
-    ap.add_argument('--draws',type=int,default=10000);ap.add_argument('--offline',action='store_true');args=ap.parse_args()
+    ap.add_argument('--event',help='Optional exact event ID, e.g. season_week_away_home');ap.add_argument('--draws',type=int,default=10000);ap.add_argument('--offline',action='store_true');args=ap.parse_args()
     try:execute(args);return 0
     except Exception as exc:
         print('NFL RUN BLOCKED:',type(exc).__name__,str(exc),file=sys.stderr)

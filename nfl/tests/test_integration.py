@@ -121,3 +121,35 @@ def test_original_count_math():
     counts=np.arange(50);draws=split(np.random.default_rng(1),counts,[.2,.3,.5],30)
     assert np.array_equal(draws.sum(axis=1),counts)
     assert probability(np.array([0,1,2]),np.array([.2,.3,.5]),1)=={'win':.5,'push':.3,'loss':.2}
+
+
+def test_sunday_night_uses_eastern_and_utc_dates(monkeypatch):
+    import nfl.pipeline as pipeline
+    game={'home':'GB','away':'DAL','kickoff_utc':'2026-10-19T00:20:00+00:00'}
+    event={'id':'example','date':'2026-10-19T00:20Z',
+           'status':{'type':{'state':'pre','completed':False}},
+           'competitions':[{'competitors':[{'homeAway':'home','team':{'abbreviation':'GB'}},
+                                          {'homeAway':'away','team':{'abbreviation':'DAL'}}]}]}
+    calls=[]
+    def fetch(url,limit):
+        calls.append(url)
+        return json.dumps({'events':[event] if 'dates=20261018' in url else []}).encode()
+    monkeypatch.setattr(pipeline,'fetch_bytes',fetch)
+    evidence=pipeline.fixture_evidence([game])
+    assert pipeline.verified(game,evidence)
+    assert len(calls)==2
+    # Identical records returned on adjacent dates are one fixture, not ambiguity.
+    monkeypatch.setattr(pipeline,'fetch_bytes',lambda *args:json.dumps({'events':[event]}).encode())
+    assert len(pipeline.fixture_evidence([game]))==1
+
+
+def test_adjacent_day_conflict_rejected(monkeypatch):
+    import nfl.pipeline as pipeline
+    game={'home':'GB','away':'DAL','kickoff_utc':'2026-10-19T00:20:00+00:00'}
+    def fetch(url,limit):
+        return json.dumps({'events':[{'id':url,'date':'2026-10-19T00:20Z',
+          'status':{'type':{'state':'pre','completed':False}},
+          'competitions':[{'competitors':[{'homeAway':'home','team':{'abbreviation':'GB'}},
+                                         {'homeAway':'away','team':{'abbreviation':'DAL'}}]}]}]}).encode()
+    monkeypatch.setattr(pipeline,'fetch_bytes',fetch)
+    with pytest.raises(ValueError,match='Ambiguous'):pipeline.fixture_evidence([game])
