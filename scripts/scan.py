@@ -6,6 +6,7 @@ from collect import collect,utc,fingerprint
 from runtime import stage,sha,ENGINE
 from inference import execute,preflight,ROLES
 from explanations import sanitize
+from quality import challenge
 NAMES={'champion':'SR-Elo 1.0','challenger':'SR-GLM 0.2','experimental':'v3.4-A'}
 def project(row):
     if not row or 'result' not in row:return {'status':'unavailable','reason':(row or {}).get('error','EXECUTION_UNAVAILABLE')}
@@ -27,7 +28,10 @@ def scan():
         for i,e in enumerate(events):
             if fingerprint(e) not in current:continue
             results={r:project(outputs.get(r,{}).get(i)) if r in eligible else {'status':'unavailable','reason':'PREFLIGHT_FAILED'} for r in ROLES}
-            doc['matches'].append({k:e[k] for k in ('source_match_id','tour','regime','tournament','tournament_key','best_of','deciding_tiebreak_target','surface','name_a','name_b','starts_at','round','event_source','surface_source','format_source')}|{'results':results})
+            match={k:e[k] for k in ('source_match_id','tour','regime','tournament','tournament_key','best_of','deciding_tiebreak_target','surface','name_a','name_b','starts_at','round','event_source','surface_source','format_source')}|{'results':results}
+            match['devils_advocate']=challenge(match)
+            doc['matches'].append(match)
+        doc['coverage']['model_missing_reasons']={role:{reason:sum(e['results'][role].get('reason')==reason for e in doc['matches']) for reason in sorted({e['results'][role].get('reason') for e in doc['matches'] if e['results'][role]['status']!='ok'})} for role in ROLES}
         doc['prediction_status']='available' if any(r['status']=='ok' for e in doc['matches'] for r in e['results'].values()) else 'unavailable'
     except Exception as exc:
         print('Scan blocked: '+type(exc).__name__,file=sys.stderr)
