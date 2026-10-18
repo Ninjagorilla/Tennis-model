@@ -41,3 +41,19 @@ Only small paper-freeze artifacts are retained for grading. No raw history, bina
 The original parameters remain fixed while pregame state is refreshed. Each paper forecast includes paired first-TD baseline probabilities. The grader verifies immutable hashes and pre-kickoff timestamps, admits only independently checked pregame freezes, maps unseen scorers to the correct team residual and counts each game/parameter pair once. Small daily artifacts carry unresolved forecasts and cumulative result rows forward. Retrospective records and local offline replays are rejected as prospective evidence. Game-winner probabilities are also scored when reconciled final scores exist. Player-stat bet settlement remains withheld without participation and market-contract evidence.
 
 The 2026-only game-first subgroup worsened versus the baseline: log loss 3.2054 versus 3.1879, Brier 0.9385 versus 0.9348. That is a material reason to preserve the closed publication gate despite favorable aggregate results. The current prospective sample starts at zero. There is no automatic promotion function.
+
+## Shadow disagreement report
+
+`nfl/devils_advocate.py` executes after each Champion forecast. It exponentially reweights the same simulation draws toward higher/lower totals and home margins, with a declared stress strength of 0.5 standard deviations in the log-weight exponent. These are hypothetical stress assumptions, not learned scenario probabilities. It preserves all Champion code, coefficients and weights. No model is promoted.
+
+The report compares each moneyline, spread, game/team total, player ladder and anytime/2+ TD threshold against all four stresses, retaining win/push/loss mass and the adverse probability change. First-TD Challenger values are explicitly unavailable for those markets. First-TD ordering cannot be inferred from final-score draws. Prices and calibration are separate unresolved evidence requirements.
+
+Full reports are written to `work/nfl/shadow/` and retained separately for one day on the existing daily/manual retention schedule. They are not added to the bounded long-lived paper ledger or public forecast list. The public status shows each layer's scope, execution state and game count. A shadow failure is recorded without discarding the completed Champion forecast.
+
+To reproduce from a verified downloaded snapshot:
+
+```sh
+python nfl/pipeline.py --inputs work/nfl/inputs --work work/nfl-recheck --draws 10000
+```
+
+This still checks live fixture status. `--offline` is only a time-unverified diagnostic and never prospective evidence. Missing sportsbook quotes or failed live feeds must remain explicit, not substituted with market-implied model forecasts.

@@ -1,7 +1,8 @@
 {
   "files": {
-    "nfl/README.md": "b912dd5fe56ed20c57776ac05d9158a657c6c49d846bb3e6c770b7be5ce06298",
+    "nfl/README.md": "f6638908e44784fa51aad294efbd0b4ffadac4ba2ccd1e94e069af9ca80eca48",
     "nfl/acquire.py": "ba1ac831e7417b905c20b7e303647b7e7e8582c2e19db989e86f202a256ad288",
+    "nfl/devils_advocate.py": "e5199865ddf789d2d060c29dcc600d9e704d9347e60363f5ef5d506de7913921",
     "nfl/engine/nfl_champion_v9/__init__.py": "6b23557a17750b6393fd51b1d458e47d09def7e1171a3ca9a7797d51b703ba03",
     "nfl/engine/nfl_champion_v9/__main__.py": "d9616b785118006f1cecab7247409c894d21aedc4ff019b79e3f9bb18f61902f",
     "nfl/engine/nfl_champion_v9/aggregate_team.py": "03ec8bdd1c7995af889305f8257526e17c85e5a54483ed7397ade098b9669985",
@@ -33,9 +34,10 @@
     "nfl/first_td_parameters.json": "3c949005a989a3ecfa4ce52202ab223addbe1e0c430e708a35e6d97ab674a00d",
     "nfl/original_parameters.json": "48dd592fe6de444267a46c4a629b807e822eeb6fc6172e1a1e5f747a4f9f45ab",
     "nfl/paper.py": "09057e632c0f995f6233dddd7f73979c0d13843ed7b569075dd66fc71534b2f1",
-    "nfl/pipeline.py": "2ee344c668e54a51d519206fe211dde9b3e673f7ed64448f8675fb55267071a2",
+    "nfl/pipeline.py": "4fa0c9719070680a1836ec9c793799c7985b5e3c9e761766d82ae55b8abcc3b2",
     "nfl/portable.py": "a92327d052104829574297b96b9758e31061434f6f4f8b20b8da7b26d5ebff2f",
     "nfl/research.py": "ff7df90833aa0d1dbabce90779894edf3ac18482d399cba09956272cb5b08153",
+    "nfl/tests/test_devils_advocate.py": "c405df34c4e0b66e0db5cc39d5f0aa4be6151005334d7053745510ab9446653f",
     "nfl/tests/test_first_td_core.py": "e8eee58d9edbe6e7e42f63a8172f4aaf4d0f3a67118f5fd8c0f8dba9f1510dcd",
     "nfl/tests/test_integration.py": "23d19c7a925ad006ebdbc5d346235bad272642b29b49dfc313511f7de9cb9f4a",
     "nfl/tests/test_paper.py": "6c2f0ff5a9ac42f4ae5a5d932f575940401af7ad8cb549e1679239599cf236ac"
