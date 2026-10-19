@@ -25,7 +25,7 @@ def stable_id(match):
     players=(match["name_a"],match["name_b"])
     if not all(isinstance(x,str) and x.strip() for x in players) or players[0]==players[1]:
         raise ValueError("INVALID_PLAYER_IDENTITY")
-    basis=[match["tour"],match["tournament_key"],match["regime"],match["starts_at"],*sorted(players)]
+    basis=[match["tour"],match["tournament_key"],match["regime"],match.get("round",""),*sorted(players)]
     return hashlib.sha256(canonical(basis).encode()).hexdigest()
 
 def extract(snapshot, recorded_at, commit):
@@ -51,7 +51,9 @@ def extract(snapshot, recorded_at, commit):
             probabilities[role]={k:p[k] for k in ("status","p_a","p_b","model_id","state_date","artifact_sha256")}
         out.append({"fixture_id":stable_id(match),"tour":match["tour"],"tournament_key":match["tournament_key"],
                     "regime":match["regime"],"name_a":match["name_a"],"name_b":match["name_b"],
-                    "starts_at":start.isoformat(),"issued_at":now.isoformat(),"source_generated_at":generated.isoformat(),
+                    "starts_at":start.isoformat(),"source_match_id":match.get("source_match_id"),
+                    "event_source":match.get("event_source"),"round":match.get("round"),
+                    "issued_at":now.isoformat(),"source_generated_at":generated.isoformat(),
                     "commit":commit,"results":probabilities})
     return out
 
