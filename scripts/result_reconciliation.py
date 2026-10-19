@@ -4,7 +4,40 @@ Refuses mismatched players, retired/walkover matches, and unverified sources.
 This module neither fetches results nor fabricates settlement.
 """
 import json
+import hashlib
 from prospective_grade import evaluate, timestamp
+
+def independently_verified(outcome):
+    """Require two distinct source observations agreeing on the same result.
+
+    A count/boolean supplied by a caller cannot establish source independence.
+    """
+    evidence=outcome.get("observations")
+    if not isinstance(evidence,list) or len(evidence)<2:
+        return False
+    providers=set()
+    for e in evidence:
+        if not isinstance(e,dict):
+            return False
+        provider=e.get("provider")
+        source_id=e.get("event_id")
+        if not isinstance(provider,str) or not provider.strip() or not isinstance(source_id,str) or not source_id.strip():
+            return False
+        if provider in providers:
+            continue
+        if e.get("winner")!=outcome.get("winner") or e.get("result_type")!=outcome.get("result_type"):
+            return False
+        if e.get("name_a")!=outcome.get("name_a") or e.get("name_b")!=outcome.get("name_b"):
+            return False
+        if not isinstance(e.get("observed_at"),str):
+            return False
+        try:
+            if timestamp(e["observed_at"])<timestamp(outcome["completed_at"]):
+                return False
+        except (KeyError,ValueError,TypeError):
+            return False
+        providers.add(provider)
+    return len(providers)>=2
 
 def reconcile(forecasts, outcomes):
     by_fixture={}
@@ -23,7 +56,7 @@ def reconcile(forecasts, outcomes):
         o=by_fixture.get(fid)
         if not o:
             errors[fid]="NO_VERIFIED_SETTLEMENT";continue
-        if o.get("source_count",0)<2 or not o.get("source_agreement",False):
+        if not independently_verified(o):
             errors[fid]="INDEPENDENT_CONFIRMATION_REQUIRED";continue
         if (f["tour"],f["name_a"],f["name_b"]) != (o.get("tour"),o.get("name_a"),o.get("name_b")):
             errors[fid]="PLAYER_ORIENTATION_MISMATCH";continue
