@@ -8,9 +8,9 @@ for(const p of ['.gitattributes','scripts/tenniscom.py','scripts/explanations.py
 for(const p of ['site/forecast-state.mjs','scripts/last-scan.mjs','test/dashboard.test.mjs','test/last-scan.test.mjs'])allowed.add(p);
 const nfl=JSON.parse(await readFile('nfl/manifest.json','utf8'));
 for(const n of ['.github/workflows/challenger-integration.yml','.github/workflows/nfl-integration.yml','nfl/manifest.json','scripts/nfl-status.mjs','test/nfl-status.test.mjs','site/nfl.html','site/nfl.css','site/nfl.js','site/nfl-quality.mjs','nfl/prop_outcomes.py','test/test_prop_outcomes.py','test/nfl-quality.test.mjs',...Object.keys(nfl.files)])allowed.add(n);
-const files=execFileSync('git',['ls-files','-z'],{encoding:'utf8'}).split('\\0').filter(Boolean);
+const files=execFileSync('git',['ls-files','-z'],{encoding:'utf8'}).split('\0').filter(Boolean);
 const unexpected=files.filter(path=>!allowed.has(path) && !isSafeSourcePath(path));
-if(unexpected.length)throw Error('Unreviewed public files ('+unexpected.length+'):\\n'+unexpected.join('\\n'));
+if(unexpected.length)throw Error('Unreviewed public files ('+unexpected.length+'):\n'+unexpected.join('\n'));
 let total=0;
 for(const path of files){
   const s=await lstat(path);if(!s.isFile()||s.isSymbolicLink()||s.size>4000000)throw Error('Unsupported public file: '+path);total+=s.size;
