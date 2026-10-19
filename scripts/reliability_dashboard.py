@@ -13,7 +13,7 @@ def read(path):
     try:return json.loads(p.read_text())
     except (ValueError,OSError):return None
 
-def summarize(snapshot,quality,archive,recovery,settlement,scan_recovery):
+def summarize(snapshot,quality,archive,recovery,settlement,scan_recovery,settlement_health=None):
     models={}
     for m in (snapshot or {}).get("models",[]):
         if m.get("id") in ("champion","challenger","experimental"):
@@ -39,6 +39,9 @@ def summarize(snapshot,quality,archive,recovery,settlement,scan_recovery):
             "provider_health":source_health,
             "verified_settlements":verified,
             "excluded_settlements":excluded,
+            "settlement_acceptance":(settlement_health or {}).get("status","not_checked"),
+            "settlement_archive_verified":(settlement_health or {}).get("settlement_archive_verified"),
+            "research_metrics_by_tour":(settlement_health or {}).get("metrics_by_tour"),
             "prospective_accuracy":"not_established",
             "champion_promoted":False}
 
@@ -57,6 +60,9 @@ def render(data):
             ("Result provider requests","provider_health"),
             ("Verified settlements this run","verified_settlements"),
             ("Quarantined settlements this run","excluded_settlements"),
+            ("End-to-end settlement acceptance","settlement_acceptance"),
+            ("Settlement archive verified","settlement_archive_verified"),
+            ("Verified research Brier/log loss by tour","research_metrics_by_tour"),
             ("Prospective accuracy","prospective_accuracy")]
     rows="\n".join("<tr><th>"+html.escape(label)+"</th><td>"+field(data.get(key))+"</td></tr>" for label,key in labels)
     return """<!doctype html><html lang="en"><meta charset="utf-8">
@@ -77,7 +83,8 @@ def main():
     args=cli.parse_args()
     result=summarize(read("work/snapshot.json"),read("work/scan-quality.json"),
         read("work/evidence-archive-report.json"),read("work/evidence-recovery-health.json"),
-        read("work/settlement-observations.json"),read("work/recovery-report.json"))
+        read("work/settlement-observations.json"),read("work/recovery-report.json"),
+        read("work/settlement-health.json"))
     output=Path(args.output);output.parent.mkdir(parents=True,exist_ok=True)
     output.write_text(render(result),encoding="utf8")
     dest=Path(args.json_output);dest.parent.mkdir(parents=True,exist_ok=True)
