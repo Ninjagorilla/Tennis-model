@@ -71,8 +71,10 @@ def build(forecasts,receipts,now=None,days=7):
             if key not in selected or when(f["issued_at"])<when(selected[key]["issued_at"]):
                 selected[key]=f
         except (KeyError,ValueError,TypeError):continue
-    settled={};conflicts=set();excluded={}
+    settled={};conflicts=set();excluded={};source_diagnostics={}
     for receipt in receipts:
+        for fixture,details in receipt.get("exclusion_details",{}).items():
+            if fixture not in source_diagnostics:source_diagnostics[fixture]=details
         for fixture,reason in receipt.get("exclusions",{}).items():
             if fixture not in excluded:excluded[fixture]=reason
         for o in receipt["settlements"]:
@@ -99,7 +101,8 @@ def build(forecasts,receipts,now=None,days=7):
         counts[reason]+=1
         diagnostics[key]={"tour":f["tour"],"name_a":f["name_a"],"name_b":f["name_b"],
                           "starts_at":f["starts_at"],"reason":reason,
-                          "source_exclusion":excluded.get(key)}
+                          "source_exclusion":excluded.get(key),
+                          "source_diagnostics":source_diagnostics.get(key)}
     daily={}
     for f in selected.values():
         day=when(f["starts_at"]).date().isoformat()
