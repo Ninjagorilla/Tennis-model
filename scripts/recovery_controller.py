@@ -10,6 +10,11 @@ from verify_scan import verify
 MAX_ATTEMPTS=2
 def evaluate(snapshot, require_available=False):
     errors,details=verify(snapshot,require_available=require_available)
+    for m in snapshot.get("models",[]):
+        pf=m.get("preflight",{})
+        if pf.get("passed")!=4 or pf.get("total")!=4:errors.append("MODEL_PREFLIGHT_FAILED")
+    if snapshot.get("prediction_status")=="unavailable" and snapshot.get("matches"):
+        errors.append("NO_VALID_MODEL_PREDICTIONS")
     if snapshot.get("prediction_status")=="unavailable":
         sources=snapshot.get("coverage",{}).get("sources",[])
         # No scheduled fixtures is acceptable only with at least one healthy feed.
