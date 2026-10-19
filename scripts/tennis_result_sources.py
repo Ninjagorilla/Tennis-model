@@ -72,7 +72,7 @@ def tenniscom_observations(doc,tour,observed_at,url,digest):
             if r.get("eventCategory")!=("Men's Singles" if tour=="ATP" else "Women's Singles"):
                 continue
             if r.get("status")!="completed":continue
-            if any(x in str(r.get(k,"")).lower() for k in ("retir","walkover","default","abandon") for k in ("score","status","matchStatus")):
+            if any(term in str(r.get(field,"")).lower() for term in ("retir","walkover","default","abandon") for field in ("score","status","matchStatus")):
                 continue
             players=[r["homeCompetitor"],r["awayCompetitor"]]
             names=[full_name(p) for p in players]
@@ -137,6 +137,9 @@ def resolve(forecasts,observations,now=None):
             matches_by_provider={}
             for o in observations:
                 if o["tour"]!=f["tour"]:continue
+                raw_id=str(f.get("source_match_id") or "")
+                if raw_id.startswith("tc:") and o["provider"]=="tenniscom" and o["event_id"]!=raw_id[3:]:continue
+                if raw_id.isdigit() and o["provider"]=="espn" and o["event_id"]!=raw_id:continue
                 if {normalize(o["name_a"]),normalize(o["name_b"])}!=names:continue
                 date=o.get("scheduled_at")
                 if date:
@@ -145,7 +148,7 @@ def resolve(forecasts,observations,now=None):
                         if event_time.tzinfo is None or abs((event_time-start).total_seconds())>48*3600:continue
                     except (ValueError,TypeError):continue
                 matches_by_provider.setdefault(o["provider"],[]).append(o)
-            if any(len(a)!=1 for a in matches_by_provider.values()) or len(matches_by_provider)<2:
+            if any(len({o["event_id"] for o in a})!=1 for a in matches_by_provider.values()) or len(matches_by_provider)<2:
                 exclusions[f["fixture_id"]]="SOURCE_MISSING_OR_AMBIGUOUS";continue
             selected=[matches_by_provider[p][0] for p in ("espn","tenniscom")]
             winner_names={normalize(x["winner_name"]) for x in selected}
