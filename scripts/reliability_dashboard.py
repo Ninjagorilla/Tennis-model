@@ -13,7 +13,7 @@ def read(path):
     try:return json.loads(p.read_text())
     except (ValueError,OSError):return None
 
-def summarize(snapshot,quality,archive,recovery,settlement,scan_recovery):
+def summarize(snapshot,quality,archive,recovery,settlement,scan_recovery,audit=None):
     models={}
     for m in (snapshot or {}).get("models",[]):
         if m.get("id") in ("champion","challenger","experimental"):
@@ -39,7 +39,9 @@ def summarize(snapshot,quality,archive,recovery,settlement,scan_recovery):
             "provider_health":source_health,
             "verified_settlements":verified,
             "excluded_settlements":excluded,
-            "prospective_accuracy":"not_established",
+            "prospective_accuracy":(audit or {}).get("model_metrics_by_tour","not_established"),
+            "verified_forecasts_graded":(audit or {}).get("two_source_verified"),
+            "paired_three_model_metrics":(audit or {}).get("paired","not_established"),
             "champion_promoted":False}
 
 def render(data):
@@ -57,7 +59,9 @@ def render(data):
             ("Result provider requests","provider_health"),
             ("Verified settlements this run","verified_settlements"),
             ("Quarantined settlements this run","excluded_settlements"),
-            ("Prospective accuracy","prospective_accuracy")]
+            ("Prospective accuracy","prospective_accuracy"),
+            ("Two-source graded fixtures","verified_forecasts_graded"),
+            ("Paired three-model results","paired_three_model_metrics")]
     rows="\n".join("<tr><th>"+html.escape(label)+"</th><td>"+field(data.get(key))+"</td></tr>" for label,key in labels)
     return """<!doctype html><html lang="en"><meta charset="utf-8">
 <title>Tennis Model Reliability</title><meta name="viewport" content="width=device-width,initial-scale=1">
@@ -77,7 +81,8 @@ def main():
     args=cli.parse_args()
     result=summarize(read("work/snapshot.json"),read("work/scan-quality.json"),
         read("work/evidence-archive-report.json"),read("work/evidence-recovery-health.json"),
-        read("work/settlement-observations.json"),read("work/recovery-report.json"))
+        read("work/settlement-observations.json"),read("work/recovery-report.json"),
+        read("work/tennis-grading-audit.json"))
     output=Path(args.output);output.parent.mkdir(parents=True,exist_ok=True)
     output.write_text(render(result),encoding="utf8")
     dest=Path(args.json_output);dest.parent.mkdir(parents=True,exist_ok=True)
