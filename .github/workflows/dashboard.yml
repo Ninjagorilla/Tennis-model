@@ -120,7 +120,9 @@ jobs:
               f.write('Paper history restore: '+str(n.get('paper_history_restore',{}).get('status','unavailable'))+'.\n')
           PY
       - name: Publish independent tennis results channel
+        continue-on-error: true
         if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        id: tennis_publish
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
@@ -148,6 +150,11 @@ jobs:
           pathlib.Path('work/results-upload.json').write_text(json.dumps(payload))
           PYCODE
           gh api -X PUT "repos/$GH_REPO/contents/public-results/latest.json" --input work/results-upload.json
+      - name: Explain independent results publication failures
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main' && steps.tennis_publish.outcome == 'failure'
+        run: |
+          echo "::warning::Independent results publication failed; investigate GitHub token permissions or scan-results branch."
+          echo "Independent results publication failed. Pages may still work; inspect the publication step and retain prior snapshots." >> "$GITHUB_STEP_SUMMARY"
       - name: Upload only public site
         if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
         uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3
