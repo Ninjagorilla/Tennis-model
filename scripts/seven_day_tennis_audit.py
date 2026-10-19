@@ -64,7 +64,7 @@ def verified_results(client,now=None,days=7,max_files=100):
                 receipts.append(doc);sources[branch]+=1;found=True;break
             except Exception:continue
         if not found:raise RuntimeError("UNVERIFIABLE_RESULT_RECEIPT:"+path)
-    return {"source":"primary_and_mirror_verified","receipts":receipts,
+    return {"source":"sha_verified_union","receipts":receipts,
             "files_verified":len(receipts),"branch_reads":dict(sources)}
 
 def build(forecasts,receipts,now=None,days=7):
