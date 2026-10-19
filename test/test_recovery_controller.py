@@ -35,7 +35,7 @@ class RecoveryTests(unittest.TestCase):
  def test_healthy_empty_window_is_allowed(self):
   now=datetime.now(timezone.utc).isoformat()
   d={"schema_version":2,"prediction_status":"unavailable","generated_at":now,
-     "models":[{"id":k,"predictions":0} for k in ("champion","challenger","experimental")],
+     "models":[{"id":k,"predictions":0,"preflight":{"passed":4,"total":4}} for k in ("champion","challenger","experimental")],
      "matches":[],"coverage":{"sources":[{"status":"ok"}]}}
   errors,_=evaluate(d);self.assertEqual(errors,[])
 if __name__=="__main__":unittest.main()
