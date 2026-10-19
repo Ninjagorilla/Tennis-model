@@ -151,7 +151,13 @@ def main():
     args=p.parse_args()
     client=GitHub(os.environ["GITHUB_REPOSITORY"],os.environ["GH_TOKEN"])
     now=datetime.now(timezone.utc)
-    f=historical_records(client,now=now,days=7)
+    local=Path("work/historical-forecasts.json")
+    if local.is_file():
+        forecasts=json.loads(local.read_text())
+        if not isinstance(forecasts,list):raise RuntimeError("LOCAL_VERIFIED_FORECAST_SCHEMA_INVALID")
+        f={"forecasts":forecasts,"source":"same_run_sha_verified_retrieval"}
+    else:
+        f=historical_records(client,now=now,days=7)
     r=verified_results(client,now=now,days=7)
     result=build(f["forecasts"],r["receipts"],now=now)
     result["forecast_archive_branch"]=f["source"]
