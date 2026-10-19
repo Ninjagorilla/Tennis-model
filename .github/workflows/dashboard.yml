@@ -41,8 +41,26 @@ jobs:
           python -m pytest nfl/tests -q
           python -m pytest test/test_prop_outcomes.py -q
       - name: Verify tennis models and score current matches
-        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        if: (github.event_name != 'pull_request' && github.ref == 'refs/heads/main') || (github.event_name == 'pull_request' && github.head_ref == 'challenger/identity-coverage-devils-advocate')
         run: python scripts/scan.py
+      - name: Validate tennis scan identities, missing coverage and challenger integrity
+        if: (github.event_name != 'pull_request' && github.ref == 'refs/heads/main') || (github.event_name == 'pull_request' && github.head_ref == 'challenger/identity-coverage-devils-advocate')
+        run: |
+          if [ "$GITHUB_EVENT_NAME" = "pull_request" ]; then
+            python scripts/verify_scan.py work/snapshot.json --require-available
+          else
+            python scripts/verify_scan.py work/snapshot.json
+          fi
+      - name: Retain sanitized tennis diagnostic report
+        if: (github.event_name != 'pull_request' && github.ref == 'refs/heads/main') || (github.event_name == 'pull_request' && github.head_ref == 'challenger/identity-coverage-devils-advocate')
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: tennis-quality-${{ github.run_id }}
+          path: |
+            work/snapshot.json
+            work/scan-quality.json
+          retention-days: 7
+          if-no-files-found: error
       - name: Run complete NFL engine and grade paper forecasts
         id: nfl
         if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
@@ -104,6 +122,7 @@ jobs:
       - name: Publish independent tennis results channel
         continue-on-error: true
         if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        id: tennis_publish
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
@@ -115,6 +134,12 @@ jobs:
           assert {m['id'] for m in d['models']}=={'champion','challenger','experimental'}
           assert d['prediction_status'] in {'available','unavailable','blocked'}
           PY
+          # Never replace a last-known-good independent result with blocked output.
+          # Keep the old timestamp/expiry so consumers can detect staleness.
+          if [ "$(python -c "import json; print(json.load(open('dist/data/status.json'))['prediction_status'])")" != "available" ]; then
+            echo "Current tennis scan unavailable; preserving independently published last-good result."
+            exit 0
+          fi
           sha="$(gh api "repos/$GH_REPO/contents/public-results/latest.json?ref=scan-results" --jq '.sha' 2>/dev/null || true)"
           export RESULTS_SHA="$sha"
           python - <<'PYCODE'
@@ -125,6 +150,11 @@ jobs:
           pathlib.Path('work/results-upload.json').write_text(json.dumps(payload))
           PYCODE
           gh api -X PUT "repos/$GH_REPO/contents/public-results/latest.json" --input work/results-upload.json
+      - name: Explain independent results publication failures
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main' && steps.tennis_publish.outcome == 'failure'
+        run: |
+          echo "::warning::Independent results publication failed; investigate GitHub token permissions or scan-results branch."
+          echo "Independent results publication failed. Pages may still work; inspect the publication step and retain prior snapshots." >> "$GITHUB_STEP_SUMMARY"
       - name: Upload only public site
         if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
         uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3

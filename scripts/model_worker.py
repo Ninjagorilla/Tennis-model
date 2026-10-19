@@ -1,6 +1,7 @@
 """Separate model execution; public output contains only a strict result projection."""
 import hashlib,json,math,sys
 import explanations
+from quality import normalize
 from datetime import date
 from pathlib import Path
 def main():
@@ -50,8 +51,12 @@ def main():
                         cache[tour]=(pkg,data,prepare_form_history(data,cutoff))
                     pkg,data,prepared=cache[tour];ids=[]
                     for side in ('a','b'):
-                        name=e['name_'+side];pid,_=auto.resolve_name(name,data['names'])
-                        normalized=auto.VERIFIED_NAME_ALIASES.get((auto.norm(name),tour),auto.norm(name))
+                        name=e['name_'+side]
+                        # Only audited aliases, not fuzzy or forced player matching.
+                        verified_aliases={'shi han':'Han Shi','catherine mcnally':'Caty McNally'}
+                        candidate=verified_aliases.get(normalize(name),name)
+                        pid,_=auto.resolve_name(candidate,data['names'])
+                        normalized=auto.VERIFIED_NAME_ALIASES.get((auto.norm(candidate),tour),auto.norm(candidate))
                         if normalized not in {auto.norm(v) for v in data['names'][pid]}:raise ValueError('EXACT_PLAYER_IDENTITY_REQUIRED')
                         auto.player_diagnostics(pid,data,e['surface'].lower());ids.append(pid)
                     if ids[0]==ids[1] or e['deciding_tiebreak_target']!=7:raise ValueError('UNSUPPORTED_FIXTURE')
