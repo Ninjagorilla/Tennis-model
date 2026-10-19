@@ -1,11 +1,11 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-10-19T04:40:48.876020+00:00",
-  "expires_at": "2026-10-19T06:10:48.876020+00:00",
+  "generated_at": "2026-10-19T07:02:19.825863+00:00",
+  "expires_at": "2026-10-19T08:32:19.825863+00:00",
   "prediction_status": "available",
   "build": {
-    "commit": "f743348a4eb8d5dcd05a0c8799633d19ed4ff26f",
-    "run_id": "39200586489"
+    "commit": "6f1532eb1fa6e34beb33ff57a386ba900a46972c",
+    "run_id": "39213336798"
   },
   "models": [
     {
@@ -16,7 +16,7 @@
         "total": 4
       },
       "cloud_status": "verified",
-      "predictions": 20
+      "predictions": 16
     },
     {
       "id": "challenger",
@@ -26,7 +26,7 @@
         "total": 4
       },
       "cloud_status": "verified",
-      "predictions": 20
+      "predictions": 16
     },
     {
       "id": "experimental",
@@ -36,7 +36,7 @@
         "total": 4
       },
       "cloud_status": "verified",
-      "predictions": 21
+      "predictions": 16
     }
   ],
   "matches": [
@@ -143,107 +143,6 @@
           "The mean probability is below 60%, so the opponent has substantial modeled upset probability."
         ],
         "recommendation": "review"
-      }
-    },
-    {
-      "source_match_id": "185003",
-      "tour": "ATP",
-      "regime": "main",
-      "tournament": "Almaty Open",
-      "tournament_key": "almaty",
-      "best_of": 3,
-      "deciding_tiebreak_target": 7,
-      "surface": "Hard",
-      "name_a": "Facundo Diaz Acosta",
-      "name_b": "Thiago Agustin Tirante",
-      "starts_at": "2026-10-19T06:30:00+00:00",
-      "round": "Round 1",
-      "event_source": "https://site.api.espn.com/apis/site/v2/sports/tennis/atp/scoreboard",
-      "surface_source": "https://www.tennis.com/tournaments/almaty-open",
-      "format_source": "https://www.wtatennis.com/news/3043764/tennis-explained-learn-the-game",
-      "results": {
-        "champion": {
-          "status": "ok",
-          "p_a": 0.3075101028127406,
-          "p_b": 0.6924898971872594,
-          "model_id": "ATP_CHAMPION_SRELO_1_0",
-          "state_date": "2026-10-05",
-          "artifact_sha256": "fd67cd921e2fd4465324fdf0a2a61169a5045ae5981b2d5ae9eb6ceaddd91f59",
-          "research_only": true,
-          "explanation": {
-            "serve_a": 0.6396732635945385,
-            "serve_b": 0.6910133170158751,
-            "minimum_points": 19588,
-            "sr_p_a": 0.2665748208874182,
-            "elo_p_a": 0.362035003468009,
-            "elo_weight": 0.42882048639246306,
-            "rating_a": 1748.8865063755247,
-            "rating_b": 1847.3050217006526,
-            "without_current_form_p_a": 0.30825400861009356
-          }
-        },
-        "challenger": {
-          "status": "ok",
-          "p_a": 0.3527113640278332,
-          "p_b": 0.6472886359721668,
-          "model_id": "ATP_SR02_CORE_OBSERVED",
-          "state_date": "2026-09-26",
-          "artifact_sha256": "787cca6a089c4ddf945bf8ee233b016ab48f5c9271fe1bed326abd7dea5d23cb",
-          "research_only": true,
-          "explanation": {
-            "serve_a": 0.6500838789275977,
-            "serve_b": 0.6812232986932676,
-            "minimum_points": 19588,
-            "raw_serve_a": 0.6456548003602015,
-            "raw_serve_b": 0.6854244040166159,
-            "calibration_scale": 0.7828602155980732,
-            "form_beta": 0,
-            "a_global_serve": 0.2338319696178488,
-            "a_surface_serve": -0.00725222865644541,
-            "a_global_return": 0.22157712730663828,
-            "a_surface_return": -0.03354295463015769,
-            "b_global_serve": 0.3207720793103636,
-            "b_surface_serve": 0.05629956487720632,
-            "b_global_return": 0.15401454656693772,
-            "b_surface_return": 0.06234810318441916
-          }
-        },
-        "experimental": {
-          "status": "ok",
-          "p_a": 0.3714154682597024,
-          "p_b": 0.6285845317402976,
-          "model_id": "V3.4-A_EXPERIMENTAL_DYNAMIC_RESIDUALS_1",
-          "state_date": "2026-10-10",
-          "artifact_sha256": "fbd1999cab11789981caf4df399e9b6929f0ec30644b384a2dbb1c3e5fda2f7c",
-          "research_only": true,
-          "explanation": {
-            "baseline_p_a": 0.3707710172800688,
-            "dynamic_change_pp": 0.06444509796336151,
-            "serve_a": 0.6315127075760847,
-            "serve_b": 0.6588401174412822,
-            "elo_weight": 0.4229365558432591,
-            "a_serve_logit_shift": 0.0004963729159462736,
-            "a_return_logit_shift": 0.004039691084646872,
-            "b_serve_logit_shift": 0.0020472814633164336,
-            "b_return_logit_shift": 0.0013531312593146015,
-            "a_effective_serve_points": 91.3206110458535,
-            "a_effective_return_points": 90.1777521870592,
-            "b_effective_serve_points": 114.08147678383915,
-            "b_effective_return_points": 116.59297548318607
-          }
-        }
-      },
-      "devils_advocate": {
-        "status": "complete",
-        "pick": "Thiago Agustin Tirante",
-        "side": "b",
-        "mean_available_probability": 0.656121,
-        "opponent_probability": 0.343879,
-        "model_spread_pp": 6.391,
-        "missing_models": [],
-        "flags": [],
-        "reasons": [],
-        "recommendation": "no_automatic_promotion"
       }
     },
     {
@@ -442,111 +341,6 @@
         "mean_available_probability": 0.539924,
         "opponent_probability": 0.460076,
         "model_spread_pp": 7.185,
-        "missing_models": [],
-        "flags": [
-          "FRAGILE_FAVORITE"
-        ],
-        "reasons": [
-          "The mean probability is below 60%, so the opponent has substantial modeled upset probability."
-        ],
-        "recommendation": "review"
-      }
-    },
-    {
-      "source_match_id": "185010",
-      "tour": "ATP",
-      "regime": "main",
-      "tournament": "Almaty Open",
-      "tournament_key": "almaty",
-      "best_of": 3,
-      "deciding_tiebreak_target": 7,
-      "surface": "Hard",
-      "name_a": "James Duckworth",
-      "name_b": "Miomir Kecmanovic",
-      "starts_at": "2026-10-19T06:30:00+00:00",
-      "round": "Round 1",
-      "event_source": "https://site.api.espn.com/apis/site/v2/sports/tennis/atp/scoreboard",
-      "surface_source": "https://www.tennis.com/tournaments/almaty-open",
-      "format_source": "https://www.wtatennis.com/news/3043764/tennis-explained-learn-the-game",
-      "results": {
-        "champion": {
-          "status": "ok",
-          "p_a": 0.4960568803729678,
-          "p_b": 0.5039431196270322,
-          "model_id": "ATP_CHAMPION_SRELO_1_0",
-          "state_date": "2026-10-05",
-          "artifact_sha256": "fd67cd921e2fd4465324fdf0a2a61169a5045ae5981b2d5ae9eb6ceaddd91f59",
-          "research_only": true,
-          "explanation": {
-            "serve_a": 0.6676212804211588,
-            "serve_b": 0.6749506548260894,
-            "minimum_points": 22876,
-            "sr_p_a": 0.4647683781587336,
-            "elo_p_a": 0.5382123198465886,
-            "elo_weight": 0.4260188314403657,
-            "rating_a": 1796.1126501672766,
-            "rating_b": 1769.508133244236,
-            "without_current_form_p_a": 0.49208633699526316
-          }
-        },
-        "challenger": {
-          "status": "ok",
-          "p_a": 0.4742530481539182,
-          "p_b": 0.5257469518460818,
-          "model_id": "ATP_SR02_CORE_OBSERVED",
-          "state_date": "2026-09-26",
-          "artifact_sha256": "787cca6a089c4ddf945bf8ee233b016ab48f5c9271fe1bed326abd7dea5d23cb",
-          "research_only": true,
-          "explanation": {
-            "serve_a": 0.6686143386873153,
-            "serve_b": 0.6739673255169347,
-            "minimum_points": 22876,
-            "raw_serve_a": 0.667868471584993,
-            "raw_serve_b": 0.674706167335879,
-            "calibration_scale": 0.7828602155980732,
-            "form_beta": 0,
-            "a_global_serve": 0.3345050447981646,
-            "a_surface_serve": 0.045772238381499235,
-            "a_global_return": 0.11219778742090425,
-            "a_surface_return": 0.05724707848064287,
-            "b_global_serve": 0.29461081709404086,
-            "b_surface_serve": 0.014606136111066844,
-            "b_global_return": 0.2359175390353773,
-            "b_surface_return": 0.03557587596875066
-          }
-        },
-        "experimental": {
-          "status": "ok",
-          "p_a": 0.4056656141265058,
-          "p_b": 0.5943343858734942,
-          "model_id": "V3.4-A_EXPERIMENTAL_DYNAMIC_RESIDUALS_1",
-          "state_date": "2026-10-10",
-          "artifact_sha256": "fbd1999cab11789981caf4df399e9b6929f0ec30644b384a2dbb1c3e5fda2f7c",
-          "research_only": true,
-          "explanation": {
-            "baseline_p_a": 0.41030300978840106,
-            "dynamic_change_pp": -0.46373956618952494,
-            "serve_a": 0.6428359467306626,
-            "serve_b": 0.6691888963344259,
-            "elo_weight": 0.4212754743918836,
-            "a_serve_logit_shift": -0.0009840462004163078,
-            "a_return_logit_shift": -0.0012185470665617329,
-            "b_serve_logit_shift": 0.002467704839226764,
-            "b_return_logit_shift": 0.0029468704487324196,
-            "a_effective_serve_points": 109.40851733072584,
-            "a_effective_return_points": 100.2535208689329,
-            "b_effective_serve_points": 163.77359697941267,
-            "b_effective_return_points": 157.0367497229221
-          }
-        }
-      },
-      "devils_advocate": {
-        "status": "complete",
-        "pick": "Miomir Kecmanovic",
-        "side": "b",
-        "mean_available_probability": 0.541341,
-        "opponent_probability": 0.458659,
-        "model_spread_pp": 9.039,
         "missing_models": [],
         "flags": [
           "FRAGILE_FAVORITE"
@@ -1803,76 +1597,6 @@
       }
     },
     {
-      "source_match_id": "185541",
-      "tour": "WTA",
-      "regime": "main",
-      "tournament": "BNB Ningbo Open",
-      "tournament_key": "ningbo",
-      "best_of": 3,
-      "deciding_tiebreak_target": 7,
-      "surface": "Hard",
-      "name_a": "Shi Han",
-      "name_b": "Sorana Cirstea",
-      "starts_at": "2026-10-19T05:30:00+00:00",
-      "round": "Round 1",
-      "event_source": "https://site.api.espn.com/apis/site/v2/sports/tennis/wta/scoreboard",
-      "surface_source": "https://www.tennis.com/tournaments/ningbo-open",
-      "format_source": "https://www.wtatennis.com/news/3043764/tennis-explained-learn-the-game",
-      "results": {
-        "champion": {
-          "status": "unavailable",
-          "reason": "PLAYER_HISTORY_MISSING"
-        },
-        "challenger": {
-          "status": "unavailable",
-          "reason": "PLAYER_HISTORY_MISSING"
-        },
-        "experimental": {
-          "status": "ok",
-          "p_a": 0.06054498444763212,
-          "p_b": 0.9394550155523679,
-          "model_id": "V3.4-A_EXPERIMENTAL_DYNAMIC_RESIDUALS_1",
-          "state_date": "2026-10-10",
-          "artifact_sha256": "9f0ce28379795fcaaa1f475345f7230c97d0e6e7945db4e5dc6b42f7c8575e3f",
-          "research_only": true,
-          "explanation": {
-            "baseline_p_a": 0.06106642505345901,
-            "dynamic_change_pp": -0.05214406058268867,
-            "serve_a": 0.47430121426691996,
-            "serve_b": 0.6281281950394035,
-            "elo_weight": 0.40700329157455173,
-            "a_serve_logit_shift": -0.001619568095215608,
-            "a_return_logit_shift": 0.004496908333893047,
-            "b_serve_logit_shift": 0.0038769969742227625,
-            "b_return_logit_shift": 0.004024370881379719,
-            "a_effective_serve_points": 66.37134923922967,
-            "a_effective_return_points": 68.31652050321745,
-            "b_effective_serve_points": 179.6418957696368,
-            "b_effective_return_points": 179.70870627045343
-          }
-        }
-      },
-      "devils_advocate": {
-        "status": "partial",
-        "pick": "Sorana Cirstea",
-        "side": "b",
-        "mean_available_probability": 0.939455,
-        "opponent_probability": 0.060545,
-        "model_spread_pp": 0,
-        "missing_models": [
-          "champion",
-          "challenger"
-        ],
-        "flags": [
-          "INCOMPLETE_MODEL_COVERAGE"
-        ],
-        "reasons": [
-          "One or more models did not return a valid prediction."
-        ],
-        "recommendation": "review"
-      }
-    },
-    {
       "source_match_id": "185544",
       "tour": "WTA",
       "regime": "main",
@@ -1972,212 +1696,6 @@
         "reasons": [],
         "recommendation": "no_automatic_promotion"
       }
-    },
-    {
-      "source_match_id": "185569",
-      "tour": "WTA",
-      "regime": "main",
-      "tournament": "Kinoshita Group Japan Open",
-      "tournament_key": "osaka",
-      "best_of": 3,
-      "deciding_tiebreak_target": 7,
-      "surface": "Hard",
-      "name_a": "Janice Tjen",
-      "name_b": "Ashlyn Krueger",
-      "starts_at": "2026-10-19T05:30:00+00:00",
-      "round": "Round 1",
-      "event_source": "https://site.api.espn.com/apis/site/v2/sports/tennis/wta/scoreboard",
-      "surface_source": "https://www.tennis.com/tournaments/kinoshita-group-japan-open",
-      "format_source": "https://www.wtatennis.com/news/3043764/tennis-explained-learn-the-game",
-      "results": {
-        "champion": {
-          "status": "ok",
-          "p_a": 0.6231580954633995,
-          "p_b": 0.3768419045366005,
-          "model_id": "WTA_CHAMPION_SRELO_1_0",
-          "state_date": "2026-10-05",
-          "artifact_sha256": "5d08c6e3c286cde229566848a4d0417d416586aede88bbb9bafae9b21b65a09a",
-          "research_only": true,
-          "explanation": {
-            "serve_a": 0.6349656737932988,
-            "serve_b": 0.6012526673514038,
-            "minimum_points": 7647,
-            "sr_p_a": 0.6661746669331711,
-            "elo_p_a": 0.5507824700939716,
-            "elo_weight": 0.37278579183058164,
-            "rating_a": 1861.264607207344,
-            "rating_b": 1825.855241642059,
-            "without_current_form_p_a": 0.6211913900984221
-          }
-        },
-        "challenger": {
-          "status": "ok",
-          "p_a": 0.609558638272047,
-          "p_b": 0.39044136172795296,
-          "model_id": "WTA_SR02_CORE_OBSERVED",
-          "state_date": "2026-09-26",
-          "artifact_sha256": "b49ade0de4f2676eeb2c93db3a9558b3272cd787b679c1b9750884a935543b6b",
-          "research_only": true,
-          "explanation": {
-            "serve_a": 0.6291108490267382,
-            "serve_b": 0.6072727311602404,
-            "minimum_points": 7647,
-            "raw_serve_a": 0.632626008103441,
-            "raw_serve_b": 0.6036669624369906,
-            "calibration_scale": 0.7540185601505588,
-            "form_beta": 0,
-            "a_global_serve": 0.3591406569757919,
-            "a_surface_serve": 0.10688330712982377,
-            "a_global_return": 0.11615596440259676,
-            "a_surface_return": 0.059541293965852324,
-            "b_global_serve": 0.2633682982815576,
-            "b_surface_serve": 0.05561478368226826,
-            "b_global_return": 0.20568139716118083,
-            "b_surface_return": -0.0056745016293388165
-          }
-        },
-        "experimental": {
-          "status": "ok",
-          "p_a": 0.5709129954125945,
-          "p_b": 0.42908700458740545,
-          "model_id": "V3.4-A_EXPERIMENTAL_DYNAMIC_RESIDUALS_1",
-          "state_date": "2026-10-10",
-          "artifact_sha256": "9f0ce28379795fcaaa1f475345f7230c97d0e6e7945db4e5dc6b42f7c8575e3f",
-          "research_only": true,
-          "explanation": {
-            "baseline_p_a": 0.572892846886118,
-            "dynamic_change_pp": -0.19798514735234196,
-            "serve_a": 0.614300133261993,
-            "serve_b": 0.596118674734455,
-            "elo_weight": 0.37622201646090536,
-            "a_serve_logit_shift": -0.0021705580316830372,
-            "a_return_logit_shift": -0.0004904517251776508,
-            "b_serve_logit_shift": 0.000633649301700531,
-            "b_return_logit_shift": -0.0006267172321152858,
-            "a_effective_serve_points": 160.171483046038,
-            "a_effective_return_points": 167.1792438875267,
-            "b_effective_serve_points": 106.03729018703066,
-            "b_effective_return_points": 97.90612667851329
-          }
-        }
-      },
-      "devils_advocate": {
-        "status": "complete",
-        "pick": "Janice Tjen",
-        "side": "a",
-        "mean_available_probability": 0.60121,
-        "opponent_probability": 0.39879,
-        "model_spread_pp": 5.225,
-        "missing_models": [],
-        "flags": [],
-        "reasons": [],
-        "recommendation": "no_automatic_promotion"
-      }
-    },
-    {
-      "source_match_id": "185570",
-      "tour": "WTA",
-      "regime": "main",
-      "tournament": "Kinoshita Group Japan Open",
-      "tournament_key": "osaka",
-      "best_of": 3,
-      "deciding_tiebreak_target": 7,
-      "surface": "Hard",
-      "name_a": "Himeno Sakatsume",
-      "name_b": "Katie Boulter",
-      "starts_at": "2026-10-19T07:00:00+00:00",
-      "round": "Round 1",
-      "event_source": "https://site.api.espn.com/apis/site/v2/sports/tennis/wta/scoreboard",
-      "surface_source": "https://www.tennis.com/tournaments/kinoshita-group-japan-open",
-      "format_source": "https://www.wtatennis.com/news/3043764/tennis-explained-learn-the-game",
-      "results": {
-        "champion": {
-          "status": "ok",
-          "p_a": 0.4201920172798648,
-          "p_b": 0.5798079827201352,
-          "model_id": "WTA_CHAMPION_SRELO_1_0",
-          "state_date": "2026-10-05",
-          "artifact_sha256": "5d08c6e3c286cde229566848a4d0417d416586aede88bbb9bafae9b21b65a09a",
-          "research_only": true,
-          "explanation": {
-            "serve_a": 0.5722438977054101,
-            "serve_b": 0.5911231034068023,
-            "minimum_points": 7440,
-            "sr_p_a": 0.4023336078898213,
-            "elo_p_a": 0.4501432230534998,
-            "elo_weight": 0.3735317535793726,
-            "rating_a": 1812.6301094105836,
-            "rating_b": 1847.389655764594,
-            "without_current_form_p_a": 0.42889464172220737
-          }
-        },
-        "challenger": {
-          "status": "ok",
-          "p_a": 0.4443972337771447,
-          "p_b": 0.5556027662228553,
-          "model_id": "WTA_SR02_CORE_OBSERVED",
-          "state_date": "2026-09-26",
-          "artifact_sha256": "b49ade0de4f2676eeb2c93db3a9558b3272cd787b679c1b9750884a935543b6b",
-          "research_only": true,
-          "explanation": {
-            "serve_a": 0.5763670630372694,
-            "serve_b": 0.587040655872467,
-            "minimum_points": 7440,
-            "raw_serve_a": 0.5746189949641957,
-            "raw_serve_b": 0.5887742090495482,
-            "calibration_scale": 0.7540185601505588,
-            "form_beta": 0,
-            "a_global_serve": 0.21391456631654665,
-            "a_surface_serve": 0.07074908790808414,
-            "a_global_return": 0.15238218867692613,
-            "a_surface_return": 0.06332860761385073,
-            "b_global_serve": 0.27286431672991335,
-            "b_surface_serve": 0.02426483627343264,
-            "b_global_return": 0.21671750242087082,
-            "b_surface_return": 0.04470617166953804
-          }
-        },
-        "experimental": {
-          "status": "ok",
-          "p_a": 0.3692892289610421,
-          "p_b": 0.6307107710389579,
-          "model_id": "V3.4-A_EXPERIMENTAL_DYNAMIC_RESIDUALS_1",
-          "state_date": "2026-10-10",
-          "artifact_sha256": "9f0ce28379795fcaaa1f475345f7230c97d0e6e7945db4e5dc6b42f7c8575e3f",
-          "research_only": true,
-          "explanation": {
-            "baseline_p_a": 0.37304418540671314,
-            "dynamic_change_pp": -0.37549564456710316,
-            "serve_a": 0.5435249660988336,
-            "serve_b": 0.5754582066275532,
-            "elo_weight": 0.37262293725580325,
-            "a_serve_logit_shift": -0.0008610457302714988,
-            "a_return_logit_shift": -0.00523439767258975,
-            "b_serve_logit_shift": 0.00022354983822936246,
-            "b_return_logit_shift": -0.001222024894401357,
-            "a_effective_serve_points": 169.38388275260218,
-            "a_effective_return_points": 154.2818585687067,
-            "b_effective_serve_points": 174.45151891231626,
-            "b_effective_return_points": 179.4180969847912
-          }
-        }
-      },
-      "devils_advocate": {
-        "status": "complete",
-        "pick": "Katie Boulter",
-        "side": "b",
-        "mean_available_probability": 0.588707,
-        "opponent_probability": 0.411293,
-        "model_spread_pp": 7.511,
-        "missing_models": [],
-        "flags": [
-          "FRAGILE_FAVORITE"
-        ],
-        "reasons": [
-          "The mean probability is below 60%, so the opponent has substantial modeled upset probability."
-        ],
-        "recommendation": "review"
-      }
     }
   ],
   "coverage": {
@@ -2185,96 +1703,96 @@
       {
         "url": "https://www.tennis.com/?date=2026-10-19",
         "status": "ok",
-        "fetched_at": "2026-10-19T04:40:48.352746+00:00",
-        "sha256": "3ac85edf847a514cf2bc558c4b02ebde3d986661a15aa2776a3d554322c3c1c6",
+        "fetched_at": "2026-10-19T07:02:19.197885+00:00",
+        "sha256": "db3cb94c420cb7f0ed27e5b49e03f2c9570195f80e643811ca69bcb31a5af944",
         "provider": "Tennis.com"
       },
       {
         "url": "https://www.tennis.com/?date=2026-10-20",
         "status": "ok",
-        "fetched_at": "2026-10-19T04:40:48.434434+00:00",
-        "sha256": "4bb251253223c1770c777af116aca0a059f428f469ef0b692d0b1439dfc9f806",
+        "fetched_at": "2026-10-19T07:02:19.287627+00:00",
+        "sha256": "20e808b27ac6cb7c8ccad599198baf513d431c896c9ea36381337491f925f165",
         "provider": "Tennis.com"
       },
       {
         "url": "https://www.tennis.com/tournaments",
         "status": "ok",
-        "fetched_at": "2026-10-19T04:40:48.503677+00:00",
+        "fetched_at": "2026-10-19T07:02:19.344165+00:00",
         "sha256": "332e694bc97876fe22d4164e0280064248f3a39eb5ef869ef8803a858eacf88a",
         "provider": "Tennis.com"
       },
       {
         "url": "https://www.tennis.com/tournaments/almaty-open",
         "status": "ok",
-        "fetched_at": "2026-10-19T04:40:48.576852+00:00",
-        "sha256": "062e20c039e22f923375d011a27fb18f373976a989f49fe8908dd3a1cc345548",
+        "fetched_at": "2026-10-19T07:02:19.444107+00:00",
+        "sha256": "ce1ad1adcd64b1fb7a9b4dd00cd5fef196f4809f9d67a9a6ba73ff594c9d867d",
         "provider": "Tennis.com"
       },
       {
         "url": "https://www.tennis.com/tournaments/atp-challenger-florence-italy",
         "provider": "Tennis.com metadata",
         "status": "unavailable",
-        "fetched_at": "2026-10-19T04:40:48.612862+00:00"
+        "fetched_at": "2026-10-19T07:02:19.442820+00:00"
       },
       {
         "url": "https://www.tennis.com/tournaments/atp-challenger-fort-worth-usa",
         "provider": "Tennis.com metadata",
         "status": "unavailable",
-        "fetched_at": "2026-10-19T04:40:48.600549+00:00"
+        "fetched_at": "2026-10-19T07:02:19.468628+00:00"
       },
       {
         "url": "https://www.tennis.com/tournaments/del-monte-lisboa-belem-open",
         "status": "ok",
-        "fetched_at": "2026-10-19T04:40:48.614296+00:00",
-        "sha256": "d97b6ea77ebac9c6abf5dae0c138420b40ebc4dd41b407258ac4beefa8b59eec",
+        "fetched_at": "2026-10-19T07:02:19.473922+00:00",
+        "sha256": "773315158c3186e9aabb5b4e61312da5695d0a0cfd989042e331a6ce799e015f",
         "provider": "Tennis.com"
       },
       {
         "url": "https://www.tennis.com/tournaments/directv-open-cali",
         "status": "ok",
-        "fetched_at": "2026-10-19T04:40:48.647717+00:00",
-        "sha256": "d4aa45583ed8a0a81974846f137456271ca45236aa292b4e51a1ff475e4a1c1a",
+        "fetched_at": "2026-10-19T07:02:19.498497+00:00",
+        "sha256": "2f3ed88a84e1f7d3260661ba71579c74e549e20695a0fce4b892ec5f38268ca6",
         "provider": "Tennis.com"
       },
       {
         "url": "https://www.tennis.com/tournaments/european-open-2",
         "status": "ok",
-        "fetched_at": "2026-10-19T04:40:48.688034+00:00",
+        "fetched_at": "2026-10-19T07:02:19.531597+00:00",
         "sha256": "66f0bf38e274a5230270f9d30f047ef07a8aedf49e5bf15189e2893b09e43374",
         "provider": "Tennis.com"
       },
       {
         "url": "https://www.tennis.com/tournaments/guangzhou-huangpu-international-tennis-open-2",
         "status": "ok",
-        "fetched_at": "2026-10-19T04:40:48.663427+00:00",
-        "sha256": "724214fdc734e222aee7fd95020ea114af993d2e6103e152ef3fd8e10d7d13e0",
+        "fetched_at": "2026-10-19T07:02:19.551386+00:00",
+        "sha256": "caa38112885c8b3ef04d9a0786144589c08bf6627f020ef11db09c131692c68a",
         "provider": "Tennis.com"
       },
       {
         "url": "https://www.tennis.com/tournaments/kinoshita-group-japan-open",
         "status": "ok",
-        "fetched_at": "2026-10-19T04:40:48.713407+00:00",
-        "sha256": "47206f9741d3f70a97b05c3614424f8b784d52f8aada35e26813acb0a5502fd2",
+        "fetched_at": "2026-10-19T07:02:19.570792+00:00",
+        "sha256": "682b7349d12dbfce78db1ad9289df088a146e64d646ff45485a03e962d8aab07",
         "provider": "Tennis.com"
       },
       {
         "url": "https://www.tennis.com/tournaments/ningbo-open",
         "status": "ok",
-        "fetched_at": "2026-10-19T04:40:48.734396+00:00",
-        "sha256": "eba1553ec8a829885f391af650d012aca688b20b4c71ffceace7e1d8535f8828",
+        "fetched_at": "2026-10-19T07:02:19.589895+00:00",
+        "sha256": "7b9f187045cb5f49433f90fbc4f1b84863d2c40113eb38afbe20089fa9561d3b",
         "provider": "Tennis.com"
       },
       {
         "url": "https://www.tennis.com/tournaments/open-13-provence",
         "status": "ok",
-        "fetched_at": "2026-10-19T04:40:48.744981+00:00",
+        "fetched_at": "2026-10-19T07:02:19.606171+00:00",
         "sha256": "42d1cc641918541e7c601b5d7b670211c5b2eb90adc7559db30efb9d8e0f1e06",
         "provider": "Tennis.com"
       },
       {
         "url": "https://www.tennis.com/tournaments/open-parc-auvergne-rhone-alpes-lyon",
         "status": "ok",
-        "fetched_at": "2026-10-19T04:40:48.755078+00:00",
+        "fetched_at": "2026-10-19T07:02:19.614479+00:00",
         "sha256": "1ae25c50b3439e7a2e2da2a3ba3682ca5c0ecc73323efbf16be3112abfb34b4a",
         "provider": "Tennis.com"
       },
@@ -2282,29 +1800,29 @@
         "tour": "ATP",
         "url": "https://site.api.espn.com/apis/site/v2/sports/tennis/atp/scoreboard?dates=20261019",
         "status": "ok",
-        "fetched_at": "2026-10-19T04:40:48.874130+00:00",
-        "sha256": "2f48f1acdd8de3f2f2d3b00ba7409259a590e766a76e6fe5a2bf7ffa92ad4bd1"
+        "fetched_at": "2026-10-19T07:02:19.818715+00:00",
+        "sha256": "49b3783cbabdc9943c54c8a03639460b945c06e1947120824a6fdedd8c6c14c3"
       },
       {
         "tour": "ATP",
         "url": "https://site.api.espn.com/apis/site/v2/sports/tennis/atp/scoreboard?dates=20261020",
         "status": "ok",
-        "fetched_at": "2026-10-19T04:40:48.862251+00:00",
-        "sha256": "2f48f1acdd8de3f2f2d3b00ba7409259a590e766a76e6fe5a2bf7ffa92ad4bd1"
+        "fetched_at": "2026-10-19T07:02:19.813469+00:00",
+        "sha256": "49b3783cbabdc9943c54c8a03639460b945c06e1947120824a6fdedd8c6c14c3"
       },
       {
         "tour": "WTA",
         "url": "https://site.api.espn.com/apis/site/v2/sports/tennis/wta/scoreboard?dates=20261019",
         "status": "ok",
-        "fetched_at": "2026-10-19T04:40:48.853710+00:00",
-        "sha256": "46b33400f1c517ef064eb2c345040641b920d9a697b3bab2e66514252d1c780f"
+        "fetched_at": "2026-10-19T07:02:19.782525+00:00",
+        "sha256": "1c91403772476802dbe5d3540d1eeec4ab95cce774e3eec1d073e0a690e21b58"
       },
       {
         "tour": "WTA",
         "url": "https://site.api.espn.com/apis/site/v2/sports/tennis/wta/scoreboard?dates=20261020",
         "status": "ok",
-        "fetched_at": "2026-10-19T04:40:48.867828+00:00",
-        "sha256": "46b33400f1c517ef064eb2c345040641b920d9a697b3bab2e66514252d1c780f"
+        "fetched_at": "2026-10-19T07:02:19.823488+00:00",
+        "sha256": "1c91403772476802dbe5d3540d1eeec4ab95cce774e3eec1d073e0a690e21b58"
       }
     ],
     "unknown_tournaments": [
@@ -2323,12 +1841,8 @@
     "metadata_tournaments": 9,
     "discovery_capped": false,
     "model_missing_reasons": {
-      "champion": {
-        "PLAYER_HISTORY_MISSING": 1
-      },
-      "challenger": {
-        "PLAYER_HISTORY_MISSING": 1
-      },
+      "champion": {},
+      "challenger": {},
       "experimental": {}
     }
   },
