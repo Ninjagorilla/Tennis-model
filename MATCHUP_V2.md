@@ -1,6 +1,6 @@
 # Experimental Tennis Matchup Intelligence V2 — implementation and evidence contract
 
-This new research-only layer is wired to the Challenger integration workflow. It reads the **actual v3.4-A forecasts**, never changes their published probabilities, and outputs `work/matchup-v2-shadow.json`.
+**Experimental slot designation:** Matchup Intelligence V2 (research-only), backed by frozen v3.4-A inference. On the Challenger branch, the Experimental output has a new model ID, preserves identical v3.4-A probabilities as an auditable baseline, and attaches V2 feature readiness. It additionally outputs `work/matchup-v2-shadow.json`. Unvalidated feature deltas never alter match probabilities.
 
 ## Eight independently gated dimensions
 
@@ -26,4 +26,4 @@ Each accepted evidence field must have a match ID, recognized provider URL, 64-c
 4. Keep zero-covariate baseline intact and decline promotion if evidence is incomplete or performance gains are not reproducible.
 5. Register a new challenger artifact only after prospective shadow outcomes and explicit approval; never overwrite `Champion` or registered `Experimental v3.4-A`.
 
-No merge or deployment is required for this branch's research test runner. All changes are additive and isolated.
+This Challenger branch replaces the **Experimental slot identity** with V2, not the registered Champion or underlying v3.4-A artifact. Live publication requires validated integration and a deliberate PR merge. Feature adapters remain unavailable until they are independently sourced and prospectively tested.
