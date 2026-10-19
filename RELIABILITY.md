@@ -1,0 +1,33 @@
+# Tennis scan reliability and recovery runbook
+
+This branch is Challenger-only. Do not modify or promote registered Champion weights.
+
+## Primary architecture (preferred)
+1. GitHub Actions on main runs the security source allowlist, Node/Python tests, manifest digest verification, pinned historical inputs, three 4-case model preflights, and a double-observed 24-hour fixture scan.
+2. Fixture identities use tour + audited full-name aliases + tournament key + regime. Conflicting surfaces, formats, or material start-time discrepancies fail closed. Never merge different opponents by fuzzy similarity.
+3. Every model returns an explicit `ok` or `unavailable` status. Experimental missing data must be diagnosed by reason, never silently filled with the Champion or a guess.
+4. Every forecast includes provenance (model id, fitted state date, artifact hash), and Devil's Advocate output is **read-only**.
+5. The main dashboard retains `last-success.json`. The independent `scan-results/public-results/latest.json` is updated **only** for available scans; consumers must enforce its `expires_at` timestamp.
+
+## Backup paths
+- **A: Latest valid published snapshot.** Read the independent results branch, confirm `prediction_status=available`, `expires_at` in the future, source commit, and three model statuses before presenting. If expired, label historical/stale, never current.
+- **B: GitHub Pages `data/last-success.json`.** Use only after confirming matching schema and freshness. Never substitute cached predictions for live fixtures.
+- **C: Existing scheduled/dispatch workflows.** Rerun the same pinned commit and review job logs and preflight output. An `unavailable` model is not a successful full three-model scan.
+- **D: Offline pinned replay.** `OFFLINE_RUNTIME` supplies *only verified pinned historical data* for `scripts/runtime.py`. The runtime checks SHA-256 hashes before any inference. Preserve snapshot source timestamps and never label replay as a fresh live run.
+- **E: Diagnostic degraded mode.** Show available model results individually, with missing role and reason counts. Withhold a three-model average unless all three returned valid probabilities.
+- **F: Rollback.** If Challenger tests or source audit fail, keep main untouched and return to last registered working commit. Never replace Champion artifacts or change model registration in response to missing data.
+
+## Verification before merging
+- Run `npm run audit`, `npm test`, `python -m unittest discover -s test -p 'test_*.py'`, and NFL regression tests from the workflow.
+- Check duplicate aliases, schedule conflicts, full/missing model predictions, Devil's Advocate abstention and non-mutating behavior.
+- Execute a real scan on a pinned commit and report the number of fixtures, per-model predictions, unavailable-reason counts and duplicate collapses.
+- Confirm site publication never exposes failed or expired predictions as current.
+- Keep PR draft until CI passes and reviewer verifies actual coverage. Model promotions are governed by prospective scoring, not a single scan.
+
+## Incident triage
+1. **Audit fails:** read GitHub job log, review whether the new public source is safe, explicitly register only the reviewed file in `scripts/audit.mjs`.
+2. **Runtime staging fails:** inspect pinned source URL availability and expected SHA; never substitute unverified data.
+3. **One role has missing predictions:** inspect `coverage.model_missing_reasons`, verify player identities and data history, and leave unmatched predictions unavailable.
+4. **Fixtures disappear:** inspect second observation and source status, plus `coverage.conflicting_matches` and `coverage.identity_diagnostics`.
+5. **Publish fails:** inspect token permissions and the `scan-results` branch; main dashboard may still be valid, but keep stale detection enabled.
+6. **CI fails:** do not merge or claim deployment success.
