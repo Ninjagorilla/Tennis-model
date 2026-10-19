@@ -1,3 +1,5 @@
+// Audit even when invoked directly, without npm lifecycle hooks or CI.
+import './audit.mjs';
 import {validateNFL} from './nfl-status.mjs';
 import {readFile,mkdir,copyFile,writeFile,readdir,stat} from 'node:fs/promises';
 import {validate,blank} from './status.mjs';
