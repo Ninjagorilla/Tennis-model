@@ -46,6 +46,10 @@ jobs:
         run: python scripts/recovery_controller.py
       - name: Reject blocked scan, duplicate fixtures or corrupted Challenger diagnostics
         run: python scripts/verify_scan.py work/snapshot.json --require-available
+      - name: Probe two independent published completed-result feeds
+        continue-on-error: true
+        timeout-minutes: 4
+        run: python scripts/tennis_result_sources.py --probe-date "$(date -u -d yesterday +%F)" --output work/provider-probe.json
       - name: Validate public status schema
         run: npm run build
       - name: Retain sanitized scan and coverage report
@@ -57,5 +61,6 @@ jobs:
             work/snapshot.json
             work/scan-quality.json
             work/recovery-report.json
+            work/provider-probe.json
           retention-days: 7
           if-no-files-found: ignore
