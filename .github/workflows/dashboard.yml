@@ -115,6 +115,12 @@ jobs:
           assert {m['id'] for m in d['models']}=={'champion','challenger','experimental'}
           assert d['prediction_status'] in {'available','unavailable','blocked'}
           PY
+          # Never replace a last-known-good independent result with blocked output.
+          # Keep the old timestamp/expiry so consumers can detect staleness.
+          if [ "$(python -c "import json; print(json.load(open('dist/data/status.json'))['prediction_status'])")" != "available" ]; then
+            echo "Current tennis scan unavailable; preserving independently published last-good result."
+            exit 0
+          fi
           sha="$(gh api "repos/$GH_REPO/contents/public-results/latest.json?ref=scan-results" --jq '.sha' 2>/dev/null || true)"
           export RESULTS_SHA="$sha"
           python - <<'PYCODE'
