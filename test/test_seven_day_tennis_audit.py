@@ -73,10 +73,10 @@ class SevenDayAuditTests(unittest.TestCase):
         raw=json.dumps(receipt([outcome()])).encode()
         r=verified_results(Fake(raw),NOW)
         self.assertEqual(r["files_verified"],1)
-        self.assertEqual(r["source"],"tennis-evidence")
+        self.assertEqual(r["source"],"primary_and_mirror_verified")
     def test_corrupt_both_branches_fails_closed(self):
         raw=json.dumps(receipt([outcome()])).encode()
-        with self.assertRaisesRegex(RuntimeError,"ALL_RESULT_READ_PATHS_FAILED"):
+        with self.assertRaisesRegex(RuntimeError,"UNVERIFIABLE_RESULT_RECEIPT"):
             verified_results(Fake(raw,corrupt=True),NOW)
     def test_exclusion_diagnosis_identifies_missing_tenniscom(self):
         f={**forecast(),"source_match_id":"11"}
