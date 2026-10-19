@@ -15,3 +15,21 @@ test('local and PR builds make no outbound retention requests',async()=>{
 test('failed current scan plus unreachable backup prevents erasing the deployed results',async()=>{
   await assert.rejects(retainLastScan(blank(),{enabled:true,fetcher:async()=>{throw Error('offline');}}),/keeping the existing deployed site/);
 });
+
+test('independent GitHub results recover when both Pages endpoints are down',async()=>{
+  const preserved=good('2026-10-17T20:00:00Z');
+  let calls=0;
+  const recovered=await retainLastScan(blank(),{enabled:true,fetcher:async url=>{
+    calls++;
+    if(!url.includes('raw.githubusercontent.com'))throw Error('Pages offline');
+    return {ok:true,text:async()=>JSON.stringify(preserved)};
+  }});
+  assert.equal(recovered.generated_at,preserved.generated_at);
+  assert.ok(calls>=3);
+});
+test('unverified independent branch cannot replace a failed deployment',async()=>{
+  await assert.rejects(retainLastScan(blank(),{enabled:true,fetcher:async url=>{
+    if(!url.includes('raw.githubusercontent.com'))throw Error('Pages offline');
+    return {ok:true,text:async()=>'{"prediction_status":"available"}'};
+  }}),/keeping the existing deployed site/);
+});
