@@ -38,6 +38,13 @@ class SourceTests(unittest.TestCase):
         self.assertEqual(rows,[])
         self.assertEqual(excluded["x"],"SOURCE_MISSING_OR_AMBIGUOUS")
 
+    def test_conflicting_duplicate_same_provider_event_is_quarantined(self):
+        other={**completed(),"provider":"tenniscom","event_id":"sr:sport_event:10"}
+        conflict={**completed(),"winner_name":"Test Two"}
+        rows,excluded=resolve([fixture()],[completed(),conflict,other],NOW)
+        self.assertEqual(rows,[])
+        self.assertEqual(excluded["x"],"SOURCE_MISSING_OR_AMBIGUOUS")
+
     def test_completed_espn_event(self):
         doc={"events":[{"name":"Demo Open","groupings":[{"grouping":{"slug":"womens-singles"},
             "competitions":[{"id":"7","status":{"type":{"state":"post","completed":True,

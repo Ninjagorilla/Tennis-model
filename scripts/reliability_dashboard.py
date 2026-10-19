@@ -13,7 +13,7 @@ def read(path):
     try:return json.loads(p.read_text())
     except (ValueError,OSError):return None
 
-def summarize(snapshot,quality,archive,recovery,settlement,scan_recovery,settlement_health=None):
+def summarize(snapshot,quality,archive,recovery,settlement,scan_recovery,settlement_health=None,weekly=None):
     models={}
     for m in (snapshot or {}).get("models",[]):
         if m.get("id") in ("champion","challenger","experimental"):
@@ -42,6 +42,12 @@ def summarize(snapshot,quality,archive,recovery,settlement,scan_recovery,settlem
             "settlement_acceptance":(settlement_health or {}).get("status","not_checked"),
             "settlement_archive_verified":(settlement_health or {}).get("settlement_archive_verified"),
             "research_metrics_by_tour":(settlement_health or {}).get("metrics_by_tour"),
+            "seven_day_status":(weekly or {}).get("status","not_checked"),
+            "seven_day_forecasts":(weekly or {}).get("forecast_fixtures"),
+            "seven_day_verified_results":(weekly or {}).get("verified_settlements"),
+            "seven_day_exclusion_reasons":(weekly or {}).get("exclusion_reasons"),
+            "seven_day_paired_models":(weekly or {}).get("paired",{}).get("paired_by_tour") if weekly else None,
+            "seven_day_model_decisions":(weekly or {}).get("model_decisions"),
             "prospective_accuracy":"not_established",
             "champion_promoted":False}
 
@@ -63,6 +69,12 @@ def render(data):
             ("End-to-end settlement acceptance","settlement_acceptance"),
             ("Settlement archive verified","settlement_archive_verified"),
             ("Verified research Brier/log loss by tour","research_metrics_by_tour"),
+            ("Seven-day audit","seven_day_status"),
+            ("Seven-day archived fixtures","seven_day_forecasts"),
+            ("Seven-day verified settlements","seven_day_verified_results"),
+            ("Seven-day exclusion reasons","seven_day_exclusion_reasons"),
+            ("Seven-day paired Brier/log loss","seven_day_paired_models"),
+            ("Seven-day model decisions","seven_day_model_decisions"),
             ("Prospective accuracy","prospective_accuracy")]
     rows="\n".join("<tr><th>"+html.escape(label)+"</th><td>"+field(data.get(key))+"</td></tr>" for label,key in labels)
     return """<!doctype html><html lang="en"><meta charset="utf-8">
@@ -73,8 +85,8 @@ th,td{border-bottom:1px solid #ddd;text-align:left;padding:12px;vertical-align:t
 th{width:45%}p{line-height:1.5}.muted{color:#596579}</style>
 <h1>Tennis model reliability</h1><p>Read-only diagnostics. Missing values mean not checked, not zero.
 No prediction or Champion promotion is authorized by this page.</p>
-<table>"""+rows+"""</table><p class="muted">These are current-run diagnostics, not a 7-day success rate.
-Historical performance requires independently settled prospective fixtures.</p></html>"""
+<table>"""+rows+"""</table><p class="muted">Seven-day metrics use deduplicated archived forecasts and independently verified results.
+Unresolved matches are not losses; market upsets remain unavailable without pre-match odds.</p></html>"""
 
 def main():
     cli=argparse.ArgumentParser()
@@ -84,7 +96,7 @@ def main():
     result=summarize(read("work/snapshot.json"),read("work/scan-quality.json"),
         read("work/evidence-archive-report.json"),read("work/evidence-recovery-health.json"),
         read("work/settlement-observations.json"),read("work/recovery-report.json"),
-        read("work/settlement-health.json"))
+        read("work/settlement-health.json"),read("work/seven-day-tennis-audit.json"))
     output=Path(args.output);output.parent.mkdir(parents=True,exist_ok=True)
     output.write_text(render(result),encoding="utf8")
     dest=Path(args.json_output);dest.parent.mkdir(parents=True,exist_ok=True)

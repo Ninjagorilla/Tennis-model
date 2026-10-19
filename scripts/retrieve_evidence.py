@@ -12,7 +12,7 @@ from datetime import datetime,timedelta,timezone
 from pathlib import Path
 from gh_evidence import GitHub,BRANCHES
 
-def historical_records(client,now=None,days=4,max_files=260):
+def historical_records(client,now=None,days=7,max_files=520):
     now=now or datetime.now(timezone.utc)
     reasons={}
     for branch in BRANCHES:

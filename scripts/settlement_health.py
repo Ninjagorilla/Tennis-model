@@ -8,6 +8,23 @@ import re
 from collections import Counter
 from pathlib import Path
 
+def has_two_valid_sources(item):
+    if not isinstance(item,dict):return False
+    observations=item.get("observations")
+    if not isinstance(observations,list) or len(observations)<2:return False
+    sources=set()
+    for obs in observations:
+        if not isinstance(obs,dict):return False
+        provider=obs.get("provider")
+        if provider not in ("espn","tenniscom"):return False
+        if not isinstance(obs.get("event_id"),str) or not obs["event_id"]:return False
+        if not isinstance(obs.get("source_sha256"),str) or not re.fullmatch("[0-9a-f]{64}",obs["source_sha256"]):return False
+        url=obs.get("url","")
+        if not isinstance(url,str) or not url.startswith("https://"+("site.api.espn.com/" if provider=="espn" else "www.tennis.com/")):return False
+        if obs.get("winner")!=item.get("winner"):return False
+        sources.add(provider)
+    return sources=={"espn","tenniscom"}
+
 def assess(forecasts, report, archive):
     if not isinstance(forecasts,list) or not forecasts:
         return {"status":"blocked","alert":True,"reason":"NO_VERIFIED_HISTORICAL_FORECASTS",
@@ -17,22 +34,6 @@ def assess(forecasts, report, archive):
                 "forecast_count":len(forecasts),"settled_count":None}
     by_provider=Counter(h.get("provider") for h in report["health"] if h.get("status")=="ok")
     verified=report["settlements"]
-    def has_two_valid_sources(item):
-        if not isinstance(item,dict):return False
-        observations=item.get("observations")
-        if not isinstance(observations,list) or len(observations)<2:return False
-        sources=set()
-        for obs in observations:
-            if not isinstance(obs,dict):return False
-            provider=obs.get("provider")
-            if provider not in ("espn","tenniscom"):return False
-            if not isinstance(obs.get("event_id"),str) or not obs["event_id"]:return False
-            if not isinstance(obs.get("source_sha256"),str) or not re.fullmatch("[0-9a-f]{64}",obs["source_sha256"]):return False
-            url=obs.get("url","")
-            if not isinstance(url,str) or not url.startswith("https://"+("site.api.espn.com/" if provider=="espn" else "www.tennis.com/")):return False
-            if obs.get("winner")!=item.get("winner"):return False
-            sources.add(provider)
-        return sources=={"espn","tenniscom"}
     if any(not has_two_valid_sources(x) for x in verified):
         return {"status":"blocked","alert":True,"reason":"SETTLEMENT_LACKS_TWO_PROVIDER_EVIDENCE",
                 "forecast_count":len(forecasts),"settled_count":len(verified)}

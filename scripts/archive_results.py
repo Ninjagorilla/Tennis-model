@@ -15,7 +15,8 @@ def archive_results(data,client,run_id,now=None):
     payload={"schema_version":1,"run_id":str(run_id),
              "retrieval_health":data.get("health",[]),
              "settlements":data["settlements"],
-             "exclusions":data.get("exclusions",{})}
+             "exclusions":data.get("exclusions",{}),
+             "exclusion_details":data.get("exclusion_details",{})}
     raw=canonical(payload)
     digest=hashlib.sha256(raw).hexdigest()
     path=f'evidence/results/{now:%Y/%m/%d}/{run_id}/{digest}.json'

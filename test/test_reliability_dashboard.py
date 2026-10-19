@@ -21,6 +21,16 @@ class DashboardTests(unittest.TestCase):
         self.assertEqual(r["verified_settlements"],1)
         self.assertEqual(r["excluded_settlements"],1)
         self.assertEqual(r["provider_health"],{"healthy":1,"checked":2})
+    def test_seven_day_metrics_are_read_only_and_not_imputed(self):
+        weekly={"status":"verified_results","forecast_fixtures":12,"verified_settlements":2,
+                "exclusion_reasons":{"MISSING_ONE_INDEPENDENT_PROVIDER":3},
+                "paired":{"paired_by_tour":{"ATP":{"paired_fixtures":1}}},
+                "model_decisions":{"champion":{"accuracy":0.5,"market_upsets_correct":None}}}
+        result=summarize(None,None,None,None,None,None,None,weekly)
+        self.assertEqual(result["seven_day_verified_results"],2)
+        self.assertEqual(result["seven_day_paired_models"]["ATP"]["paired_fixtures"],1)
+        self.assertFalse(result["champion_promoted"])
+        self.assertIn("Seven-day verified settlements",render(result))
     def test_html_escapes_untrusted_source_values(self):
         result=summarize({"prediction_status":"<script>alert(1)</script>"},None,None,None,None,None)
         output=render(result)
