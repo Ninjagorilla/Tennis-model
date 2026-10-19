@@ -4,7 +4,7 @@ import {createHash} from 'node:crypto';
 import {isSafeSourcePath} from './public-path-policy.mjs';
 const manifest=JSON.parse(await readFile('engine/manifest.json','utf8'));
 const allowed=new Set(['.gitignore','.github/workflows/dashboard.yml','README.md','RELIABILITY.md','SECURITY.md','ATTRIBUTION.md','package.json','requirements.txt','scripts/audit.mjs','scripts/build.mjs','scripts/status.mjs','scripts/runtime.py','scripts/model_worker.py','scripts/inference.py','scripts/collect.py','scripts/scan.py','test/status.test.mjs','test/test_scan.py','site/index.html','site/style.css','site/app.js','engine/manifest.json',...Object.keys(manifest.files).map(n=>'engine/'+n)]);
-for(const p of ['.gitattributes','scripts/tenniscom.py','scripts/explanations.py','scripts/quality.py','scripts/verify_scan.py','test/test_sources.py','test/test_quality.py','test/test_verify_scan.py'])allowed.add(p);
+for(const p of ['.github/workflows/tennis-independent.yml','.gitattributes','scripts/tenniscom.py','scripts/explanations.py','scripts/quality.py','scripts/verify_scan.py','test/test_sources.py','test/test_quality.py','test/test_verify_scan.py'])allowed.add(p);
 for(const p of ['site/forecast-state.mjs','scripts/last-scan.mjs','test/dashboard.test.mjs','test/last-scan.test.mjs'])allowed.add(p);
 const nfl=JSON.parse(await readFile('nfl/manifest.json','utf8'));
 for(const n of ['.github/workflows/challenger-integration.yml','.github/workflows/nfl-integration.yml','nfl/manifest.json','scripts/nfl-status.mjs','test/nfl-status.test.mjs','site/nfl.html','site/nfl.css','site/nfl.js','site/nfl-quality.mjs','nfl/prop_outcomes.py','test/test_prop_outcomes.py','test/nfl-quality.test.mjs',...Object.keys(nfl.files)])allowed.add(n);
