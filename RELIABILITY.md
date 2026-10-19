@@ -70,3 +70,23 @@ The verified known-good registered-model baseline from before this controller is
 - Refuse stale scans and stale timestamps; never compute a three-model average from missing predictions.
 - Reject ambiguous rollback refs or altered Champion/NFL artifacts.
 - Perform full CI and a live three-model scan on the Challenger branch before merging.
+
+
+## Persistent tennis evidence and result-source recovery (Challenger evidence layer)
+
+Production `main` only: `scripts/forecast_ledger.py` captures published **pre-start** research probabilities, including original issued timestamps, opponent orientation and model hashes. `scripts/gh_evidence.py` writes a content-addressed JSON receipt to `tennis-evidence`, performs byte-for-byte readback, and writes a second copy to `scan-results`. Existing paths are never updated with new bytes. `scripts/retrieve_evidence.py` validates record digest and the **GitHub server commit timestamp** against actual scheduled start, then selects the earliest verified pre-match forecast. A late archival receipt is not eligible for prospective grading, even if its JSON claims an earlier issued time.
+
+**Storage recovery priority**:
+1. Primary `tennis-evidence:evidence/forecasts/YYYY/MM/DD/RUN_ID/SHA256.json`.
+2. Mirror `scan-results:` at the exact same receipt path. Reading a failed/empty primary falls back to the mirror.
+3. A `tennis-evidence-RUN_ID` GitHub Actions artifact, retained up to 90 days, only if uploaded successfully. Manual recovery: download this artifact from the original workflow run; inspect `tennis-forecast-ledger.jsonl`; with a token scoped to repository contents write, use `python scripts/gh_evidence.py tennis-forecast-ledger.jsonl --run-id ORIGINAL_RUN_ID`. Verify both remote receipt statuses and their hashes. Never overwrite existing conflicts, reset branch history, or present restored forecasts as new live predictions.
+
+All destinations are GitHub-hosted. This design tolerates a branch/write failure, **not** a complete GitHub outage, deletion across all branches/artifacts, or an untrusted repository administrator. An off-platform encrypted replica, if later provisioned, remains necessary for true disaster recovery. Reports explicitly flag failed remote writes. Evidence artifacts and results archive contain only public research data.
+
+**Results primary**: `scripts/tennis_result_sources.py` fetches independently published ESPN tennis scoreboards and Tennis.com completed-match records. Require confirmed completed singles, two identified competitors, same tour, source event ID where available, consistent pre-match time context, same winner, provider URL and response hash. Retirements, walkovers, disagreements, ambiguous aliases and missing sources remain withheld. `scripts/result_reconciliation.py` rejects mere asserted agreement, and `scripts/paired_evaluation.py` reports metrics only on a common model-availability sample.
+
+**Results fallback strategies**:
+1. Replay the already verified and content-addressed `evidence/results` observations from `tennis-evidence` or the `scan-results` mirror when live publishers change their schema or become temporarily unavailable. A replay preserves the original observation date and does not claim a newly completed match.
+2. Quarantine results for human adjudication using the official ATP/WTA tournament draw/score documents and the available publisher record. Record authentic source URLs, event IDs and hashes before importing any independent verification. **This official-source adapter is not automated**; no single-source auto-grade or invented status is permitted.
+
+Scheduled daily reconciliations fetch historical forecast receipts and preserve result receipts and provider health. Successful code tests or a green workflow alone do not mean there are enough verified matched results for calibration, statistical improvement or Champion promotion.
