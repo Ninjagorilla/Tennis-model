@@ -73,7 +73,7 @@ class SevenDayAuditTests(unittest.TestCase):
         raw=json.dumps(receipt([outcome()])).encode()
         r=verified_results(Fake(raw),NOW)
         self.assertEqual(r["files_verified"],1)
-        self.assertEqual(r["source"],"primary_and_mirror_verified")
+        self.assertEqual(r["source"],"sha_verified_union")
     def test_corrupt_both_branches_fails_closed(self):
         raw=json.dumps(receipt([outcome()])).encode()
         with self.assertRaisesRegex(RuntimeError,"UNVERIFIABLE_RESULT_RECEIPT"):
