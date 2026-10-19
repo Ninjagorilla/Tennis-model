@@ -41,10 +41,13 @@ jobs:
           python -m pytest nfl/tests -q
           python -m pytest test/test_prop_outcomes.py -q
       - name: Verify tennis models and score current matches
-        if: (github.event_name != 'pull_request' && github.ref == 'refs/heads/main') || (github.event_name == 'pull_request' && github.head_ref == 'challenger/identity-coverage-devils-advocate')
-        run: python scripts/scan.py
+        id: tennis_recovery
+        env:
+          REQUIRE_LIVE_SCAN: ${{ github.event_name == 'pull_request' && '1' || '0' }}
+        if: (github.event_name != 'pull_request' && github.ref == 'refs/heads/main') || (github.event_name == 'pull_request' && github.head_ref == 'challenger/automatic-recovery-controller')
+        run: python scripts/recovery_controller.py
       - name: Validate tennis scan identities, missing coverage and challenger integrity
-        if: (github.event_name != 'pull_request' && github.ref == 'refs/heads/main') || (github.event_name == 'pull_request' && github.head_ref == 'challenger/identity-coverage-devils-advocate')
+        if: (github.event_name != 'pull_request' && github.ref == 'refs/heads/main') || (github.event_name == 'pull_request' && github.head_ref == 'challenger/automatic-recovery-controller')
         run: |
           if [ "$GITHUB_EVENT_NAME" = "pull_request" ]; then
             python scripts/verify_scan.py work/snapshot.json --require-available
@@ -52,15 +55,16 @@ jobs:
             python scripts/verify_scan.py work/snapshot.json
           fi
       - name: Retain sanitized tennis diagnostic report
-        if: (github.event_name != 'pull_request' && github.ref == 'refs/heads/main') || (github.event_name == 'pull_request' && github.head_ref == 'challenger/identity-coverage-devils-advocate')
+        if: always() && ((github.event_name != 'pull_request' && github.ref == 'refs/heads/main') || (github.event_name == 'pull_request' && github.head_ref == 'challenger/automatic-recovery-controller'))
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: tennis-quality-${{ github.run_id }}
           path: |
             work/snapshot.json
             work/scan-quality.json
+            work/recovery-report.json
           retention-days: 7
-          if-no-files-found: error
+          if-no-files-found: warn
       - name: Run complete NFL engine and grade paper forecasts
         id: nfl
         if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
@@ -176,3 +180,26 @@ jobs:
       - name: Deploy forecast site
         id: deployment
         uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4
+
+  alert:
+    if: always() && github.event_name != 'pull_request' && github.ref == 'refs/heads/main' && needs.build.result == 'failure'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      contents: read
+    steps:
+      - name: Open or update one actionable failure issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          RUN_URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          title="Tennis pipeline recovery needed"
+          existing="$(gh issue list --repo "$GH_REPO" --state open --search "$title in:title" --json number,title --jq '.[] | select(.title == "Tennis pipeline recovery needed") | .number' | head -n 1)"
+          message="A scheduled or manual pipeline failed after bounded recovery. Check $RUN_URL and the retained tennis-quality/recovery diagnostics. Keep the Champion unchanged and do not represent cached picks as fresh."
+          if [ -n "$existing" ]; then
+            gh issue comment "$existing" --repo "$GH_REPO" --body "$message"
+          else
+            gh issue create --repo "$GH_REPO" --title "$title" --body "$message"
+          fi
