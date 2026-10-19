@@ -104,6 +104,12 @@ jobs:
         run: |
           python scripts/retrieve_evidence.py
           python scripts/tennis_result_sources.py work/historical-forecasts.json
+      - name: Persist verified two-source settlement receipts
+        if: steps.tennis_settlement.outcome == 'success'
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python scripts/archive_results.py work/settlement-observations.json
       - name: Retain settlement audit and provider health
         if: always() && github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4 pinned
@@ -112,6 +118,7 @@ jobs:
           path: |
             work/historical-forecasts.json
             work/settlement-observations.json
+            work/result-archive-report.json
           retention-days: 90
           if-no-files-found: ignore
       - name: Retain sanitized tennis diagnostic report
