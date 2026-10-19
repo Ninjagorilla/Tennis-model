@@ -114,7 +114,7 @@ jobs:
         id: tennis_grade_window
         if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
         run: |
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ] || { [ "$(date -u +%H)" = "09" ] && [ "${{ github.event_name }}" = "schedule" ]; }; then
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] || [ "${{ github.event_name }}" = "push" ] || { [ "$(date -u +%H)" = "09" ] && [ "${{ github.event_name }}" = "schedule" ]; }; then
             echo 'run=true' >> "$GITHUB_OUTPUT"
           else
             echo 'run=false' >> "$GITHUB_OUTPUT"
