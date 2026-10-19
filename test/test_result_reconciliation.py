@@ -32,10 +32,12 @@ class ReconciliationTests(unittest.TestCase):
   f,o=evidence();o["observations"][1]["winner"]="b"
   self.assertEqual(grade([f],[o])["reconciliation"]["rejected"]["case1"],"INDEPENDENT_CONFIRMATION_REQUIRED")
  def test_opponent_swap_rejected(self):
-  f,o=evidence();o["name_a"],o["name_b"]="B","A"\n  for obs in o["observations"]:obs["name_a"],obs["name_b"]="B","A"
+  f,o=evidence();o["name_a"],o["name_b"]="B","A"
+  for obs in o["observations"]:obs["name_a"],obs["name_b"]="B","A"
   self.assertEqual(grade([f],[o])["reconciliation"]["rejected"]["case1"],"PLAYER_ORIENTATION_MISMATCH")
  def test_retirement_rejected(self):
-  f,o=evidence();o["result_type"]="retired"\n  for obs in o["observations"]:obs["result_type"]="retired"
+  f,o=evidence();o["result_type"]="retired"
+  for obs in o["observations"]:obs["result_type"]="retired"
   self.assertEqual(grade([f],[o])["reconciliation"]["rejected"]["case1"],"NONSTANDARD_RESULT")
  def test_no_invented_settlement(self):
   f,_=evidence()
