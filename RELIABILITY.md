@@ -39,3 +39,34 @@ This branch is Challenger-only. Do not modify or promote registered Champion wei
 4. **Fixtures disappear:** inspect second observation and source status, plus `coverage.conflicting_matches` and `coverage.identity_diagnostics`.
 5. **Publish fails:** inspect token permissions and the `scan-results` branch; main dashboard may still be valid, but keep stale detection enabled.
 6. **CI fails:** do not merge or claim deployment success.
+
+## Automatic Recovery Controller (production workflow and challenger live CI)
+
+`python scripts/recovery_controller.py` runs an actual inference scan and validates its output, with **a maximum of two attempts** and an eight-second pause between attempts. A second attempt runs the normal source collection and the original frozen models from scratch. A scan with failing preflights, invalid probabilities, duplicate identities, no usable predictions, or unavailable public data sources fails closed. A healthy empty schedule can succeed as `unavailable`, but **never represents predictions that were not produced**.
+
+After two failures, `scripts/backup_select.mjs` checks three allowlisted sources, independently validates schema and time bounds, and selects the newest **unexpired** successful snapshot:
+1. Independent `scan-results` branch on GitHub.
+2. Pages `data/last-success.json`.
+3. Pages `data/status.json`.
+
+Backup selection reports the source and original timestamp but **never writes it as a new scan**, never changes fixture dates, never conceals staleness, and returns a nonzero exit code so GitHub Actions alerts. All sources reside on GitHub infrastructure; they are distinct publication paths, **not** independent disaster-proof hosting. A complete GitHub outage still needs a separately provisioned off-platform replica.
+
+For production failures, a separate least-privileged `alert` job opens or comments on one **Tennis pipeline recovery needed** GitHub issue, allowing normal GitHub notifications. It requires Issues permissions and the user's GitHub notification settings; email/push notification delivery is not guaranteed. Recovery reports and snapshots are uploaded as 7-day workflow artifacts when present. A failure does not publish backup data as current.
+
+## Verified rollback procedure
+
+1. Identify the last known-good **40-character commit SHA**, inspect its CI history, and fetch it into the local checkout.
+2. Verify preserved registered sports model data before allowing a rollback:
+   `python scripts/verify_rollback.py --target <FULL_COMMIT_SHA>`.
+   This checks `engine/manifest.json`, `engine/native/registration.json`, and `nfl/manifest.json` byte-for-byte against the current branch. A changed or unavailable artifact blocks rollback.
+3. Create a separate rollback PR that reverts **only the faulty workflow/controller commit(s)**, then rerun the security audit, all tennis/NFL tests, and the end-to-end scan. Never force-push or automatically rewrite `main`.
+4. Preserve `scan-results` history, historical timestamps, and old deployed outputs during the rollback. Deploy only after CI passes.
+
+The verified known-good registered-model baseline from before this controller is `69d997c4c6a1f8765f05014fdb6a898d8701bd91`. CI runs a read-only compatibility check against it. That is not an automatic rollback; issuing a rollback PR remains an explicit human-controlled operation.
+
+## Disaster recovery tests
+
+- Two-attempt limit, transient recovery, persistent failure, corrupted and expired backups, unapproved host URLs, and no off-platform backup.
+- Refuse stale scans and stale timestamps; never compute a three-model average from missing predictions.
+- Reject ambiguous rollback refs or altered Champion/NFL artifacts.
+- Perform full CI and a live three-model scan on the Challenger branch before merging.
