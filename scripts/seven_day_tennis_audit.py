@@ -26,13 +26,13 @@ def when(value):
 
 def verified_results(client,now=None,days=7,max_files=100):
     now=now or datetime.now(timezone.utc)
-    errors={}
+    all_paths=set(); listings={}; failures={}
     for branch in BRANCHES:
         try:
             tree=client.api("GET","/git/trees/"+branch+"?recursive=1")
             if not tree or tree.get("truncated") or not isinstance(tree.get("tree"),list):
                 raise RuntimeError("INVALID_EVIDENCE_TREE")
-            paths=[]
+            paths=set()
             for item in tree["tree"]:
                 path=item.get("path","")
                 if item.get("type")!="blob" or not path.startswith("evidence/results/") or not path.endswith(".json"):
@@ -41,10 +41,18 @@ def verified_results(client,now=None,days=7,max_files=100):
                 if len(parts)!=7:continue
                 try:day=datetime.strptime("/".join(parts[2:5]),"%Y/%m/%d").replace(tzinfo=timezone.utc)
                 except ValueError:continue
-                if now-timedelta(days=days+1)<=day<=now:paths.append(path)
-            if len(paths)>max_files:raise RuntimeError("RESULT_FILE_CAP")
-            receipts=[]
-            for path in sorted(paths):
+                if now-timedelta(days=days+1)<=day<=now:paths.add(path)
+            listings[branch]=paths
+            all_paths.update(paths)
+        except Exception as exc:failures[branch]=type(exc).__name__
+    if not listings:raise RuntimeError("ALL_RESULT_TREES_FAILED:"+json.dumps(failures))
+    if len(all_paths)>max_files:raise RuntimeError("RESULT_FILE_CAP")
+    receipts=[];sources=Counter()
+    for path in sorted(all_paths):
+        found=False
+        for branch in BRANCHES:
+            if path not in listings.get(branch,set()):continue
+            try:
                 obj=client.api("GET","/contents/"+path+"?ref="+branch)
                 if not obj or obj.get("encoding")!="base64":raise RuntimeError("RESULT_READ_FAILED")
                 raw=base64.b64decode(obj["content"].replace("\n",""),validate=True)
@@ -53,11 +61,11 @@ def verified_results(client,now=None,days=7,max_files=100):
                 doc=json.loads(raw)
                 if doc.get("schema_version")!=1 or not isinstance(doc.get("settlements"),list):
                     raise RuntimeError("RESULT_SCHEMA_INVALID")
-                receipts.append(doc)
-            return {"source":branch,"receipts":receipts,"files_verified":len(paths)}
-        except Exception as exc:
-            errors[branch]=type(exc).__name__
-    raise RuntimeError("ALL_RESULT_READ_PATHS_FAILED:"+json.dumps(errors))
+                receipts.append(doc);sources[branch]+=1;found=True;break
+            except Exception:continue
+        if not found:raise RuntimeError("UNVERIFIABLE_RESULT_RECEIPT:"+path)
+    return {"source":"primary_and_mirror_verified","receipts":receipts,
+            "files_verified":len(receipts),"branch_reads":dict(sources)}
 
 def build(forecasts,receipts,now=None,days=7):
     now=now or datetime.now(timezone.utc)
