@@ -31,6 +31,7 @@ def historical_records(client,now=None,days=4,max_files=260):
                 except ValueError:continue
                 if not now-timedelta(days=days+1)<=date<=now:continue
                 paths.append(path)
+            if not paths:raise RuntimeError("NO_RECENT_EVIDENCE_ON_BRANCH")
             if len(paths)>max_files:raise RuntimeError("EVIDENCE_FILE_CAP_EXCEEDED")
             forecasts={}
             for path in sorted(paths):
@@ -63,6 +64,7 @@ def historical_records(client,now=None,days=4,max_files=260):
                     # Earliest archived pre-match forecast is the pre-registered one.
                     if key not in forecasts or when<datetime.fromisoformat(forecasts[key]["issued_at"].replace("Z","+00:00")):
                         forecasts[key]=row
+            if not forecasts:raise RuntimeError("NO_ELIGIBLE_EVIDENCE_ON_BRANCH")
             return {"source":branch,"forecasts":list(forecasts.values()),"files_verified":len(paths)}
         except Exception as exc:
             reasons[branch]=type(exc).__name__
