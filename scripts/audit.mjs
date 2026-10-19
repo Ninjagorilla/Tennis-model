@@ -7,7 +7,7 @@ const allowed=new Set(['.gitignore','.github/workflows/dashboard.yml','README.md
 for(const p of ['.github/workflows/tennis-independent.yml','.gitattributes','scripts/tenniscom.py','scripts/explanations.py','scripts/quality.py','scripts/verify_scan.py','test/test_sources.py','test/test_quality.py','test/test_verify_scan.py'])allowed.add(p);
 for(const p of ['site/forecast-state.mjs','scripts/last-scan.mjs','test/dashboard.test.mjs','test/last-scan.test.mjs'])allowed.add(p);
 const nfl=JSON.parse(await readFile('nfl/manifest.json','utf8'));
-for(const n of ['.github/workflows/challenger-integration.yml','.github/workflows/nfl-integration.yml','nfl/manifest.json','scripts/nfl-status.mjs','test/nfl-status.test.mjs','site/nfl.html','site/nfl.css','site/nfl.js','site/nfl-quality.mjs','nfl/prop_outcomes.py','test/test_prop_outcomes.py','test/nfl-quality.test.mjs',...Object.keys(nfl.files)])allowed.add(n);
+for(const n of ['.github/workflows/challenger-integration.yml','.github/workflows/nfl-integration.yml','nfl/manifest.json','scripts/nfl-status.mjs','test/nfl-status.test.mjs','site/nfl.html','site/nfl.css','site/nfl.js','site/nfl-quality.mjs','nfl/prop_outcomes.py','nfl/report_run.py','nfl/tests/test_report_run.py','test/test_prop_outcomes.py','test/nfl-quality.test.mjs',...Object.keys(nfl.files)])allowed.add(n);
 const files=execFileSync('git',['ls-files','-z'],{encoding:'utf8'}).split('\0').filter(Boolean);
 const unexpected=files.filter(path=>!allowed.has(path) && !isSafeSourcePath(path));
 if(unexpected.length)throw Error('Unreviewed public files ('+unexpected.length+'):\n'+unexpected.join('\n'));
