@@ -43,6 +43,19 @@ jobs:
       - name: Verify tennis models and score current matches
         if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
         run: python scripts/scan.py
+      - name: Validate tennis scan identities, missing coverage and challenger integrity
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        run: python scripts/verify_scan.py work/snapshot.json
+      - name: Retain sanitized tennis diagnostic report
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: tennis-quality-${{ github.run_id }}
+          path: |
+            work/snapshot.json
+            work/scan-quality.json
+          retention-days: 7
+          if-no-files-found: error
       - name: Run complete NFL engine and grade paper forecasts
         id: nfl
         if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
@@ -102,7 +115,6 @@ jobs:
               f.write('Paper history restore: '+str(n.get('paper_history_restore',{}).get('status','unavailable'))+'.\n')
           PY
       - name: Publish independent tennis results channel
-        continue-on-error: true
         if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
         env:
           GH_TOKEN: ${{ github.token }}
