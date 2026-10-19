@@ -1,11 +1,11 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-10-19T10:24:30.192720+00:00",
-  "expires_at": "2026-10-19T11:54:30.192720+00:00",
+  "generated_at": "2026-10-19T11:14:29.482372+00:00",
+  "expires_at": "2026-10-19T12:44:29.482372+00:00",
   "prediction_status": "available",
   "build": {
-    "commit": "19b4e143e66f7f513b5bd304c5ffcdd447f543fe",
-    "run_id": "39237132509"
+    "commit": "58a1f09389b628dcd3ae77838cee35d05a9287a2",
+    "run_id": "39243072023"
   },
   "models": [
     {
@@ -16,7 +16,7 @@
         "total": 4
       },
       "cloud_status": "verified",
-      "predictions": 42
+      "predictions": 41
     },
     {
       "id": "challenger",
@@ -26,7 +26,7 @@
         "total": 4
       },
       "cloud_status": "verified",
-      "predictions": 42
+      "predictions": 41
     },
     {
       "id": "experimental",
@@ -36,7 +36,7 @@
         "total": 4
       },
       "cloud_status": "verified",
-      "predictions": 40
+      "predictions": 39
     }
   ],
   "matches": [
@@ -236,107 +236,6 @@
         "mean_available_probability": 0.701622,
         "opponent_probability": 0.298378,
         "model_spread_pp": 8.397,
-        "missing_models": [],
-        "flags": [],
-        "reasons": [],
-        "recommendation": "no_automatic_promotion"
-      }
-    },
-    {
-      "source_match_id": "185005",
-      "tour": "ATP",
-      "regime": "main",
-      "tournament": "Almaty Open",
-      "tournament_key": "almaty",
-      "best_of": 3,
-      "deciding_tiebreak_target": 7,
-      "surface": "Hard",
-      "name_a": "Nikoloz Basilashvili",
-      "name_b": "Marin Cilic",
-      "starts_at": "2026-10-19T10:30:00+00:00",
-      "round": "Round 1",
-      "event_source": "https://site.api.espn.com/apis/site/v2/sports/tennis/atp/scoreboard",
-      "surface_source": "https://www.tennis.com/tournaments/almaty-open",
-      "format_source": "https://www.wtatennis.com/news/3043764/tennis-explained-learn-the-game",
-      "results": {
-        "champion": {
-          "status": "ok",
-          "p_a": 0.34477903958825606,
-          "p_b": 0.6552209604117439,
-          "model_id": "ATP_CHAMPION_SRELO_1_0",
-          "state_date": "2026-10-05",
-          "artifact_sha256": "fd67cd921e2fd4465324fdf0a2a61169a5045ae5981b2d5ae9eb6ceaddd91f59",
-          "research_only": true,
-          "explanation": {
-            "serve_a": 0.6492356965395883,
-            "serve_b": 0.6981149499560837,
-            "minimum_points": 13190,
-            "sr_p_a": 0.2783301936264702,
-            "elo_p_a": 0.43004218138855715,
-            "elo_weight": 0.43799337772826424,
-            "rating_a": 1773.3126598695771,
-            "rating_b": 1822.2453236625151,
-            "without_current_form_p_a": 0.3418550854549165
-          }
-        },
-        "challenger": {
-          "status": "ok",
-          "p_a": 0.35632662295471657,
-          "p_b": 0.6436733770452834,
-          "model_id": "ATP_SR02_CORE_OBSERVED",
-          "state_date": "2026-09-26",
-          "artifact_sha256": "787cca6a089c4ddf945bf8ee233b016ab48f5c9271fe1bed326abd7dea5d23cb",
-          "research_only": true,
-          "explanation": {
-            "serve_a": 0.6586497840056023,
-            "serve_b": 0.6892758041741143,
-            "minimum_points": 13190,
-            "raw_serve_a": 0.6542883609908869,
-            "raw_serve_b": 0.693402668941528,
-            "calibration_scale": 0.7828602155980732,
-            "form_beta": 0,
-            "a_global_serve": 0.22044269456360283,
-            "a_surface_serve": 0.03254300371577267,
-            "a_global_return": 0.1751342031822219,
-            "a_surface_return": 0.015093228427904776,
-            "b_global_serve": 0.32921738032156883,
-            "b_surface_serve": 0.08730934539711871,
-            "b_global_return": 0.182764810737326,
-            "b_surface_return": 0.02205405538459102
-          }
-        },
-        "experimental": {
-          "status": "ok",
-          "p_a": 0.34631981761093933,
-          "p_b": 0.6536801823890607,
-          "model_id": "V3.4-A_EXPERIMENTAL_DYNAMIC_RESIDUALS_1",
-          "state_date": "2026-10-10",
-          "artifact_sha256": "fbd1999cab11789981caf4df399e9b6929f0ec30644b384a2dbb1c3e5fda2f7c",
-          "research_only": true,
-          "explanation": {
-            "baseline_p_a": 0.34386050267469936,
-            "dynamic_change_pp": 0.24593149362399647,
-            "serve_a": 0.6307751904467876,
-            "serve_b": 0.6842987742929607,
-            "elo_weight": 0.43733832083792723,
-            "a_serve_logit_shift": 0.0018489329334962477,
-            "a_return_logit_shift": 0.0008586201640635564,
-            "b_serve_logit_shift": -0.0009608731445904193,
-            "b_return_logit_shift": -0.0012130751458754123,
-            "a_effective_serve_points": 138.91643274227073,
-            "a_effective_return_points": 136.61807217498463,
-            "b_effective_serve_points": 223.1076964581969,
-            "b_effective_return_points": 213.48322153305722
-          }
-        }
-      },
-      "devils_advocate": {
-        "status": "complete",
-        "pick": "Marin Cilic",
-        "side": "b",
-        "mean_available_probability": 0.650858,
-        "opponent_probability": 0.349142,
-        "model_spread_pp": 1.155,
         "missing_models": [],
         "flags": [],
         "reasons": [],
@@ -1278,112 +1177,6 @@
       }
     },
     {
-      "source_match_id": "187001",
-      "tour": "ATP",
-      "regime": "main_qualifying",
-      "tournament": "Grand Prix Auvergne-Rhône-Alpes",
-      "tournament_key": "lyon",
-      "best_of": 3,
-      "deciding_tiebreak_target": 7,
-      "surface": "Hard",
-      "name_a": "Michael Mmoh",
-      "name_b": "Kyrian Jacquet",
-      "starts_at": "2026-10-19T10:30:00+00:00",
-      "round": "Qualifying Final",
-      "event_source": "https://site.api.espn.com/apis/site/v2/sports/tennis/atp/scoreboard",
-      "surface_source": "https://www.tennis.com/tournaments/open-parc-auvergne-rhone-alpes-lyon",
-      "format_source": "https://www.wtatennis.com/news/3043764/tennis-explained-learn-the-game",
-      "results": {
-        "champion": {
-          "status": "ok",
-          "p_a": 0.44150911083864697,
-          "p_b": 0.558490889161353,
-          "model_id": "ATP_CHAMPION_SRELO_1_0",
-          "state_date": "2026-10-05",
-          "artifact_sha256": "fd67cd921e2fd4465324fdf0a2a61169a5045ae5981b2d5ae9eb6ceaddd91f59",
-          "research_only": true,
-          "explanation": {
-            "serve_a": 0.6179439275259606,
-            "serve_b": 0.6273925031866883,
-            "minimum_points": 16232,
-            "sr_p_a": 0.45228742709982983,
-            "elo_p_a": 0.4273827395984937,
-            "elo_weight": 0.4327826342171431,
-            "rating_a": 1805.3789412457145,
-            "rating_b": 1856.197923717676,
-            "without_current_form_p_a": 0.44123604619913503
-          }
-        },
-        "challenger": {
-          "status": "ok",
-          "p_a": 0.47054949729448403,
-          "p_b": 0.529450502705516,
-          "model_id": "ATP_SR02_CORE_OBSERVED",
-          "state_date": "2026-09-26",
-          "artifact_sha256": "787cca6a089c4ddf945bf8ee233b016ab48f5c9271fe1bed326abd7dea5d23cb",
-          "research_only": true,
-          "explanation": {
-            "serve_a": 0.6197637355218328,
-            "serve_b": 0.6255871491854958,
-            "minimum_points": 16232,
-            "raw_serve_a": 0.6189533518699103,
-            "raw_serve_b": 0.6263919404849743,
-            "calibration_scale": 0.7828602155980732,
-            "form_beta": 0,
-            "a_global_serve": 0.1720571884333251,
-            "a_surface_serve": 0.04858773096539383,
-            "a_global_return": 0.22141030843102602,
-            "a_surface_return": 0.06574641136006963,
-            "b_global_serve": 0.24893880615371933,
-            "b_surface_serve": 0.00495671554410608,
-            "b_global_return": 0.24440009135181573,
-            "b_surface_return": 0.04116691992379264
-          }
-        },
-        "experimental": {
-          "status": "ok",
-          "p_a": 0.47272844301667755,
-          "p_b": 0.5272715569833224,
-          "model_id": "V3.4-A_EXPERIMENTAL_DYNAMIC_RESIDUALS_1",
-          "state_date": "2026-10-10",
-          "artifact_sha256": "fbd1999cab11789981caf4df399e9b6929f0ec30644b384a2dbb1c3e5fda2f7c",
-          "research_only": true,
-          "explanation": {
-            "baseline_p_a": 0.4701017428554808,
-            "dynamic_change_pp": 0.262670016119676,
-            "serve_a": 0.5999010800178026,
-            "serve_b": 0.6095281840860831,
-            "elo_weight": 0.42850516985462894,
-            "a_serve_logit_shift": -0.001327927428724893,
-            "a_return_logit_shift": 0.006062722453922329,
-            "b_serve_logit_shift": 0.0005533789410174639,
-            "b_return_logit_shift": 0.0003448487667319674,
-            "a_effective_serve_points": 188.27752004603457,
-            "a_effective_return_points": 194.88612089627924,
-            "b_effective_serve_points": 155.21428562481606,
-            "b_effective_return_points": 161.81587938161525
-          }
-        }
-      },
-      "devils_advocate": {
-        "status": "complete",
-        "pick": "Kyrian Jacquet",
-        "side": "b",
-        "mean_available_probability": 0.538404,
-        "opponent_probability": 0.461596,
-        "model_spread_pp": 3.122,
-        "missing_models": [],
-        "flags": [
-          "FRAGILE_FAVORITE",
-          "QUALIFYING_UNCERTAINTY"
-        ],
-        "reasons": [
-          "The mean probability is below 60%, so the opponent has substantial modeled upset probability."
-        ],
-        "recommendation": "review"
-      }
-    },
-    {
       "source_match_id": "185523",
       "tour": "WTA",
       "regime": "main",
@@ -1688,6 +1481,49 @@
           "The mean probability is below 60%, so the opponent has substantial modeled upset probability."
         ],
         "recommendation": "review"
+      }
+    },
+    {
+      "source_match_id": "185528",
+      "tour": "WTA",
+      "regime": "main",
+      "tournament": "BNB Ningbo Open",
+      "tournament_key": "ningbo",
+      "best_of": 3,
+      "deciding_tiebreak_target": 7,
+      "surface": "Hard",
+      "name_a": "Guo Hanyu",
+      "name_b": "Ekaterina Alexandrova",
+      "starts_at": "2026-10-20T11:00:00+00:00",
+      "round": "Round 1",
+      "event_source": "https://site.api.espn.com/apis/site/v2/sports/tennis/wta/scoreboard",
+      "surface_source": "https://www.tennis.com/tournaments/ningbo-open",
+      "format_source": "https://www.wtatennis.com/news/3043764/tennis-explained-learn-the-game",
+      "results": {
+        "champion": {
+          "status": "unavailable",
+          "reason": "PLAYER_HISTORY_MISSING"
+        },
+        "challenger": {
+          "status": "unavailable",
+          "reason": "PLAYER_HISTORY_MISSING"
+        },
+        "experimental": {
+          "status": "unavailable",
+          "reason": "PLAYER_NOT_FOUND_IN_DATASET"
+        }
+      },
+      "devils_advocate": {
+        "status": "unavailable",
+        "missing_models": [
+          "champion",
+          "challenger",
+          "experimental"
+        ],
+        "flags": [
+          "NO_MODEL_PROBABILITIES"
+        ],
+        "recommendation": "withhold"
       }
     },
     {
@@ -2095,7 +1931,7 @@
       }
     },
     {
-      "source_match_id": "185571",
+      "source_match_id": "185570",
       "tour": "WTA",
       "regime": "main",
       "tournament": "Kinoshita Group Japan Open",
@@ -2103,9 +1939,9 @@
       "best_of": 3,
       "deciding_tiebreak_target": 7,
       "surface": "Hard",
-      "name_a": "Katerina Siniakova",
-      "name_b": "Peyton Stearns",
-      "starts_at": "2026-10-20T05:30:00+00:00",
+      "name_a": "Himeno Sakatsume",
+      "name_b": "Katie Boulter",
+      "starts_at": "2026-10-20T03:30:00+00:00",
       "round": "Round 1",
       "event_source": "https://site.api.espn.com/apis/site/v2/sports/tennis/wta/scoreboard",
       "surface_source": "https://www.tennis.com/tournaments/kinoshita-group-japan-open",
@@ -2113,86 +1949,90 @@
       "results": {
         "champion": {
           "status": "ok",
-          "p_a": 0.6104630169293492,
-          "p_b": 0.38953698307065077,
+          "p_a": 0.4201920172798648,
+          "p_b": 0.5798079827201352,
           "model_id": "WTA_CHAMPION_SRELO_1_0",
           "state_date": "2026-10-05",
           "artifact_sha256": "5d08c6e3c286cde229566848a4d0417d416586aede88bbb9bafae9b21b65a09a",
           "research_only": true,
           "explanation": {
-            "serve_a": 0.580302056424054,
-            "serve_b": 0.5574497309420657,
-            "minimum_points": 13206,
-            "sr_p_a": 0.6185293784107294,
-            "elo_p_a": 0.5961777025256284,
-            "elo_weight": 0.36088396784408266,
-            "rating_a": 1915.4800291936972,
-            "rating_b": 1847.8058556829583,
-            "without_current_form_p_a": 0.6095232164718405
+            "serve_a": 0.5722438977054101,
+            "serve_b": 0.5911231034068023,
+            "minimum_points": 7440,
+            "sr_p_a": 0.4023336078898213,
+            "elo_p_a": 0.4501432230534998,
+            "elo_weight": 0.3735317535793726,
+            "rating_a": 1812.6301094105836,
+            "rating_b": 1847.389655764594,
+            "without_current_form_p_a": 0.42889464172220737
           }
         },
         "challenger": {
           "status": "ok",
-          "p_a": 0.5780176386217466,
-          "p_b": 0.4219823613782534,
+          "p_a": 0.4443972337771447,
+          "p_b": 0.5556027662228553,
           "model_id": "WTA_SR02_CORE_OBSERVED",
           "state_date": "2026-09-26",
           "artifact_sha256": "b49ade0de4f2676eeb2c93db3a9558b3272cd787b679c1b9750884a935543b6b",
           "research_only": true,
           "explanation": {
-            "serve_a": 0.5763525293351052,
-            "serve_b": 0.5614413896773737,
-            "minimum_points": 13206,
-            "raw_serve_a": 0.5787723451778165,
-            "raw_serve_b": 0.5589978745342437,
+            "serve_a": 0.5763670630372694,
+            "serve_b": 0.587040655872467,
+            "minimum_points": 7440,
+            "raw_serve_a": 0.5746189949641957,
+            "raw_serve_b": 0.5887742090495482,
             "calibration_scale": 0.7540185601505588,
             "form_beta": 0,
-            "a_global_serve": 0.2809644181662048,
-            "a_surface_serve": 0.022329380750372156,
-            "a_global_return": 0.2911504977076539,
-            "a_surface_return": 0.0493141684160342,
-            "b_global_serve": 0.2757825749469221,
-            "b_surface_serve": 0.024296093154479424,
-            "b_global_return": 0.2194823403660342,
-            "b_surface_return": 0.04355765366440455
+            "a_global_serve": 0.21391456631654665,
+            "a_surface_serve": 0.07074908790808414,
+            "a_global_return": 0.15238218867692613,
+            "a_surface_return": 0.06332860761385073,
+            "b_global_serve": 0.27286431672991335,
+            "b_surface_serve": 0.02426483627343264,
+            "b_global_return": 0.21671750242087082,
+            "b_surface_return": 0.04470617166953804
           }
         },
         "experimental": {
           "status": "ok",
-          "p_a": 0.6382927056953149,
-          "p_b": 0.36170729430468507,
+          "p_a": 0.3692892289610421,
+          "p_b": 0.6307107710389579,
           "model_id": "V3.4-A_EXPERIMENTAL_DYNAMIC_RESIDUALS_1",
           "state_date": "2026-10-10",
           "artifact_sha256": "9f0ce28379795fcaaa1f475345f7230c97d0e6e7945db4e5dc6b42f7c8575e3f",
           "research_only": true,
           "explanation": {
-            "baseline_p_a": 0.6393584065830408,
-            "dynamic_change_pp": -0.106570088772584,
-            "serve_a": 0.5762662074710639,
-            "serve_b": 0.5457514382815681,
-            "elo_weight": 0.3532092556820517,
-            "a_serve_logit_shift": 0.0003134184220548072,
-            "a_return_logit_shift": 0.0012147119598472343,
-            "b_serve_logit_shift": 0.003587421115066465,
-            "b_return_logit_shift": -0.0007340514665381528,
-            "a_effective_serve_points": 242.5800077615505,
-            "a_effective_return_points": 246.96366853281108,
-            "b_effective_serve_points": 190.44985056454107,
-            "b_effective_return_points": 194.9927699633679
+            "baseline_p_a": 0.37304418540671314,
+            "dynamic_change_pp": -0.37549564456710316,
+            "serve_a": 0.5435249660988336,
+            "serve_b": 0.5754582066275532,
+            "elo_weight": 0.37262293725580325,
+            "a_serve_logit_shift": -0.0008610457302714988,
+            "a_return_logit_shift": -0.00523439767258975,
+            "b_serve_logit_shift": 0.00022354983822936246,
+            "b_return_logit_shift": -0.001222024894401357,
+            "a_effective_serve_points": 169.38388275260218,
+            "a_effective_return_points": 154.2818585687067,
+            "b_effective_serve_points": 174.45151891231626,
+            "b_effective_return_points": 179.4180969847912
           }
         }
       },
       "devils_advocate": {
         "status": "complete",
-        "pick": "Katerina Siniakova",
-        "side": "a",
-        "mean_available_probability": 0.608924,
-        "opponent_probability": 0.391076,
-        "model_spread_pp": 6.028,
+        "pick": "Katie Boulter",
+        "side": "b",
+        "mean_available_probability": 0.588707,
+        "opponent_probability": 0.411293,
+        "model_spread_pp": 7.511,
         "missing_models": [],
-        "flags": [],
-        "reasons": [],
-        "recommendation": "no_automatic_promotion"
+        "flags": [
+          "FRAGILE_FAVORITE"
+        ],
+        "reasons": [
+          "The mean probability is below 60%, so the opponent has substantial modeled upset probability."
+        ],
+        "recommendation": "review"
       }
     },
     {
@@ -2249,7 +2089,7 @@
       "surface": "Hard",
       "name_a": "Ena Shibahara",
       "name_b": "Moyuka Uchijima",
-      "starts_at": "2026-10-20T04:00:00+00:00",
+      "starts_at": "2026-10-20T05:00:00+00:00",
       "round": "Round 1",
       "event_source": "https://site.api.espn.com/apis/site/v2/sports/tennis/wta/scoreboard",
       "surface_source": "https://www.tennis.com/tournaments/kinoshita-group-japan-open",
@@ -3168,7 +3008,7 @@
       }
     },
     {
-      "source_match_id": "tc:sr:sport_event:75794078",
+      "source_match_id": "tc:sr:sport_event:75794082",
       "tour": "ATP",
       "regime": "challenger",
       "tournament": "Guangzhou Huangpu International Tennis Open",
@@ -3176,8 +3016,8 @@
       "best_of": 3,
       "deciding_tiebreak_target": 7,
       "surface": "Hard",
-      "name_a": "Kasidit Samrej",
-      "name_b": "Rio Noguchi",
+      "name_a": "Khumoyun Sultanov",
+      "name_b": "Luca Castelnuovo",
       "starts_at": "2026-10-20T04:10:00+00:00",
       "round": "Round 1",
       "event_source": "https://www.tennis.com/?date=2026-10-19",
@@ -3186,88 +3026,72 @@
       "results": {
         "champion": {
           "status": "ok",
-          "p_a": 0.4140993974604244,
-          "p_b": 0.5859006025395757,
+          "p_a": 0.41834806379777245,
+          "p_b": 0.5816519362022275,
           "model_id": "ATP_CHAMPION_SRELO_1_0",
           "state_date": "2026-10-05",
           "artifact_sha256": "fd67cd921e2fd4465324fdf0a2a61169a5045ae5981b2d5ae9eb6ceaddd91f59",
           "research_only": true,
           "explanation": {
-            "serve_a": 0.5937897451096205,
-            "serve_b": 0.6231575307279608,
-            "minimum_points": 9868,
-            "sr_p_a": 0.3530280654857696,
-            "elo_p_a": 0.48964812096986077,
-            "elo_weight": 0.4470158627754775,
-            "rating_a": 1711.2344724495601,
-            "rating_b": 1718.4287227991895,
-            "without_current_form_p_a": 0.41630645576800607
+            "serve_a": 0.6411822320404497,
+            "serve_b": 0.6528524892572724,
+            "minimum_points": 3187,
+            "sr_p_a": 0.4425203448855925,
+            "elo_p_a": 0.39498501887703574,
+            "elo_weight": 0.5085119450630982,
+            "rating_a": 1562.0776100074413,
+            "rating_b": 1636.1518118981917,
+            "without_current_form_p_a": 0.4174536202966209
           }
         },
         "challenger": {
           "status": "ok",
-          "p_a": 0.41152056406473125,
-          "p_b": 0.5884794359352687,
+          "p_a": 0.46373409745269056,
+          "p_b": 0.5362659025473094,
           "model_id": "ATP_SR02_CORE_OBSERVED",
           "state_date": "2026-09-26",
           "artifact_sha256": "787cca6a089c4ddf945bf8ee233b016ab48f5c9271fe1bed326abd7dea5d23cb",
           "research_only": true,
           "explanation": {
-            "serve_a": 0.5998316232216087,
-            "serve_b": 0.6172431049082627,
-            "minimum_points": 9868,
-            "raw_serve_a": 0.5973957948604824,
-            "raw_serve_b": 0.6196353088311026,
+            "serve_a": 0.6433567572317419,
+            "serve_b": 0.6507044274103948,
+            "minimum_points": 3187,
+            "raw_serve_a": 0.6423323142713494,
+            "raw_serve_b": 0.6517178928344034,
             "calibration_scale": 0.7828602155980732,
             "form_beta": 0,
-            "a_global_serve": 0.17051100607208625,
-            "a_surface_serve": 0.042702973514655414,
-            "a_global_return": 0.08018673389314256,
-            "a_surface_return": 0.020149077589552117,
-            "b_global_serve": 0.06579372402238151,
-            "b_surface_serve": 0.07161891313397314,
-            "b_global_return": 0.1958534223722789,
-            "b_surface_return": 0.07365841027975886
+            "a_global_serve": 0.0994410014092969,
+            "a_surface_serve": 0.04173176273298506,
+            "a_global_return": 0.098992835905409,
+            "a_surface_return": 0.024410434632306726,
+            "b_global_serve": 0.2424340886505796,
+            "b_surface_serve": 0.056644404685078004,
+            "b_global_return": -0.011858183243424676,
+            "b_surface_return": 0.018453218940528184
           }
         },
         "experimental": {
-          "status": "ok",
-          "p_a": 0.38387841999615846,
-          "p_b": 0.6161215800038415,
-          "model_id": "V3.4-A_EXPERIMENTAL_DYNAMIC_RESIDUALS_1",
-          "state_date": "2026-10-10",
-          "artifact_sha256": "fbd1999cab11789981caf4df399e9b6929f0ec30644b384a2dbb1c3e5fda2f7c",
-          "research_only": true,
-          "explanation": {
-            "baseline_p_a": 0.3836382287946268,
-            "dynamic_change_pp": 0.024019120153168094,
-            "serve_a": 0.5930734604590263,
-            "serve_b": 0.6156200871043982,
-            "elo_weight": 0.44221885023765406,
-            "a_serve_logit_shift": 0.0002061835338473947,
-            "a_return_logit_shift": 0.0004668913089126555,
-            "b_serve_logit_shift": -0.00011114165628166413,
-            "b_return_logit_shift": 0.0004038078121378074,
-            "a_effective_serve_points": 256.0758154958296,
-            "a_effective_return_points": 254.12844780349215,
-            "b_effective_serve_points": 387.45003453554824,
-            "b_effective_return_points": 356.76869556963516
-          }
+          "status": "unavailable",
+          "reason": "PLAYER_NOT_FOUND_IN_DATASET"
         }
       },
       "devils_advocate": {
-        "status": "complete",
-        "pick": "Rio Noguchi",
+        "status": "partial",
+        "pick": "Luca Castelnuovo",
         "side": "b",
-        "mean_available_probability": 0.596834,
-        "opponent_probability": 0.403166,
-        "model_spread_pp": 3.022,
-        "missing_models": [],
+        "mean_available_probability": 0.558959,
+        "opponent_probability": 0.441041,
+        "model_spread_pp": 4.539,
+        "missing_models": [
+          "experimental"
+        ],
         "flags": [
+          "INCOMPLETE_MODEL_COVERAGE",
           "FRAGILE_FAVORITE"
         ],
         "reasons": [
-          "The mean probability is below 60%, so the opponent has substantial modeled upset probability."
+          "The mean probability is below 60%, so the opponent has substantial modeled upset probability.",
+          "One or more models did not return a valid prediction."
         ],
         "recommendation": "review"
       }
@@ -3374,7 +3198,7 @@
       }
     },
     {
-      "source_match_id": "tc:sr:sport_event:75794082",
+      "source_match_id": "tc:sr:sport_event:75794078",
       "tour": "ATP",
       "regime": "challenger",
       "tournament": "Guangzhou Huangpu International Tennis Open",
@@ -3382,8 +3206,8 @@
       "best_of": 3,
       "deciding_tiebreak_target": 7,
       "surface": "Hard",
-      "name_a": "Khumoyun Sultanov",
-      "name_b": "Luca Castelnuovo",
+      "name_a": "Kasidit Samrej",
+      "name_b": "Rio Noguchi",
       "starts_at": "2026-10-20T04:10:00+00:00",
       "round": "Round 1",
       "event_source": "https://www.tennis.com/?date=2026-10-19",
@@ -3392,74 +3216,393 @@
       "results": {
         "champion": {
           "status": "ok",
-          "p_a": 0.41834806379777245,
-          "p_b": 0.5816519362022275,
+          "p_a": 0.4140993974604244,
+          "p_b": 0.5859006025395757,
           "model_id": "ATP_CHAMPION_SRELO_1_0",
           "state_date": "2026-10-05",
           "artifact_sha256": "fd67cd921e2fd4465324fdf0a2a61169a5045ae5981b2d5ae9eb6ceaddd91f59",
           "research_only": true,
           "explanation": {
-            "serve_a": 0.6411822320404497,
-            "serve_b": 0.6528524892572724,
-            "minimum_points": 3187,
-            "sr_p_a": 0.4425203448855925,
-            "elo_p_a": 0.39498501887703574,
-            "elo_weight": 0.5085119450630982,
-            "rating_a": 1562.0776100074413,
-            "rating_b": 1636.1518118981917,
-            "without_current_form_p_a": 0.4174536202966209
+            "serve_a": 0.5937897451096205,
+            "serve_b": 0.6231575307279608,
+            "minimum_points": 9868,
+            "sr_p_a": 0.3530280654857696,
+            "elo_p_a": 0.48964812096986077,
+            "elo_weight": 0.4470158627754775,
+            "rating_a": 1711.2344724495601,
+            "rating_b": 1718.4287227991895,
+            "without_current_form_p_a": 0.41630645576800607
           }
         },
         "challenger": {
           "status": "ok",
-          "p_a": 0.46373409745269056,
-          "p_b": 0.5362659025473094,
+          "p_a": 0.41152056406473125,
+          "p_b": 0.5884794359352687,
           "model_id": "ATP_SR02_CORE_OBSERVED",
           "state_date": "2026-09-26",
           "artifact_sha256": "787cca6a089c4ddf945bf8ee233b016ab48f5c9271fe1bed326abd7dea5d23cb",
           "research_only": true,
           "explanation": {
-            "serve_a": 0.6433567572317419,
-            "serve_b": 0.6507044274103948,
-            "minimum_points": 3187,
-            "raw_serve_a": 0.6423323142713494,
-            "raw_serve_b": 0.6517178928344034,
+            "serve_a": 0.5998316232216087,
+            "serve_b": 0.6172431049082627,
+            "minimum_points": 9868,
+            "raw_serve_a": 0.5973957948604824,
+            "raw_serve_b": 0.6196353088311026,
             "calibration_scale": 0.7828602155980732,
             "form_beta": 0,
-            "a_global_serve": 0.0994410014092969,
-            "a_surface_serve": 0.04173176273298506,
-            "a_global_return": 0.098992835905409,
-            "a_surface_return": 0.024410434632306726,
-            "b_global_serve": 0.2424340886505796,
-            "b_surface_serve": 0.056644404685078004,
-            "b_global_return": -0.011858183243424676,
-            "b_surface_return": 0.018453218940528184
+            "a_global_serve": 0.17051100607208625,
+            "a_surface_serve": 0.042702973514655414,
+            "a_global_return": 0.08018673389314256,
+            "a_surface_return": 0.020149077589552117,
+            "b_global_serve": 0.06579372402238151,
+            "b_surface_serve": 0.07161891313397314,
+            "b_global_return": 0.1958534223722789,
+            "b_surface_return": 0.07365841027975886
           }
         },
         "experimental": {
-          "status": "unavailable",
-          "reason": "PLAYER_NOT_FOUND_IN_DATASET"
+          "status": "ok",
+          "p_a": 0.38387841999615846,
+          "p_b": 0.6161215800038415,
+          "model_id": "V3.4-A_EXPERIMENTAL_DYNAMIC_RESIDUALS_1",
+          "state_date": "2026-10-10",
+          "artifact_sha256": "fbd1999cab11789981caf4df399e9b6929f0ec30644b384a2dbb1c3e5fda2f7c",
+          "research_only": true,
+          "explanation": {
+            "baseline_p_a": 0.3836382287946268,
+            "dynamic_change_pp": 0.024019120153168094,
+            "serve_a": 0.5930734604590263,
+            "serve_b": 0.6156200871043982,
+            "elo_weight": 0.44221885023765406,
+            "a_serve_logit_shift": 0.0002061835338473947,
+            "a_return_logit_shift": 0.0004668913089126555,
+            "b_serve_logit_shift": -0.00011114165628166413,
+            "b_return_logit_shift": 0.0004038078121378074,
+            "a_effective_serve_points": 256.0758154958296,
+            "a_effective_return_points": 254.12844780349215,
+            "b_effective_serve_points": 387.45003453554824,
+            "b_effective_return_points": 356.76869556963516
+          }
         }
       },
       "devils_advocate": {
-        "status": "partial",
-        "pick": "Luca Castelnuovo",
+        "status": "complete",
+        "pick": "Rio Noguchi",
         "side": "b",
-        "mean_available_probability": 0.558959,
-        "opponent_probability": 0.441041,
-        "model_spread_pp": 4.539,
-        "missing_models": [
-          "experimental"
-        ],
+        "mean_available_probability": 0.596834,
+        "opponent_probability": 0.403166,
+        "model_spread_pp": 3.022,
+        "missing_models": [],
         "flags": [
-          "INCOMPLETE_MODEL_COVERAGE",
           "FRAGILE_FAVORITE"
         ],
         "reasons": [
-          "The mean probability is below 60%, so the opponent has substantial modeled upset probability.",
-          "One or more models did not return a valid prediction."
+          "The mean probability is below 60%, so the opponent has substantial modeled upset probability."
         ],
         "recommendation": "review"
+      }
+    },
+    {
+      "source_match_id": "tc:sr:sport_event:75719590",
+      "tour": "ATP",
+      "regime": "challenger",
+      "tournament": "Guangzhou Huangpu International Tennis Open",
+      "tournament_key": "guangzhou",
+      "best_of": 3,
+      "deciding_tiebreak_target": 7,
+      "surface": "Hard",
+      "name_a": "Fajing Sun",
+      "name_b": "Qian Sun",
+      "starts_at": "2026-10-20T05:20:00+00:00",
+      "round": "Round 1",
+      "event_source": "https://www.tennis.com/?date=2026-10-19",
+      "surface_source": "https://www.tennis.com/tournaments/guangzhou-huangpu-international-tennis-open-2",
+      "format_source": "https://www.atptour.com/-/media/files/rulebook/2026/2026-rulebook_27apr26.pdf",
+      "results": {
+        "champion": {
+          "status": "ok",
+          "p_a": 0.860686961753568,
+          "p_b": 0.13931303824643204,
+          "model_id": "ATP_CHAMPION_SRELO_1_0",
+          "state_date": "2026-10-05",
+          "artifact_sha256": "fd67cd921e2fd4465324fdf0a2a61169a5045ae5981b2d5ae9eb6ceaddd91f59",
+          "research_only": true,
+          "explanation": {
+            "serve_a": 0.6576657171134783,
+            "serve_b": 0.5449961055445289,
+            "minimum_points": 3715,
+            "sr_p_a": 0.926483339510853,
+            "elo_p_a": 0.7941786867197176,
+            "elo_weight": 0.49730962871846557,
+            "rating_a": 1687.4731357213423,
+            "rating_b": 1452.9019825990483,
+            "without_current_form_p_a": 0.860703102299298
+          }
+        },
+        "challenger": {
+          "status": "ok",
+          "p_a": 0.8129034810440656,
+          "p_b": 0.18709651895593438,
+          "model_id": "ATP_SR02_CORE_OBSERVED",
+          "state_date": "2026-09-26",
+          "artifact_sha256": "787cca6a089c4ddf945bf8ee233b016ab48f5c9271fe1bed326abd7dea5d23cb",
+          "research_only": true,
+          "explanation": {
+            "serve_a": 0.6366463852845119,
+            "serve_b": 0.5677173164514299,
+            "minimum_points": 3715,
+            "raw_serve_a": 0.6458437786583459,
+            "raw_serve_b": 0.5578799199198636,
+            "calibration_scale": 0.7828602155980732,
+            "form_beta": 0,
+            "a_global_serve": 0.13089764034550058,
+            "a_surface_serve": 0.05442639877808196,
+            "a_global_return": 0.11038672402047592,
+            "a_surface_return": 0.04912541852869382,
+            "b_global_serve": -0.04711395217217404,
+            "b_surface_serve": -0.011735444548493462,
+            "b_global_return": 0.02832887385603797,
+            "b_surface_return": 0.007099400091944829
+          }
+        },
+        "experimental": {
+          "status": "ok",
+          "p_a": 0.812122894976983,
+          "p_b": 0.18787710502301702,
+          "model_id": "V3.4-A_EXPERIMENTAL_DYNAMIC_RESIDUALS_1",
+          "state_date": "2026-10-10",
+          "artifact_sha256": "fbd1999cab11789981caf4df399e9b6929f0ec30644b384a2dbb1c3e5fda2f7c",
+          "research_only": true,
+          "explanation": {
+            "baseline_p_a": 0.8112654700640708,
+            "dynamic_change_pp": 0.08574249129121858,
+            "serve_a": 0.6718832797931337,
+            "serve_b": 0.5515926709417259,
+            "elo_weight": 0.5683424122137405,
+            "a_serve_logit_shift": 0.003562875883386013,
+            "a_return_logit_shift": 0.0013458786156718887,
+            "b_serve_logit_shift": 0.00072691388350672,
+            "b_return_logit_shift": -0.0016883713520535661,
+            "a_effective_serve_points": 359.3784361981106,
+            "a_effective_return_points": 392.38272943396555,
+            "b_effective_serve_points": 76.06799465303868,
+            "b_effective_return_points": 67.68285509953088
+          }
+        }
+      },
+      "devils_advocate": {
+        "status": "complete",
+        "pick": "Fajing Sun",
+        "side": "a",
+        "mean_available_probability": 0.828571,
+        "opponent_probability": 0.171429,
+        "model_spread_pp": 4.856,
+        "missing_models": [],
+        "flags": [],
+        "reasons": [],
+        "recommendation": "no_automatic_promotion"
+      }
+    },
+    {
+      "source_match_id": "tc:sr:sport_event:75719588",
+      "tour": "ATP",
+      "regime": "challenger",
+      "tournament": "Guangzhou Huangpu International Tennis Open",
+      "tournament_key": "guangzhou",
+      "best_of": 3,
+      "deciding_tiebreak_target": 7,
+      "surface": "Hard",
+      "name_a": "Cruz Hewitt",
+      "name_b": "Rigele TE",
+      "starts_at": "2026-10-20T05:20:00+00:00",
+      "round": "Round 1",
+      "event_source": "https://www.tennis.com/?date=2026-10-19",
+      "surface_source": "https://www.tennis.com/tournaments/guangzhou-huangpu-international-tennis-open-2",
+      "format_source": "https://www.atptour.com/-/media/files/rulebook/2026/2026-rulebook_27apr26.pdf",
+      "results": {
+        "champion": {
+          "status": "ok",
+          "p_a": 0.6491916993296011,
+          "p_b": 0.3508083006703989,
+          "model_id": "ATP_CHAMPION_SRELO_1_0",
+          "state_date": "2026-10-05",
+          "artifact_sha256": "fd67cd921e2fd4465324fdf0a2a61169a5045ae5981b2d5ae9eb6ceaddd91f59",
+          "research_only": true,
+          "explanation": {
+            "serve_a": 0.6444962525490178,
+            "serve_b": 0.606004638277373,
+            "minimum_points": 4399,
+            "sr_p_a": 0.6868799515917459,
+            "elo_p_a": 0.6093409300828939,
+            "elo_weight": 0.48605529872261755,
+            "rating_a": 1636.5163438064278,
+            "rating_b": 1559.2913680591191,
+            "without_current_form_p_a": 0.6439190298474031
+          }
+        },
+        "challenger": {
+          "status": "ok",
+          "p_a": 0.6101516365610562,
+          "p_b": 0.3898483634389438,
+          "model_id": "ATP_SR02_CORE_OBSERVED",
+          "state_date": "2026-09-26",
+          "artifact_sha256": "787cca6a089c4ddf945bf8ee233b016ab48f5c9271fe1bed326abd7dea5d23cb",
+          "research_only": true,
+          "explanation": {
+            "serve_a": 0.6364349838272005,
+            "serve_b": 0.6143317615476753,
+            "minimum_points": 4399,
+            "raw_serve_a": 0.639457706776753,
+            "raw_serve_b": 0.6112264576983935,
+            "calibration_scale": 0.7828602155980732,
+            "form_beta": 0,
+            "a_global_serve": 0.09139187662696993,
+            "a_surface_serve": -0.006657748283750792,
+            "a_global_return": 0.07505086892428219,
+            "a_surface_return": 0.020540260566632648,
+            "b_global_serve": 0.08031450875683896,
+            "b_surface_serve": 0.01682336348724627,
+            "b_global_return": -0.03422722191900072,
+            "b_surface_return": -0.003126104016742471
+          }
+        },
+        "experimental": {
+          "status": "ok",
+          "p_a": 0.6747804310163721,
+          "p_b": 0.3252195689836279,
+          "model_id": "V3.4-A_EXPERIMENTAL_DYNAMIC_RESIDUALS_1",
+          "state_date": "2026-10-10",
+          "artifact_sha256": "fbd1999cab11789981caf4df399e9b6929f0ec30644b384a2dbb1c3e5fda2f7c",
+          "research_only": true,
+          "explanation": {
+            "baseline_p_a": 0.6724471994741837,
+            "dynamic_change_pp": 0.2333231542188341,
+            "serve_a": 0.6456827034309442,
+            "serve_b": 0.5979141861590823,
+            "elo_weight": 0.5163714147346729,
+            "a_serve_logit_shift": -0.0001261209611364871,
+            "a_return_logit_shift": -0.00006689611720408229,
+            "b_serve_logit_shift": -0.003287475202060635,
+            "b_return_logit_shift": -0.0016944134603270099,
+            "a_effective_serve_points": 149.43037489210167,
+            "a_effective_return_points": 144.01559932268427,
+            "b_effective_serve_points": 112.17956651633408,
+            "b_effective_return_points": 95.86526940557192
+          }
+        }
+      },
+      "devils_advocate": {
+        "status": "complete",
+        "pick": "Cruz Hewitt",
+        "side": "a",
+        "mean_available_probability": 0.644708,
+        "opponent_probability": 0.355292,
+        "model_spread_pp": 6.463,
+        "missing_models": [],
+        "flags": [],
+        "reasons": [],
+        "recommendation": "no_automatic_promotion"
+      }
+    },
+    {
+      "source_match_id": "tc:sr:sport_event:75794166",
+      "tour": "ATP",
+      "regime": "challenger",
+      "tournament": "Guangzhou Huangpu International Tennis Open",
+      "tournament_key": "guangzhou",
+      "best_of": 3,
+      "deciding_tiebreak_target": 7,
+      "surface": "Hard",
+      "name_a": "Dominik Palán",
+      "name_b": "Liam Broady",
+      "starts_at": "2026-10-20T05:20:00+00:00",
+      "round": "Round 1",
+      "event_source": "https://www.tennis.com/?date=2026-10-19",
+      "surface_source": "https://www.tennis.com/tournaments/guangzhou-huangpu-international-tennis-open-2",
+      "format_source": "https://www.atptour.com/-/media/files/rulebook/2026/2026-rulebook_27apr26.pdf",
+      "results": {
+        "champion": {
+          "status": "ok",
+          "p_a": 0.15391713654964795,
+          "p_b": 0.8460828634503521,
+          "model_id": "ATP_CHAMPION_SRELO_1_0",
+          "state_date": "2026-10-05",
+          "artifact_sha256": "fd67cd921e2fd4465324fdf0a2a61169a5045ae5981b2d5ae9eb6ceaddd91f59",
+          "research_only": true,
+          "explanation": {
+            "serve_a": 0.5744544171374145,
+            "serve_b": 0.7054980952813116,
+            "minimum_points": 10961,
+            "sr_p_a": 0.051767905044768164,
+            "elo_p_a": 0.2820961874896018,
+            "elo_weight": 0.4434940877455875,
+            "rating_a": 1531.1753419180573,
+            "rating_b": 1693.4429591078792,
+            "without_current_form_p_a": 0.15222029750416552
+          }
+        },
+        "challenger": {
+          "status": "ok",
+          "p_a": 0.1548682878356055,
+          "p_b": 0.8451317121643945,
+          "model_id": "ATP_SR02_CORE_OBSERVED",
+          "state_date": "2026-09-26",
+          "artifact_sha256": "787cca6a089c4ddf945bf8ee233b016ab48f5c9271fe1bed326abd7dea5d23cb",
+          "research_only": true,
+          "explanation": {
+            "serve_a": 0.6007634013145097,
+            "serve_b": 0.6824427057723894,
+            "minimum_points": 10961,
+            "raw_serve_a": 0.5888525280318624,
+            "raw_serve_b": 0.6930555713757536,
+            "calibration_scale": 0.7828602155980732,
+            "form_beta": 0,
+            "a_global_serve": 0.15484525210515052,
+            "a_surface_serve": 0.046591640397443124,
+            "a_global_return": -0.08118334855507181,
+            "a_surface_return": -0.013251504861473045,
+            "b_global_serve": 0.20484518310351169,
+            "b_surface_serve": 0.06423967043504661,
+            "b_global_return": 0.21485164742278912,
+            "b_surface_return": 0.07828519399291746
+          }
+        },
+        "experimental": {
+          "status": "ok",
+          "p_a": 0.11004151290774244,
+          "p_b": 0.8899584870922576,
+          "model_id": "V3.4-A_EXPERIMENTAL_DYNAMIC_RESIDUALS_1",
+          "state_date": "2026-10-10",
+          "artifact_sha256": "fbd1999cab11789981caf4df399e9b6929f0ec30644b384a2dbb1c3e5fda2f7c",
+          "research_only": true,
+          "explanation": {
+            "baseline_p_a": 0.11053492557597461,
+            "dynamic_change_pp": -0.04934126682321627,
+            "serve_a": 0.5559019423937799,
+            "serve_b": 0.703267202003972,
+            "elo_weight": 0.4423416209573092,
+            "a_serve_logit_shift": -0.0014756850959490055,
+            "a_return_logit_shift": -0.00248906552576076,
+            "b_serve_logit_shift": -0.0010898681493793766,
+            "b_return_logit_shift": 0.0011844030517170114,
+            "a_effective_serve_points": 285.36593842937964,
+            "a_effective_return_points": 294.61931770398763,
+            "b_effective_serve_points": 259.56421924929344,
+            "b_effective_return_points": 264.8116394924457
+          }
+        }
+      },
+      "devils_advocate": {
+        "status": "complete",
+        "pick": "Liam Broady",
+        "side": "b",
+        "mean_available_probability": 0.860391,
+        "opponent_probability": 0.139609,
+        "model_spread_pp": 4.483,
+        "missing_models": [],
+        "flags": [],
+        "reasons": [],
+        "recommendation": "no_automatic_promotion"
       }
     },
     {
@@ -3564,7 +3707,7 @@
       }
     },
     {
-      "source_match_id": "tc:sr:sport_event:75719588",
+      "source_match_id": "tc:sr:sport_event:75794168",
       "tour": "ATP",
       "regime": "challenger",
       "tournament": "Guangzhou Huangpu International Tennis Open",
@@ -3572,311 +3715,8 @@
       "best_of": 3,
       "deciding_tiebreak_target": 7,
       "surface": "Hard",
-      "name_a": "Cruz Hewitt",
-      "name_b": "Rigele TE",
-      "starts_at": "2026-10-20T05:20:00+00:00",
-      "round": "Round 1",
-      "event_source": "https://www.tennis.com/?date=2026-10-20",
-      "surface_source": "https://www.tennis.com/tournaments/guangzhou-huangpu-international-tennis-open-2",
-      "format_source": "https://www.atptour.com/-/media/files/rulebook/2026/2026-rulebook_27apr26.pdf",
-      "results": {
-        "champion": {
-          "status": "ok",
-          "p_a": 0.6491916993296011,
-          "p_b": 0.3508083006703989,
-          "model_id": "ATP_CHAMPION_SRELO_1_0",
-          "state_date": "2026-10-05",
-          "artifact_sha256": "fd67cd921e2fd4465324fdf0a2a61169a5045ae5981b2d5ae9eb6ceaddd91f59",
-          "research_only": true,
-          "explanation": {
-            "serve_a": 0.6444962525490178,
-            "serve_b": 0.606004638277373,
-            "minimum_points": 4399,
-            "sr_p_a": 0.6868799515917459,
-            "elo_p_a": 0.6093409300828939,
-            "elo_weight": 0.48605529872261755,
-            "rating_a": 1636.5163438064278,
-            "rating_b": 1559.2913680591191,
-            "without_current_form_p_a": 0.6439190298474031
-          }
-        },
-        "challenger": {
-          "status": "ok",
-          "p_a": 0.6101516365610562,
-          "p_b": 0.3898483634389438,
-          "model_id": "ATP_SR02_CORE_OBSERVED",
-          "state_date": "2026-09-26",
-          "artifact_sha256": "787cca6a089c4ddf945bf8ee233b016ab48f5c9271fe1bed326abd7dea5d23cb",
-          "research_only": true,
-          "explanation": {
-            "serve_a": 0.6364349838272005,
-            "serve_b": 0.6143317615476753,
-            "minimum_points": 4399,
-            "raw_serve_a": 0.639457706776753,
-            "raw_serve_b": 0.6112264576983935,
-            "calibration_scale": 0.7828602155980732,
-            "form_beta": 0,
-            "a_global_serve": 0.09139187662696993,
-            "a_surface_serve": -0.006657748283750792,
-            "a_global_return": 0.07505086892428219,
-            "a_surface_return": 0.020540260566632648,
-            "b_global_serve": 0.08031450875683896,
-            "b_surface_serve": 0.01682336348724627,
-            "b_global_return": -0.03422722191900072,
-            "b_surface_return": -0.003126104016742471
-          }
-        },
-        "experimental": {
-          "status": "ok",
-          "p_a": 0.6747804310163721,
-          "p_b": 0.3252195689836279,
-          "model_id": "V3.4-A_EXPERIMENTAL_DYNAMIC_RESIDUALS_1",
-          "state_date": "2026-10-10",
-          "artifact_sha256": "fbd1999cab11789981caf4df399e9b6929f0ec30644b384a2dbb1c3e5fda2f7c",
-          "research_only": true,
-          "explanation": {
-            "baseline_p_a": 0.6724471994741837,
-            "dynamic_change_pp": 0.2333231542188341,
-            "serve_a": 0.6456827034309442,
-            "serve_b": 0.5979141861590823,
-            "elo_weight": 0.5163714147346729,
-            "a_serve_logit_shift": -0.0001261209611364871,
-            "a_return_logit_shift": -0.00006689611720408229,
-            "b_serve_logit_shift": -0.003287475202060635,
-            "b_return_logit_shift": -0.0016944134603270099,
-            "a_effective_serve_points": 149.43037489210167,
-            "a_effective_return_points": 144.01559932268427,
-            "b_effective_serve_points": 112.17956651633408,
-            "b_effective_return_points": 95.86526940557192
-          }
-        }
-      },
-      "devils_advocate": {
-        "status": "complete",
-        "pick": "Cruz Hewitt",
-        "side": "a",
-        "mean_available_probability": 0.644708,
-        "opponent_probability": 0.355292,
-        "model_spread_pp": 6.463,
-        "missing_models": [],
-        "flags": [],
-        "reasons": [],
-        "recommendation": "no_automatic_promotion"
-      }
-    },
-    {
-      "source_match_id": "tc:sr:sport_event:75719590",
-      "tour": "ATP",
-      "regime": "challenger",
-      "tournament": "Guangzhou Huangpu International Tennis Open",
-      "tournament_key": "guangzhou",
-      "best_of": 3,
-      "deciding_tiebreak_target": 7,
-      "surface": "Hard",
-      "name_a": "Fajing Sun",
-      "name_b": "Qian Sun",
-      "starts_at": "2026-10-20T05:20:00+00:00",
-      "round": "Round 1",
-      "event_source": "https://www.tennis.com/?date=2026-10-20",
-      "surface_source": "https://www.tennis.com/tournaments/guangzhou-huangpu-international-tennis-open-2",
-      "format_source": "https://www.atptour.com/-/media/files/rulebook/2026/2026-rulebook_27apr26.pdf",
-      "results": {
-        "champion": {
-          "status": "ok",
-          "p_a": 0.860686961753568,
-          "p_b": 0.13931303824643204,
-          "model_id": "ATP_CHAMPION_SRELO_1_0",
-          "state_date": "2026-10-05",
-          "artifact_sha256": "fd67cd921e2fd4465324fdf0a2a61169a5045ae5981b2d5ae9eb6ceaddd91f59",
-          "research_only": true,
-          "explanation": {
-            "serve_a": 0.6576657171134783,
-            "serve_b": 0.5449961055445289,
-            "minimum_points": 3715,
-            "sr_p_a": 0.926483339510853,
-            "elo_p_a": 0.7941786867197176,
-            "elo_weight": 0.49730962871846557,
-            "rating_a": 1687.4731357213423,
-            "rating_b": 1452.9019825990483,
-            "without_current_form_p_a": 0.860703102299298
-          }
-        },
-        "challenger": {
-          "status": "ok",
-          "p_a": 0.8129034810440656,
-          "p_b": 0.18709651895593438,
-          "model_id": "ATP_SR02_CORE_OBSERVED",
-          "state_date": "2026-09-26",
-          "artifact_sha256": "787cca6a089c4ddf945bf8ee233b016ab48f5c9271fe1bed326abd7dea5d23cb",
-          "research_only": true,
-          "explanation": {
-            "serve_a": 0.6366463852845119,
-            "serve_b": 0.5677173164514299,
-            "minimum_points": 3715,
-            "raw_serve_a": 0.6458437786583459,
-            "raw_serve_b": 0.5578799199198636,
-            "calibration_scale": 0.7828602155980732,
-            "form_beta": 0,
-            "a_global_serve": 0.13089764034550058,
-            "a_surface_serve": 0.05442639877808196,
-            "a_global_return": 0.11038672402047592,
-            "a_surface_return": 0.04912541852869382,
-            "b_global_serve": -0.04711395217217404,
-            "b_surface_serve": -0.011735444548493462,
-            "b_global_return": 0.02832887385603797,
-            "b_surface_return": 0.007099400091944829
-          }
-        },
-        "experimental": {
-          "status": "ok",
-          "p_a": 0.812122894976983,
-          "p_b": 0.18787710502301702,
-          "model_id": "V3.4-A_EXPERIMENTAL_DYNAMIC_RESIDUALS_1",
-          "state_date": "2026-10-10",
-          "artifact_sha256": "fbd1999cab11789981caf4df399e9b6929f0ec30644b384a2dbb1c3e5fda2f7c",
-          "research_only": true,
-          "explanation": {
-            "baseline_p_a": 0.8112654700640708,
-            "dynamic_change_pp": 0.08574249129121858,
-            "serve_a": 0.6718832797931337,
-            "serve_b": 0.5515926709417259,
-            "elo_weight": 0.5683424122137405,
-            "a_serve_logit_shift": 0.003562875883386013,
-            "a_return_logit_shift": 0.0013458786156718887,
-            "b_serve_logit_shift": 0.00072691388350672,
-            "b_return_logit_shift": -0.0016883713520535661,
-            "a_effective_serve_points": 359.3784361981106,
-            "a_effective_return_points": 392.38272943396555,
-            "b_effective_serve_points": 76.06799465303868,
-            "b_effective_return_points": 67.68285509953088
-          }
-        }
-      },
-      "devils_advocate": {
-        "status": "complete",
-        "pick": "Fajing Sun",
-        "side": "a",
-        "mean_available_probability": 0.828571,
-        "opponent_probability": 0.171429,
-        "model_spread_pp": 4.856,
-        "missing_models": [],
-        "flags": [],
-        "reasons": [],
-        "recommendation": "no_automatic_promotion"
-      }
-    },
-    {
-      "source_match_id": "tc:sr:sport_event:75794166",
-      "tour": "ATP",
-      "regime": "challenger",
-      "tournament": "Guangzhou Huangpu International Tennis Open",
-      "tournament_key": "guangzhou",
-      "best_of": 3,
-      "deciding_tiebreak_target": 7,
-      "surface": "Hard",
-      "name_a": "Dominik Palán",
-      "name_b": "Liam Broady",
-      "starts_at": "2026-10-20T05:20:00+00:00",
-      "round": "Round 1",
-      "event_source": "https://www.tennis.com/?date=2026-10-20",
-      "surface_source": "https://www.tennis.com/tournaments/guangzhou-huangpu-international-tennis-open-2",
-      "format_source": "https://www.atptour.com/-/media/files/rulebook/2026/2026-rulebook_27apr26.pdf",
-      "results": {
-        "champion": {
-          "status": "ok",
-          "p_a": 0.15391713654964795,
-          "p_b": 0.8460828634503521,
-          "model_id": "ATP_CHAMPION_SRELO_1_0",
-          "state_date": "2026-10-05",
-          "artifact_sha256": "fd67cd921e2fd4465324fdf0a2a61169a5045ae5981b2d5ae9eb6ceaddd91f59",
-          "research_only": true,
-          "explanation": {
-            "serve_a": 0.5744544171374145,
-            "serve_b": 0.7054980952813116,
-            "minimum_points": 10961,
-            "sr_p_a": 0.051767905044768164,
-            "elo_p_a": 0.2820961874896018,
-            "elo_weight": 0.4434940877455875,
-            "rating_a": 1531.1753419180573,
-            "rating_b": 1693.4429591078792,
-            "without_current_form_p_a": 0.15222029750416552
-          }
-        },
-        "challenger": {
-          "status": "ok",
-          "p_a": 0.1548682878356055,
-          "p_b": 0.8451317121643945,
-          "model_id": "ATP_SR02_CORE_OBSERVED",
-          "state_date": "2026-09-26",
-          "artifact_sha256": "787cca6a089c4ddf945bf8ee233b016ab48f5c9271fe1bed326abd7dea5d23cb",
-          "research_only": true,
-          "explanation": {
-            "serve_a": 0.6007634013145097,
-            "serve_b": 0.6824427057723894,
-            "minimum_points": 10961,
-            "raw_serve_a": 0.5888525280318624,
-            "raw_serve_b": 0.6930555713757536,
-            "calibration_scale": 0.7828602155980732,
-            "form_beta": 0,
-            "a_global_serve": 0.15484525210515052,
-            "a_surface_serve": 0.046591640397443124,
-            "a_global_return": -0.08118334855507181,
-            "a_surface_return": -0.013251504861473045,
-            "b_global_serve": 0.20484518310351169,
-            "b_surface_serve": 0.06423967043504661,
-            "b_global_return": 0.21485164742278912,
-            "b_surface_return": 0.07828519399291746
-          }
-        },
-        "experimental": {
-          "status": "ok",
-          "p_a": 0.11004151290774244,
-          "p_b": 0.8899584870922576,
-          "model_id": "V3.4-A_EXPERIMENTAL_DYNAMIC_RESIDUALS_1",
-          "state_date": "2026-10-10",
-          "artifact_sha256": "fbd1999cab11789981caf4df399e9b6929f0ec30644b384a2dbb1c3e5fda2f7c",
-          "research_only": true,
-          "explanation": {
-            "baseline_p_a": 0.11053492557597461,
-            "dynamic_change_pp": -0.04934126682321627,
-            "serve_a": 0.5559019423937799,
-            "serve_b": 0.703267202003972,
-            "elo_weight": 0.4423416209573092,
-            "a_serve_logit_shift": -0.0014756850959490055,
-            "a_return_logit_shift": -0.00248906552576076,
-            "b_serve_logit_shift": -0.0010898681493793766,
-            "b_return_logit_shift": 0.0011844030517170114,
-            "a_effective_serve_points": 285.36593842937964,
-            "a_effective_return_points": 294.61931770398763,
-            "b_effective_serve_points": 259.56421924929344,
-            "b_effective_return_points": 264.8116394924457
-          }
-        }
-      },
-      "devils_advocate": {
-        "status": "complete",
-        "pick": "Liam Broady",
-        "side": "b",
-        "mean_available_probability": 0.860391,
-        "opponent_probability": 0.139609,
-        "model_spread_pp": 4.483,
-        "missing_models": [],
-        "flags": [],
-        "reasons": [],
-        "recommendation": "no_automatic_promotion"
-      }
-    },
-    {
-      "source_match_id": "tc:sr:sport_event:75719586",
-      "tour": "ATP",
-      "regime": "challenger",
-      "tournament": "Guangzhou Huangpu International Tennis Open",
-      "tournament_key": "guangzhou",
-      "best_of": 3,
-      "deciding_tiebreak_target": 7,
-      "surface": "Hard",
-      "name_a": "Sergey Fomin",
-      "name_b": "Tristan Schoolkate",
+      "name_a": "Akira Santillan",
+      "name_b": "Yaroslav Demin",
       "starts_at": "2026-10-20T06:30:00+00:00",
       "round": "Round 1",
       "event_source": "https://www.tennis.com/?date=2026-10-20",
@@ -3885,86 +3725,90 @@
       "results": {
         "champion": {
           "status": "ok",
-          "p_a": 0.303649468245095,
-          "p_b": 0.696350531754905,
+          "p_a": 0.6122262401798377,
+          "p_b": 0.38777375982016227,
           "model_id": "ATP_CHAMPION_SRELO_1_0",
           "state_date": "2026-10-05",
           "artifact_sha256": "fd67cd921e2fd4465324fdf0a2a61169a5045ae5981b2d5ae9eb6ceaddd91f59",
           "research_only": true,
           "explanation": {
-            "serve_a": 0.6105365536853864,
-            "serve_b": 0.6619792093775566,
-            "minimum_points": 11635,
-            "sr_p_a": 0.259831741739025,
-            "elo_p_a": 0.35905080337002077,
-            "elo_weight": 0.4416260926658615,
-            "rating_a": 1661.2156626916458,
-            "rating_b": 1761.8827445855918,
-            "without_current_form_p_a": 0.30493913299252917
+            "serve_a": 0.6364753818489964,
+            "serve_b": 0.5940546687668236,
+            "minimum_points": 4945,
+            "sr_p_a": 0.7059241507961609,
+            "elo_p_a": 0.5102841702488079,
+            "elo_weight": 0.47893027976275365,
+            "rating_a": 1627.3141297516186,
+            "rating_b": 1620.1669483263731,
+            "without_current_form_p_a": 0.6140958203937887
           }
         },
         "challenger": {
           "status": "ok",
-          "p_a": 0.3487192647705907,
-          "p_b": 0.6512807352294093,
+          "p_a": 0.6319297508109656,
+          "p_b": 0.3680702491890344,
           "model_id": "ATP_SR02_CORE_OBSERVED",
           "state_date": "2026-09-26",
           "artifact_sha256": "787cca6a089c4ddf945bf8ee233b016ab48f5c9271fe1bed326abd7dea5d23cb",
           "research_only": true,
           "explanation": {
-            "serve_a": 0.6209785463558822,
-            "serve_b": 0.6520338275593057,
-            "minimum_points": 11635,
-            "raw_serve_a": 0.6165854775756867,
-            "raw_serve_b": 0.6562471754647147,
+            "serve_a": 0.628595239491921,
+            "serve_b": 0.6022038897395969,
+            "minimum_points": 4945,
+            "raw_serve_a": 0.6321993428761293,
+            "raw_serve_b": 0.5984925311389688,
             "calibration_scale": 0.7828602155980732,
             "form_beta": 0,
-            "a_global_serve": 0.1462497798869988,
-            "a_surface_serve": 0.02205911037175129,
-            "a_global_return": 0.13924822254106187,
-            "a_surface_return": 0.0031177752292318507,
-            "b_global_serve": 0.28859226514052844,
-            "b_surface_serve": 0.04946461504930471,
-            "b_global_return": 0.12466351841785164,
-            "b_surface_return": 0.01948887862788132
+            "a_global_serve": 0.17924995255014137,
+            "a_surface_serve": 0.028051792517883128,
+            "a_global_return": 0.12474115753402981,
+            "a_surface_return": 0.017468885931494014,
+            "b_global_serve": 0.03546594788061405,
+            "b_surface_serve": 0.05500824395138708,
+            "b_global_return": 0.0753896703034017,
+            "b_surface_return": 0.04117217485630606
           }
         },
         "experimental": {
           "status": "ok",
-          "p_a": 0.29449331196904893,
-          "p_b": 0.7055066880309511,
+          "p_a": 0.7476386753590358,
+          "p_b": 0.25236132464096417,
           "model_id": "V3.4-A_EXPERIMENTAL_DYNAMIC_RESIDUALS_1",
           "state_date": "2026-10-10",
           "artifact_sha256": "fbd1999cab11789981caf4df399e9b6929f0ec30644b384a2dbb1c3e5fda2f7c",
           "research_only": true,
           "explanation": {
-            "baseline_p_a": 0.29609684053260243,
-            "dynamic_change_pp": -0.16035285635535024,
-            "serve_a": 0.6008993617371788,
-            "serve_b": 0.6752294589019737,
-            "elo_weight": 0.44747143804115075,
-            "a_serve_logit_shift": 0.000009106097910585918,
-            "a_return_logit_shift": -0.0003166998728131824,
-            "b_serve_logit_shift": 0.0002279662469253252,
-            "b_return_logit_shift": 0.003144765930593539,
-            "a_effective_serve_points": 225.80212724488652,
-            "a_effective_return_points": 221.24285814619714,
-            "b_effective_serve_points": 255.7180781006568,
-            "b_effective_return_points": 257.88632056027006
+            "baseline_p_a": 0.7490114927058278,
+            "dynamic_change_pp": -0.13728173467919547,
+            "serve_a": 0.6534802162383565,
+            "serve_b": 0.5692234020140934,
+            "elo_weight": 0.5244045911984501,
+            "a_serve_logit_shift": -0.002523939254586384,
+            "a_return_logit_shift": -0.0016139882523480329,
+            "b_serve_logit_shift": 0.00022412716765144393,
+            "b_return_logit_shift": 0.0000217314019796762,
+            "a_effective_serve_points": 230.29728464713148,
+            "a_effective_return_points": 222.41159475102876,
+            "b_effective_serve_points": 32.118900644903846,
+            "b_effective_return_points": 27.68694802627713
           }
         }
       },
       "devils_advocate": {
         "status": "complete",
-        "pick": "Tristan Schoolkate",
-        "side": "b",
-        "mean_available_probability": 0.684379,
-        "opponent_probability": 0.315621,
-        "model_spread_pp": 5.423,
+        "pick": "Akira Santillan",
+        "side": "a",
+        "mean_available_probability": 0.663932,
+        "opponent_probability": 0.336068,
+        "model_spread_pp": 13.541,
         "missing_models": [],
-        "flags": [],
-        "reasons": [],
-        "recommendation": "no_automatic_promotion"
+        "flags": [
+          "HIGH_PROBABILITY_SPREAD"
+        ],
+        "reasons": [
+          "Model probabilities differ by at least 10 percentage points."
+        ],
+        "recommendation": "review"
       }
     },
     {
@@ -4073,7 +3917,7 @@
       }
     },
     {
-      "source_match_id": "tc:sr:sport_event:75794168",
+      "source_match_id": "tc:sr:sport_event:75719586",
       "tour": "ATP",
       "regime": "challenger",
       "tournament": "Guangzhou Huangpu International Tennis Open",
@@ -4081,8 +3925,8 @@
       "best_of": 3,
       "deciding_tiebreak_target": 7,
       "surface": "Hard",
-      "name_a": "Akira Santillan",
-      "name_b": "Yaroslav Demin",
+      "name_a": "Sergey Fomin",
+      "name_b": "Tristan Schoolkate",
       "starts_at": "2026-10-20T06:30:00+00:00",
       "round": "Round 1",
       "event_source": "https://www.tennis.com/?date=2026-10-20",
@@ -4091,90 +3935,86 @@
       "results": {
         "champion": {
           "status": "ok",
-          "p_a": 0.6122262401798377,
-          "p_b": 0.38777375982016227,
+          "p_a": 0.303649468245095,
+          "p_b": 0.696350531754905,
           "model_id": "ATP_CHAMPION_SRELO_1_0",
           "state_date": "2026-10-05",
           "artifact_sha256": "fd67cd921e2fd4465324fdf0a2a61169a5045ae5981b2d5ae9eb6ceaddd91f59",
           "research_only": true,
           "explanation": {
-            "serve_a": 0.6364753818489964,
-            "serve_b": 0.5940546687668236,
-            "minimum_points": 4945,
-            "sr_p_a": 0.7059241507961609,
-            "elo_p_a": 0.5102841702488079,
-            "elo_weight": 0.47893027976275365,
-            "rating_a": 1627.3141297516186,
-            "rating_b": 1620.1669483263731,
-            "without_current_form_p_a": 0.6140958203937887
+            "serve_a": 0.6105365536853864,
+            "serve_b": 0.6619792093775566,
+            "minimum_points": 11635,
+            "sr_p_a": 0.259831741739025,
+            "elo_p_a": 0.35905080337002077,
+            "elo_weight": 0.4416260926658615,
+            "rating_a": 1661.2156626916458,
+            "rating_b": 1761.8827445855918,
+            "without_current_form_p_a": 0.30493913299252917
           }
         },
         "challenger": {
           "status": "ok",
-          "p_a": 0.6319297508109656,
-          "p_b": 0.3680702491890344,
+          "p_a": 0.3487192647705907,
+          "p_b": 0.6512807352294093,
           "model_id": "ATP_SR02_CORE_OBSERVED",
           "state_date": "2026-09-26",
           "artifact_sha256": "787cca6a089c4ddf945bf8ee233b016ab48f5c9271fe1bed326abd7dea5d23cb",
           "research_only": true,
           "explanation": {
-            "serve_a": 0.628595239491921,
-            "serve_b": 0.6022038897395969,
-            "minimum_points": 4945,
-            "raw_serve_a": 0.6321993428761293,
-            "raw_serve_b": 0.5984925311389688,
+            "serve_a": 0.6209785463558822,
+            "serve_b": 0.6520338275593057,
+            "minimum_points": 11635,
+            "raw_serve_a": 0.6165854775756867,
+            "raw_serve_b": 0.6562471754647147,
             "calibration_scale": 0.7828602155980732,
             "form_beta": 0,
-            "a_global_serve": 0.17924995255014137,
-            "a_surface_serve": 0.028051792517883128,
-            "a_global_return": 0.12474115753402981,
-            "a_surface_return": 0.017468885931494014,
-            "b_global_serve": 0.03546594788061405,
-            "b_surface_serve": 0.05500824395138708,
-            "b_global_return": 0.0753896703034017,
-            "b_surface_return": 0.04117217485630606
+            "a_global_serve": 0.1462497798869988,
+            "a_surface_serve": 0.02205911037175129,
+            "a_global_return": 0.13924822254106187,
+            "a_surface_return": 0.0031177752292318507,
+            "b_global_serve": 0.28859226514052844,
+            "b_surface_serve": 0.04946461504930471,
+            "b_global_return": 0.12466351841785164,
+            "b_surface_return": 0.01948887862788132
           }
         },
         "experimental": {
           "status": "ok",
-          "p_a": 0.7476386753590358,
-          "p_b": 0.25236132464096417,
+          "p_a": 0.29449331196904893,
+          "p_b": 0.7055066880309511,
           "model_id": "V3.4-A_EXPERIMENTAL_DYNAMIC_RESIDUALS_1",
           "state_date": "2026-10-10",
           "artifact_sha256": "fbd1999cab11789981caf4df399e9b6929f0ec30644b384a2dbb1c3e5fda2f7c",
           "research_only": true,
           "explanation": {
-            "baseline_p_a": 0.7490114927058278,
-            "dynamic_change_pp": -0.13728173467919547,
-            "serve_a": 0.6534802162383565,
-            "serve_b": 0.5692234020140934,
-            "elo_weight": 0.5244045911984501,
-            "a_serve_logit_shift": -0.002523939254586384,
-            "a_return_logit_shift": -0.0016139882523480329,
-            "b_serve_logit_shift": 0.00022412716765144393,
-            "b_return_logit_shift": 0.0000217314019796762,
-            "a_effective_serve_points": 230.29728464713148,
-            "a_effective_return_points": 222.41159475102876,
-            "b_effective_serve_points": 32.118900644903846,
-            "b_effective_return_points": 27.68694802627713
+            "baseline_p_a": 0.29609684053260243,
+            "dynamic_change_pp": -0.16035285635535024,
+            "serve_a": 0.6008993617371788,
+            "serve_b": 0.6752294589019737,
+            "elo_weight": 0.44747143804115075,
+            "a_serve_logit_shift": 0.000009106097910585918,
+            "a_return_logit_shift": -0.0003166998728131824,
+            "b_serve_logit_shift": 0.0002279662469253252,
+            "b_return_logit_shift": 0.003144765930593539,
+            "a_effective_serve_points": 225.80212724488652,
+            "a_effective_return_points": 221.24285814619714,
+            "b_effective_serve_points": 255.7180781006568,
+            "b_effective_return_points": 257.88632056027006
           }
         }
       },
       "devils_advocate": {
         "status": "complete",
-        "pick": "Akira Santillan",
-        "side": "a",
-        "mean_available_probability": 0.663932,
-        "opponent_probability": 0.336068,
-        "model_spread_pp": 13.541,
+        "pick": "Tristan Schoolkate",
+        "side": "b",
+        "mean_available_probability": 0.684379,
+        "opponent_probability": 0.315621,
+        "model_spread_pp": 5.423,
         "missing_models": [],
-        "flags": [
-          "HIGH_PROBABILITY_SPREAD"
-        ],
-        "reasons": [
-          "Model probabilities differ by at least 10 percentage points."
-        ],
-        "recommendation": "review"
+        "flags": [],
+        "reasons": [],
+        "recommendation": "no_automatic_promotion"
       }
     },
     {
@@ -4382,6 +4222,107 @@
         "reasons": [],
         "recommendation": "no_automatic_promotion"
       }
+    },
+    {
+      "source_match_id": "tc:sr:sport_event:75720846",
+      "tour": "WTA",
+      "regime": "main",
+      "tournament": "Ningbo Open",
+      "tournament_key": "ningbo",
+      "best_of": 3,
+      "deciding_tiebreak_target": 7,
+      "surface": "Hard",
+      "name_a": "Ekaterina Alexandrova",
+      "name_b": "Hanyu Guo",
+      "starts_at": "2026-10-20T11:00:00+00:00",
+      "round": "Round 1",
+      "event_source": "https://www.tennis.com/?date=2026-10-20",
+      "surface_source": "https://www.tennis.com/tournaments/ningbo-open",
+      "format_source": "https://www.wtatennis.com/news/3043764/tennis-explained-learn-the-game",
+      "results": {
+        "champion": {
+          "status": "ok",
+          "p_a": 0.7261698152655275,
+          "p_b": 0.2738301847344725,
+          "model_id": "WTA_CHAMPION_SRELO_1_0",
+          "state_date": "2026-10-05",
+          "artifact_sha256": "5d08c6e3c286cde229566848a4d0417d416586aede88bbb9bafae9b21b65a09a",
+          "research_only": true,
+          "explanation": {
+            "serve_a": 0.5897931857140348,
+            "serve_b": 0.5348891526057997,
+            "minimum_points": 5514,
+            "sr_p_a": 0.7662427278190054,
+            "elo_p_a": 0.6615440488936464,
+            "elo_weight": 0.38274515939256626,
+            "rating_a": 1925.604420350649,
+            "rating_b": 1809.1817754595904,
+            "without_current_form_p_a": 0.7281563844034342
+          }
+        },
+        "challenger": {
+          "status": "ok",
+          "p_a": 0.6871030126934021,
+          "p_b": 0.3128969873065979,
+          "model_id": "WTA_SR02_CORE_OBSERVED",
+          "state_date": "2026-09-26",
+          "artifact_sha256": "b49ade0de4f2676eeb2c93db3a9558b3272cd787b679c1b9750884a935543b6b",
+          "research_only": true,
+          "explanation": {
+            "serve_a": 0.5808635439692674,
+            "serve_b": 0.5440293943423887,
+            "minimum_points": 5514,
+            "raw_serve_a": 0.5867981508085118,
+            "raw_serve_b": 0.5379641851264655,
+            "calibration_scale": 0.7540185601505588,
+            "form_beta": 0,
+            "a_global_serve": 0.3324598227730231,
+            "a_surface_serve": 0.0635986223204921,
+            "a_global_return": 0.24320117866352464,
+            "a_surface_return": 0.024806567652402328,
+            "b_global_serve": 0.20527513262774125,
+            "b_surface_serve": 0.027914101922792298,
+            "b_global_return": 0.1752987346002279,
+            "b_surface_return": 0.05698311793961768
+          }
+        },
+        "experimental": {
+          "status": "ok",
+          "p_a": 0.783365652859435,
+          "p_b": 0.21663434714056495,
+          "model_id": "V3.4-A_EXPERIMENTAL_DYNAMIC_RESIDUALS_1",
+          "state_date": "2026-10-10",
+          "artifact_sha256": "9f0ce28379795fcaaa1f475345f7230c97d0e6e7945db4e5dc6b42f7c8575e3f",
+          "research_only": true,
+          "explanation": {
+            "baseline_p_a": 0.78854587744251,
+            "dynamic_change_pp": -0.5180224583074988,
+            "serve_a": 0.60816422011346,
+            "serve_b": 0.5248528094920072,
+            "elo_weight": 0.39261959136910446,
+            "a_serve_logit_shift": -0.004930805159315504,
+            "a_return_logit_shift": -0.007490460156505409,
+            "b_serve_logit_shift": 0.0006473380511166074,
+            "b_return_logit_shift": -0.0007684436029356563,
+            "a_effective_serve_points": 199.69148302141159,
+            "a_effective_return_points": 197.40572258973012,
+            "b_effective_serve_points": 136.05798821159516,
+            "b_effective_return_points": 131.34948354649802
+          }
+        }
+      },
+      "devils_advocate": {
+        "status": "complete",
+        "pick": "Ekaterina Alexandrova",
+        "side": "a",
+        "mean_available_probability": 0.732213,
+        "opponent_probability": 0.267787,
+        "model_spread_pp": 9.626,
+        "missing_models": [],
+        "flags": [],
+        "reasons": [],
+        "recommendation": "no_automatic_promotion"
+      }
     }
   ],
   "coverage": {
@@ -4389,126 +4330,126 @@
       {
         "url": "https://www.tennis.com/?date=2026-10-19",
         "status": "ok",
-        "fetched_at": "2026-10-19T10:24:29.399297+00:00",
-        "sha256": "156f370fa4ffb44a8929ff8e68bdc1c6df52b80874e10b43f0e739cc158432d3",
+        "fetched_at": "2026-10-19T11:14:28.392488+00:00",
+        "sha256": "2f5f7776e5ca477afa5f60a611a5986a66620715cd2329c6815ffc75eea0edd2",
         "provider": "Tennis.com"
       },
       {
         "url": "https://www.tennis.com/?date=2026-10-20",
         "status": "ok",
-        "fetched_at": "2026-10-19T10:24:29.556752+00:00",
-        "sha256": "14899e8cf6d8d97d5c1ab9a5b1da2590cef244b67a4e04ecdeed9d094190f165",
+        "fetched_at": "2026-10-19T11:14:28.607692+00:00",
+        "sha256": "317dfedadf68d75a3f3dced78f66d82f560779b8768eb70073e2466b09ab4383",
         "provider": "Tennis.com"
       },
       {
         "url": "https://www.tennis.com/tournaments",
         "status": "ok",
-        "fetched_at": "2026-10-19T10:24:29.634194+00:00",
+        "fetched_at": "2026-10-19T11:14:28.738182+00:00",
         "sha256": "332e694bc97876fe22d4164e0280064248f3a39eb5ef869ef8803a858eacf88a",
         "provider": "Tennis.com"
       },
       {
         "url": "https://www.tennis.com/tournaments/almaty-open",
         "status": "ok",
-        "fetched_at": "2026-10-19T10:24:29.771078+00:00",
-        "sha256": "e218afd9f41aae320e1ae2507df51a2b220d8b86e15b482a66493e6ed2ad7a51",
+        "fetched_at": "2026-10-19T11:14:28.891988+00:00",
+        "sha256": "55f3f9318eb268070b61f63ecf819689882d0839e063afb12ae47364a24ed708",
         "provider": "Tennis.com"
       },
       {
         "url": "https://www.tennis.com/tournaments/atp-challenger-florence-italy",
         "provider": "Tennis.com metadata",
         "status": "unavailable",
-        "fetched_at": "2026-10-19T10:24:29.769957+00:00"
+        "fetched_at": "2026-10-19T11:14:28.890905+00:00"
       },
       {
         "url": "https://www.tennis.com/tournaments/atp-challenger-fort-worth-usa",
         "provider": "Tennis.com metadata",
         "status": "unavailable",
-        "fetched_at": "2026-10-19T10:24:29.761960+00:00"
+        "fetched_at": "2026-10-19T11:14:28.913152+00:00"
       },
       {
         "url": "https://www.tennis.com/tournaments/del-monte-lisboa-belem-open",
         "status": "ok",
-        "fetched_at": "2026-10-19T10:24:29.749368+00:00",
-        "sha256": "1c9de814ab60fcd9064bd37bbff12ae5b6ced93c89e729bb2a90ff7ce5f23959",
+        "fetched_at": "2026-10-19T11:14:28.893961+00:00",
+        "sha256": "2cb469c5f3bbb2316b376f56afcc214ef29cf612e4c0112e467fd5bdf4152ae4",
         "provider": "Tennis.com"
       },
       {
         "url": "https://www.tennis.com/tournaments/directv-open-cali",
         "status": "ok",
-        "fetched_at": "2026-10-19T10:24:29.884817+00:00",
+        "fetched_at": "2026-10-19T11:14:29.032076+00:00",
         "sha256": "1b5060741c04574a3ce9b8d5ffaeaa266696e75fe89eb5c0b4cb2304a17fec36",
         "provider": "Tennis.com"
       },
       {
         "url": "https://www.tennis.com/tournaments/european-open-2",
         "status": "ok",
-        "fetched_at": "2026-10-19T10:24:29.868371+00:00",
-        "sha256": "44bbd5c697efd4ed9ca1bebeb08e8b29a8784c21c2bc6bbdccccecfa598d5d4b",
+        "fetched_at": "2026-10-19T11:14:29.043147+00:00",
+        "sha256": "5815c1854731332b8f5ff637c61557d6e257e9087716ef971b6019a4c541a970",
         "provider": "Tennis.com"
       },
       {
         "url": "https://www.tennis.com/tournaments/guangzhou-huangpu-international-tennis-open-2",
         "status": "ok",
-        "fetched_at": "2026-10-19T10:24:29.868988+00:00",
-        "sha256": "8f30ad6b31232fadf0c5ece744f1aac97ecfdd1acb0e1b9ab6ceafff509566ea",
+        "fetched_at": "2026-10-19T11:14:29.043941+00:00",
+        "sha256": "76e1f5359d31ef82581b58121359cc95211813c26444fb16f8388dee0e57634c",
         "provider": "Tennis.com"
       },
       {
         "url": "https://www.tennis.com/tournaments/kinoshita-group-japan-open",
         "status": "ok",
-        "fetched_at": "2026-10-19T10:24:29.860916+00:00",
-        "sha256": "3a5dfe66ae825ed44b787071188adee5753b9c7105d54148daf145af020aa98e",
+        "fetched_at": "2026-10-19T11:14:29.062488+00:00",
+        "sha256": "8a71fa92b2477457b50c3a35e2c719e260f0a855a0b60feab77a51985d82663b",
         "provider": "Tennis.com"
       },
       {
         "url": "https://www.tennis.com/tournaments/ningbo-open",
         "status": "ok",
-        "fetched_at": "2026-10-19T10:24:29.966352+00:00",
-        "sha256": "781209f5fb9c5b02223c0c7892ef98504074fd05df07876d63ed8e17e05af481",
+        "fetched_at": "2026-10-19T11:14:29.183712+00:00",
+        "sha256": "5d38376e7aac09e006c125bf27bc09bb48983b094ea66442b28e1009d647df07",
         "provider": "Tennis.com"
       },
       {
         "url": "https://www.tennis.com/tournaments/open-13-provence",
         "status": "ok",
-        "fetched_at": "2026-10-19T10:24:29.949178+00:00",
+        "fetched_at": "2026-10-19T11:14:29.179387+00:00",
         "sha256": "42d1cc641918541e7c601b5d7b670211c5b2eb90adc7559db30efb9d8e0f1e06",
         "provider": "Tennis.com"
       },
       {
         "url": "https://www.tennis.com/tournaments/open-parc-auvergne-rhone-alpes-lyon",
         "status": "ok",
-        "fetched_at": "2026-10-19T10:24:29.954568+00:00",
-        "sha256": "0b71a883eec1d805808a744e4afcd1e941889b945988a47cf5151008a67861c8",
+        "fetched_at": "2026-10-19T11:14:29.192247+00:00",
+        "sha256": "809fcca81f11c4d945a71dfbb9b30b2b8e3e5443bd248c9db5d3071968d95ea5",
         "provider": "Tennis.com"
       },
       {
         "tour": "ATP",
         "url": "https://site.api.espn.com/apis/site/v2/sports/tennis/atp/scoreboard?dates=20261019",
         "status": "ok",
-        "fetched_at": "2026-10-19T10:24:30.131289+00:00",
-        "sha256": "818ab857b05b13f2814694ad9b40bf1045b74e5eacd03ad2c373de93236b925f"
+        "fetched_at": "2026-10-19T11:14:29.470495+00:00",
+        "sha256": "d3be8eac290a03f87031cc4a76168fceb659a95bbc2f4fe4966c0a4ac60ef03c"
       },
       {
         "tour": "ATP",
         "url": "https://site.api.espn.com/apis/site/v2/sports/tennis/atp/scoreboard?dates=20261020",
         "status": "ok",
-        "fetched_at": "2026-10-19T10:24:30.190665+00:00",
-        "sha256": "818ab857b05b13f2814694ad9b40bf1045b74e5eacd03ad2c373de93236b925f"
+        "fetched_at": "2026-10-19T11:14:29.446076+00:00",
+        "sha256": "e753c511c8ed6bfb1fae458fd10b4ce3ae8b5f28601a7fef7718835571ad4631"
       },
       {
         "tour": "WTA",
         "url": "https://site.api.espn.com/apis/site/v2/sports/tennis/wta/scoreboard?dates=20261019",
         "status": "ok",
-        "fetched_at": "2026-10-19T10:24:30.184723+00:00",
-        "sha256": "44eb089df447ab90225b869d3a36159cca6634a6c12a9c95bb33eaf27bc8a1a9"
+        "fetched_at": "2026-10-19T11:14:29.442305+00:00",
+        "sha256": "4ac1f0c7c121f7779c83b2b90041179db04c90db13834b9da2e4dcad2e82accf"
       },
       {
         "tour": "WTA",
         "url": "https://site.api.espn.com/apis/site/v2/sports/tennis/wta/scoreboard?dates=20261020",
         "status": "ok",
-        "fetched_at": "2026-10-19T10:24:30.093510+00:00",
-        "sha256": "44eb089df447ab90225b869d3a36159cca6634a6c12a9c95bb33eaf27bc8a1a9"
+        "fetched_at": "2026-10-19T11:14:29.480011+00:00",
+        "sha256": "4ac1f0c7c121f7779c83b2b90041179db04c90db13834b9da2e4dcad2e82accf"
       }
     ],
     "unknown_tournaments": [
@@ -4517,9 +4458,9 @@
     ],
     "identity_diagnostics": {
       "duplicates_collapsed": 18,
-      "identity_conflicts": 0
+      "identity_conflicts": 1
     },
-    "conflicting_matches": 0,
+    "conflicting_matches": 1,
     "coverage": "partial",
     "unavailable_scopes": [],
     "note": "ATP, WTA, ATP Challenger and WTA 125 scheduled singles from public sources. Tournament metadata refreshes automatically each scan. Coverage remains partial; missing or conflicting facts are withheld.",
@@ -4528,13 +4469,13 @@
     "discovery_capped": false,
     "model_missing_reasons": {
       "champion": {
-        "PLAYER_HISTORY_MISSING": 1
+        "PLAYER_HISTORY_MISSING": 2
       },
       "challenger": {
-        "PLAYER_HISTORY_MISSING": 1
+        "PLAYER_HISTORY_MISSING": 2
       },
       "experimental": {
-        "PLAYER_NOT_FOUND_IN_DATASET": 3
+        "PLAYER_NOT_FOUND_IN_DATASET": 4
       }
     }
   },
