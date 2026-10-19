@@ -40,6 +40,10 @@ jobs:
           python -m unittest discover -s test -p 'test_*.py'
           python -m pytest nfl/tests -q
           python -m pytest test/test_prop_outcomes.py -q
+      - name: Verify known-good rollback preserves registered Champion and NFL artifacts
+        run: |
+          git fetch --no-tags origin 69d997c4c6a1f8765f05014fdb6a898d8701bd91 --depth=1
+          python scripts/verify_rollback.py --target 69d997c4c6a1f8765f05014fdb6a898d8701bd91
       - name: Verify tennis models and score current matches
         id: tennis_recovery
         env:
