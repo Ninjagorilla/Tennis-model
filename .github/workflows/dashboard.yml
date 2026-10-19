@@ -17,6 +17,7 @@ jobs:
   build:
     outputs:
       evidence_alert: ${{ steps.evidence_status.outputs.alert }}
+      settlement_alert: ${{ steps.settlement_status.outputs.alert }}
     if: github.repository == 'Ninjagorilla/Tennis-model' && github.event.repository.private == false
     runs-on: ubuntu-latest
     timeout-minutes: 25
@@ -128,6 +129,19 @@ jobs:
         run: |
           python scripts/retrieve_evidence.py
           python scripts/tennis_result_sources.py work/historical-forecasts.json
+      - name: Audit three-model prospective accuracy on independently settled fixtures
+        if: steps.tennis_settlement.outcome == 'success'
+        run: python scripts/tennis_grading_audit.py work/historical-forecasts.json work/settlement-observations.json
+      - name: Record independent results collector health
+        id: settlement_status
+        if: always() && github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        run: |
+          if [ "${{ steps.tennis_grade_window.outputs.run }}" = "true" ] && [ "${{ steps.tennis_settlement.outcome }}" != "success" ]; then
+            echo 'alert=true' >> "$GITHUB_OUTPUT"
+            echo "::warning::Scheduled independent tennis results collection failed."
+          else
+            echo 'alert=false' >> "$GITHUB_OUTPUT"
+          fi
       - name: Persist verified two-source settlement receipts
         if: steps.tennis_settlement.outcome == 'success'
         continue-on-error: true
@@ -143,6 +157,7 @@ jobs:
             work/historical-forecasts.json
             work/settlement-observations.json
             work/result-archive-report.json
+            work/tennis-grading-audit.json
           retention-days: 90
           if-no-files-found: ignore
       - name: Retain sanitized tennis diagnostic report
@@ -285,7 +300,7 @@ jobs:
         uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4
 
   alert:
-    if: always() && github.event_name != 'pull_request' && github.ref == 'refs/heads/main' && (needs.build.result == 'failure' || needs.build.outputs.evidence_alert == 'true')
+    if: always() && github.event_name != 'pull_request' && github.ref == 'refs/heads/main' && (needs.build.result == 'failure' || needs.build.outputs.evidence_alert == 'true' || needs.build.outputs.settlement_alert == 'true')
     needs: build
     runs-on: ubuntu-latest
     permissions:
@@ -300,7 +315,7 @@ jobs:
         run: |
           title="Tennis pipeline recovery needed"
           existing="$(gh issue list --repo "$GH_REPO" --state open --search "$title in:title" --json number,title --jq '.[] | select(.title == "Tennis pipeline recovery needed") | .number' | head -n 1)"
-          message="Production pipeline failed or evidence recovery remains degraded. Check $RUN_URL, tennis-reliability diagnostics and archive receipts. No stale or restored forecasts may be graded as new; Champion unchanged."
+          message="Production pipeline failed, evidence recovery remains degraded, or scheduled two-source settlement failed. Check $RUN_URL, tennis-reliability diagnostics and archive receipts. No stale or restored forecasts may be graded as new; Champion unchanged."
           if [ -n "$existing" ]; then
             gh issue comment "$existing" --repo "$GH_REPO" --body "$message"
           else
