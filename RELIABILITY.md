@@ -110,3 +110,18 @@ The production site builds `/reliability.html` from scan, archive, recovery, and
 2. Confirm the new `evidence_repair` step reports `healthy` and two verified branches, and `evidence_status` reports no alert.
 3. Verify the read-only `/reliability.html` is published and shows actual run counts, not placeholders for a successful scan.
 4. Review an end-to-end daily two-source settlement run separately. No prospective accuracy claim before confirmed matches are graded.
+
+
+## Independent prospective tennis audit and free off-GitHub copy
+
+The scheduled 09 UTC scan's two-source reconciliation now generates `work/tennis-grading-audit.json`, included in the 90-day settlement artifact and shown on the reliability page. It reports total archived forecasts, strictly two-provider verified settlements, withheld results, each model's actual winner accuracy/Brier/log loss by tour, and **paired three-model** metrics on identical matches. Missing outcomes are not counted as losses; no market-upset claim is possible without historical market odds. Champion promotion remains disabled.
+
+A seven-day reliability trend must be earned by seven actual days of archive and settlement health. A single run is explicitly not a seven-day audit. The independent collector runs once daily, and its failures now trigger the existing scoped GitHub issue alert.
+
+For an independent backup **outside GitHub**, on your own computer:
+```bash
+python scripts/export_offsite_backup.py --output tennis-evidence-offline.zip
+```
+The exporter reads existing public `evidence/` files, validates every receipt's SHA-256, and writes a ZIP plus manifest. It first tries `tennis-evidence` and then `scan-results`. Keep the ZIP on a local drive or other off-GitHub storage; do not commit it to this public repository. It is a **manual** offsite backup, not a connected/scheduled remote replica. GitHub API rate limits may require setting `GH_TOKEN` locally; never commit a token. If the archive grows beyond 3,000 files, export in bounded batches after extending the exporter.
+
+A successful ZIP export is not proof that it was saved outside GitHub until the user actually stores it there.
