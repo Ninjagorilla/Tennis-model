@@ -173,6 +173,46 @@ def resolve(forecasts,observations,now=None):
             exclusions[f.get("fixture_id","unknown")]="INVALID_FORECAST_OR_RESULT"
     return settlements,exclusions
 
+def diagnose_exclusions(forecasts,observations,exclusions,health):
+    """Explain why an excluded fixture cannot be graded; never guess its winner."""
+    source_status={}
+    for provider in ("espn","tenniscom"):
+        rows=[h for h in health if h.get("provider")==provider]
+        source_status[provider]={"requests":len(rows),
+                                 "ok":sum(h.get("status")=="ok" for h in rows),
+                                 "unavailable":sum(h.get("status")!="ok" for h in rows)}
+    by_id={f.get("fixture_id"):f for f in forecasts}
+    out={}
+    for key,reason in exclusions.items():
+        f=by_id.get(key)
+        if not f:continue
+        try:
+            start=datetime.fromisoformat(f["starts_at"].replace("Z","+00:00"))
+            names={normalize(f["name_a"]),normalize(f["name_b"])}
+            matched={"espn":set(),"tenniscom":set()}
+            for o in observations:
+                if o.get("tour")!=f["tour"] or {normalize(o["name_a"]),normalize(o["name_b"])}!=names:continue
+                raw_id=str(f.get("source_match_id") or "")
+                if raw_id.startswith("tc:") and o["provider"]=="tenniscom" and o["event_id"]!=raw_id[3:]:continue
+                if raw_id.isdigit() and o["provider"]=="espn" and o["event_id"]!=raw_id:continue
+                date=o.get("scheduled_at")
+                if date:
+                    event_time=datetime.fromisoformat(date.replace("Z","+00:00"))
+                    if event_time.tzinfo is None or abs((event_time-start).total_seconds())>48*3600:continue
+                matched[o["provider"]].add(o["event_id"])
+            counts={k:len(v) for k,v in matched.items()}
+            diagnosis=("SOURCE_WINNER_DISAGREEMENT" if reason=="SOURCE_WINNER_DISAGREEMENT" else
+                       "MULTIPLE_MATCH_CANDIDATES" if any(v>1 for v in counts.values()) else
+                       "NO_MATCHING_RESULT_FROM_EITHER_PROVIDER" if not any(counts.values()) else
+                       "MISSING_ONE_INDEPENDENT_PROVIDER" if min(counts.values())==0 else
+                       "OTHER_VERIFICATION_FAILURE")
+            out[key]={"reason":reason,"diagnosis":diagnosis,
+                      "matching_distinct_events":counts,"source_health":source_status}
+        except (KeyError,ValueError,TypeError):
+            out[key]={"reason":reason,"diagnosis":"INVALID_FIXTURE_METADATA",
+                      "source_health":source_status}
+    return out
+
 def main():
     parser=argparse.ArgumentParser()
     parser.add_argument("forecasts",nargs="?")
@@ -215,6 +255,7 @@ def main():
     obs,health=retrieve(forecasts)
     settled,excluded=resolve(forecasts,obs)
     report={"settlements":settled,"health":health,"exclusions":excluded,
+            "exclusion_details":diagnose_exclusions(forecasts,obs,excluded,health),
             "graded_research":grade(forecasts,settled)}
     dest=Path(args.output);dest.parent.mkdir(parents=True,exist_ok=True)
     dest.write_text(json.dumps(report,indent=2,allow_nan=False)+"\n")
