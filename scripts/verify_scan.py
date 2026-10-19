@@ -1,5 +1,5 @@
 """Fail-closed quality gates for staged scans; does not modify predictions."""
-import argparse,json,sys
+import argparse,json,sys,math
 from collections import Counter
 from datetime import datetime,timezone
 from pathlib import Path
@@ -24,8 +24,8 @@ def verify(snapshot,require_available=False):
                 r=e["results"][role]
                 if r["status"]=="ok":
                     p=r["p_a"];q=r["p_b"]
-                    if not(isinstance(p,(int,float)) and not isinstance(p,bool) and 0<=p<=1 and
-                           isinstance(q,(int,float)) and not isinstance(q,bool) and 0<=q<=1 and abs(p+q-1)<1e-9):
+                    if not(type(p) in (int,float) and math.isfinite(p) and 0<=p<=1 and
+                           type(q) in (int,float) and math.isfinite(q) and 0<=q<=1 and abs(p+q-1)<1e-9):
                         errors.append("INVALID_PROBABILITY")
                 elif r["status"]!="unavailable":errors.append("INVALID_MODEL_STATUS")
             actual=e.get("devils_advocate")

@@ -31,4 +31,15 @@ class ScanGateTests(unittest.TestCase):
  def test_invalid_probability(self):
   d=example();d["matches"][0]["results"]["champion"]["p_a"]=.99
   errors,_=verify(d);self.assertIn("INVALID_PROBABILITY",errors)
+ def test_nonfinite_probabilities_fail_closed(self):
+  for invalid in (float("nan"),float("inf"),-float("inf")):
+   for field in ("p_a","p_b"):
+    with self.subTest(value=str(invalid),field=field):
+     d=example();d["matches"][0]["results"]["champion"][field]=invalid
+     errors,_=verify(d)
+     self.assertIn("INVALID_PROBABILITY",errors)
+ def test_boolean_probabilities_fail_closed(self):
+  d=example();d["matches"][0]["results"]["champion"]["p_a"]=True
+  errors,_=verify(d)
+  self.assertIn("INVALID_PROBABILITY",errors)
 if __name__=="__main__":unittest.main()
