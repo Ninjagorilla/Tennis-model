@@ -5,11 +5,12 @@ sys.path.insert(0,str(Path(__file__).resolve().parents[1]/"scripts"))
 from settlement_health import assess
 
 F=[{"fixture_id":"a"}]
-OBS=[{"provider":"espn"},{"provider":"tenniscom"}]
+OBS=[{"provider":"espn","event_id":"7","source_sha256":"a"*64,"url":"https://site.api.espn.com/match","winner":"a"},
+     {"provider":"tenniscom","event_id":"sr:sport_event:8","source_sha256":"b"*64,"url":"https://www.tennis.com/match","winner":"a"}]
 def report(settled=True,providers=True):
     return {"health":[{"provider":"espn","status":"ok"},
                       {"provider":"tenniscom","status":"ok" if providers else "unavailable"}],
-            "settlements":[{"fixture_id":"a","observations":OBS}] if settled else [],
+            "settlements":[{"fixture_id":"a","winner":"a","observations":OBS}] if settled else [],
             "exclusions":{},
             "graded_research":{"reconciliation":{"verified_fixtures":1 if settled else 0},
                                "metrics_by_tour":{"ATP":{"champion":{"n":1,"brier":0.1}}}}}
@@ -36,6 +37,10 @@ class SettlementAcceptanceTests(unittest.TestCase):
     def test_unauthenticated_claim_of_two_sources_fails_closed(self):
         r=report()
         r["settlements"][0]["observations"]=[{"provider":"espn"},{"provider":"espn"}]
+        self.assertEqual(assess(F,r,{"remote_verified":True})["status"],"blocked")
+    def test_invalid_provider_hash_is_not_accepted(self):
+        r=report()
+        r["settlements"][0]["observations"]=[dict(OBS[0]),dict(OBS[1],source_sha256="fake")]
         self.assertEqual(assess(F,r,{"remote_verified":True})["status"],"blocked")
     def test_grade_count_mismatch_fails_closed(self):
         r=report()
