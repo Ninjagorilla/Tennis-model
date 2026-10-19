@@ -1,4 +1,4 @@
-export const identities={champion:'SR-Elo 1.0',challenger:'SR-GLM 0.2',experimental:'v3.4-A'};
+export const identities={champion:'SR-Elo 1.0',challenger:'SR-GLM 0.2',experimental:'Matchup Intelligence V2 (v3.4-A baseline)'};
 const roles=Object.keys(identities);
 export function validate(s,now=Date.now()){
   if(s.schema_version!==2||!['available','unavailable','blocked'].includes(s.prediction_status)||!Array.isArray(s.matches)||s.matches.length>500)throw Error('Invalid snapshot');
