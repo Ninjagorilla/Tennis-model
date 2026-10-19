@@ -45,7 +45,6 @@ jobs:
           git fetch --no-tags origin 69d997c4c6a1f8765f05014fdb6a898d8701bd91 --depth=1
           python scripts/verify_rollback.py --target 69d997c4c6a1f8765f05014fdb6a898d8701bd91
       - name: Verify tennis models and score current matches
-        id: tennis_recovery
         if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
         run: python scripts/recovery_controller.py
       - name: Validate tennis scan identities, missing coverage and challenger integrity
