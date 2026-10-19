@@ -40,13 +40,25 @@ def historical_records(client,now=None,days=4,max_files=260):
                 expected=path.rsplit("/",1)[-1].removesuffix(".json")
                 if hashlib.sha256(raw).hexdigest()!=expected:raise RuntimeError("EVIDENCE_DIGEST_MISMATCH")
                 doc=json.loads(raw)
+                # GitHub's server-side commit time is the externally witnessed
+                # archival receipt. A caller-supplied issued_at is not enough.
+                from urllib.parse import quote
+                commits=client.api("GET","/commits?path="+quote(path,safe="")+
+                                   "&sha="+branch+"&per_page=1")
+                if not isinstance(commits,list) or not commits:
+                    raise RuntimeError("RECEIPT_COMMIT_NOT_VERIFIABLE")
+                receipt=datetime.fromisoformat(commits[0]["commit"]["committer"]["date"].replace("Z","+00:00"))
+                if receipt.tzinfo is None:
+                    raise RuntimeError("RECEIPT_COMMIT_TIME_INVALID")
                 if doc.get("schema_version")!=1 or not isinstance(doc.get("records"),list):
                     raise RuntimeError("EVIDENCE_SCHEMA_MISMATCH")
                 for row in doc["records"]:
                     when=datetime.fromisoformat(row["issued_at"].replace("Z","+00:00"))
                     if when.tzinfo is None or not now-timedelta(days=days)<=when<=now:continue
-                    if when>=datetime.fromisoformat(row["starts_at"].replace("Z","+00:00")):
-                        raise RuntimeError("POST_START_PREDICTION_IN_ARCHIVE")
+                    start=datetime.fromisoformat(row["starts_at"].replace("Z","+00:00"))
+                    if when>=start or receipt>=start:
+                        # A late commit cannot be scored as a pre-match forecast.
+                        continue
                     key=row["fixture_id"]
                     # Earliest archived pre-match forecast is the pre-registered one.
                     if key not in forecasts or when<datetime.fromisoformat(forecasts[key]["issued_at"].replace("Z","+00:00")):
