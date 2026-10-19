@@ -7,8 +7,11 @@ test('main pipeline invokes bounded controller, not ad-hoc scan',()=>{
   assert.match(workflow,/work\/recovery-report\.json/);
   assert.match(workflow,/name: Retain sanitized tennis diagnostic report\n        if: always\(\)/);
 });
-test('alerts only after failed main build and grants scoped issue permission',()=>{
-  assert.match(workflow,/alert:\n    if: always\(\) && github\.event_name != 'pull_request' && github\.ref == 'refs\/heads\/main' && needs\.build\.result == 'failure'/);
+test('alerts after failed main build or degraded verified evidence, with scoped issue permission',()=>{
+  assert.match(workflow,/alert:\n    if: always\(\) && github\.event_name != 'pull_request' && github\.ref == 'refs\/heads\/main' && \(needs\.build\.result == 'failure' \|\| needs\.build\.outputs\.evidence_alert == 'true'\)/);
+  assert.match(workflow,/id: evidence_status/);
+  assert.match(workflow,/id: evidence_repair/);
+  assert.match(workflow,/id: evidence_artifact/);
   assert.match(workflow,/permissions:\n      issues: write\n      contents: read/);
   assert.match(workflow,/gh issue create/);
   assert.match(workflow,/gh issue comment/);

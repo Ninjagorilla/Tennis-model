@@ -90,3 +90,23 @@ All destinations are GitHub-hosted. This design tolerates a branch/write failure
 2. Quarantine results for human adjudication using the official ATP/WTA tournament draw/score documents and the available publisher record. Record authentic source URLs, event IDs and hashes before importing any independent verification. **This official-source adapter is not automated**; no single-source auto-grade or invented status is permitted.
 
 Scheduled daily reconciliations fetch historical forecast receipts and preserve result receipts and provider health. Successful code tests or a green workflow alone do not mean there are enough verified matched results for calibration, statistical improvement or Champion promotion.
+
+
+## Evidence recovery controller and reliability dashboard
+
+After each available main-branch scan, `scripts/evidence_resilience.py` reads the exact forecast receipt from `tennis-evidence` and `scan-results`, checks the content-addressed SHA-256 against the path, and repairs a missing copy from the verified surviving copy. Writes are bounded to two attempts with read-back verification. A conflicting existing file is never overwritten. If both branches are missing/corrupt, it fails closed and the workflow raises a GitHub issue. A repaired branch gets a NEW GitHub commit timestamp and cannot retroactively qualify a late forecast for prospective grading.
+
+### Disaster-recovery simulation
+
+Run `python -m unittest test.test_evidence_disaster_recovery -v`. The nine isolated tests simulate missing primary, missing mirror, both missing, failed writes, corrupt copies, invalid paths, and repeated idempotent recovery. The tests use a fake GitHub transport and do not delete or mutate production branches. A full GitHub outage cannot be recovered automatically without a separate off-GitHub backup, which is not yet provisioned.
+
+### Read-only reliability page
+
+The production site builds `/reliability.html` from scan, archive, recovery, and settlement reports; it also retains `tennis-reliability-RUN_ID` diagnostics for 30 days. Counts are per-run, not an invented seven-day success percentage. Missing settlement data is displayed as `Not checked`. The dashboard never promotes Champion or changes model probabilities. GitHub issues require enabled notifications to deliver alerts.
+
+### Production acceptance checks
+
+1. Confirm the main workflow passes source audit, all tests, live scan and deployment.
+2. Confirm the new `evidence_repair` step reports `healthy` and two verified branches, and `evidence_status` reports no alert.
+3. Verify the read-only `/reliability.html` is published and shows actual run counts, not placeholders for a successful scan.
+4. Review an end-to-end daily two-source settlement run separately. No prospective accuracy claim before confirmed matches are graded.
