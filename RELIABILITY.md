@@ -2,6 +2,14 @@
 
 This branch is Challenger-only. Do not modify or promote registered Champion weights.
 
+## CI regression prevention (primary)
+- The source audit automatically approves **only** new root-level `scripts/*.py`, `scripts/*.mjs`, `test/test_*.py`, and `test/*.test.mjs` files. It checks UTF-8, size, symlinks, suspicious content, total payload size, and pinned manifest digests. New workflows, site assets, data, and engine/NFL artifacts still require explicit review in `scripts/audit.mjs`.
+- The audit reports **all** disallowed tracked paths in one CI failure, rather than surfacing a new missing path on each run.
+- Pull-request builds run the deterministic audit, Node/Python regression checks, and site build without external live-score dependencies. Production `main` performs live forecasting, and `challenger-integration.yml` provides a separate real-data challenger scan.
+- The separate Challenger live workflow installs pinned Python dependencies **before** Python test collection; its branch filter covers future `challenger/**` branches. A live `NO_AVAILABLE_SCAN` remains an explicit failure of the live integration gate, not a fabricated green prediction.
+- Tests ensure that the PR workflow cannot silently regain its live-feed dependency and that the source approval pattern never admits model weights or unknown workflow files.
+- No change to Champion model artifacts, hashes, promotion rules, or result probabilities. A green PR verifies build quality; it is **not** evidence that live predictions are available.
+
 ## Primary architecture (preferred)
 1. GitHub Actions on main runs the security source allowlist, Node/Python tests, manifest digest verification, pinned historical inputs, three 4-case model preflights, and a double-observed 24-hour fixture scan.
 2. Fixture identities use tour + audited full-name aliases + tournament key + regime. Conflicting surfaces, formats, or material start-time discrepancies fail closed. Never merge different opponents by fuzzy similarity.
@@ -25,7 +33,7 @@ This branch is Challenger-only. Do not modify or promote registered Champion wei
 - Keep PR draft until CI passes and reviewer verifies actual coverage. Model promotions are governed by prospective scoring, not a single scan.
 
 ## Incident triage
-1. **Audit fails:** read GitHub job log, review whether the new public source is safe, explicitly register only the reviewed file in `scripts/audit.mjs`.
+1. **Audit fails:** inspect the complete list of rejected paths. Ordinary root-level scripts and tests are handled by `public-path-policy.mjs`; review and register only new workflows/assets/other files explicitly in `scripts/audit.mjs`. Never blanket-allow engine or NFL artifacts.
 2. **Runtime staging fails:** inspect pinned source URL availability and expected SHA; never substitute unverified data.
 3. **One role has missing predictions:** inspect `coverage.model_missing_reasons`, verify player identities and data history, and leave unmatched predictions unavailable.
 4. **Fixtures disappear:** inspect second observation and source status, plus `coverage.conflicting_matches` and `coverage.identity_diagnostics`.

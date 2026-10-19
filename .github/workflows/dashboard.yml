@@ -41,18 +41,13 @@ jobs:
           python -m pytest nfl/tests -q
           python -m pytest test/test_prop_outcomes.py -q
       - name: Verify tennis models and score current matches
-        if: (github.event_name != 'pull_request' && github.ref == 'refs/heads/main') || (github.event_name == 'pull_request' && github.head_ref == 'challenger/identity-coverage-devils-advocate')
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
         run: python scripts/scan.py
       - name: Validate tennis scan identities, missing coverage and challenger integrity
-        if: (github.event_name != 'pull_request' && github.ref == 'refs/heads/main') || (github.event_name == 'pull_request' && github.head_ref == 'challenger/identity-coverage-devils-advocate')
-        run: |
-          if [ "$GITHUB_EVENT_NAME" = "pull_request" ]; then
-            python scripts/verify_scan.py work/snapshot.json --require-available
-          else
-            python scripts/verify_scan.py work/snapshot.json
-          fi
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        run: python scripts/verify_scan.py work/snapshot.json
       - name: Retain sanitized tennis diagnostic report
-        if: (github.event_name != 'pull_request' && github.ref == 'refs/heads/main') || (github.event_name == 'pull_request' && github.head_ref == 'challenger/identity-coverage-devils-advocate')
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: tennis-quality-${{ github.run_id }}
