@@ -1,6 +1,7 @@
 """Separate model execution; public output contains only a strict result projection."""
 import hashlib,json,math,sys
 import explanations
+from matchup_intelligence_v2 import shadow
 from quality import normalize
 from datetime import date
 from pathlib import Path
@@ -65,10 +66,12 @@ def main():
                     probs=r['service_probabilities'];n=100000
                     mc=simulate(probs['sr_a'],probs['sr_b'],probs['elo_bridge_a'],probs['elo_bridge_b'],probs['elo_weight'],e['best_of'],n,seed)
                     if abs(mc['p_a']-r['p_a'])>6*max(mc['mc_se'],1/(2*n)**.5)+.002:raise ValueError('MC_EXACT_DISAGREEMENT')
-                    p=r['p_a'];state=pkg['trained_through'];identity=VERSION;artifact=sha256_data(pkg);explanation=explanations.experimental(r)
+                    p=r['p_a'];state=pkg['trained_through'];identity='EXPERIMENTAL_MATCHUP_INTELLIGENCE_V2_0_1';artifact=sha256_data(pkg);explanation=explanations.experimental(r)
+                    v2=shadow(p,e['starts_at'],e['source_match_id'],{})
                 if not math.isfinite(p) or not 0<=p<=1:raise ValueError('INVALID_PROBABILITY')
                 if date.fromisoformat(state[:10])>cutoff:raise ValueError('FUTURE_MODEL_STATE')
                 row['result']={'p_a':float(p),'p_b':1-float(p),'model_id':identity,'state_date':state[:10],'artifact_sha256':artifact,'research_only':True,'explanation':explanation}
+                if role=='experimental':row['result']['v2_readiness']=v2
             except Exception as exc:
                 # Do not expose raw tracebacks or arbitrary source strings in public output.
                 row['error']='MODEL_INPUT_OR_EXECUTION_FAILED' if not isinstance(exc,ValueError) else str(exc).split(':')[0][:80]
