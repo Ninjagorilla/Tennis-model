@@ -110,3 +110,18 @@ The production site builds `/reliability.html` from scan, archive, recovery, and
 2. Confirm the new `evidence_repair` step reports `healthy` and two verified branches, and `evidence_status` reports no alert.
 3. Verify the read-only `/reliability.html` is published and shows actual run counts, not placeholders for a successful scan.
 4. Review an end-to-end daily two-source settlement run separately. No prospective accuracy claim before confirmed matches are graded.
+
+
+## Seven-day evidence audit and Champion freeze (2026-10-19)
+
+The production 09 UTC settlement window, manual dispatch, and merge-triggered first run execute `scripts/seven_day_tennis_audit.py` after archiving verified ESPN + Tennis.com results. This reads up to seven days of original content-addressed forecast receipts and result receipts, checks SHA-256 for every result receipt, falls back to the verified mirror on corruption, and **deduplicates fixture IDs across repeated daily receipts**. A conflict in archived winners is quarantined rather than resolved by arbitrary order. It then recomputes per-tour Brier/log loss, paired Champion/Challenger/Experimental scores on a common fixture sample, and correct model picks. It never counts a pending result as a model loss, and never treats a result-feed probe as a graded forecast.
+
+The dashboard and 90-day `tennis-seven-day-audit-RUN_ID` artifact report the rolling seven-day window, verified settlements, exclusions and source diagnostics. The source collector records, for each excluded fixture, whether a matching result was missing from both publishers, one publisher was absent, event IDs were ambiguous, or the publishers disagreed. Earlier receipts without these diagnostics remain labeled as unknown; do not retroactively guess the cause. Genuine **market** upset statistics remain unavailable until point-in-time market odds are archived and independently verified; the report uses `null` rather than fabricated upset records.
+
+Champion freeze remains mandatory: the existing baseline/rollback verification step checks registered model artifacts before each production scan; this audit reports `promotion_authorized=false` and `champion_frozen=true`, and performs no model writes. Any promotion requires a separate explicitly approved change after sufficient prospective data.
+
+### Independent off-GitHub backup
+
+A **one-time verified** recovery copy of the four forecast receipts and one result receipt from October 19 was saved to the owner's connected Google Drive. This is independent of GitHub hosting. The Drive document contains a JSON object with `format=tennis-evidence-offsite-1`, `source`, `branch`, `date`, and `receipts` entries with `path` and `raw` exact original JSON bytes represented as UTF-8 strings. A full readback of all five receipts matched the GitHub mirror byte-for-byte. The document link is intentionally **not published in this public repository**. For recovery, export/read the document text as JSON, verify SHA-256 of each UTF-8 `raw` against the final 64-hex digest in `path`, and restore only through the existing no-overwrite evidence writer. A restored GitHub commit is not a retroactive pre-match receipt.
+
+**Limit:** the Google Drive backup is a verified snapshot, not yet an automatic daily offsite replica. Future receipts must be copied and verified again. Do not claim a continuous offsite disaster-recovery guarantee until a separate, authorized scheduler and connection are configured.
