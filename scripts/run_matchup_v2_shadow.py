@@ -16,7 +16,7 @@ def report(snapshot,features=None):
         identity=match.get("source_match_id")
         if not identity or not match.get("starts_at"):continue
         data=features.get(identity,{})
-        r=shadow(experimental["p_a"],match["starts_at"],identity,data)
+        r=experimental.get("v2_readiness") or shadow(experimental["p_a"],match["starts_at"],identity,data)
         r.update({"match_id":identity,"tour":match["tour"],"regime":match["regime"],
                   "name_a":match["name_a"],"name_b":match["name_b"],
                   "surface":match["surface"],"starts_at":match["starts_at"],
