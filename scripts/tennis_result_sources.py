@@ -148,7 +148,7 @@ def resolve(forecasts,observations,now=None):
                         if event_time.tzinfo is None or abs((event_time-start).total_seconds())>48*3600:continue
                     except (ValueError,TypeError):continue
                 matches_by_provider.setdefault(o["provider"],[]).append(o)
-            if any(len({o["event_id"] for o in a})!=1 for a in matches_by_provider.values()) or len(matches_by_provider)<2:
+            if any(len({o["event_id"] for o in a})!=1 or len({normalize(o["winner_name"]) for o in a})!=1 for a in matches_by_provider.values()) or len(matches_by_provider)<2:
                 exclusions[f["fixture_id"]]="SOURCE_MISSING_OR_AMBIGUOUS";continue
             selected=[matches_by_provider[p][0] for p in ("espn","tenniscom")]
             winner_names={normalize(x["winner_name"]) for x in selected}
