@@ -18,6 +18,7 @@ jobs:
     outputs:
       evidence_alert: ${{ steps.evidence_status.outputs.alert }}
       settlement_alert: ${{ steps.tennis_health.outcome == 'failure' }}
+      weekly_audit_alert: ${{ steps.weekly_tennis_audit.outcome == 'failure' }}
     if: github.repository == 'Ninjagorilla/Tennis-model' && github.event.repository.private == false
     runs-on: ubuntu-latest
     timeout-minutes: 25
@@ -141,6 +142,22 @@ jobs:
         if: always() && steps.tennis_grade_window.outputs.run == 'true'
         continue-on-error: true
         run: python scripts/settlement_health.py
+      - name: Reconcile seven-day archived forecasts and verified results
+        id: weekly_tennis_audit
+        if: always() && steps.tennis_grade_window.outputs.run == 'true'
+        continue-on-error: true
+        timeout-minutes: 5
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python scripts/seven_day_tennis_audit.py
+      - name: Retain seven-day prospective research audit
+        if: always() && github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4 pinned
+        with:
+          name: tennis-seven-day-audit-${{ github.run_id }}
+          path: work/seven-day-tennis-audit.json
+          retention-days: 90
+          if-no-files-found: ignore
       - name: Retain settlement audit and provider health
         if: always() && github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4 pinned
@@ -293,7 +310,7 @@ jobs:
         uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4
 
   alert:
-    if: always() && github.event_name != 'pull_request' && github.ref == 'refs/heads/main' && (needs.build.result == 'failure' || needs.build.outputs.evidence_alert == 'true' || needs.build.outputs.settlement_alert == 'true')
+    if: always() && github.event_name != 'pull_request' && github.ref == 'refs/heads/main' && (needs.build.result == 'failure' || needs.build.outputs.evidence_alert == 'true' || needs.build.outputs.settlement_alert == 'true' || needs.build.outputs.weekly_audit_alert == 'true')
     needs: build
     runs-on: ubuntu-latest
     permissions:
@@ -308,7 +325,7 @@ jobs:
         run: |
           title="Tennis pipeline recovery needed"
           existing="$(gh issue list --repo "$GH_REPO" --state open --search "$title in:title" --json number,title --jq '.[] | select(.title == "Tennis pipeline recovery needed") | .number' | head -n 1)"
-          message="Production pipeline failed, evidence recovery remains degraded, or independently verified settlement failed. Check $RUN_URL, tennis-reliability diagnostics and archive receipts. No stale or restored forecasts may be graded as new; Champion unchanged."
+          message="Production pipeline failed, evidence recovery remains degraded, independently verified settlement failed, or seven-day audit failed. Check $RUN_URL, tennis-reliability diagnostics and archive receipts. No stale or restored forecasts may be graded as new; Champion unchanged."
           if [ -n "$existing" ]; then
             gh issue comment "$existing" --repo "$GH_REPO" --body "$message"
           else
