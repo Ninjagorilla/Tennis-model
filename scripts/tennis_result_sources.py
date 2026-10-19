@@ -175,9 +175,25 @@ def resolve(forecasts,observations,now=None):
 
 def main():
     parser=argparse.ArgumentParser()
-    parser.add_argument("forecasts")
+    parser.add_argument("forecasts",nargs="?")
+    parser.add_argument("--probe-date",help="YYYY-MM-DD, fetch real provider results without grading")
     parser.add_argument("--output",default="work/settlement-observations.json")
     args=parser.parse_args()
+    if args.probe_date:
+        day=datetime.strptime(args.probe_date,"%Y-%m-%d")
+        probe=[{"tour":t,"name_a":"PROBE ONLY","name_b":"NO PREDICTION",
+                "starts_at":day.replace(tzinfo=timezone.utc).isoformat()}
+               for t in ("ATP","WTA")]
+        observations,health=retrieve(probe)
+        summary={"probe_date":args.probe_date,"providers":health,
+                 "counts":{p:sum(o["provider"]==p for o in observations) for p in ("espn","tenniscom")},
+                 "research_only":True,"real_predictions_graded":0}
+        path=Path(args.output);path.parent.mkdir(parents=True,exist_ok=True)
+        path.write_text(json.dumps(summary,indent=2)+"\n")
+        print(json.dumps({"counts":summary["counts"],"feed_errors":sum(h["status"]!="ok" for h in health)}))
+        return
+    if not args.forecasts:
+        parser.error("forecasts path required unless --probe-date is provided")
     raw=json.loads(Path(args.forecasts).read_text())
     forecasts=raw.get("records") if isinstance(raw,dict) else raw
     obs,health=retrieve(forecasts)
