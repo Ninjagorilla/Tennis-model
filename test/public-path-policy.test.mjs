@@ -23,3 +23,12 @@ test('PR validation is deterministic; production inference is main-only', () => 
   assert.match(y,/name: Publish independent tennis results channel\n        continue-on-error: true/);
   assert.match(y,/name: Audit sanitized public files\n        run: npm run audit/);
 });
+
+test('live challenger CI installs pinned Python dependencies before importing test modules', () => {
+  const y=readFileSync(new URL('../.github/workflows/challenger-integration.yml',import.meta.url),'utf8');
+  const install=y.indexOf('name: Install pinned inference and test dependencies');
+  const python=y.indexOf('name: Python regression tests');
+  assert.ok(install>0 && python>install, 'Python test imports must follow pinned dependency installation');
+  assert.match(y,/branches:\n      - 'challenger\/\*\*'/);
+  assert.match(y,/python scripts\/verify_scan.py work\/snapshot.json --require-available/);
+});

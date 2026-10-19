@@ -6,6 +6,7 @@ This branch is Challenger-only. Do not modify or promote registered Champion wei
 - The source audit automatically approves **only** new root-level `scripts/*.py`, `scripts/*.mjs`, `test/test_*.py`, and `test/*.test.mjs` files. It checks UTF-8, size, symlinks, suspicious content, total payload size, and pinned manifest digests. New workflows, site assets, data, and engine/NFL artifacts still require explicit review in `scripts/audit.mjs`.
 - The audit reports **all** disallowed tracked paths in one CI failure, rather than surfacing a new missing path on each run.
 - Pull-request builds run the deterministic audit, Node/Python regression checks, and site build without external live-score dependencies. Production `main` performs live forecasting, and `challenger-integration.yml` provides a separate real-data challenger scan.
+- The separate Challenger live workflow installs pinned Python dependencies **before** Python test collection; its branch filter covers future `challenger/**` branches. A live `NO_AVAILABLE_SCAN` remains an explicit failure of the live integration gate, not a fabricated green prediction.
 - Tests ensure that the PR workflow cannot silently regain its live-feed dependency and that the source approval pattern never admits model weights or unknown workflow files.
 - No change to Champion model artifacts, hashes, promotion rules, or result probabilities. A green PR verifies build quality; it is **not** evidence that live predictions are available.
 
