@@ -1,11 +1,11 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-10-19T02:40:31.040089+00:00",
-  "expires_at": "2026-10-19T04:10:31.040089+00:00",
+  "generated_at": "2026-10-19T02:47:52.370422+00:00",
+  "expires_at": "2026-10-19T04:17:52.370422+00:00",
   "prediction_status": "available",
   "build": {
-    "commit": "69d997c4c6a1f8765f05014fdb6a898d8701bd91",
-    "run_id": "39190998842"
+    "commit": "e6ff91bd4c8140493999a4fb5e97b0d254425850",
+    "run_id": "39191550861"
   },
   "models": [
     {
@@ -2465,28 +2465,28 @@
       {
         "url": "https://www.tennis.com/?date=2026-10-19",
         "status": "ok",
-        "fetched_at": "2026-10-19T02:40:30.459641+00:00",
-        "sha256": "0f67530408ac29d2ff639b41e7553fd371b13c3b37b5e7507ef31b066beb5035",
+        "fetched_at": "2026-10-19T02:47:51.440510+00:00",
+        "sha256": "da4d44fe431ceb57ad5d5e224855ac20a5fbbbc9ad588f754201f44f2af7e129",
         "provider": "Tennis.com"
       },
       {
         "url": "https://www.tennis.com/?date=2026-10-20",
         "status": "ok",
-        "fetched_at": "2026-10-19T02:40:30.608769+00:00",
-        "sha256": "2ed684597095d0da46e4db51f5378334f098fbd578871d24562d0c8d40e9c543",
+        "fetched_at": "2026-10-19T02:47:51.580804+00:00",
+        "sha256": "36ec8736a2e221356aba3150128bb3e1ae720e8b070a438a729b8950c3dbf65f",
         "provider": "Tennis.com"
       },
       {
         "url": "https://www.tennis.com/tournaments",
         "status": "ok",
-        "fetched_at": "2026-10-19T02:40:30.657696+00:00",
+        "fetched_at": "2026-10-19T02:47:51.672982+00:00",
         "sha256": "332e694bc97876fe22d4164e0280064248f3a39eb5ef869ef8803a858eacf88a",
         "provider": "Tennis.com"
       },
       {
         "url": "https://www.tennis.com/tournaments/almaty-open",
         "status": "ok",
-        "fetched_at": "2026-10-19T02:40:30.715261+00:00",
+        "fetched_at": "2026-10-19T02:47:51.780892+00:00",
         "sha256": "062e20c039e22f923375d011a27fb18f373976a989f49fe8908dd3a1cc345548",
         "provider": "Tennis.com"
       },
@@ -2494,97 +2494,97 @@
         "url": "https://www.tennis.com/tournaments/atp-challenger-florence-italy",
         "provider": "Tennis.com metadata",
         "status": "unavailable",
-        "fetched_at": "2026-10-19T02:40:30.753015+00:00"
+        "fetched_at": "2026-10-19T02:47:51.789922+00:00"
       },
       {
         "url": "https://www.tennis.com/tournaments/atp-challenger-fort-worth-usa",
         "provider": "Tennis.com metadata",
         "status": "unavailable",
-        "fetched_at": "2026-10-19T02:40:30.728560+00:00"
+        "fetched_at": "2026-10-19T02:47:51.811792+00:00"
       },
       {
         "url": "https://www.tennis.com/tournaments/del-monte-lisboa-belem-open",
         "status": "ok",
-        "fetched_at": "2026-10-19T02:40:30.733274+00:00",
+        "fetched_at": "2026-10-19T02:47:51.813114+00:00",
         "sha256": "d97b6ea77ebac9c6abf5dae0c138420b40ebc4dd41b407258ac4beefa8b59eec",
         "provider": "Tennis.com"
       },
       {
         "url": "https://www.tennis.com/tournaments/directv-open-cali",
         "status": "ok",
-        "fetched_at": "2026-10-19T02:40:30.775123+00:00",
+        "fetched_at": "2026-10-19T02:47:51.898968+00:00",
         "sha256": "d4aa45583ed8a0a81974846f137456271ca45236aa292b4e51a1ff475e4a1c1a",
         "provider": "Tennis.com"
       },
       {
         "url": "https://www.tennis.com/tournaments/european-open-2",
         "status": "ok",
-        "fetched_at": "2026-10-19T02:40:30.786302+00:00",
-        "sha256": "b92f6987f2e9c70f4de5eab3dea400e5c7563a11bb1087c40d9f9acd31ff9d66",
+        "fetched_at": "2026-10-19T02:47:51.911882+00:00",
+        "sha256": "66f0bf38e274a5230270f9d30f047ef07a8aedf49e5bf15189e2893b09e43374",
         "provider": "Tennis.com"
       },
       {
         "url": "https://www.tennis.com/tournaments/guangzhou-huangpu-international-tennis-open-2",
         "status": "ok",
-        "fetched_at": "2026-10-19T02:40:30.818547+00:00",
+        "fetched_at": "2026-10-19T02:47:51.913003+00:00",
         "sha256": "4e0d94d18e79c15566381a942744da6189e2ac5bc5ca74d4ec421f38a516d872",
         "provider": "Tennis.com"
       },
       {
         "url": "https://www.tennis.com/tournaments/kinoshita-group-japan-open",
         "status": "ok",
-        "fetched_at": "2026-10-19T02:40:30.806408+00:00",
-        "sha256": "6932f34cc10c3a83e6eca18f899739377eedd51803505a1c9a9f9a27355c360e",
+        "fetched_at": "2026-10-19T02:47:51.951238+00:00",
+        "sha256": "2939f8ed1af4d6169314409dc3198b021acdc2d0002dc5f8b9eff44d17382e39",
         "provider": "Tennis.com"
       },
       {
         "url": "https://www.tennis.com/tournaments/ningbo-open",
         "status": "ok",
-        "fetched_at": "2026-10-19T02:40:30.819297+00:00",
+        "fetched_at": "2026-10-19T02:47:52.002374+00:00",
         "sha256": "b05921a70071bd1a32b88e988a9ee81264eb6c640a9c72e511979fb92cb252c2",
         "provider": "Tennis.com"
       },
       {
         "url": "https://www.tennis.com/tournaments/open-13-provence",
         "status": "ok",
-        "fetched_at": "2026-10-19T02:40:30.853875+00:00",
+        "fetched_at": "2026-10-19T02:47:52.021342+00:00",
         "sha256": "42d1cc641918541e7c601b5d7b670211c5b2eb90adc7559db30efb9d8e0f1e06",
         "provider": "Tennis.com"
       },
       {
         "url": "https://www.tennis.com/tournaments/open-parc-auvergne-rhone-alpes-lyon",
         "status": "ok",
-        "fetched_at": "2026-10-19T02:40:30.862975+00:00",
-        "sha256": "1ae25c50b3439e7a2e2da2a3ba3682ca5c0ecc73323efbf16be3112abfb34b4a",
+        "fetched_at": "2026-10-19T02:47:52.041115+00:00",
+        "sha256": "5a49ae3b6e2439a93c6aaa6275b5f9fb70b64d94a508a080dad915f921caa90a",
         "provider": "Tennis.com"
       },
       {
         "tour": "ATP",
         "url": "https://site.api.espn.com/apis/site/v2/sports/tennis/atp/scoreboard?dates=20261019",
         "status": "ok",
-        "fetched_at": "2026-10-19T02:40:31.009002+00:00",
+        "fetched_at": "2026-10-19T02:47:52.368096+00:00",
         "sha256": "45e37609bf81be745602a0f840dc9dc3dfa5d46818e485496beb21308ad9a704"
       },
       {
         "tour": "ATP",
         "url": "https://site.api.espn.com/apis/site/v2/sports/tennis/atp/scoreboard?dates=20261020",
         "status": "ok",
-        "fetched_at": "2026-10-19T02:40:31.016206+00:00",
+        "fetched_at": "2026-10-19T02:47:52.309458+00:00",
         "sha256": "45e37609bf81be745602a0f840dc9dc3dfa5d46818e485496beb21308ad9a704"
       },
       {
         "tour": "WTA",
         "url": "https://site.api.espn.com/apis/site/v2/sports/tennis/wta/scoreboard?dates=20261019",
         "status": "ok",
-        "fetched_at": "2026-10-19T02:40:31.038486+00:00",
-        "sha256": "ce8bc36263449225b25bac80acc44f593290c194959ff308557fd064e33cdd38"
+        "fetched_at": "2026-10-19T02:47:52.238224+00:00",
+        "sha256": "9af2206ea459427b6361506e4fcd4e8c2cace010a8a1e919b9d60434335d5a3b"
       },
       {
         "tour": "WTA",
         "url": "https://site.api.espn.com/apis/site/v2/sports/tennis/wta/scoreboard?dates=20261020",
         "status": "ok",
-        "fetched_at": "2026-10-19T02:40:31.031789+00:00",
-        "sha256": "ce8bc36263449225b25bac80acc44f593290c194959ff308557fd064e33cdd38"
+        "fetched_at": "2026-10-19T02:47:52.242551+00:00",
+        "sha256": "9af2206ea459427b6361506e4fcd4e8c2cace010a8a1e919b9d60434335d5a3b"
       }
     ],
     "unknown_tournaments": [
