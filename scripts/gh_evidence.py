@@ -118,10 +118,11 @@ def archive(records,run_id,client):
 def main():
     parser=argparse.ArgumentParser()
     parser.add_argument("ledger")
+    parser.add_argument("--run-id",help="original GitHub Actions run ID for verified manual artifact restoration")
     parser.add_argument("--report",default="work/evidence-archive-report.json")
     args=parser.parse_args()
     records=[json.loads(line) for line in Path(args.ledger).read_text().splitlines() if line.strip()]
-    run=os.environ.get("GITHUB_RUN_ID")
+    run=args.run_id or os.environ.get("GITHUB_RUN_ID")
     report=archive(records,run,GitHub(os.environ.get("GITHUB_REPOSITORY",""),os.environ.get("GH_TOKEN","")))
     out=Path(args.report);out.parent.mkdir(parents=True,exist_ok=True)
     out.write_text(json.dumps(report,indent=2)+"\n")
