@@ -1,11 +1,11 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-10-19T00:13:12.770389+00:00",
-  "expires_at": "2026-10-19T01:43:12.770389+00:00",
+  "generated_at": "2026-10-19T02:40:31.040089+00:00",
+  "expires_at": "2026-10-19T04:10:31.040089+00:00",
   "prediction_status": "available",
   "build": {
-    "commit": "eb9b2f6473a08a68bc4f01b793adb309aefb9e2b",
-    "run_id": "39179716337"
+    "commit": "69d997c4c6a1f8765f05014fdb6a898d8701bd91",
+    "run_id": "39190998842"
   },
   "models": [
     {
@@ -16,7 +16,7 @@
         "total": 4
       },
       "cloud_status": "verified",
-      "predictions": 25
+      "predictions": 22
     },
     {
       "id": "challenger",
@@ -26,7 +26,7 @@
         "total": 4
       },
       "cloud_status": "verified",
-      "predictions": 25
+      "predictions": 22
     },
     {
       "id": "experimental",
@@ -36,7 +36,7 @@
         "total": 4
       },
       "cloud_status": "verified",
-      "predictions": 25
+      "predictions": 24
     }
   ],
   "matches": [
@@ -127,6 +127,22 @@
             "b_effective_return_points": 142.93744321573558
           }
         }
+      },
+      "devils_advocate": {
+        "status": "complete",
+        "pick": "Adrian Mannarino",
+        "side": "a",
+        "mean_available_probability": 0.549393,
+        "opponent_probability": 0.450607,
+        "model_spread_pp": 5.775,
+        "missing_models": [],
+        "flags": [
+          "FRAGILE_FAVORITE"
+        ],
+        "reasons": [
+          "The mean probability is below 60%, so the opponent has substantial modeled upset probability."
+        ],
+        "recommendation": "review"
       }
     },
     {
@@ -216,6 +232,18 @@
             "b_effective_return_points": 116.59297548318607
           }
         }
+      },
+      "devils_advocate": {
+        "status": "complete",
+        "pick": "Thiago Agustin Tirante",
+        "side": "b",
+        "mean_available_probability": 0.656121,
+        "opponent_probability": 0.343879,
+        "model_spread_pp": 6.391,
+        "missing_models": [],
+        "flags": [],
+        "reasons": [],
+        "recommendation": "no_automatic_promotion"
       }
     },
     {
@@ -305,6 +333,18 @@
             "b_effective_return_points": 213.48322153305722
           }
         }
+      },
+      "devils_advocate": {
+        "status": "complete",
+        "pick": "Marin Cilic",
+        "side": "b",
+        "mean_available_probability": 0.650858,
+        "opponent_probability": 0.349142,
+        "model_spread_pp": 1.155,
+        "missing_models": [],
+        "flags": [],
+        "reasons": [],
+        "recommendation": "no_automatic_promotion"
       }
     },
     {
@@ -394,6 +434,22 @@
             "b_effective_return_points": 112.90519737280587
           }
         }
+      },
+      "devils_advocate": {
+        "status": "complete",
+        "pick": "Mikhail Kukushkin",
+        "side": "a",
+        "mean_available_probability": 0.539924,
+        "opponent_probability": 0.460076,
+        "model_spread_pp": 7.185,
+        "missing_models": [],
+        "flags": [
+          "FRAGILE_FAVORITE"
+        ],
+        "reasons": [
+          "The mean probability is below 60%, so the opponent has substantial modeled upset probability."
+        ],
+        "recommendation": "review"
       }
     },
     {
@@ -483,6 +539,22 @@
             "b_effective_return_points": 157.0367497229221
           }
         }
+      },
+      "devils_advocate": {
+        "status": "complete",
+        "pick": "Miomir Kecmanovic",
+        "side": "b",
+        "mean_available_probability": 0.541341,
+        "opponent_probability": 0.458659,
+        "model_spread_pp": 9.039,
+        "missing_models": [],
+        "flags": [
+          "FRAGILE_FAVORITE"
+        ],
+        "reasons": [
+          "The mean probability is below 60%, so the opponent has substantial modeled upset probability."
+        ],
+        "recommendation": "review"
       }
     },
     {
@@ -572,6 +644,18 @@
             "b_effective_return_points": 161.9655521694399
           }
         }
+      },
+      "devils_advocate": {
+        "status": "complete",
+        "pick": "Jaume Munar",
+        "side": "b",
+        "mean_available_probability": 0.711935,
+        "opponent_probability": 0.288065,
+        "model_spread_pp": 6.805,
+        "missing_models": [],
+        "flags": [],
+        "reasons": [],
+        "recommendation": "no_automatic_promotion"
       }
     },
     {
@@ -661,6 +745,22 @@
             "b_effective_return_points": 98.69851697360002
           }
         }
+      },
+      "devils_advocate": {
+        "status": "complete",
+        "pick": "Alex Michelsen",
+        "side": "a",
+        "mean_available_probability": 0.740712,
+        "opponent_probability": 0.259288,
+        "model_spread_pp": 11.39,
+        "missing_models": [],
+        "flags": [
+          "HIGH_PROBABILITY_SPREAD"
+        ],
+        "reasons": [
+          "Model probabilities differ by at least 10 percentage points."
+        ],
+        "recommendation": "review"
       }
     },
     {
@@ -750,6 +850,22 @@
             "b_effective_return_points": 166.2502372068286
           }
         }
+      },
+      "devils_advocate": {
+        "status": "complete",
+        "pick": "Yannick Hanfmann",
+        "side": "b",
+        "mean_available_probability": 0.597936,
+        "opponent_probability": 0.402064,
+        "model_spread_pp": 7.338,
+        "missing_models": [],
+        "flags": [
+          "FRAGILE_FAVORITE"
+        ],
+        "reasons": [
+          "The mean probability is below 60%, so the opponent has substantial modeled upset probability."
+        ],
+        "recommendation": "review"
       }
     },
     {
@@ -839,6 +955,22 @@
             "b_effective_return_points": 172.25393272886794
           }
         }
+      },
+      "devils_advocate": {
+        "status": "complete",
+        "pick": "Lorenzo Sonego",
+        "side": "b",
+        "mean_available_probability": 0.681634,
+        "opponent_probability": 0.318366,
+        "model_spread_pp": 10.565,
+        "missing_models": [],
+        "flags": [
+          "HIGH_PROBABILITY_SPREAD"
+        ],
+        "reasons": [
+          "Model probabilities differ by at least 10 percentage points."
+        ],
+        "recommendation": "review"
       }
     },
     {
@@ -928,6 +1060,18 @@
             "b_effective_return_points": 114.29912573488748
           }
         }
+      },
+      "devils_advocate": {
+        "status": "complete",
+        "pick": "Lorenzo Musetti",
+        "side": "a",
+        "mean_available_probability": 0.73559,
+        "opponent_probability": 0.26441,
+        "model_spread_pp": 8.789,
+        "missing_models": [],
+        "flags": [],
+        "reasons": [],
+        "recommendation": "no_automatic_promotion"
       }
     },
     {
@@ -1017,6 +1161,18 @@
             "b_effective_return_points": 116.79696977218767
           }
         }
+      },
+      "devils_advocate": {
+        "status": "complete",
+        "pick": "Jaime Faria",
+        "side": "a",
+        "mean_available_probability": 0.637199,
+        "opponent_probability": 0.362801,
+        "model_spread_pp": 6.957,
+        "missing_models": [],
+        "flags": [],
+        "reasons": [],
+        "recommendation": "no_automatic_promotion"
       }
     },
     {
@@ -1106,6 +1262,20 @@
             "b_effective_return_points": 123.95063881659321
           }
         }
+      },
+      "devils_advocate": {
+        "status": "complete",
+        "pick": "Borna Gojo",
+        "side": "a",
+        "mean_available_probability": 0.700449,
+        "opponent_probability": 0.299551,
+        "model_spread_pp": 8.945,
+        "missing_models": [],
+        "flags": [
+          "QUALIFYING_UNCERTAINTY"
+        ],
+        "reasons": [],
+        "recommendation": "review"
       }
     },
     {
@@ -1195,6 +1365,23 @@
             "b_effective_return_points": 157.36047896911373
           }
         }
+      },
+      "devils_advocate": {
+        "status": "complete",
+        "pick": "Pierre-Hugues Herbert",
+        "side": "b",
+        "mean_available_probability": 0.577348,
+        "opponent_probability": 0.422652,
+        "model_spread_pp": 0.272,
+        "missing_models": [],
+        "flags": [
+          "FRAGILE_FAVORITE",
+          "QUALIFYING_UNCERTAINTY"
+        ],
+        "reasons": [
+          "The mean probability is below 60%, so the opponent has substantial modeled upset probability."
+        ],
+        "recommendation": "review"
       }
     },
     {
@@ -1284,6 +1471,23 @@
             "b_effective_return_points": 115.83971196322987
           }
         }
+      },
+      "devils_advocate": {
+        "status": "complete",
+        "pick": "Clement Tabur",
+        "side": "b",
+        "mean_available_probability": 0.557087,
+        "opponent_probability": 0.442913,
+        "model_spread_pp": 3.027,
+        "missing_models": [],
+        "flags": [
+          "FRAGILE_FAVORITE",
+          "QUALIFYING_UNCERTAINTY"
+        ],
+        "reasons": [
+          "The mean probability is below 60%, so the opponent has substantial modeled upset probability."
+        ],
+        "recommendation": "review"
       }
     },
     {
@@ -1373,6 +1577,23 @@
             "b_effective_return_points": 161.81587938161525
           }
         }
+      },
+      "devils_advocate": {
+        "status": "complete",
+        "pick": "Kyrian Jacquet",
+        "side": "b",
+        "mean_available_probability": 0.538404,
+        "opponent_probability": 0.461596,
+        "model_spread_pp": 3.122,
+        "missing_models": [],
+        "flags": [
+          "FRAGILE_FAVORITE",
+          "QUALIFYING_UNCERTAINTY"
+        ],
+        "reasons": [
+          "The mean probability is below 60%, so the opponent has substantial modeled upset probability."
+        ],
+        "recommendation": "review"
       }
     },
     {
@@ -1462,6 +1683,22 @@
             "b_effective_return_points": 148.02201412029908
           }
         }
+      },
+      "devils_advocate": {
+        "status": "complete",
+        "pick": "Elise Mertens",
+        "side": "a",
+        "mean_available_probability": 0.560558,
+        "opponent_probability": 0.439442,
+        "model_spread_pp": 8.462,
+        "missing_models": [],
+        "flags": [
+          "FRAGILE_FAVORITE"
+        ],
+        "reasons": [
+          "The mean probability is below 60%, so the opponent has substantial modeled upset probability."
+        ],
+        "recommendation": "review"
       }
     },
     {
@@ -1551,6 +1788,22 @@
             "b_effective_return_points": 109.52743342935888
           }
         }
+      },
+      "devils_advocate": {
+        "status": "complete",
+        "pick": "Daria Kasatkina",
+        "side": "b",
+        "mean_available_probability": 0.533885,
+        "opponent_probability": 0.466115,
+        "model_spread_pp": 6.904,
+        "missing_models": [],
+        "flags": [
+          "FRAGILE_FAVORITE"
+        ],
+        "reasons": [
+          "The mean probability is below 60%, so the opponent has substantial modeled upset probability."
+        ],
+        "recommendation": "review"
       }
     },
     {
@@ -1640,6 +1893,18 @@
             "b_effective_return_points": 122.13413810064017
           }
         }
+      },
+      "devils_advocate": {
+        "status": "complete",
+        "pick": "Alexandra Eala",
+        "side": "b",
+        "mean_available_probability": 0.666206,
+        "opponent_probability": 0.333794,
+        "model_spread_pp": 4.596,
+        "missing_models": [],
+        "flags": [],
+        "reasons": [],
+        "recommendation": "no_automatic_promotion"
       }
     },
     {
@@ -1668,9 +1933,48 @@
           "reason": "PLAYER_HISTORY_MISSING"
         },
         "experimental": {
-          "status": "unavailable",
-          "reason": "PLAYER_NOT_FOUND_IN_DATASET"
+          "status": "ok",
+          "p_a": 0.06054498444763212,
+          "p_b": 0.9394550155523679,
+          "model_id": "V3.4-A_EXPERIMENTAL_DYNAMIC_RESIDUALS_1",
+          "state_date": "2026-10-10",
+          "artifact_sha256": "9f0ce28379795fcaaa1f475345f7230c97d0e6e7945db4e5dc6b42f7c8575e3f",
+          "research_only": true,
+          "explanation": {
+            "baseline_p_a": 0.06106642505345901,
+            "dynamic_change_pp": -0.05214406058268867,
+            "serve_a": 0.47430121426691996,
+            "serve_b": 0.6281281950394035,
+            "elo_weight": 0.40700329157455173,
+            "a_serve_logit_shift": -0.001619568095215608,
+            "a_return_logit_shift": 0.004496908333893047,
+            "b_serve_logit_shift": 0.0038769969742227625,
+            "b_return_logit_shift": 0.004024370881379719,
+            "a_effective_serve_points": 66.37134923922967,
+            "a_effective_return_points": 68.31652050321745,
+            "b_effective_serve_points": 179.6418957696368,
+            "b_effective_return_points": 179.70870627045343
+          }
         }
+      },
+      "devils_advocate": {
+        "status": "partial",
+        "pick": "Sorana Cirstea",
+        "side": "b",
+        "mean_available_probability": 0.939455,
+        "opponent_probability": 0.060545,
+        "model_spread_pp": 0,
+        "missing_models": [
+          "champion",
+          "challenger"
+        ],
+        "flags": [
+          "INCOMPLETE_MODEL_COVERAGE"
+        ],
+        "reasons": [
+          "One or more models did not return a valid prediction."
+        ],
+        "recommendation": "review"
       }
     },
     {
@@ -1760,6 +2064,18 @@
             "b_effective_return_points": 179.33230105241452
           }
         }
+      },
+      "devils_advocate": {
+        "status": "complete",
+        "pick": "Marie Bouzkova",
+        "side": "a",
+        "mean_available_probability": 0.700492,
+        "opponent_probability": 0.299508,
+        "model_spread_pp": 4.305,
+        "missing_models": [],
+        "flags": [],
+        "reasons": [],
+        "recommendation": "no_automatic_promotion"
       }
     },
     {
@@ -1788,98 +2104,48 @@
           "reason": "PLAYER_HISTORY_MISSING"
         },
         "experimental": {
-          "status": "unavailable",
-          "reason": "PLAYER_NOT_FOUND_IN_DATASET"
-        }
-      }
-    },
-    {
-      "source_match_id": "185568",
-      "tour": "WTA",
-      "regime": "main",
-      "tournament": "Kinoshita Group Japan Open",
-      "tournament_key": "osaka",
-      "best_of": 3,
-      "deciding_tiebreak_target": 7,
-      "surface": "Hard",
-      "name_a": "Kaitlin Quevedo",
-      "name_b": "Lanlana Tararudee",
-      "starts_at": "2026-10-19T02:30:00+00:00",
-      "round": "Round 1",
-      "event_source": "https://site.api.espn.com/apis/site/v2/sports/tennis/wta/scoreboard",
-      "surface_source": "https://www.tennis.com/tournaments/kinoshita-group-japan-open",
-      "format_source": "https://www.wtatennis.com/news/3043764/tennis-explained-learn-the-game",
-      "results": {
-        "champion": {
           "status": "ok",
-          "p_a": 0.3723540312811654,
-          "p_b": 0.6276459687188346,
-          "model_id": "WTA_CHAMPION_SRELO_1_0",
-          "state_date": "2026-10-05",
-          "artifact_sha256": "5d08c6e3c286cde229566848a4d0417d416586aede88bbb9bafae9b21b65a09a",
-          "research_only": true,
-          "explanation": {
-            "serve_a": 0.5755647042601312,
-            "serve_b": 0.6067577716768282,
-            "minimum_points": 6519,
-            "sr_p_a": 0.34239409911441826,
-            "elo_p_a": 0.421789988244367,
-            "elo_weight": 0.3773486574060673,
-            "rating_a": 1866.4549594524265,
-            "rating_b": 1921.2506955670656,
-            "without_current_form_p_a": 0.3789192451670468
-          }
-        },
-        "challenger": {
-          "status": "ok",
-          "p_a": 0.40149187676344167,
-          "p_b": 0.5985081232365583,
-          "model_id": "WTA_SR02_CORE_OBSERVED",
-          "state_date": "2026-09-26",
-          "artifact_sha256": "b49ade0de4f2676eeb2c93db3a9558b3272cd787b679c1b9750884a935543b6b",
-          "research_only": true,
-          "explanation": {
-            "serve_a": 0.581634319304443,
-            "serve_b": 0.6008024831151179,
-            "minimum_points": 6519,
-            "raw_serve_a": 0.5784825593961487,
-            "raw_serve_b": 0.6039016258890574,
-            "calibration_scale": 0.7540185601505588,
-            "form_beta": 0,
-            "a_global_serve": 0.25770409950767975,
-            "a_surface_serve": 0.05904869558434098,
-            "a_global_return": 0.18453944166856043,
-            "a_surface_return": 0.010795345568281793,
-            "b_global_serve": 0.2774449470293332,
-            "b_surface_serve": 0.06215658013687587,
-            "b_global_return": 0.1883125528580859,
-            "b_surface_return": 0.08937497190703797
-          }
-        },
-        "experimental": {
-          "status": "ok",
-          "p_a": 0.27086993858015873,
-          "p_b": 0.7291300614198413,
+          "p_a": 0.6676566601396025,
+          "p_b": 0.33234333986039755,
           "model_id": "V3.4-A_EXPERIMENTAL_DYNAMIC_RESIDUALS_1",
           "state_date": "2026-10-10",
           "artifact_sha256": "9f0ce28379795fcaaa1f475345f7230c97d0e6e7945db4e5dc6b42f7c8575e3f",
           "research_only": true,
           "explanation": {
-            "baseline_p_a": 0.27143078106920837,
-            "dynamic_change_pp": -0.056084248904963996,
-            "serve_a": 0.5459601451762145,
-            "serve_b": 0.6054820092182925,
-            "elo_weight": 0.38339127182044885,
-            "a_serve_logit_shift": -0.0008986143399646975,
-            "a_return_logit_shift": 0.00032532392216217304,
-            "b_serve_logit_shift": -0.0030897441751170235,
-            "b_return_logit_shift": 0.003211955422492244,
-            "a_effective_serve_points": 131.13228723750095,
-            "a_effective_return_points": 133.89784576408113,
-            "b_effective_serve_points": 179.32487154327526,
-            "b_effective_return_points": 190.94869121210095
+            "baseline_p_a": 0.6662224575073907,
+            "dynamic_change_pp": 0.1434202632211723,
+            "serve_a": 0.5743108769515975,
+            "serve_b": 0.527634899176992,
+            "elo_weight": 0.36126521770317765,
+            "a_serve_logit_shift": 0.0017771238756180698,
+            "a_return_logit_shift": 0.0021804720019885553,
+            "b_serve_logit_shift": 0.0008835952543007416,
+            "b_return_logit_shift": 0.001007474417169079,
+            "a_effective_serve_points": 125.67526887803469,
+            "a_effective_return_points": 138.96452931817794,
+            "b_effective_serve_points": 112.73761762408556,
+            "b_effective_return_points": 108.11671885589594
           }
         }
+      },
+      "devils_advocate": {
+        "status": "partial",
+        "pick": "Catherine McNally",
+        "side": "a",
+        "mean_available_probability": 0.667657,
+        "opponent_probability": 0.332343,
+        "model_spread_pp": 0,
+        "missing_models": [
+          "champion",
+          "challenger"
+        ],
+        "flags": [
+          "INCOMPLETE_MODEL_COVERAGE"
+        ],
+        "reasons": [
+          "One or more models did not return a valid prediction."
+        ],
+        "recommendation": "review"
       }
     },
     {
@@ -1969,6 +2235,18 @@
             "b_effective_return_points": 97.90612667851329
           }
         }
+      },
+      "devils_advocate": {
+        "status": "complete",
+        "pick": "Janice Tjen",
+        "side": "a",
+        "mean_available_probability": 0.60121,
+        "opponent_probability": 0.39879,
+        "model_spread_pp": 5.225,
+        "missing_models": [],
+        "flags": [],
+        "reasons": [],
+        "recommendation": "no_automatic_promotion"
       }
     },
     {
@@ -2058,95 +2336,22 @@
             "b_effective_return_points": 179.4180969847912
           }
         }
-      }
-    },
-    {
-      "source_match_id": "185574",
-      "tour": "WTA",
-      "regime": "main",
-      "tournament": "Kinoshita Group Japan Open",
-      "tournament_key": "osaka",
-      "best_of": 3,
-      "deciding_tiebreak_target": 7,
-      "surface": "Hard",
-      "name_a": "Lilli Tagger",
-      "name_b": "Liudmila Samsonova",
-      "starts_at": "2026-10-19T02:30:00+00:00",
-      "round": "Round 1",
-      "event_source": "https://site.api.espn.com/apis/site/v2/sports/tennis/wta/scoreboard",
-      "surface_source": "https://www.tennis.com/tournaments/kinoshita-group-japan-open",
-      "format_source": "https://www.wtatennis.com/news/3043764/tennis-explained-learn-the-game",
-      "results": {
-        "champion": {
-          "status": "ok",
-          "p_a": 0.4462545949509362,
-          "p_b": 0.5537454050490638,
-          "model_id": "WTA_CHAMPION_SRELO_1_0",
-          "state_date": "2026-10-05",
-          "artifact_sha256": "5d08c6e3c286cde229566848a4d0417d416586aede88bbb9bafae9b21b65a09a",
-          "research_only": true,
-          "explanation": {
-            "serve_a": 0.6102882374239259,
-            "serve_b": 0.617444566965218,
-            "minimum_points": 5024,
-            "sr_p_a": 0.463542809626441,
-            "elo_p_a": 0.41875808442879436,
-            "elo_weight": 0.3860292677739459,
-            "rating_a": 1834.3370409832312,
-            "rating_b": 1891.2945293394641,
-            "without_current_form_p_a": 0.44780085997077645
-          }
-        },
-        "challenger": {
-          "status": "ok",
-          "p_a": 0.47755472674422866,
-          "p_b": 0.5224452732557714,
-          "model_id": "WTA_SR02_CORE_OBSERVED",
-          "state_date": "2026-09-26",
-          "artifact_sha256": "b49ade0de4f2676eeb2c93db3a9558b3272cd787b679c1b9750884a935543b6b",
-          "research_only": true,
-          "explanation": {
-            "serve_a": 0.6116692121072865,
-            "serve_b": 0.6160712391943922,
-            "minimum_points": 5024,
-            "raw_serve_a": 0.6109494287307816,
-            "raw_serve_b": 0.616787490353412,
-            "calibration_scale": 0.7540185601505588,
-            "form_beta": 0,
-            "a_global_serve": 0.36669194509656977,
-            "a_surface_serve": 0.04385284282187821,
-            "a_global_return": 0.14744186327505246,
-            "a_surface_return": 0.0357317686718968,
-            "b_global_serve": 0.3385705848315995,
-            "b_surface_serve": 0.04305592303085998,
-            "b_global_return": 0.23428608401028306,
-            "b_surface_return": 0.0024358284486483213
-          }
-        },
-        "experimental": {
-          "status": "ok",
-          "p_a": 0.3401247125383082,
-          "p_b": 0.6598752874616918,
-          "model_id": "V3.4-A_EXPERIMENTAL_DYNAMIC_RESIDUALS_1",
-          "state_date": "2026-10-10",
-          "artifact_sha256": "9f0ce28379795fcaaa1f475345f7230c97d0e6e7945db4e5dc6b42f7c8575e3f",
-          "research_only": true,
-          "explanation": {
-            "baseline_p_a": 0.3379032753641651,
-            "dynamic_change_pp": 0.2221437174143137,
-            "serve_a": 0.5722124675760025,
-            "serve_b": 0.6214395230241293,
-            "elo_weight": 0.38609496594118625,
-            "a_serve_logit_shift": -0.0020289849827992545,
-            "a_return_logit_shift": 0.00030653794149565966,
-            "b_serve_logit_shift": -0.004105378377262999,
-            "b_return_logit_shift": -0.0014057135982947521,
-            "a_effective_serve_points": 136.3289366825317,
-            "a_effective_return_points": 148.29572974391343,
-            "b_effective_serve_points": 178.51855251069776,
-            "b_effective_return_points": 199.86525453970486
-          }
-        }
+      },
+      "devils_advocate": {
+        "status": "complete",
+        "pick": "Katie Boulter",
+        "side": "b",
+        "mean_available_probability": 0.588707,
+        "opponent_probability": 0.411293,
+        "model_spread_pp": 7.511,
+        "missing_models": [],
+        "flags": [
+          "FRAGILE_FAVORITE"
+        ],
+        "reasons": [
+          "The mean probability is below 60%, so the opponent has substantial modeled upset probability."
+        ],
+        "recommendation": "review"
       }
     },
     {
@@ -2236,95 +2441,22 @@
             "b_effective_return_points": 158.3462645431797
           }
         }
-      }
-    },
-    {
-      "source_match_id": "185577",
-      "tour": "WTA",
-      "regime": "main",
-      "tournament": "Kinoshita Group Japan Open",
-      "tournament_key": "osaka",
-      "best_of": 3,
-      "deciding_tiebreak_target": 7,
-      "surface": "Hard",
-      "name_a": "Viktorija Golubic",
-      "name_b": "Mai Hontama",
-      "starts_at": "2026-10-19T02:30:00+00:00",
-      "round": "Round 1",
-      "event_source": "https://site.api.espn.com/apis/site/v2/sports/tennis/wta/scoreboard",
-      "surface_source": "https://www.tennis.com/tournaments/kinoshita-group-japan-open",
-      "format_source": "https://www.wtatennis.com/news/3043764/tennis-explained-learn-the-game",
-      "results": {
-        "champion": {
-          "status": "ok",
-          "p_a": 0.7352297152004474,
-          "p_b": 0.26477028479955256,
-          "model_id": "WTA_CHAMPION_SRELO_1_0",
-          "state_date": "2026-10-05",
-          "artifact_sha256": "5d08c6e3c286cde229566848a4d0417d416586aede88bbb9bafae9b21b65a09a",
-          "research_only": true,
-          "explanation": {
-            "serve_a": 0.5666345575053942,
-            "serve_b": 0.5197976409503391,
-            "minimum_points": 13413,
-            "sr_p_a": 0.7339971039072246,
-            "elo_p_a": 0.7374151557496942,
-            "elo_weight": 0.36061808013197616,
-            "rating_a": 1861.3583751541973,
-            "rating_b": 1681.9814138968172,
-            "without_current_form_p_a": 0.7346984950617622
-          }
-        },
-        "challenger": {
-          "status": "ok",
-          "p_a": 0.6597116734000089,
-          "p_b": 0.3402883265999911,
-          "model_id": "WTA_SR02_CORE_OBSERVED",
-          "state_date": "2026-09-26",
-          "artifact_sha256": "b49ade0de4f2676eeb2c93db3a9558b3272cd787b679c1b9750884a935543b6b",
-          "research_only": true,
-          "explanation": {
-            "serve_a": 0.5586908312614891,
-            "serve_b": 0.5278498106766536,
-            "minimum_points": 13413,
-            "raw_serve_a": 0.5636850759170803,
-            "raw_serve_b": 0.5227926374269277,
-            "calibration_scale": 0.7540185601505588,
-            "form_beta": 0,
-            "a_global_serve": 0.181300484179835,
-            "a_surface_serve": 0.04205357777679771,
-            "a_global_return": 0.2827989972705272,
-            "a_surface_return": 0.02794254001495324,
-            "b_global_serve": 0.08048438866735576,
-            "b_surface_serve": 0.044008954686273916,
-            "b_global_return": 0.2165381719461783,
-            "b_surface_return": 0.028166429872541823
-          }
-        },
-        "experimental": {
-          "status": "ok",
-          "p_a": 0.73091367368552,
-          "p_b": 0.26908632631448004,
-          "model_id": "V3.4-A_EXPERIMENTAL_DYNAMIC_RESIDUALS_1",
-          "state_date": "2026-10-10",
-          "artifact_sha256": "9f0ce28379795fcaaa1f475345f7230c97d0e6e7945db4e5dc6b42f7c8575e3f",
-          "research_only": true,
-          "explanation": {
-            "baseline_p_a": 0.7294020608834781,
-            "dynamic_change_pp": 0.15116128020418174,
-            "serve_a": 0.5526181719225358,
-            "serve_b": 0.5056798299864042,
-            "elo_weight": 0.35789154738764206,
-            "a_serve_logit_shift": 0.0007838129874229853,
-            "a_return_logit_shift": 0.0011509721325172217,
-            "b_serve_logit_shift": 0.000033094892959631346,
-            "b_return_logit_shift": -0.00025469973581972096,
-            "a_effective_serve_points": 155.83580435748857,
-            "a_effective_return_points": 160.71704217738193,
-            "b_effective_serve_points": 118.55125731745036,
-            "b_effective_return_points": 113.75451272570787
-          }
-        }
+      },
+      "devils_advocate": {
+        "status": "complete",
+        "pick": "Talia Gibson",
+        "side": "b",
+        "mean_available_probability": 0.655438,
+        "opponent_probability": 0.344562,
+        "model_spread_pp": 11.92,
+        "missing_models": [],
+        "flags": [
+          "HIGH_PROBABILITY_SPREAD"
+        ],
+        "reasons": [
+          "Model probabilities differ by at least 10 percentage points."
+        ],
+        "recommendation": "review"
       }
     }
   ],
@@ -2333,28 +2465,28 @@
       {
         "url": "https://www.tennis.com/?date=2026-10-19",
         "status": "ok",
-        "fetched_at": "2026-10-19T00:13:12.272638+00:00",
-        "sha256": "5e68f51fedf54a065d2319115c93790a7c75a18750cf0c34c70cebc8aefc29d9",
+        "fetched_at": "2026-10-19T02:40:30.459641+00:00",
+        "sha256": "0f67530408ac29d2ff639b41e7553fd371b13c3b37b5e7507ef31b066beb5035",
         "provider": "Tennis.com"
       },
       {
         "url": "https://www.tennis.com/?date=2026-10-20",
         "status": "ok",
-        "fetched_at": "2026-10-19T00:13:12.351576+00:00",
-        "sha256": "0c03be1c10f4e0f31452704a4b1d618149fee6aaee870b33881a7b79ba6194cd",
+        "fetched_at": "2026-10-19T02:40:30.608769+00:00",
+        "sha256": "2ed684597095d0da46e4db51f5378334f098fbd578871d24562d0c8d40e9c543",
         "provider": "Tennis.com"
       },
       {
         "url": "https://www.tennis.com/tournaments",
         "status": "ok",
-        "fetched_at": "2026-10-19T00:13:12.406769+00:00",
+        "fetched_at": "2026-10-19T02:40:30.657696+00:00",
         "sha256": "332e694bc97876fe22d4164e0280064248f3a39eb5ef869ef8803a858eacf88a",
         "provider": "Tennis.com"
       },
       {
         "url": "https://www.tennis.com/tournaments/almaty-open",
         "status": "ok",
-        "fetched_at": "2026-10-19T00:13:12.467410+00:00",
+        "fetched_at": "2026-10-19T02:40:30.715261+00:00",
         "sha256": "062e20c039e22f923375d011a27fb18f373976a989f49fe8908dd3a1cc345548",
         "provider": "Tennis.com"
       },
@@ -2362,67 +2494,67 @@
         "url": "https://www.tennis.com/tournaments/atp-challenger-florence-italy",
         "provider": "Tennis.com metadata",
         "status": "unavailable",
-        "fetched_at": "2026-10-19T00:13:12.503066+00:00"
+        "fetched_at": "2026-10-19T02:40:30.753015+00:00"
       },
       {
         "url": "https://www.tennis.com/tournaments/atp-challenger-fort-worth-usa",
         "provider": "Tennis.com metadata",
         "status": "unavailable",
-        "fetched_at": "2026-10-19T00:13:12.492078+00:00"
+        "fetched_at": "2026-10-19T02:40:30.728560+00:00"
       },
       {
         "url": "https://www.tennis.com/tournaments/del-monte-lisboa-belem-open",
         "status": "ok",
-        "fetched_at": "2026-10-19T00:13:12.473562+00:00",
+        "fetched_at": "2026-10-19T02:40:30.733274+00:00",
         "sha256": "d97b6ea77ebac9c6abf5dae0c138420b40ebc4dd41b407258ac4beefa8b59eec",
         "provider": "Tennis.com"
       },
       {
         "url": "https://www.tennis.com/tournaments/directv-open-cali",
         "status": "ok",
-        "fetched_at": "2026-10-19T00:13:12.554590+00:00",
+        "fetched_at": "2026-10-19T02:40:30.775123+00:00",
         "sha256": "d4aa45583ed8a0a81974846f137456271ca45236aa292b4e51a1ff475e4a1c1a",
         "provider": "Tennis.com"
       },
       {
         "url": "https://www.tennis.com/tournaments/european-open-2",
         "status": "ok",
-        "fetched_at": "2026-10-19T00:13:12.544459+00:00",
-        "sha256": "66f0bf38e274a5230270f9d30f047ef07a8aedf49e5bf15189e2893b09e43374",
+        "fetched_at": "2026-10-19T02:40:30.786302+00:00",
+        "sha256": "b92f6987f2e9c70f4de5eab3dea400e5c7563a11bb1087c40d9f9acd31ff9d66",
         "provider": "Tennis.com"
       },
       {
         "url": "https://www.tennis.com/tournaments/guangzhou-huangpu-international-tennis-open-2",
         "status": "ok",
-        "fetched_at": "2026-10-19T00:13:12.563427+00:00",
+        "fetched_at": "2026-10-19T02:40:30.818547+00:00",
         "sha256": "4e0d94d18e79c15566381a942744da6189e2ac5bc5ca74d4ec421f38a516d872",
         "provider": "Tennis.com"
       },
       {
         "url": "https://www.tennis.com/tournaments/kinoshita-group-japan-open",
         "status": "ok",
-        "fetched_at": "2026-10-19T00:13:12.577952+00:00",
-        "sha256": "fc393ab89e45e2c809aa05b1dafe3f3a999e419d53a48b5dd0bbaefb79ba922d",
+        "fetched_at": "2026-10-19T02:40:30.806408+00:00",
+        "sha256": "6932f34cc10c3a83e6eca18f899739377eedd51803505a1c9a9f9a27355c360e",
         "provider": "Tennis.com"
       },
       {
         "url": "https://www.tennis.com/tournaments/ningbo-open",
         "status": "ok",
-        "fetched_at": "2026-10-19T00:13:12.599203+00:00",
+        "fetched_at": "2026-10-19T02:40:30.819297+00:00",
         "sha256": "b05921a70071bd1a32b88e988a9ee81264eb6c640a9c72e511979fb92cb252c2",
         "provider": "Tennis.com"
       },
       {
         "url": "https://www.tennis.com/tournaments/open-13-provence",
         "status": "ok",
-        "fetched_at": "2026-10-19T00:13:12.609449+00:00",
+        "fetched_at": "2026-10-19T02:40:30.853875+00:00",
         "sha256": "42d1cc641918541e7c601b5d7b670211c5b2eb90adc7559db30efb9d8e0f1e06",
         "provider": "Tennis.com"
       },
       {
         "url": "https://www.tennis.com/tournaments/open-parc-auvergne-rhone-alpes-lyon",
         "status": "ok",
-        "fetched_at": "2026-10-19T00:13:12.615330+00:00",
+        "fetched_at": "2026-10-19T02:40:30.862975+00:00",
         "sha256": "1ae25c50b3439e7a2e2da2a3ba3682ca5c0ecc73323efbf16be3112abfb34b4a",
         "provider": "Tennis.com"
       },
@@ -2430,42 +2562,55 @@
         "tour": "ATP",
         "url": "https://site.api.espn.com/apis/site/v2/sports/tennis/atp/scoreboard?dates=20261019",
         "status": "ok",
-        "fetched_at": "2026-10-19T00:13:12.763674+00:00",
-        "sha256": "2f48f1acdd8de3f2f2d3b00ba7409259a590e766a76e6fe5a2bf7ffa92ad4bd1"
+        "fetched_at": "2026-10-19T02:40:31.009002+00:00",
+        "sha256": "45e37609bf81be745602a0f840dc9dc3dfa5d46818e485496beb21308ad9a704"
       },
       {
         "tour": "ATP",
         "url": "https://site.api.espn.com/apis/site/v2/sports/tennis/atp/scoreboard?dates=20261020",
         "status": "ok",
-        "fetched_at": "2026-10-19T00:13:12.733822+00:00",
-        "sha256": "2f48f1acdd8de3f2f2d3b00ba7409259a590e766a76e6fe5a2bf7ffa92ad4bd1"
+        "fetched_at": "2026-10-19T02:40:31.016206+00:00",
+        "sha256": "45e37609bf81be745602a0f840dc9dc3dfa5d46818e485496beb21308ad9a704"
       },
       {
         "tour": "WTA",
         "url": "https://site.api.espn.com/apis/site/v2/sports/tennis/wta/scoreboard?dates=20261019",
         "status": "ok",
-        "fetched_at": "2026-10-19T00:13:12.721473+00:00",
-        "sha256": "45a082950556a6ca6c9e50cf1d263dc62d1047df7effb126a14c8782cc003e0e"
+        "fetched_at": "2026-10-19T02:40:31.038486+00:00",
+        "sha256": "ce8bc36263449225b25bac80acc44f593290c194959ff308557fd064e33cdd38"
       },
       {
         "tour": "WTA",
         "url": "https://site.api.espn.com/apis/site/v2/sports/tennis/wta/scoreboard?dates=20261020",
         "status": "ok",
-        "fetched_at": "2026-10-19T00:13:12.768899+00:00",
-        "sha256": "45a082950556a6ca6c9e50cf1d263dc62d1047df7effb126a14c8782cc003e0e"
+        "fetched_at": "2026-10-19T02:40:31.031789+00:00",
+        "sha256": "ce8bc36263449225b25bac80acc44f593290c194959ff308557fd064e33cdd38"
       }
     ],
     "unknown_tournaments": [
       "atp-challenger-florence-italy",
       "atp-challenger-fort-worth-usa"
     ],
+    "identity_diagnostics": {
+      "duplicates_collapsed": 0,
+      "identity_conflicts": 0
+    },
     "conflicting_matches": 0,
     "coverage": "partial",
     "unavailable_scopes": [],
     "note": "ATP, WTA, ATP Challenger and WTA 125 scheduled singles from public sources. Tournament metadata refreshes automatically each scan. Coverage remains partial; missing or conflicting facts are withheld.",
     "metadata_mode": "automatic",
     "metadata_tournaments": 9,
-    "discovery_capped": false
+    "discovery_capped": false,
+    "model_missing_reasons": {
+      "champion": {
+        "PLAYER_HISTORY_MISSING": 2
+      },
+      "challenger": {
+        "PLAYER_HISTORY_MISSING": 2
+      },
+      "experimental": {}
+    }
   },
   "limitations": [
     "Frozen recovered model states: Champion 2026-10-05; Challenger 2026-09-26; v3.4-A fit 2026-10-10. No automatic retraining.",
