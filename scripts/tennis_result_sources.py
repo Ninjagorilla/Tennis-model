@@ -185,12 +185,28 @@ def main():
                 "starts_at":day.replace(tzinfo=timezone.utc).isoformat()}
                for t in ("ATP","WTA")]
         observations,health=retrieve(probe)
+        groups={}
+        for row in observations:
+            k=(row["tour"],tuple(sorted((normalize(row["name_a"]),normalize(row["name_b"])))))
+            groups.setdefault(k,{}).setdefault(row["provider"],{})[row["event_id"]]=row
+        overlap=agreement=disagreement=ambiguous=0
+        for key,providers in groups.items():
+            if set(providers)!={"espn","tenniscom"}:continue
+            if any(len(v)!=1 for v in providers.values()):
+                ambiguous+=1;continue
+            overlap+=1
+            winners={normalize(next(iter(v.values()))["winner_name"]) for v in providers.values()}
+            if len(winners)==1:agreement+=1
+            else:disagreement+=1
         summary={"probe_date":args.probe_date,"providers":health,
                  "counts":{p:sum(o["provider"]==p for o in observations) for p in ("espn","tenniscom")},
+                 "cross_provider":{"overlap":overlap,"winner_agreement":agreement,
+                                   "winner_disagreement":disagreement,
+                                   "ambiguous_excluded":ambiguous},
                  "research_only":True,"real_predictions_graded":0}
         path=Path(args.output);path.parent.mkdir(parents=True,exist_ok=True)
         path.write_text(json.dumps(summary,indent=2)+"\n")
-        print(json.dumps({"counts":summary["counts"],"feed_errors":sum(h["status"]!="ok" for h in health)}))
+        print(json.dumps({"counts":summary["counts"],"cross_provider":summary["cross_provider"],"feed_errors":sum(h["status"]!="ok" for h in health)}))
         return
     if not args.forecasts:
         parser.error("forecasts path required unless --probe-date is provided")
