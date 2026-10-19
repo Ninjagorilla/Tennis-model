@@ -45,7 +45,12 @@ jobs:
         run: python scripts/scan.py
       - name: Validate tennis scan identities, missing coverage and challenger integrity
         if: (github.event_name != 'pull_request' && github.ref == 'refs/heads/main') || (github.event_name == 'pull_request' && github.head_ref == 'challenger/identity-coverage-devils-advocate')
-        run: python scripts/verify_scan.py work/snapshot.json
+        run: |
+          if [ "$GITHUB_EVENT_NAME" = "pull_request" ]; then
+            python scripts/verify_scan.py work/snapshot.json --require-available
+          else
+            python scripts/verify_scan.py work/snapshot.json
+          fi
       - name: Retain sanitized tennis diagnostic report
         if: (github.event_name != 'pull_request' && github.ref == 'refs/heads/main') || (github.event_name == 'pull_request' && github.head_ref == 'challenger/identity-coverage-devils-advocate')
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
