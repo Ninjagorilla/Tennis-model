@@ -16,7 +16,21 @@ export async function retainLastScan(current,{fetcher=fetch,enabled=false,previo
   }
   const valid=[];
   for(const c of candidates){try{valid.push(validate(c));}catch{if(c!==null)recoveryFailed=true;}}
-  const retained=lastUsable(...valid);
+  let retained=lastUsable(...valid);
+  // Third, independently published GitHub branch is used only if Pages and local
+  // candidates fail. Preserve original generation/expiry, never mint new picks.
+  if(enabled&&!retained){
+    try{
+      const url='https://raw.githubusercontent.com/Ninjagorilla/Tennis-model/refs/heads/scan-results/public-results/latest.json';
+      const response=await fetcher(url,{cache:'no-store',signal:AbortSignal.timeout(15000)});
+      if(!response.ok)throw Error('Independent results unavailable');
+      const raw=await response.text();
+      if(raw.length>1500000)throw Error('Independent result exceeds size limit');
+      const backup=validate(JSON.parse(raw));
+      retained=lastUsable(backup);
+      if(!retained)throw Error('No verified independent results');
+    }catch{recoveryFailed=true;}
+  }
   // Leave the existing deployment intact rather than erase unknown prior picks.
   if(enabled&&!retained&&recoveryFailed)throw Error('Cannot safely recover previous results; keeping the existing deployed site.');
   return retained;
