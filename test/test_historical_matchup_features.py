@@ -1,7 +1,7 @@
 import hashlib,json,sys,tempfile,unittest
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/"scripts"))
-from historical_matchup_features import history_features
+from historical_matchup_features import history_features,physical_traits
 from matchup_intelligence_v2 import shadow
 
 FIX={"source_match_id":"actual-fixture","starts_at":"2026-10-20T10:00:00Z","surface":"Hard"}
@@ -33,6 +33,17 @@ class HistoricalIntegrationTests(unittest.TestCase):
         self.assertEqual(r["verified_features"],["h2h","style","surface"])
         self.assertIsNone(r["candidate_delta_pp"])
         self.assertEqual(r["baseline_p_a"],.58)
+ def test_verified_hand_and_height_descriptors_are_not_probabilities(self):
+    with tempfile.TemporaryDirectory() as d:
+        p=Path(d)/"archive.csv";data=construct(p)
+        csv="tourney_date,winner_id,loser_id,winner_hand,winner_ht,loser_hand,loser_ht\n"
+        csv+=("20260812,A,B,R,185,L,180\n")*4
+        p.write_text(csv)
+        data["sources"][0]["sha256"]=hashlib.sha256(p.read_bytes()).hexdigest()
+        physical=physical_traits(data,"ATP:A","ATP:B",FIX)
+        self.assertEqual(physical["status"],"DESCRIPTIVE_NOT_PREDICTIVE")
+        self.assertEqual(physical["players"]["a"]["height_cm"],185)
+        self.assertEqual(physical["players"]["b"]["handedness"],"L")
  def test_provenance_tamper_fails_closed(self):
     with tempfile.TemporaryDirectory() as d:
         p=Path(d)/"archive.csv";data=construct(p);p.write_text("modified")
