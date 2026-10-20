@@ -1,0 +1,29 @@
+name: Tennis WTA shadow routing safeguards
+on:
+  pull_request:
+    paths:
+      - 'scripts/scan.py'
+      - 'scripts/tennis_shadow_routing.py'
+      - 'test/test_tennis_shadow_routing.py'
+      - '.github/workflows/tennis-shadow-routing.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/scan.py'
+      - 'scripts/tennis_shadow_routing.py'
+      - 'test/test_tennis_shadow_routing.py'
+      - '.github/workflows/tennis-shadow-routing.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  wta-shadow-guard:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: '3.11'
+      - name: Test fail-closed WTA routing
+        run: python -m unittest discover -s test -p 'test_tennis_shadow_routing.py' -v
