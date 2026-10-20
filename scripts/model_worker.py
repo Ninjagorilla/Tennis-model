@@ -2,7 +2,7 @@
 import hashlib,json,math,sys
 import explanations
 from matchup_intelligence_v2 import shadow
-from historical_matchup_features import history_features
+from historical_matchup_features import history_features,physical_traits
 from quality import normalize
 from datetime import date
 from pathlib import Path
@@ -71,6 +71,7 @@ def main():
                     evidence,history_readiness=history_features(data,ids[0],ids[1],e)
                     v2=shadow(p,e['starts_at'],e['source_match_id'],evidence)
                     v2['history_readiness']=history_readiness
+                    v2['physical_traits']=physical_traits(data,ids[0],ids[1],e)
                 if not math.isfinite(p) or not 0<=p<=1:raise ValueError('INVALID_PROBABILITY')
                 if date.fromisoformat(state[:10])>cutoff:raise ValueError('FUTURE_MODEL_STATE')
                 row['result']={'p_a':float(p),'p_b':1-float(p),'model_id':identity,'state_date':state[:10],'artifact_sha256':artifact,'research_only':True,'explanation':explanation}
