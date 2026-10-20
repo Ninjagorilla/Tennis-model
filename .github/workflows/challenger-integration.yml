@@ -63,6 +63,9 @@ jobs:
           open('work/previous-verified-tennis.json','wb').write(payload)
           PY
           python scripts/audit_challenger_dropout.py work/snapshot.json work/previous-verified-tennis.json work/challenger-dropout.json
+      - name: Probe ATP, TennisTemple and Tennis Explorer for Challenger tournament presence
+        continue-on-error: true
+        run: python scripts/challenger_independent_sources.py
       - name: Validate public status schema
         run: npm run build
       - name: Retain sanitized scan and coverage report
@@ -77,5 +80,6 @@ jobs:
             work/provider-probe.json
             work/matchup-v2-shadow.json
             work/challenger-dropout.json
+            work/challenger-source-probe.json
           retention-days: 7
           if-no-files-found: ignore
