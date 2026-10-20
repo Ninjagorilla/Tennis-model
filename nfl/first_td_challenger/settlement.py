@@ -131,7 +131,9 @@ def normalize_nflverse_row(row: dict) -> dict:
         scorer = None
     if scorer is not None and not isinstance(scorer, str):
         raise ValueError("Invalid touchdown scorer ID; resolve missing data upstream")
-    # play_id is an identifier, not authoritative chronological ordering.\n    integer("play_id")  # retain source validation, but never sort on this ID\n    play_type = text(row["play_type"], "play_type")
+    # play_id is an identifier, not authoritative chronological ordering.
+    integer("play_id")  # retain source validation, but never sort on this ID
+    play_type = text(row["play_type"], "play_type")
     return {"event_id": text(row["game_id"], "game_id"), "sequence": integer("order_sequence"),
             "period": integer("qtr"), "touchdown": binary("touchdown"),
             "no_play": play_type == "no_play",
