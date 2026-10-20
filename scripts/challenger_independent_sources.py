@@ -5,14 +5,14 @@ markup/schema changes are explicit. Third-party pages are discovery signals,
 NOT sufficient to authorize a predicted matchup or a claimed live schedule.
 """
 import hashlib,json,re,urllib.request
-from datetime import datetime,timezone
+from datetime import datetime,timezone,timedelta
 from html.parser import HTMLParser
 
-SOURCES={
- "official_atp":"https://www.atptour.com/en/scores/current-challenger/",
- "tennistemple":"https://en.tennistemple.com/matches/2026-10-20",
- "tennisexplorer":"https://www.tennisexplorer.com/matches/?day=20&month=10&type=all&year=2026"
-}
+def sources_for(day):
+ return {"official_atp":"https://www.atptour.com/en/scores/current-challenger/",
+ "tennistemple":f"https://en.tennistemple.com/matches/{day:%Y-%m-%d}",
+ "tennisexplorer":f"https://www.tennisexplorer.com/matches/?day={day.day}&month={day.month}&type=all&year={day.year}"}
+SOURCES=sources_for(datetime.now(timezone.utc).date())
 TOURNAMENTS={
  "florence":("Florence","Firenze"),
  "fort_worth":("Fort Worth",),
@@ -29,10 +29,12 @@ class Text(HTMLParser):
  def handle_data(self,data):
   if not self.skip:self.parts.append(data)
 
-def probe(reader=None,*,observed_at=None):
+def probe(reader=None,*,observed_at=None,day=None):
  at=observed_at or datetime.now(timezone.utc).isoformat()
+ requested=day or datetime.fromisoformat(at.replace('Z','+00:00')).date()
+ urls=sources_for(requested)
  out={}
- for source,url in SOURCES.items():
+ for source,url in urls.items():
   try:
    if reader:
     raw=reader(url)
@@ -64,8 +66,8 @@ def probe(reader=None,*,observed_at=None):
 if __name__=="__main__":
  import argparse
  from pathlib import Path
- p=argparse.ArgumentParser();p.add_argument("--output",default="work/challenger-source-probe.json")
- a=p.parse_args();result=probe();path=Path(a.output);path.parent.mkdir(exist_ok=True,parents=True)
+ p=argparse.ArgumentParser();p.add_argument("--output",default="work/challenger-source-probe.json");p.add_argument("--date",default=None)
+ a=p.parse_args();result=probe(day=datetime.fromisoformat(a.date).date() if a.date else None);path=Path(a.output);path.parent.mkdir(exist_ok=True,parents=True)
  path.write_text(json.dumps(result,indent=2)+"\n")
  print(json.dumps({"status":"DISCOVERY_ONLY",
   "available_sources":sum(s["status"]=="fetched_unverified_markup" for s in result["sources"].values()),
