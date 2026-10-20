@@ -1,0 +1,17 @@
+{
+  "sport": "NBA",
+  "designation": "Champion",
+  "version": "nba-v2-research-2026-10-20",
+  "registered_at_utc": "2026-10-20",
+  "source_branch": "feature/nba-engine-v1",
+  "source_commit": "faa0055fc564b6c2e0b4c36264d1f90444a63fbd",
+  "components": ["nba_engine/core.py", "nba_engine/advanced.py", "nba_engine/possession_sim.py", "nba_engine/player_sim.py", "nba_engine/calibration.py", "nba_engine/evaluation.py", "nba_engine/ledger.py", "nba_engine/providers.py", "nba_engine/recovery.py"],
+  "designation_scope": "NBA-only research Champion candidate selected by owner",
+  "production_status": "NOT_DEPLOYED",
+  "verification_status": "NOT_YET_VALIDATED",
+  "calibration_status": "NOT_FITTED",
+  "live_data_status": "NOT_CONNECTED",
+  "prediction_policy": "Do not present probabilities as validated, calibrated or betting-ready.",
+  "other_sports_champions": "UNCHANGED",
+  "promotion_gate": "Require tests, live source coverage, point-in-time walk-forward evaluation and explicit merge/deployment approval"
+}
