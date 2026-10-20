@@ -13,17 +13,43 @@ class RotationPlayer:
     available: bool = True
 
 def allocate_minutes(players, total=240):
-    """Allocate 240 regulation team minutes with explicit available rotation.
-    Caller-supplied minute weights must be nonnegative; fail closed if empty.
+    """Allocate regulation minutes, refusing rotations that cannot fill the court.
+
+    An available player must have a positive projected weight to receive time.
+    Each regulation player is capped at 48 minutes; no invented bench players.
     """
-    if total <= 0: raise ValueError("Invalid total")
-    ids=[p.player_id for p in players]
-    if len(ids)!=len(set(ids)): raise ValueError("Duplicate identity")
-    weights=[p.minutes if p.available else 0 for p in players]
-    if any(p.minutes<0 or p.usage<0 for p in players): raise ValueError("Negative input")
-    denom=sum(weights)
-    if denom<=0: raise ValueError("No available minutes")
-    return {p.player_id:total*w/denom for p,w in zip(players,weights)}
+    from math import isfinite
+    if type(total) not in (int, float) or not isfinite(total) or total <= 0:
+        raise ValueError("Invalid total")
+    ids = [p.player_id for p in players]
+    if len(ids) != len(set(ids)):
+        raise ValueError("Duplicate identity")
+    if any(not isfinite(p.minutes) or not isfinite(p.usage) or p.minutes < 0 or p.usage < 0 for p in players):
+        raise ValueError("Invalid minute or usage weight")
+    active = [p for p in players if p.available and p.minutes > 0]
+    if total > 48 * len(active) + 1e-9:
+        raise ValueError("Insufficient available rotation to cover team minutes")
+    allocation = {p.player_id: 0.0 for p in players}
+    remaining = float(total)
+    eligible = active[:]
+    while remaining > 1e-9:
+        if not eligible:
+            raise ValueError("Infeasible minutes allocation")
+        weights = sum(p.minutes for p in eligible)
+        saturated = [p for p in eligible if remaining * p.minutes / weights >= 48 - allocation[p.player_id] - 1e-9]
+        if not saturated:
+            for p in eligible:
+                allocation[p.player_id] += remaining * p.minutes / weights
+            remaining = 0.0
+            break
+        for p in saturated:
+            capacity = max(0.0, 48.0 - allocation[p.player_id])
+            allocation[p.player_id] += capacity
+            remaining -= capacity
+        eligible = [p for p in eligible if p not in saturated]
+    if abs(sum(allocation.values()) - total) > 1e-6 or any(m > 48 + 1e-8 for m in allocation.values()):
+        raise ValueError("Minutes accounting mismatch")
+    return allocation
 
 def usage_shares(players, minutes):
     """Redistribute available opportunity as a single shared possession pie."""
