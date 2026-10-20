@@ -27,3 +27,19 @@ Each accepted evidence field must have a match ID, recognized provider URL, 64-c
 5. Register a new challenger artifact only after prospective shadow outcomes and explicit approval; never overwrite `Champion` or registered `Experimental v3.4-A`.
 
 This Challenger branch replaces the **Experimental slot identity** with V2, not the registered Champion or underlying v3.4-A artifact. Live publication requires validated integration and a deliberate PR merge. Feature adapters remain unavailable until they are independently sourced and prospectively tested.
+
+
+## Missing-feeds development branch — October 19, 2026
+
+Active development branch: challenger/experimental-v2-missing-feeds-20261019 (branched from merged PR #23 on main). This is NOT a new production model or Champion promotion.
+
+Implemented research adapters (scripts/v2_missing_feed_adapters.py):
+
+- **Weather:** Free Open-Meteo hourly forecast retrieved before the match, only with a separately reviewed *court location* and indoor/outdoor metadata. Saves forecast-hour measurements, API URL, actual downloaded response SHA-256, and retrieval timestamp. No city-center or historical actual-weather fallback. Indoors is marked not applicable. A source-reviewed venue catalog is still needed for actual live coverage.
+- **Observed workload:** Timestamped match completion data permit observed 7/14-day counts, documented court minutes, and time since the most recent observed completion. This is never a claim of comprehensive workload. Old tournament-week date proxies are disallowed. External source capture and reconciled complete coverage remain missing.
+- **Public availability notices:** Only attributed, officially published, fixture-specific participation statuses; missing notices are UNKNOWN, not healthy. Source links and timestamps are validated, but the actual notice bytes are NOT independently authenticated by this adapter. A reliable public-notice fetcher remains missing.
+- **Travel and shot-level playing style:** Still blocked pending exact venue routing and detailed point-by-point/shot feeds.
+
+scripts/run_v2_missing_feeds.py runs in Challenger CI without network by default and writes work/v2-missing-feeds.json. It reports coverage gaps and why observations cannot be made. Opt-in weather requests require --enable-weather-fetch with a reviewed --venues catalog. Exact workload requires --completed-matches and --player-ids. Official participation updates require --availability.
+
+All new evidence remains descriptive: win_probability_adjustment is null. No production model, probability, calibration coefficient, Champion, or registered engine artifact is changed. Future production integration is conditional on verified sources and prospective out-of-sample calibration.
