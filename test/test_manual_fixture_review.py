@@ -7,7 +7,7 @@ from reconcile_fixture_coverage import reconcile
 NOW="2026-10-20T09:00:00+00:00"
 def fixture():
  return {"source_match_id":"manual-reviewed-001","tour":"ATP","regime":"challenger",
- "tournament_key":"fort-worth","surface":"Hard","best_of":3,
+ "tournament_key":"fort-worth","status":"scheduled","surface":"Hard","best_of":3,
  "deciding_tiebreak_target":7,"name_a":"Alpha Player","name_b":"Beta Player",
  "starts_at":"2026-10-20T19:00:00+00:00",
  "independent_receipts":[
@@ -16,6 +16,12 @@ def fixture():
 class ReviewedFixtureTests(unittest.TestCase):
  def test_two_source_fixture(self):
   self.assertEqual(validate(fixture(),NOW)["player_a"],"ATP:alpha player")
+ def test_withdrawal_rejected(self):
+  m=fixture();m["withdrawn"]=True
+  with self.assertRaises(ValueError):validate(m,NOW)
+ def test_opponent_conflict_rejected(self):
+  m=fixture();m["opponent_conflict"]=True
+  with self.assertRaises(ValueError):validate(m,NOW)
  def test_one_source_rejected(self):
   m=fixture();m["independent_receipts"]=m["independent_receipts"][:1]
   with self.assertRaises(ValueError):validate(m,NOW)
