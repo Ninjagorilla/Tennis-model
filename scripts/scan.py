@@ -29,6 +29,23 @@ def scan():
             if fingerprint(e) not in current:continue
             results={r:project(outputs.get(r,{}).get(i)) if r in eligible else {'status':'unavailable','reason':'PREFLIGHT_FAILED'} for r in ROLES}
             match={k:e[k] for k in ('source_match_id','tour','regime','tournament','tournament_key','best_of','deciding_tiebreak_target','surface','name_a','name_b','starts_at','round','event_source','surface_source','format_source')}|{'results':results}
+            if e['tour']=='WTA':
+                # WTA SR-Elo blend is SHADOW ONLY. Never expose its probability
+                # in the primary Champion slot or quietly promote a fallback.
+                blend=results['champion']
+                match['wta_blend_shadow']={**blend,'role':'SHADOW',
+                    'not_for_action':True,'historical_metrics_citable':False}
+                results['champion']={'status':'unavailable',
+                    'reason':'WTA_BLEND_DEMOTED_TO_SHADOW'}
+                sr=results['challenger']
+                match['wta_selected']={
+                    'role':'SR_CHALLENGER_RESEARCH' if sr['status']=='ok' else 'NO_FORECAST',
+                    'status':sr['status'],
+                    'selection_reason':'WTA_BLEND_DEMOTED_TO_SHADOW',
+                    'research_only':True,
+                    'model_id':sr.get('model_id') if sr['status']=='ok' else None,
+                    'p_a':sr.get('p_a') if sr['status']=='ok' else None,
+                    'p_b':sr.get('p_b') if sr['status']=='ok' else None}
             match['court_enclosure']=e.get('court_enclosure','Unknown')
             match['devils_advocate']=challenge(match)
             doc['matches'].append(match)
