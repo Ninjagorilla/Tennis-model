@@ -89,7 +89,7 @@ def parse_espn_completed(doc,tour,*,observed_at,source_url,source_sha256):
                         continue
                     if state.get("name") not in ("STATUS_FINAL","STATUS_FULL_TIME"):
                         continue
-                    if any(k in str(c).casefold() for k in ("walkover","retired","retirement","defaulted","abandoned","cancelled")):
+                    if re.search(r"\b(?:ret|retired|retirement|w/?o|walkover|defaulted|abandoned|cancelled)\b",str(c),re.IGNORECASE):
                         continue
                     start=utc(c.get("startDate") or c["date"])
                     if start>=observed:continue
@@ -212,8 +212,8 @@ def partial_observed_workload(fixture,identity,completed,*,as_of):
                          "completed_starts_14d":None}
         else:
             sides[side]={"status":"partial_observed",
-                         "completed_starts_7d":sum(0<=start-t<=timedelta(days=7) for t in relevant),
-                         "completed_starts_14d":sum(0<=start-t<=timedelta(days=14) for t in relevant),
+                         "completed_starts_7d":sum(timedelta(0)<=start-t<=timedelta(days=7) for t in relevant),
+                         "completed_starts_14d":sum(timedelta(0)<=start-t<=timedelta(days=14) for t in relevant),
                          "last_documented_scheduled_start":max(relevant).isoformat(),
                          "court_minutes":None,"rest_hours":None}
     return {"status":"partial_observed_history","players":sides,
