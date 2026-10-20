@@ -39,6 +39,31 @@ def deduplicate(rows):
         out.append(selected)
     return out,{"duplicates_collapsed":duplicates,"identity_conflicts":conflicts}
 
+
+def cross_source_opponent_conflicts(rows):
+    """Withhold a match if independent providers name different opponents.
+
+    Compare same tour, edition, player, and start within 3 hours.
+    Never infer the replacement matchup from one provider.
+    """
+    from datetime import datetime
+    blocked=set()
+    for i,a in enumerate(rows):
+        for j,b in enumerate(rows[i+1:],i+1):
+            pa=str(a.get("source_match_id","")).startswith("tc:")
+            pb=str(b.get("source_match_id","")).startswith("tc:")
+            if pa==pb or a["tour"]!=b["tour"] or a["tournament_key"]!=b["tournament_key"]:
+                continue
+            if a["regime"]!=b["regime"]:continue
+            ta=datetime.fromisoformat(a["starts_at"].replace("Z","+00:00"))
+            tb=datetime.fromisoformat(b["starts_at"].replace("Z","+00:00"))
+            if abs((ta-tb).total_seconds())>10800:continue
+            aa={identity(a["tour"],a["name_a"]),identity(a["tour"],a["name_b"])}
+            bb={identity(b["tour"],b["name_a"]),identity(b["tour"],b["name_b"])}
+            if len(aa&bb)==1:
+                blocked.update((i,j))
+    return [r for k,r in enumerate(rows) if k not in blocked],len(blocked)
+
 def challenge(row):
     """Only interprets three observed model probabilities, never invents one."""
     probs={}
