@@ -264,13 +264,25 @@ class SettlementTests(unittest.TestCase):
         self.assertEqual(grade(selection(), event(participation={"A_RB": False}), [play(1, "A_RB")])["grade"], "PENDING")
 
     def test_pass_touchdown_credit_is_receiver_not_passer(self):
-        source = {"game_id": "g", "play_id": 1.0, "qtr": 1.0, "touchdown": 1.0, "play_type": "pass",
+        source = {"game_id": "g", "play_id": 1.0, "order_sequence": 1.0, "qtr": 1.0, "touchdown": 1.0, "play_type": "pass",
                   "two_point_attempt": 0.0, "extra_point_attempt": 0.0, "td_team": "A",
                   "td_player_id": "A_RB", "passer_player_id": "A_QB"}
         out = normalize_nflverse_row(source)
         self.assertEqual(out["scorer_id"], "A_RB")
         source["td_player_id"] = None
         self.assertIsNone(normalize_nflverse_row(source)["scorer_id"])
+
+    def test_authoritative_order_sequence_overrides_play_id(self):
+        early = {"game_id": "g", "play_id": 900, "order_sequence": 1,
+                 "qtr": 1, "touchdown": 1, "play_type": "pass",
+                 "two_point_attempt": 0, "extra_point_attempt": 0,
+                 "td_team": "A", "td_player_id": "A_RB"}
+        late = dict(early, play_id=100, order_sequence=2,
+                    td_team="B", td_player_id="B_WR")
+        plays = [normalize_nflverse_row(late), normalize_nflverse_row(early)]
+        self.assertEqual(grade(selection(), event(), plays)["grade"], "WIN")
+        with self.assertRaises(ValueError):
+            normalize_nflverse_row({k:v for k,v in early.items() if k!="order_sequence"})
 
     def test_pbp_missing_flag_rejected(self):
         with self.assertRaises(ValueError): normalize_nflverse_row({"game_id": "g"})
