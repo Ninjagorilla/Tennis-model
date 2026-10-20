@@ -1,11 +1,11 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-10-20T00:22:36.219548+00:00",
-  "expires_at": "2026-10-20T01:52:36.219548+00:00",
+  "generated_at": "2026-10-20T00:41:52.388201+00:00",
+  "expires_at": "2026-10-20T02:11:52.388201+00:00",
   "prediction_status": "available",
   "build": {
     "commit": "a903c44830a33d375d476b92b5c6d5e168cd5c99",
-    "run_id": "39347143067"
+    "run_id": "39349029134"
   },
   "models": [
     {
@@ -163,7 +163,7 @@
               "weather": "MISSING_OR_UNVERIFIED",
               "physical": "MISSING_OR_UNVERIFIED"
             },
-            "evidence_digest": "7d01a2889c0cfc8c38ebda23bcde283c4a3b00a883e2fe237b2985682e7e462d",
+            "evidence_digest": "81cdb6f265d25f005de2ab46c6ddfcf9c5a034a5f57b132fcf1002b99c9e3252",
             "eligible_for_promotion": false,
             "court_enclosure": "Indoor",
             "history_readiness": {
@@ -337,7 +337,7 @@
               "weather": "MISSING_OR_UNVERIFIED",
               "physical": "MISSING_OR_UNVERIFIED"
             },
-            "evidence_digest": "dbec4927251d61a0a9d51881f03d28da1c2966ab181b3bca6620ea620b823e91",
+            "evidence_digest": "1e476d61239d9ba7830aecac3d6eccbb0c5e27612b8829450e4ae207284a5fa9",
             "eligible_for_promotion": false,
             "court_enclosure": "Indoor",
             "history_readiness": {
@@ -511,7 +511,7 @@
               "weather": "MISSING_OR_UNVERIFIED",
               "physical": "MISSING_OR_UNVERIFIED"
             },
-            "evidence_digest": "23e1199fcf636774bee2ed0fc1699e1aa7c0a8bfa5ba476158e67b65604a2fdc",
+            "evidence_digest": "9dae124d3408e239ef8a786efd14267a5845afef1f527a0a90ced653bfab373d",
             "eligible_for_promotion": false,
             "court_enclosure": "Indoor",
             "history_readiness": {
@@ -685,7 +685,7 @@
               "weather": "MISSING_OR_UNVERIFIED",
               "physical": "MISSING_OR_UNVERIFIED"
             },
-            "evidence_digest": "2135b254414f92d4272b387a035191e5e54ef8e5129de4ab3aaed6f5adc4fc5a",
+            "evidence_digest": "e22984f1ee9152b11cb44928a9a8b79362c1952108526bcb6fd36d491bacc591",
             "eligible_for_promotion": false,
             "court_enclosure": "Indoor",
             "history_readiness": {
@@ -863,7 +863,7 @@
               "weather": "MISSING_OR_UNVERIFIED",
               "physical": "MISSING_OR_UNVERIFIED"
             },
-            "evidence_digest": "133e06e5ce5dbf083e2cf85b4f23e564b95a351e03cfbd16cf78b4c6fd0cbd10",
+            "evidence_digest": "3ff14a9cebccb536d978606069b42f7336f44b11030b1db534da26c1d60cf73d",
             "eligible_for_promotion": false,
             "court_enclosure": "Indoor",
             "history_readiness": {
@@ -1037,7 +1037,7 @@
               "weather": "MISSING_OR_UNVERIFIED",
               "physical": "MISSING_OR_UNVERIFIED"
             },
-            "evidence_digest": "a34835fd600d19a3e0bc8fcea1ba6c1ad74534d55be0fd6e42ee4b4ddd2bc954",
+            "evidence_digest": "e0dce4479ad196d1d763038a0980688deda38cae4769ed012ae9cf3fbb716057",
             "eligible_for_promotion": false,
             "court_enclosure": "Indoor",
             "history_readiness": {
@@ -1215,7 +1215,7 @@
               "weather": "MISSING_OR_UNVERIFIED",
               "physical": "MISSING_OR_UNVERIFIED"
             },
-            "evidence_digest": "ced9eae0034f243c8bbc36a875b83b9d3bd48660a0d51fc4fec5fc44e0108fc6",
+            "evidence_digest": "80ad0c03aa1c0f541f2f96c7e4d35bf0a939e35b9dca5aae02d1a2e86f33c773",
             "eligible_for_promotion": false,
             "court_enclosure": "Indoor",
             "history_readiness": {
@@ -1393,7 +1393,7 @@
               "weather": "MISSING_OR_UNVERIFIED",
               "physical": "MISSING_OR_UNVERIFIED"
             },
-            "evidence_digest": "3b171cd769b0cd1a34a18354902ea60a618af3f496c81cfb3eef7deaf0ce72d0",
+            "evidence_digest": "7729a16e9b288698f2ac24678356cabafc18b4d5fefd11c722d7fd76930ce00b",
             "eligible_for_promotion": false,
             "court_enclosure": "Indoor",
             "history_readiness": {
@@ -1575,7 +1575,7 @@
               "weather": "MISSING_OR_UNVERIFIED",
               "physical": "MISSING_OR_UNVERIFIED"
             },
-            "evidence_digest": "e22d177266ab48fd002ab54e50e288eb1a192a3fc993f4e07bbefc6d26ee3132",
+            "evidence_digest": "ea1e8bad3e49b26d968901175ec2c57b18029cb0bd932c1e7a57168689e02744",
             "eligible_for_promotion": false,
             "court_enclosure": "Indoor",
             "history_readiness": {
@@ -1749,7 +1749,7 @@
               "weather": "MISSING_OR_UNVERIFIED",
               "physical": "MISSING_OR_UNVERIFIED"
             },
-            "evidence_digest": "de9f1aff1a8530403c229e17b689e605059b72c6e6b1b700806a27e169806b63",
+            "evidence_digest": "27f43f2f76484ca09367da21f406cb09a720ec8b29c85a14a8d3ec5360f4049b",
             "eligible_for_promotion": false,
             "court_enclosure": "Indoor",
             "history_readiness": {
@@ -1927,7 +1927,7 @@
               "weather": "MISSING_OR_UNVERIFIED",
               "physical": "MISSING_OR_UNVERIFIED"
             },
-            "evidence_digest": "de7841c1a038d565bd4e516176e10f653a4335e366455e311dbbdb978e4e3fb6",
+            "evidence_digest": "1103f78eba2c912ecedf8dc4af40386d583952f915acd07273115046c9a5116d",
             "eligible_for_promotion": false,
             "court_enclosure": "Indoor",
             "history_readiness": {
@@ -2107,7 +2107,7 @@
               "weather": "MISSING_OR_UNVERIFIED",
               "physical": "MISSING_OR_UNVERIFIED"
             },
-            "evidence_digest": "1acb1026e59688f2719008bfbc1ae2024c199042c5f02c40f0af945494209a37",
+            "evidence_digest": "7fb8d8cb6843c44a1cb5207eefbaf28b2e8edda15197cf09a3491fbbfcc4cb7d",
             "eligible_for_promotion": false,
             "court_enclosure": "Indoor",
             "history_readiness": {
@@ -2285,7 +2285,7 @@
               "weather": "MISSING_OR_UNVERIFIED",
               "physical": "MISSING_OR_UNVERIFIED"
             },
-            "evidence_digest": "e6c25e9e356a522ef2262e864b15bd99a2e3e0c315d6ca1ce2fe65ec4d27bfde",
+            "evidence_digest": "f53d7a4f6df09c9d6d9b2bd0fc5c8593f78455f6974002f6e973df247140d201",
             "eligible_for_promotion": false,
             "court_enclosure": "Indoor",
             "history_readiness": {
@@ -2459,7 +2459,7 @@
               "weather": "MISSING_OR_UNVERIFIED",
               "physical": "MISSING_OR_UNVERIFIED"
             },
-            "evidence_digest": "b237031e5d67063649c440a0d64e3a6517cff6d898fe64149d838d8d67384489",
+            "evidence_digest": "c1861c0a5b80f97f9f11bf78c0769552eef44a509a76a6197c404249eb5ab88a",
             "eligible_for_promotion": false,
             "court_enclosure": "Indoor",
             "history_readiness": {
@@ -2633,7 +2633,7 @@
               "weather": "MISSING_OR_UNVERIFIED",
               "physical": "MISSING_OR_UNVERIFIED"
             },
-            "evidence_digest": "77d0f4fe57e6b92c836fd69e975d9febf448d6743830106adce4e14495c283ce",
+            "evidence_digest": "1c0d76004c5d31ab1f5adb8b79fc7f66b2e15c569805ebf8550212bc6633bb05",
             "eligible_for_promotion": false,
             "court_enclosure": "Indoor",
             "history_readiness": {
@@ -2811,7 +2811,7 @@
               "weather": "MISSING_OR_UNVERIFIED",
               "physical": "MISSING_OR_UNVERIFIED"
             },
-            "evidence_digest": "7e2ec8b4c344a732df0a5d741ee2c30cec583eb548fbb97c18231dc0f610d45b",
+            "evidence_digest": "209d3c7013214aafeb103a7559e9b77db4cc1cf3a7ab232522f0cb5e0d868651",
             "eligible_for_promotion": false,
             "court_enclosure": "Indoor",
             "history_readiness": {
@@ -2989,7 +2989,7 @@
               "weather": "MISSING_OR_UNVERIFIED",
               "physical": "MISSING_OR_UNVERIFIED"
             },
-            "evidence_digest": "afb1940d32634ac9e1c9b81afb39275599469eb3b2366197c4368a6455ef0e51",
+            "evidence_digest": "a51f1316b4612a8cddce038f98fd39cb52816e61d7da15aa289fcaffd425f3ac",
             "eligible_for_promotion": false,
             "court_enclosure": "Indoor",
             "history_readiness": {
@@ -3167,7 +3167,7 @@
               "weather": "MISSING_OR_UNVERIFIED",
               "physical": "MISSING_OR_UNVERIFIED"
             },
-            "evidence_digest": "f7fa55a811fd83707747d974faf3e9fc65b295ba9218a968eabea0312b9bf4e8",
+            "evidence_digest": "396213e450eb99fad272a3ee77fe97be1224f82096e62455afd632d4b1e78d37",
             "eligible_for_promotion": false,
             "court_enclosure": "Indoor",
             "history_readiness": {
@@ -3345,7 +3345,7 @@
               "weather": "MISSING_OR_UNVERIFIED",
               "physical": "MISSING_OR_UNVERIFIED"
             },
-            "evidence_digest": "01f188d1b5a4d764e2b48455422f86c010ec3302d73456a79081dd15ed980648",
+            "evidence_digest": "b512e70ce619392dc9ec0b8d22deed50900376f895daf572ce73f27b3625646a",
             "eligible_for_promotion": false,
             "court_enclosure": "Indoor",
             "history_readiness": {
@@ -3523,7 +3523,7 @@
               "weather": "MISSING_OR_UNVERIFIED",
               "physical": "MISSING_OR_UNVERIFIED"
             },
-            "evidence_digest": "47a90e6af653655a07e434aa6e6f620f1e9c340d40da5ceff756b7f4f5e43e19",
+            "evidence_digest": "b6b733bd271d94ec5224f6902866846bedbb4cbba450ed915f009dba6466a3bd",
             "eligible_for_promotion": false,
             "court_enclosure": "Indoor",
             "history_readiness": {
@@ -3701,7 +3701,7 @@
               "weather": "MISSING_OR_UNVERIFIED",
               "physical": "MISSING_OR_UNVERIFIED"
             },
-            "evidence_digest": "09645aed0eea2a660ea8515d0872c8af283acce0e43c945a289ba8d7547d5a4a",
+            "evidence_digest": "680da30a9da2492c3a0d7ae15f9680b9df491f0b14e813f19307141a077366fa",
             "eligible_for_promotion": false,
             "court_enclosure": "Outdoor",
             "history_readiness": {
@@ -3875,7 +3875,7 @@
               "weather": "MISSING_OR_UNVERIFIED",
               "physical": "MISSING_OR_UNVERIFIED"
             },
-            "evidence_digest": "f291f75ce874d265e1131f371d778e84eaf8db9e26f257ae7182d0ea77773fb4",
+            "evidence_digest": "62d362dc69b4d3dd4a8addd6018569ac7126ab6a7dbd954f8a287fd6aaf64e91",
             "eligible_for_promotion": false,
             "court_enclosure": "Outdoor",
             "history_readiness": {
@@ -4049,7 +4049,7 @@
               "weather": "MISSING_OR_UNVERIFIED",
               "physical": "MISSING_OR_UNVERIFIED"
             },
-            "evidence_digest": "27107c539c76d9adbf7cbfe44e42b242e86edfc3d91d5a677575ae7d5b808655",
+            "evidence_digest": "f9c87889e485da160ebc34c56a4787e24bbd3cf215581d8fdcb7f998020557a0",
             "eligible_for_promotion": false,
             "court_enclosure": "Outdoor",
             "history_readiness": {
@@ -4271,7 +4271,7 @@
               "weather": "MISSING_OR_UNVERIFIED",
               "physical": "MISSING_OR_UNVERIFIED"
             },
-            "evidence_digest": "8606067417fff0c75ec49bf79df93c54d88cf1067d0c2839a429a6f08619ccbf",
+            "evidence_digest": "08b42c6e196371e32415e3fdd8f50f86d9cf2d8f6e8f31828914d361c1c0b000",
             "eligible_for_promotion": false,
             "court_enclosure": "Outdoor",
             "history_readiness": {
@@ -4445,7 +4445,7 @@
               "weather": "MISSING_OR_UNVERIFIED",
               "physical": "MISSING_OR_UNVERIFIED"
             },
-            "evidence_digest": "bc912c362fd5fc72cbf1266b9299df9637e3971b5e11f27c9ec270bd10150f90",
+            "evidence_digest": "ddba1f64ae50e4cc4ad58d7c2b4627213e2f0115020edccc500f1ff66a3cfd4e",
             "eligible_for_promotion": false,
             "court_enclosure": "Outdoor",
             "history_readiness": {
@@ -4619,7 +4619,7 @@
               "weather": "MISSING_OR_UNVERIFIED",
               "physical": "MISSING_OR_UNVERIFIED"
             },
-            "evidence_digest": "df3d1e3876b551fbdf1bb87da651fcc89e8ad453edfebded9e43aa3c6152da97",
+            "evidence_digest": "ccbb9378b44ee1624815cae0df1f8d03f11b677e602cff3308b87907552be8dd",
             "eligible_for_promotion": false,
             "court_enclosure": "Outdoor",
             "history_readiness": {
@@ -4793,7 +4793,7 @@
               "weather": "MISSING_OR_UNVERIFIED",
               "physical": "MISSING_OR_UNVERIFIED"
             },
-            "evidence_digest": "b16697e932a451b004b977dd6a4b422881d08b701adcac92edaa0c06e044b1cd",
+            "evidence_digest": "976f7831cf7d93728d8d748e1be98426e49c5c005dde1b7852e96cc017fa46a8",
             "eligible_for_promotion": false,
             "court_enclosure": "Outdoor",
             "history_readiness": {
@@ -5011,7 +5011,7 @@
               "weather": "MISSING_OR_UNVERIFIED",
               "physical": "MISSING_OR_UNVERIFIED"
             },
-            "evidence_digest": "b871f0de3a3584bc2ef6ee15620574bf1f2ba68abe9dae19dd9742759c9aec6a",
+            "evidence_digest": "e54554d473ce833763871b290efdd6ae2df39dd253c37bb8d88cc6e351d0013c",
             "eligible_for_promotion": false,
             "court_enclosure": "Outdoor",
             "history_readiness": {
@@ -5189,7 +5189,7 @@
               "weather": "MISSING_OR_UNVERIFIED",
               "physical": "MISSING_OR_UNVERIFIED"
             },
-            "evidence_digest": "83618cd54926b5185328641899f9da5152c4607ae10faed05ceb2a1cfc8a6306",
+            "evidence_digest": "bf50e2d509c24c6d60ad87021ea5797399d248e8dd7c5937f73c82314c93be15",
             "eligible_for_promotion": false,
             "court_enclosure": "Outdoor",
             "history_readiness": {
@@ -5367,7 +5367,7 @@
               "weather": "MISSING_OR_UNVERIFIED",
               "physical": "MISSING_OR_UNVERIFIED"
             },
-            "evidence_digest": "85a25d4b69d6735dd0cd6d2b0189b471bf50d4549edca6cb50da3f2a15d5e357",
+            "evidence_digest": "e178476fc6e6f0235df708043d295b3edc65c2030e636c0922d29f3701c9eaae",
             "eligible_for_promotion": false,
             "court_enclosure": "Outdoor",
             "history_readiness": {
@@ -5541,7 +5541,7 @@
               "weather": "MISSING_OR_UNVERIFIED",
               "physical": "MISSING_OR_UNVERIFIED"
             },
-            "evidence_digest": "328ae749fc39510731de9ff2526a58d827964c8738195263e3ec41479512d941",
+            "evidence_digest": "e715971a5a5964a7ac7a9b90f04b07d4eeade5c716d1182ebe1b9b061d8724dc",
             "eligible_for_promotion": false,
             "court_enclosure": "Outdoor",
             "history_readiness": {
@@ -5719,7 +5719,7 @@
               "weather": "MISSING_OR_UNVERIFIED",
               "physical": "MISSING_OR_UNVERIFIED"
             },
-            "evidence_digest": "d3d45b1d4e9096c75d0ae6c12876b9eedf7d905b3ebfc990bbf3d516b4543efc",
+            "evidence_digest": "a67f04841e5dab3bcdf2bd7e91e9961417bd83571e5ce2825244c0c8d281e141",
             "eligible_for_promotion": false,
             "court_enclosure": "Outdoor",
             "history_readiness": {
@@ -5901,7 +5901,7 @@
               "weather": "MISSING_OR_UNVERIFIED",
               "physical": "MISSING_OR_UNVERIFIED"
             },
-            "evidence_digest": "899a9f95951b66fd0722a40c025ed4c0662a41684fa75933bbc6171a3c2e2b04",
+            "evidence_digest": "35f3eb5e318b67ab77e72d84f7bd53bbf3c7ed693a94eb280ec014f8d9a7f036",
             "eligible_for_promotion": false,
             "court_enclosure": "Outdoor",
             "history_readiness": {
@@ -6081,7 +6081,7 @@
               "weather": "MISSING_OR_UNVERIFIED",
               "physical": "MISSING_OR_UNVERIFIED"
             },
-            "evidence_digest": "91258653d4c9090a899f5d1164cd5ed50a66b4ff4346b40320820dffeadad8ef",
+            "evidence_digest": "646a531da1321e4c156093ca1ffb485db57edf2754920021e2a432e883610bb8",
             "eligible_for_promotion": false,
             "court_enclosure": "Outdoor",
             "history_readiness": {
@@ -6144,28 +6144,28 @@
       {
         "url": "https://www.tennis.com/?date=2026-10-20",
         "status": "ok",
-        "fetched_at": "2026-10-20T00:22:35.476822+00:00",
+        "fetched_at": "2026-10-20T00:41:51.781733+00:00",
         "sha256": "20e284510f5ced72755e6ee0a06fa89799a9ae85ea21d80528bfc9915d1bcebf",
         "provider": "Tennis.com"
       },
       {
         "url": "https://www.tennis.com/?date=2026-10-21",
         "status": "ok",
-        "fetched_at": "2026-10-20T00:22:35.564905+00:00",
-        "sha256": "324315e9fc85d11e8a913255d9091c00646f90a9b3e059fa253b8b6415abfde1",
+        "fetched_at": "2026-10-20T00:41:51.867163+00:00",
+        "sha256": "2554d6eca0c52e822acaab521be2a1dc0609c9d700316424f10681f45fc71363",
         "provider": "Tennis.com"
       },
       {
         "url": "https://www.tennis.com/tournaments",
         "status": "ok",
-        "fetched_at": "2026-10-20T00:22:35.622627+00:00",
+        "fetched_at": "2026-10-20T00:41:51.925982+00:00",
         "sha256": "1041bc4f6883dc10d1f5aa149e7c0ea0f1b19145e04c8173a5410afb64ce23bd",
         "provider": "Tennis.com"
       },
       {
         "url": "https://www.tennis.com/tournaments/almaty-open",
         "status": "ok",
-        "fetched_at": "2026-10-20T00:22:35.711969+00:00",
+        "fetched_at": "2026-10-20T00:41:51.999515+00:00",
         "sha256": "1699af113c020b5bc9553a27fe45438b7b0c7fa3b908a7195b5eb3ec4126dc2f",
         "provider": "Tennis.com"
       },
@@ -6173,67 +6173,67 @@
         "url": "https://www.tennis.com/tournaments/atp-challenger-florence-italy",
         "provider": "Tennis.com metadata",
         "status": "unavailable",
-        "fetched_at": "2026-10-20T00:22:35.737480+00:00"
+        "fetched_at": "2026-10-20T00:41:52.043629+00:00"
       },
       {
         "url": "https://www.tennis.com/tournaments/atp-challenger-fort-worth-usa",
         "provider": "Tennis.com metadata",
         "status": "unavailable",
-        "fetched_at": "2026-10-20T00:22:35.710842+00:00"
+        "fetched_at": "2026-10-20T00:41:52.040192+00:00"
       },
       {
         "url": "https://www.tennis.com/tournaments/del-monte-lisboa-belem-open",
         "status": "ok",
-        "fetched_at": "2026-10-20T00:22:35.738559+00:00",
+        "fetched_at": "2026-10-20T00:41:52.051436+00:00",
         "sha256": "94c78d0ac12ee59817079f212300be69a357162abf004040dea902830484f2df",
         "provider": "Tennis.com"
       },
       {
         "url": "https://www.tennis.com/tournaments/directv-open-cali",
         "status": "ok",
-        "fetched_at": "2026-10-20T00:22:35.772784+00:00",
-        "sha256": "6fceb2416f6879369ff09e1a9d4b8796bb9e6095429922ca9c90fe6926d5d74a",
+        "fetched_at": "2026-10-20T00:41:52.077711+00:00",
+        "sha256": "4c054eecfb95f3bcdce92865ce4d47baed7221d5529520cb2877acbea95807ea",
         "provider": "Tennis.com"
       },
       {
         "url": "https://www.tennis.com/tournaments/european-open-2",
         "status": "ok",
-        "fetched_at": "2026-10-20T00:22:35.790495+00:00",
+        "fetched_at": "2026-10-20T00:41:52.114073+00:00",
         "sha256": "cc37b4c3ca1a4656ab56259d3aaddf167a1c1c56c2fc7ed0387ea1a9a2742098",
         "provider": "Tennis.com"
       },
       {
         "url": "https://www.tennis.com/tournaments/guangzhou-huangpu-international-tennis-open-2",
         "status": "ok",
-        "fetched_at": "2026-10-20T00:22:35.810383+00:00",
+        "fetched_at": "2026-10-20T00:41:52.120458+00:00",
         "sha256": "a5c9b524effc9b76c61704d83fa44f04fe4fab14b799f4745e566d54b4ecaead",
         "provider": "Tennis.com"
       },
       {
         "url": "https://www.tennis.com/tournaments/kinoshita-group-japan-open",
         "status": "ok",
-        "fetched_at": "2026-10-20T00:22:35.826481+00:00",
+        "fetched_at": "2026-10-20T00:41:52.144882+00:00",
         "sha256": "5f47956ab7955cfd09c72fbb564ee527909e7916541da927cc227ddde705a0d8",
         "provider": "Tennis.com"
       },
       {
         "url": "https://www.tennis.com/tournaments/ningbo-open",
         "status": "ok",
-        "fetched_at": "2026-10-20T00:22:35.853127+00:00",
+        "fetched_at": "2026-10-20T00:41:52.170284+00:00",
         "sha256": "1cccd62f70c0d34714c432145b43e1a9267fd7b8a03d0dc37731b56631c201fc",
         "provider": "Tennis.com"
       },
       {
         "url": "https://www.tennis.com/tournaments/open-13-provence",
         "status": "ok",
-        "fetched_at": "2026-10-20T00:22:35.865812+00:00",
+        "fetched_at": "2026-10-20T00:41:52.213124+00:00",
         "sha256": "ab1298fd1ddc368e74dd4ca7ab697109e42f4bb382ef16c5b694c7e538c4898c",
         "provider": "Tennis.com"
       },
       {
         "url": "https://www.tennis.com/tournaments/open-parc-auvergne-rhone-alpes-lyon",
         "status": "ok",
-        "fetched_at": "2026-10-20T00:22:35.890289+00:00",
+        "fetched_at": "2026-10-20T00:41:52.200282+00:00",
         "sha256": "56449f121949156a434c14dcd0342e054e0cf6ac600bc7e4fcd3314d4996e8f9",
         "provider": "Tennis.com"
       },
@@ -6241,28 +6241,28 @@
         "tour": "ATP",
         "url": "https://site.api.espn.com/apis/site/v2/sports/tennis/atp/scoreboard?dates=20261020",
         "status": "ok",
-        "fetched_at": "2026-10-20T00:22:36.114568+00:00",
+        "fetched_at": "2026-10-20T00:41:52.348034+00:00",
         "sha256": "66a80bd4bf5c5c64b874da9f48aadff6a0787a90596f57d0461bd77b8139c486"
       },
       {
         "tour": "ATP",
         "url": "https://site.api.espn.com/apis/site/v2/sports/tennis/atp/scoreboard?dates=20261021",
         "status": "ok",
-        "fetched_at": "2026-10-20T00:22:36.216741+00:00",
+        "fetched_at": "2026-10-20T00:41:52.333522+00:00",
         "sha256": "66a80bd4bf5c5c64b874da9f48aadff6a0787a90596f57d0461bd77b8139c486"
       },
       {
         "tour": "WTA",
         "url": "https://site.api.espn.com/apis/site/v2/sports/tennis/wta/scoreboard?dates=20261020",
         "status": "ok",
-        "fetched_at": "2026-10-20T00:22:36.157631+00:00",
+        "fetched_at": "2026-10-20T00:41:52.385142+00:00",
         "sha256": "8e1bcca7584e3525086373faf98a1d0d487bc5f0588f7ca966670efa53b37d85"
       },
       {
         "tour": "WTA",
         "url": "https://site.api.espn.com/apis/site/v2/sports/tennis/wta/scoreboard?dates=20261021",
         "status": "ok",
-        "fetched_at": "2026-10-20T00:22:36.133980+00:00",
+        "fetched_at": "2026-10-20T00:41:52.342219+00:00",
         "sha256": "e1a7170c12f4680f042f7db941106bb5b09db8cb496feefd40e155d582e4fc20"
       }
     ],
