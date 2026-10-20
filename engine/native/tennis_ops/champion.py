@@ -1,8 +1,10 @@
 """User-authorized Champion SR-Elo 1.0, independently pinned from SR Challenger.
 
 Completion-conditional ML is a sample-sensitive mixture of jointly estimated
-serve/return skill and a separate historical result-Elo prior. All coefficients
-were fitted on 2024 held-forward observations. No bookmaker features enter.
+serve/return skill and a separate historical result-Elo prior. The shipped serve/return base was refit through September 2026, including
+2024 observations; blend parameters derive from a different earlier vintage.
+The historical blend's reported performance is NOT a valid held-forward claim
+for the assembled artifact. No bookmaker features enter.
 """
 from __future__ import annotations
 import copy
@@ -133,16 +135,14 @@ class ChampionModel:
 
     def elo_probability(self,event:dict):
         a,b,s=event['player_a'],event['player_b'],event['surface']
-        ra=.5*self.elo['global'].get(a,1500.)+.5*self.surfaces.get((a,s),1500.)
+        for player in (a,b):
+            if self.elo.get('counts',{}).get(player,0) < 1 or player not in self.elo['global']:
+                raise ValueError('MISSING_ESTABLISHED_ELO_HISTORY:'+player)
+        ra=.5*self.elo['global'][a]+.5*self.surfaces.get((a,s),1500.)
         rb=.5*self.elo['global'].get(b,1500.)+.5*self.surfaces.get((b,s),1500.)
         p=float(expit((ra-rb)*math.log(10)/400))
-        if event['best_of']==5:
-            lo,hi=0.,1.
-            for _ in range(40):
-                q=(lo+hi)/2
-                if q*q*(3-2*q)<p:lo=q
-                else:hi=q
-            q=(lo+hi)/2;p=q**3*(1+3*(1-q)+6*(1-q)**2)
+        # Elo is a match-level estimate already trained across match formats.
+        # Do not transform BO5 again without a separately fitted format model.
         return p,ra,rb
 
     def explain(self,event:dict):
@@ -154,6 +154,10 @@ class ChampionModel:
         if self.fit_time>now or self.input_state_time>now:raise ValueError('FUTURE_CHAMPION_STATE')
         start=event.get('starts_at') or event.get('not_before_at')
         if start and max(self.fit_time,self.input_state_time)>=timestamp(start):raise ValueError('CHAMPION_INPUT_AFTER_START')
+        for player in (event['player_a'],event['player_b']):
+            for role in (0,1):
+                if player not in self.model.players or self.model.exposures.get((player,role),(0,0))[0] <= 0:
+                    raise ValueError('MISSING_SR_HISTORY:'+player)
         base=self.model.explain(event)
         e,ra,rb=self.elo_probability(event)
         common=(math.log(base['point_probability_raw_a']/(1-base['point_probability_raw_a']))+math.log(base['point_probability_raw_b']/(1-base['point_probability_raw_b'])))/2
