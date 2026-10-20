@@ -68,6 +68,15 @@ class IdentityLocationAndWorkloadTests(unittest.TestCase):
                                  source_url="https://site.api.espn.com/",
                                  source_sha256="a"*64)
     self.assertEqual(readings,[])
+ def test_conflicting_same_feed_final_is_withheld(self):
+    a=result(mid="811")
+    b=result(mid="811")
+    b["competitors"][0]["winner"]=False
+    b["competitors"][1]["winner"]=True
+    out=parse_espn_completed(feed(a,b),"WTA",observed_at=NOW,
+          source_url="https://site.api.espn.com/apis/site/v2/sports/tennis/wta/scoreboard?dates=20261017",
+          source_sha256="c"*64)
+    self.assertEqual(out,[])
  def test_no_future_record_or_mixed_tour_data(self):
     readings=parse_espn_completed(feed(result(start="2026-10-20T12:00:00Z")),"WTA",
                                 observed_at=NOW,source_url="https://site.api.espn.com/",
@@ -89,9 +98,13 @@ class IdentityLocationAndWorkloadTests(unittest.TestCase):
     f=fixture()
     i=scoped_fixture_identity(f)
     a={"tour":"WTA","match_id":"m1","player_ids":["72","999"],
-       "scheduled_start_at":"2026-10-18T12:00:00+00:00","first_observed_final_at":NOW}
+       "scheduled_start_at":"2026-10-18T12:00:00+00:00","first_observed_final_at":NOW,
+       "source_url":"https://site.api.espn.com/apis/site/v2/sports/tennis/wta/scoreboard?dates=20261018",
+       "source_sha256":"a"*64}
     b={"tour":"WTA","match_id":"m2","player_ids":["99","777"],
-       "scheduled_start_at":"2026-10-12T12:00:00+00:00","first_observed_final_at":NOW}
+       "scheduled_start_at":"2026-10-12T12:00:00+00:00","first_observed_final_at":NOW,
+       "source_url":"https://site.api.espn.com/apis/site/v2/sports/tennis/wta/scoreboard?dates=20261018",
+       "source_sha256":"a"*64}
     out=partial_observed_workload(f,i,[a,b],as_of=NOW)
     self.assertEqual(out["status"],"partial_observed_history")
     self.assertEqual(out["players"]["a"]["completed_starts_7d"],1)
@@ -104,7 +117,9 @@ class IdentityLocationAndWorkloadTests(unittest.TestCase):
     f=fixture()
     i=scoped_fixture_identity(f)
     completed=[{"tour":"WTA","match_id":"m5","player_ids":["72","333"],
-        "scheduled_start_at":"2026-10-18T12:00:00+00:00","first_observed_final_at":NOW}]
+        "scheduled_start_at":"2026-10-18T12:00:00+00:00","first_observed_final_at":NOW,
+       "source_url":"https://site.api.espn.com/apis/site/v2/sports/tennis/wta/scoreboard?dates=20261018",
+       "source_sha256":"a"*64}]
     out=partial_observed_workload(f,i,completed,as_of=NOW)
     self.assertEqual(out["players"]["b"]["status"],"no_matching_completed_records")
     self.assertIsNone(out["players"]["b"]["completed_starts_14d"])
