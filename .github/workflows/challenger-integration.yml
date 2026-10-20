@@ -52,6 +52,17 @@ jobs:
         run: python scripts/tennis_result_sources.py --probe-date "$(date -u -d yesterday +%F)" --output work/provider-probe.json
       - name: Report Experimental V2 matchup feature readiness without score replacement
         run: python scripts/run_matchup_v2_shadow.py work/snapshot.json
+      - name: Diagnose silent Challenger dropout against last verified reference
+        continue-on-error: true
+        run: |
+          python - <<'PY'
+          import urllib.request
+          url='https://raw.githubusercontent.com/Ninjagorilla/Tennis-model/c048d2fa4a68974d7902f2aa468d55a6c3cff0c7/public-results/latest.json'
+          with urllib.request.urlopen(url,timeout=12) as f:
+              payload=f.read(4000000)
+          open('work/previous-verified-tennis.json','wb').write(payload)
+          PY
+          python scripts/audit_challenger_dropout.py work/snapshot.json work/previous-verified-tennis.json work/challenger-dropout.json
       - name: Validate public status schema
         run: npm run build
       - name: Retain sanitized scan and coverage report
@@ -65,5 +76,6 @@ jobs:
             work/recovery-report.json
             work/provider-probe.json
             work/matchup-v2-shadow.json
+            work/challenger-dropout.json
           retention-days: 7
           if-no-files-found: ignore
