@@ -77,7 +77,7 @@ def parse_espn_completed(doc,tour,*,observed_at,source_url,source_sha256):
     observed=utc(observed_at)
     if tour not in ALLOWED_TOURS or not isinstance(doc,dict):
         raise ValueError("INVALID_TOUR_OR_DOCUMENT")
-    findings=[];by_id={}
+    findings=[];by_id={};conflicting=set()
     slug="mens-singles" if tour=="ATP" else "womens-singles"
     for event in doc.get("events",[]):
         for group in event.get("groupings",[]):
@@ -111,15 +111,18 @@ def parse_espn_completed(doc,tour,*,observed_at,source_url,source_sha256):
                              "player_ids":ids,"winner_id":ids[0] if competitors[0]["winner"] is True else ids[1],
                              "actual_finished_at":None,"duration_minutes":None,
                              "precision":"SCHEDULED_START_AND_FINAL_OBSERVATION_ONLY"}
+                    if match_id in conflicting:continue
                     if match_id in by_id:
                         if {k:v for k,v in by_id[match_id].items() if k not in ("source_sha256","first_observed_final_at")} != {k:v for k,v in receipt.items() if k not in ("source_sha256","first_observed_final_at")}:
-                            raise ValueError("DUPLICATE_CONFLICTING_FINAL_MATCH")
+                            # One source contradicting itself is never a vote:
+                            # withhold that entire event ID, not one arbitrary row.
+                            conflicting.add(match_id)
+                            del by_id[match_id]
                         continue
                     by_id[match_id]=receipt
-                    findings.append(receipt)
                 except (KeyError,ValueError,TypeError):
                     continue
-    return findings
+    return list(by_id.values())
 
 def fetch_espn_date(tour,day,*,reader=None,now=None):
     """Read a bounded, HTTPS provider snapshot and bind byte-level provenance."""
@@ -200,6 +203,13 @@ def partial_observed_workload(fixture,identity,completed,*,as_of):
                 started=utc(record["scheduled_start_at"])
                 observed=utc(record["first_observed_final_at"])
                 if not started<=observed<=now or started>=start:
+                    invalid+=1;continue
+                # Match receipts must be tied to the exact provider bytes.
+                url=record["source_url"]
+                digest=record["source_sha256"]
+                if not isinstance(url,str) or not url.startswith(ESPN+"/"+fixture["tour"].lower()+"/scoreboard?dates="):
+                    invalid+=1;continue
+                if not isinstance(digest,str) or not re.fullmatch("[0-9a-f]{64}",digest):
                     invalid+=1;continue
                 uid=record["match_id"]
                 if uid in seen:invalid+=1;continue
