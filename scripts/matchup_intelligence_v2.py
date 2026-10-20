@@ -28,7 +28,8 @@ def checked_feature(name,entry,match_start):
     try:
         observed=timestamp(entry["observed_at"])
         if observed>=match_start:return None,"POST_START_EVIDENCE"
-        if not str(entry["source_url"]).startswith(("https://www.atptour.com/","https://www.wtatennis.com/","https://www.tennis.com/","https://site.api.espn.com/","https://api.open-meteo.com/","https://raw.githubusercontent.com/Aneeshers/tennis-sackmann-archive/main/","https://raw.githubusercontent.com/JeffSackmann/tennis_atp/master/","https://raw.githubusercontent.com/JeffSackmann/tennis_wta/master/")):
+        if not str(entry["source_url"]).startswith(("https://www.atptour.com/","https://www.wtatennis.com/","https://www.tennis.com/","https://site.api.espn.com/","https://api.open-meteo.com/","https://raw.githubusercontent.com/Aneeshers/tennis-sackmann-archive/main/",
+    "https://raw.githubusercontent.com/Aneeshers/tennis-sackmann-archive/83733587353df8a41f2fd4f516147d5aa83f5a8d/","https://raw.githubusercontent.com/JeffSackmann/tennis_atp/master/","https://raw.githubusercontent.com/JeffSackmann/tennis_wta/master/")):
             return None,"SOURCE_NOT_ALLOWLISTED"
         if len(str(entry["source_sha256"]))!=64 or any(c not in "0123456789abcdef" for c in entry["source_sha256"].lower()):
             return None,"BAD_PROVENANCE"
