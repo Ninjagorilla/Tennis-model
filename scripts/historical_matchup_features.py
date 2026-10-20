@@ -21,6 +21,11 @@ def provenance(history,start):
     for s in history.get("sources",[]):
         if s.get("unavailable"):continue
         url=s.get("url","")
+        # Supplementary TennisMyLife and manually entered result records do
+        # not have the same prospective archival receipts as pinned files.
+        # Skip them; history_features also requires the original archive
+        # temporal precision, and physical_traits reads only pinned files.
+        if not url.startswith(ALLOWED_ARCHIVES):continue
         path=s.get("local_file")
         sha=s.get("sha256")
         at=s.get("retrieved_at")
@@ -149,7 +154,7 @@ def physical_traits(history,a,b,match):
     targets=(a,b);observed={pid:{"hands":[],"heights":[]} for pid in targets}
     for source in history.get("sources",[]):
         path=source.get("local_file")
-        if not path or source.get("unavailable"):continue
+        if not path or source.get("unavailable") or not source.get("url","").startswith(ALLOWED_ARCHIVES):continue
         try:
             rows=_raw_biographies(path,source["sha256"],a.split(":")[0])
             for pid in targets:
