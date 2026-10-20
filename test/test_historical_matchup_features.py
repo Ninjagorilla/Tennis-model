@@ -44,6 +44,17 @@ class HistoricalIntegrationTests(unittest.TestCase):
         self.assertEqual(physical["status"],"DESCRIPTIVE_NOT_PREDICTIVE")
         self.assertEqual(physical["players"]["a"]["height_cm"],185)
         self.assertEqual(physical["players"]["b"]["handedness"],"L")
+ def test_unverified_supplemental_source_does_not_poison_pinned_history(self):
+    with tempfile.TemporaryDirectory() as d:
+        data=construct(Path(d)/"archive.csv")
+        data["sources"].append({"url":"https://stats.tennismylife.org/data/2026.csv",
+                                "sha256":"a"*64,"local_file":"missing-supplemental.csv"})
+        data["results"].append({"match_id":"untrusted","date":"2026-09-01",
+                                "temporal_precision":"TML_PUBLISHED_DATE_FIELD_NOT_INDEPENDENTLY_VERIFIED_MATCH_DAY",
+                                "winner_id":"A","loser_id":"B","surface":"hard"})
+        evidence,summary=history_features(data,"A","B",FIX)
+        self.assertEqual(set(evidence),{"surface","style","h2h"})
+        self.assertEqual(summary["h2h_completed_archive_matches"],4)
  def test_provenance_tamper_fails_closed(self):
     with tempfile.TemporaryDirectory() as d:
         p=Path(d)/"archive.csv";data=construct(p);p.write_text("modified")
