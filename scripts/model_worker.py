@@ -71,6 +71,7 @@ def main():
                     try:
                         evidence,history_readiness=history_features(data,ids[0],ids[1],e)
                         v2=shadow(p,e['starts_at'],e['source_match_id'],evidence)
+                        v2['court_enclosure']=e.get('court_enclosure','Unknown')
                         v2['history_readiness']=history_readiness
                     except Exception:
                         # Auxiliary data must NEVER block the frozen experimental forecast.
