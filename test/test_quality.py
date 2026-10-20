@@ -1,7 +1,7 @@
 import sys,unittest
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/"scripts"))
-from quality import identity,deduplicate,challenge
+from quality import identity,deduplicate,challenge,cross_source_opponent_conflicts
 def fixture(name="Caty McNally",source="tc:1",start="2026-10-19T04:00:00+00:00"):
  return dict(tour="WTA",name_a=name,name_b="Sinja Kraus",source_match_id=source,tournament_key="osaka",regime="main",starts_at=start,surface="Hard",best_of=3,deciding_tiebreak_target=7)
 def results(a=.53,b=.54,c=.55):
@@ -27,6 +27,16 @@ class QualityTests(unittest.TestCase):
   row=fixture();row["results"]=results();row["results"]["experimental"]={"status":"unavailable","reason":"PLAYER_HISTORY_MISSING"}
   d=challenge(row);self.assertEqual(d["status"],"partial")
   self.assertEqual(d["missing_models"],["experimental"]);self.assertIn("INCOMPLETE_MODEL_COVERAGE",d["flags"])
+ def test_cross_provider_contradictory_opponent_fails_closed(self):
+  a=fixture("Kimberly Birrell","tc:sr:sport_event:1");a["name_b"]="Kayla Day"
+  b=fixture("Kimberly Birrell","555");b["name_b"]="Sofia Kenin"
+  rows,n=cross_source_opponent_conflicts([a,b])
+  self.assertEqual(rows,[]);self.assertEqual(n,2)
+ def test_other_match_and_distant_schedule_are_preserved(self):
+  a=fixture("Kimberly Birrell","tc:sr:sport_event:1");a["name_b"]="Kayla Day"
+  b=fixture("Kimberly Birrell","555","2026-10-20T20:00:00+00:00");b["name_b"]="Sofia Kenin"
+  rows,n=cross_source_opponent_conflicts([a,b])
+  self.assertEqual(len(rows),2);self.assertEqual(n,0)
  def test_disagreement(self):
   row=fixture();row["results"]=results(.7,.66,.4)
   d=challenge(row);self.assertIn("MODEL_DISAGREEMENT",d["flags"])
