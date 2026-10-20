@@ -122,48 +122,51 @@ def history_features(history,a,b,match,*,verify_provenance=True):
     return output,summary
 
 
-def physical_traits(history,a,b,match):
-    """Read published heights/handedness as verified descriptions, NOT effects.
 
-    Every reported value is linked to the same SHA-checked historical file.
-    Conflicting handedness or height estimates abstain. No unsupported claim
-    is made about how these characteristics affect any future match.
-    """
+from functools import lru_cache
+@lru_cache(maxsize=24)
+def _raw_biographies(path,sha,tour):
     import csv
+    facts={}
+    with Path(path).open(encoding="utf-8-sig",newline="") as handle:
+        for row in csv.DictReader(handle):
+            try:
+                dt=datetime.strptime(row["tourney_date"],"%Y%m%d").date()
+                for side in ("winner","loser"):
+                    player_id=row.get(side+"_id","")
+                    if not player_id:continue
+                    pid=tour+":"+player_id
+                    facts.setdefault(pid,[]).append((dt,row.get(side+"_hand"),row.get(side+"_ht")))
+            except (KeyError,ValueError,TypeError):continue
+    return facts
+
+def physical_traits(history,a,b,match):
+    """Published hand/height as descriptive source facts, NOT trained effects."""
     start=datetime.fromisoformat(match["starts_at"].replace("Z","+00:00"))
     prov=provenance(history,start)
     if not prov:return {"status":"ARCHIVE_PROVENANCE_UNAVAILABLE","players":{}}
     cutoff=start.date()-timedelta(days=21)
-    targets=(a,b)
-    observed={pid:{"hands":[],"heights":[]} for pid in targets}
+    targets=(a,b);observed={pid:{"hands":[],"heights":[]} for pid in targets}
     for source in history.get("sources",[]):
         path=source.get("local_file")
         if not path or source.get("unavailable"):continue
         try:
-            with Path(path).open(encoding="utf-8-sig",newline="") as handle:
-                for row in csv.DictReader(handle):
+            rows=_raw_biographies(path,source["sha256"],a.split(":")[0])
+            for pid in targets:
+                for dt,hand,height in rows.get(pid,[]):
+                    if dt>cutoff:continue
+                    if hand in ("R","L"):observed[pid]["hands"].append(hand)
                     try:
-                        dt=datetime.strptime(row["tourney_date"],"%Y%m%d").date()
-                        if dt>cutoff:continue
-                        tour=a.split(":")[0]
-                        for side in ("winner","loser"):
-                            pid=tour+":"+row.get(side+"_id","")
-                            if pid not in observed:continue
-                            height=row.get(side+"_ht","")
-                            hand=row.get(side+"_hand","")
-                            if hand in ("R","L"):observed[pid]["hands"].append(hand)
-                            if height:
-                                h=float(height)
-                                if math.isfinite(h) and 140<=h<=230:observed[pid]["heights"].append(h)
-                    except (KeyError,ValueError,TypeError):continue
-        except (UnicodeError,OSError,csv.Error):
+                        h=float(height)
+                        if math.isfinite(h) and 140<=h<=230:observed[pid]["heights"].append(h)
+                    except (ValueError,TypeError):pass
+        except (UnicodeError,OSError,KeyError,ValueError):
             return {"status":"ARCHIVE_READ_FAILED","players":{}}
     players={}
     for side,pid in (("a",a),("b",b)):
         d=observed[pid];hands=set(d["hands"]);hs=d["heights"]
-        item={"handedness":next(iter(hands)) if len(hands)==1 and len(d["hands"])>=3 else None,
+        players[side]={"handedness":next(iter(hands)) if len(hands)==1 and len(d["hands"])>=3 else None,
               "height_cm":round(sorted(hs)[len(hs)//2],1) if len(hs)>=3 and max(hs)-min(hs)<=3 else None,
               "archive_observations":max(len(hs),len(d["hands"]))}
-        players[side]=item
     return {"status":"DESCRIPTIVE_NOT_PREDICTIVE","players":players,
             "source_manifest_sha256":prov["sha"]}
