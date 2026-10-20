@@ -3,6 +3,7 @@ import argparse,json
 from datetime import datetime,timezone
 from pathlib import Path
 from manual_fixture_review import validate
+from verify_fixture_receipts import verify_receipts
 from inference import execute,preflight,ROLES
 from runtime import stage
 from scan import project
@@ -13,6 +14,7 @@ def run(manifest,root=Path("work/runtime"),directory=Path("work/manual-scan"),no
  rows=manifest.get("matches",[])
  if not rows:raise ValueError("NO_REVIEWED_FIXTURES")
  events=[validate(row,now) for row in rows]
+ for row in rows:verify_receipts(row)
  ids=[(e["tour"],e["tournament_key"],tuple(sorted((e["player_a"],e["player_b"])))) for e in events]
  if len(ids)!=len(set(ids)):raise ValueError("DUPLICATE_FIXTURES")
  root=root.resolve()
