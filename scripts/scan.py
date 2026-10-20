@@ -29,6 +29,7 @@ def scan():
             if fingerprint(e) not in current:continue
             results={r:project(outputs.get(r,{}).get(i)) if r in eligible else {'status':'unavailable','reason':'PREFLIGHT_FAILED'} for r in ROLES}
             match={k:e[k] for k in ('source_match_id','tour','regime','tournament','tournament_key','best_of','deciding_tiebreak_target','surface','name_a','name_b','starts_at','round','event_source','surface_source','format_source')}|{'results':results}
+            match['court_enclosure']=e.get('court_enclosure','Unknown')
             match['devils_advocate']=challenge(match)
             doc['matches'].append(match)
         doc['coverage']['model_missing_reasons']={role:{reason:sum(e['results'][role].get('reason')==reason for e in doc['matches']) for reason in sorted({e['results'][role].get('reason') for e in doc['matches'] if e['results'][role]['status']!='ok'})} for role in ROLES}
