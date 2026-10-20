@@ -10,6 +10,8 @@ def timestamp(value):
  return d.astimezone(timezone.utc)
 def validate(row,now):
  now=timestamp(now)
+ if row.get("status")!="scheduled":raise ValueError("NOT_CONFIRMED_SCHEDULED")
+ if row.get("withdrawn") or row.get("opponent_conflict"):raise ValueError("WITHDRAWAL_OR_OPPONENT_CONFLICT")
  if row.get("tour") not in ("ATP","WTA"):raise ValueError("INVALID_TOUR")
  if row.get("regime") not in ("main","challenger","wta125","main_qualifying","challenger_qualifying","wta125_qualifying"):raise ValueError("INVALID_REGIME")
  if row.get("surface") not in ("Hard","Clay","Grass"):raise ValueError("UNKNOWN_SURFACE")
