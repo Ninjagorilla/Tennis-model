@@ -7,6 +7,7 @@ from runtime import stage,sha,ENGINE
 from inference import execute,preflight,ROLES
 from explanations import sanitize
 from quality import challenge
+from tennis_shadow_routing import apply_wta_shadow_guard
 NAMES={'champion':'SR-Elo 1.0','challenger':'SR-GLM 0.2','experimental':'Matchup Intelligence V2 (v3.4-A baseline)'}
 def project(row):
     if not row or 'result' not in row:return {'status':'unavailable','reason':(row or {}).get('error','EXECUTION_UNAVAILABLE')}
@@ -29,6 +30,7 @@ def scan():
             if fingerprint(e) not in current:continue
             results={r:project(outputs.get(r,{}).get(i)) if r in eligible else {'status':'unavailable','reason':'PREFLIGHT_FAILED'} for r in ROLES}
             match={k:e[k] for k in ('source_match_id','tour','regime','tournament','tournament_key','best_of','deciding_tiebreak_target','surface','name_a','name_b','starts_at','round','event_source','surface_source','format_source')}|{'results':results}
+            match=apply_wta_shadow_guard(match)
             match['court_enclosure']=e.get('court_enclosure','Unknown')
             match['devils_advocate']=challenge(match)
             doc['matches'].append(match)
