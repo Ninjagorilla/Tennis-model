@@ -4,11 +4,15 @@ from nba_engine.ledger import freeze_forecast
 
 class AdvancedTests(unittest.TestCase):
     def test_injury_redistribution(self):
-        ps=[RotationPlayer("a",30,25,False),RotationPlayer("b",30,20),RotationPlayer("c",20,10)]
+        ps=[RotationPlayer("a",30,25,False)]+[RotationPlayer(str(i),30,20) for i in range(1,8)]
         mins=allocate_minutes(ps)
         self.assertEqual(mins["a"],0)
+        self.assertLessEqual(max(mins.values()),48)
         self.assertAlmostEqual(sum(mins.values()),240)
         self.assertAlmostEqual(sum(usage_shares(ps,mins).values()),1)
+    def test_infeasible_rotation_rejected(self):
+        with self.assertRaises(ValueError):
+            allocate_minutes([RotationPlayer("a",30,25),RotationPlayer("b",30,20)])
     def test_decay_lookahead(self):
         with self.assertRaises(ValueError):
             recency_projection([("2026-10-21T00:00:00Z",10)],"2026-10-20T00:00:00Z")
