@@ -52,6 +52,8 @@ jobs:
         run: python scripts/tennis_result_sources.py --probe-date "$(date -u -d yesterday +%F)" --output work/provider-probe.json
       - name: Report Experimental V2 matchup feature readiness without score replacement
         run: python scripts/run_matchup_v2_shadow.py work/snapshot.json
+      - name: Audit missing Experimental V2 feeds without model adjustment
+        run: python scripts/run_v2_missing_feeds.py work/snapshot.json --output work/v2-missing-feeds.json
       - name: Validate public status schema
         run: npm run build
       - name: Retain sanitized scan and coverage report
@@ -65,5 +67,6 @@ jobs:
             work/recovery-report.json
             work/provider-probe.json
             work/matchup-v2-shadow.json
+            work/v2-missing-feeds.json
           retention-days: 7
           if-no-files-found: ignore
