@@ -6,7 +6,7 @@
 
 | Family | Planned derived signal | Input evidence required | Now |
 |---|---|---|---|
-| Surface | opponent-adjusted surface serve/return residual | match-level serve/return and surface history, before match start | gated slot |
+| Surface | descriptive historical surface serve/return competence (not yet opponent-adjusted) | SHA-checked archive with 21-day tournament-date embargo | **measured historical context** |
 | Indoor/outdoor | published indoor/outdoor category; no calibrated effect | Tennis.com tournament surface metadata | **implemented as descriptive venue input** |
 | Playing style | observed serve-reliance proxy; no shot-level aggression/rally classification | pre-match aggregate service/return points | **implemented as proxy only** |
 | Head-to-head | completed direct-match wins (3+ minimum) | archive matches, 21-day conservative date embargo | **implemented as descriptive H2H** |
