@@ -2,7 +2,7 @@
 import concurrent.futures,hashlib,json,re,unicodedata,urllib.request
 from datetime import datetime,timedelta,timezone
 from tenniscom import discover,match_espn_metadata
-from quality import deduplicate,identity
+from quality import deduplicate,identity,cross_source_opponent_conflicts
 from zoneinfo import ZoneInfo
 RULES='https://www.wtatennis.com/news/3043764/tennis-explained-learn-the-game'
 def utc():return datetime.now(timezone.utc)
@@ -55,11 +55,12 @@ def collect(now=None):
                 identity=row['tour']+':'+row['source_match_id']
                 if identity in events and fingerprint(events[identity])!=fingerprint(row):conflicts.add(identity)
                 events[identity]=row
-    merged,identity_diagnostics=deduplicate([e for k,e in sorted(events.items()) if k not in conflicts]+extra)
+    conflict_checked,opponent_conflicts=cross_source_opponent_conflicts([e for k,e in sorted(events.items()) if k not in conflicts]+extra)
+    merged,identity_diagnostics=deduplicate(conflict_checked)
     duplicate_conflicts=identity_diagnostics['identity_conflicts']
     unavailable=[] if meta['challenger_source_ok'] else ['ATP Challenger']
     note='ATP, WTA, ATP Challenger and WTA 125 scheduled singles from public sources. Tournament metadata refreshes automatically each scan. Coverage remains partial; missing or conflicting facts are withheld.'
-    return merged,{'sources':sources,'unknown_tournaments':sorted(unknown),'identity_diagnostics':identity_diagnostics,'conflicting_matches':len(conflicts)+duplicate_conflicts,'coverage':'partial','unavailable_scopes':unavailable,'note':note,**{k:meta[k] for k in ('metadata_mode','metadata_tournaments','discovery_capped')}}
+    return merged,{'sources':sources,'unknown_tournaments':sorted(unknown),'identity_diagnostics':identity_diagnostics,'contradictory_opponent_rows':opponent_conflicts,'conflicting_matches':len(conflicts)+duplicate_conflicts+opponent_conflicts,'coverage':'partial','unavailable_scopes':unavailable,'note':note,**{k:meta[k] for k in ('metadata_mode','metadata_tournaments','discovery_capped')}}
 
 def merge(rows):
     # Match across providers by exact normalized players and local tournament context.
