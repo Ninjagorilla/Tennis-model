@@ -11,6 +11,7 @@ from pathlib import Path
 
 ALLOWED_ARCHIVES=(
     "https://raw.githubusercontent.com/Aneeshers/tennis-sackmann-archive/main/",
+    "https://raw.githubusercontent.com/Aneeshers/tennis-sackmann-archive/83733587353df8a41f2fd4f516147d5aa83f5a8d/",
     "https://raw.githubusercontent.com/JeffSackmann/tennis_atp/master/",
     "https://raw.githubusercontent.com/JeffSackmann/tennis_wta/master/",
 )
