@@ -5,7 +5,7 @@ Probabilities are research estimates until calibrated on out-of-sample NBA resul
 """
 from dataclasses import dataclass, asdict
 from datetime import datetime, timezone
-from math import exp, sqrt
+from math import exp, sqrt, isfinite
 from typing import Optional
 import json
 
@@ -37,16 +37,18 @@ def _sigmoid(x):
 def _validate(g):
     tip = datetime.fromisoformat(g.tipoff_utc.replace("Z","+00:00"))
     asof = datetime.fromisoformat(g.asof_utc.replace("Z","+00:00"))
-    if tip.tzinfo is None or asof.tzinfo is None or asof > tip:
-        raise ValueError("Require timezone-aware asof <= tipoff")
+    if tip.tzinfo is None or asof.tzinfo is None or asof >= tip:
+        raise ValueError("Require timezone-aware asof < tipoff")
     if g.home.name == g.away.name or not g.game_id:
         raise ValueError("Invalid fixture identity")
     for t in (g.home, g.away):
+        if not all(isfinite(v) for v in (t.pace, t.offensive_rating, t.defensive_rating, t.net_rating_recent, t.unavailable_impact)):
+            raise ValueError('Non-finite team inputs')
         if not (65 <= t.pace <= 120 and 75 <= t.offensive_rating <= 145 and 75 <= t.defensive_rating <= 145):
             raise ValueError("Implausible team input; reject rather than silently guess")
         if t.rest_days < 0 or t.unavailable_impact < 0:
             raise ValueError("Invalid rest or unavailable impact")
-    if g.market_home_probability is not None and not 0 < g.market_home_probability < 1:
+    if g.market_home_probability is not None and (not isfinite(g.market_home_probability) or not 0 < g.market_home_probability < 1):
         raise ValueError("Invalid market probability")
 
 def scan(g):
