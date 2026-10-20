@@ -17,14 +17,15 @@ class MatchupV2Tests(unittest.TestCase):
         result=shadow(.62,START,"case1",{})
         self.assertEqual(result["baseline_p_a"],.62)
         self.assertEqual(len(result["missing_features"]),8)
-        self.assertEqual(result["candidate_delta_pp"],0)
+        self.assertIsNone(result["candidate_delta_pp"])
         self.assertFalse(result["eligible_for_promotion"])
 
     def test_distinct_evidence_before_start_is_diagnostic_only(self):
         r=shadow(.62,START,"case1",{"style":entry(),"fatigue":entry()})
         self.assertEqual(r["verified_features"],["fatigue","style"])
         self.assertTrue(r["registered_prediction_unchanged"])
-        self.assertGreater(r["candidate_delta_pp"],0)
+        self.assertIsNone(r["candidate_delta_pp"])
+        self.assertIn("style",r["observed_feature_measures"])
 
     def test_injury_without_evidence_never_assumed_healthy(self):
         r=shadow(.6,START,"case1",{"injury":{"status":"unknown"}})
