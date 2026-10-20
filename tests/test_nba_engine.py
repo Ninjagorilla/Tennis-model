@@ -16,6 +16,14 @@ class TestNBAEngine(unittest.TestCase):
         from dataclasses import replace
         with self.assertRaises(ValueError):
             scan(replace(self.game,asof_utc="2026-10-21T12:00:00Z"))
+    def test_prediction_at_tipoff_is_leakage(self):
+        from dataclasses import replace
+        with self.assertRaises(ValueError):
+            scan(replace(self.game,asof_utc=self.game.tipoff_utc))
+    def test_nonfinite_input_rejected(self):
+        from dataclasses import replace
+        with self.assertRaises(ValueError):
+            scan(replace(self.game,home=replace(self.a,net_rating_recent=float("nan"))))
     def test_bad_ratings_rejected(self):
         from dataclasses import replace
         with self.assertRaises(ValueError):
