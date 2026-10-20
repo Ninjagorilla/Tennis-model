@@ -10,7 +10,9 @@ class Phase12ReportTests(unittest.TestCase):
     m=fixture()
     completed=[{"tour":"WTA","match_id":"recent-1","player_ids":["72","801"],
         "scheduled_start_at":"2026-10-18T11:00:00+00:00",
-        "first_observed_final_at":NOW}]
+        "first_observed_final_at":NOW,
+       "source_url":"https://site.api.espn.com/apis/site/v2/sports/tennis/wta/scoreboard?dates=20261018",
+       "source_sha256":"a"*64}]
     health={"requested_sources":30,"successful_sources":28,"failed_sources":2,"feeds":[]}
     data=report({"matches":[m]},as_of=NOW,completed=completed,feed_health=health)
     counts=data["counts"]
