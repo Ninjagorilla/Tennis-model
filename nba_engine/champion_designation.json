@@ -1,0 +1,27 @@
+{
+  "sport": "NBA",
+  "designation": "RESEARCH_CANDIDATE_NOT_CHAMPION",
+  "version": "nba-v2-research-2026-10-20",
+  "registered_at_utc": "2026-10-20",
+  "source_branch": "feature/nba-engine-v1",
+  "source_commit": "faa0055fc564b6c2e0b4c36264d1f90444a63fbd",
+  "components": [
+    "nba_engine/core.py",
+    "nba_engine/advanced.py",
+    "nba_engine/possession_sim.py",
+    "nba_engine/player_sim.py",
+    "nba_engine/calibration.py",
+    "nba_engine/evaluation.py",
+    "nba_engine/ledger.py",
+    "nba_engine/providers.py",
+    "nba_engine/recovery.py"
+  ],
+  "designation_scope": "NBA-only, isolated uncalibrated research candidate; no performance-qualified Champion",
+  "production_status": "NOT_DEPLOYED",
+  "verification_status": "UNVERIFIED_NO_HISTORICAL_HOLDOUT",
+  "calibration_status": "NOT_FITTED",
+  "live_data_status": "NOT_CONNECTED",
+  "prediction_policy": "Do not present probabilities as validated, calibrated or betting-ready.",
+  "other_sports_champions": "UNCHANGED",
+  "promotion_gate": "Use scripts/phoenix_promotion_gate.py on externally authenticated immutable data: >=200 paired holdout events, both Brier and log-loss bootstrap CIs excluding harm, disjoint fit/calibration/test and approved registry migration"
+}
