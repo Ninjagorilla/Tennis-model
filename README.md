@@ -30,7 +30,7 @@ The source package contains sanitized code and JSON fitted parameters explicitly
 - Champion state: October 5, 2026. Challenger state: September 26, 2026. Experimental fit: October 10, 2026. No training occurs in this workflow.
 - Public point-history snapshots are pinned to June 2026 to preserve the recovered model execution. Experimental completed-match updates extend through October 14. Current match inputs do **not** mean all model ratings are current.
 - Coverage includes available ATP, WTA, ATP Challenger and WTA 125 fixtures. It remains partial: unknown players, unconfirmed times, unsupported surfaces/formats and conflicting source observations are withheld. A model named Challenger is separate from the ATP Challenger competition category.
-- Tournament metadata updates automatically every scan. The collector discovers tournament links from the daily score pages and current calendar, reads each current edition's surface, dates, timezone and singles category, and joins ESPN events by exact name or an unambiguous city/country/tour/edition match. There is no dated manual tournament table to expire. Indoor hard/clay map to the recovered models' Hard/Clay categories.
+- Tournament metadata updates automatically every scan. The collector discovers tournament links from the daily score pages and current calendar, reads each current edition's surface, dates, timezone and singles category, and joins ESPN events by exact name or an unambiguous city/country/tour/edition match. Missing metadata may use a reviewed, source-backed supplement scoped to an exact provider edition; it never carries forward into later editions. Indoor hard/clay map to the recovered models' Hard/Clay categories.
 - Only recognized standard best-of-three ATP/WTA/Challenger/125 categories with seven-point deciding tiebreaks are enabled. Grand Slams, Next Gen, team/exhibition events, carpet and unknown formats are withheld until a supported, tested scoring profile is available. New tournaments within supported categories are automatic; new rule systems are not guessed.
 - Provider markup/schema changes or outages are visible in the source health record. Public HTML is decoded as literal JSON, never executed. Requests are size/time bounded, use four concurrent metadata fetches at most, and discover at most 60 tournament pages per pass. A discovery cap is reported. Third-party win probabilities and market fields are never model inputs.
 - Cross-provider duplicate matches are merged only when scheduled time, surface and format agree; conflicts are withheld. Source status and fixture identity are rechecked after inference.
@@ -79,3 +79,25 @@ The NFL page at `nfl.html` shares this site without changing the tennis models. 
 **Live NFL probability publication remains gated.** The page shows execution health, cross-checked future fixture identities and validation evidence. The first-TD retrospective test improved aggregate log loss, but game-first Brier improvement is uncertain and its 2026-only subgroup worsened. No Champion promotion or profitable-betting claim is made. See `nfl/README.md` for the evidence and remaining acceptance criteria.
 
 The existing hourly public workflow runs the full NFL engine in temporary storage. Small daily/manual paper artifacts retain immutable pregame forecasts and a carried-forward grade ledger for 14 days; no raw historical inputs or binary model archives are retained. Game and first-TD outcomes are graded only when reconciled final labels exist. Player-stat bet grading is withheld without participation and exact contract rules. Duplicate hourly forecasts do not increase the effective game count. No billing changes, paid runners, subscriptions or betting-account connections are used. Artifact restore failures are surfaced, not interpreted as zero prior results.
+
+## Reviewed ingestion recovery
+
+The collector accepts the provider's exact empty score-object schema only while a
+match is scheduled, confirmed in the future, has no winner and is singles. Scores
+with live points, sets, unexpected fields or invalid types remain excluded.
+
+`scripts/tenniscom.py` contains small, reviewed source-specific registries:
+
+- Fort Worth's 2026 edition can fill absent location/timezone using the ATP
+  tournament overview. Exact edition dates, name, year, surface and singles scope
+  must match. Conflicting provider facts fail closed. Later editions need valid
+  provider metadata or a separately sourced review, never a guessed default.
+- The Tennis.com `jj-wolf` identity accepts only reviewed names and USA country
+  metadata, resolving to the existing `ATP:j j wolf` model key. Other abbreviated
+  names are not generally admitted. The ATP biography is the identity reference.
+
+Coverage now retains `metadata_failures`, `metadata_supplements`,
+`rejected_scheduled_matches`, and `incomplete_scopes`. These are diagnostics, not
+proof of exhaustive coverage: unseen tournaments cannot be inferred. Valid events
+are retained when another competition fails. This does not retrain, modify or
+promote any model, or change the WTA shadow routing.

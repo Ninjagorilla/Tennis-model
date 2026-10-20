@@ -59,7 +59,7 @@ def collect(now=None):
     duplicate_conflicts=identity_diagnostics['identity_conflicts']
     unavailable=[] if meta['challenger_source_ok'] else ['ATP Challenger']
     note='ATP, WTA, ATP Challenger and WTA 125 scheduled singles from public sources. Tournament metadata refreshes automatically each scan. Coverage remains partial; missing or conflicting facts are withheld.'
-    return merged,{'sources':sources,'unknown_tournaments':sorted(unknown),'identity_diagnostics':identity_diagnostics,'conflicting_matches':len(conflicts)+duplicate_conflicts,'coverage':'partial','unavailable_scopes':unavailable,'note':note,**{k:meta[k] for k in ('metadata_mode','metadata_tournaments','discovery_capped')}}
+    return merged,{'sources':sources,'unknown_tournaments':sorted(unknown),'identity_diagnostics':identity_diagnostics,'conflicting_matches':len(conflicts)+duplicate_conflicts,'coverage':'partial','unavailable_scopes':unavailable,'note':note,**{k:meta[k] for k in ('metadata_mode','metadata_tournaments','discovery_capped','metadata_failures','rejected_scheduled_matches','incomplete_scopes','metadata_supplements')}}
 
 def merge(rows):
     # Match across providers by exact normalized players and local tournament context.
