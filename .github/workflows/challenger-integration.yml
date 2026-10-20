@@ -54,6 +54,9 @@ jobs:
         run: python scripts/run_matchup_v2_shadow.py work/snapshot.json
       - name: Audit missing Experimental V2 feeds without model adjustment
         run: python scripts/run_v2_missing_feeds.py work/snapshot.json --output work/v2-missing-feeds.json
+      - name: Enrich Experimental V2 provider IDs and observed match workloads
+        timeout-minutes: 6
+        run: python scripts/run_v2_phase12.py work/snapshot.json --enable-history-fetch --history-days 14
       - name: Validate public status schema
         run: npm run build
       - name: Retain sanitized scan and coverage report
@@ -68,5 +71,6 @@ jobs:
             work/provider-probe.json
             work/matchup-v2-shadow.json
             work/v2-missing-feeds.json
+            work/v2-phase12-evidence.json
           retention-days: 7
           if-no-files-found: ignore
