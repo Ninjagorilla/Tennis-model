@@ -21,3 +21,14 @@ def reconcile(snapshot,discovery,reviewed=None,now=None):
  return {"schema":"tennis-fixture-coverage-v1","tournaments":coverage,
          "reviewed_valid":len(accepted),"reviewed_rejected":errors,
          "complete_all_tours":False,"reason":"Source presence is not exhaustive draw coverage"}
+
+if __name__=="__main__":
+ import argparse,json
+ from pathlib import Path
+ p=argparse.ArgumentParser()
+ p.add_argument("snapshot");p.add_argument("discovery");p.add_argument("--output",default="work/fixture-coverage-audit.json")
+ args=p.parse_args()
+ report=reconcile(json.loads(Path(args.snapshot).read_text()),json.loads(Path(args.discovery).read_text()))
+ output=Path(args.output);output.parent.mkdir(parents=True,exist_ok=True)
+ output.write_text(json.dumps(report,indent=2)+"\n")
+ print(json.dumps({"all_tours_complete":report["complete_all_tours"],"tournaments":report["tournaments"]}))
