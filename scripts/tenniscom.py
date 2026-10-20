@@ -5,11 +5,64 @@ The provider's own win probabilities and all market fields are discarded.
 import concurrent.futures,hashlib,json,re,unicodedata,urllib.request
 from datetime import datetime,timedelta,timezone
 from html.parser import HTMLParser
-from zoneinfo import ZoneInfo
+from zoneinfo import ZoneInfo,ZoneInfoNotFoundError
 BASE='https://www.tennis.com'
 RULES='https://www.wtatennis.com/news/3043764/tennis-explained-learn-the-game'
 CHALLENGER_RULES='https://www.atptour.com/-/media/files/rulebook/2026/2026-rulebook_27apr26.pdf'
 CATEGORIES={('men','ATP'):('ATP','main'),('men','Challenger'):('ATP','challenger'),('women','WTA'):('WTA','main'),('women','WTA 125K'):('WTA','wta125')}
+# Reviewed facts are scoped to an exact provider edition. Never infer a city,
+# country, timezone or identity from a slug, initials, or fuzzy name similarity.
+REVIEWED_EDITIONS={
+    ('atp-challenger-fort-worth-usa','2026-10-18','2026-10-25'):{
+        'name':'ATP Challenger Fort Worth, USA','surface':'hard','tourLevel':'Challenger',
+        'location':'Fort Worth, United States','timezone':'America/Chicago',
+        'source':'https://www.atptour.com/en/tournaments/fort-worth/3187/overview',
+        'reviewed_at':'2026-10-20','timezone_basis':'Verified Fort Worth, Texas location',
+    },
+}
+REVIEWED_PLAYER_NAMES={
+    'jj-wolf':{'names':('Wolf, J.J.','J.J. Wolf','Wolf, J J','J J Wolf'),
+               'country':'USA','canonical':'J J Wolf',
+               'source':'https://www.atptour.com/en/players/enwiki/w09g/bio'},
+}
+
+def reviewed_metadata(raw):
+    m=dict(raw); applied=[]
+    review=REVIEWED_EDITIONS.get((m.get('slug'),m.get('startDate'),m.get('endDate')))
+    if review:
+        if (any(m.get(k)!=review[k] for k in ('name','surface','tourLevel'))
+                or m.get('year')!=2026
+                or [(c.get('gender'),c.get('category')) for c in m.get('competitions',[]) if c.get('type')=='singles']!=[('men','Challenger')]):
+            raise ValueError('REVIEWED_EDITION_CONFLICT')
+        for k in ('location','timezone'):
+            if m.get(k) is None or m.get(k)=='':
+                m[k]=review[k];applied.append(k)
+            elif m[k]!=review[k]:raise ValueError('REVIEWED_EDITION_CONFLICT')
+    location=m.get('location')
+    if not isinstance(location,str) or len(location.split(','))<2 or not all(x.strip() for x in location.split(',')):
+        raise ValueError('LOCATION_METADATA_MISSING')
+    tz=m.get('timezone')
+    if not isinstance(tz,str) or not tz:raise ValueError('TIMEZONE_METADATA_MISSING')
+    try:ZoneInfo(tz)
+    except (ZoneInfoNotFoundError,ValueError):raise ValueError('TIMEZONE_METADATA_INVALID')
+    return m,({'fields':applied,'source':review['source'],'reviewed_at':review['reviewed_at'],
+               'timezone_basis':review['timezone_basis']} if applied else None)
+
+def unstarted_score(score):
+    if score is None:return True
+    if not isinstance(score,dict):return False
+    if not score:return True
+    # Exact current provider schema; booleans/floats/unknown fields fail closed.
+    return (set(score)=={'currentSetNumber','homeSetsWon','awaySetsWon','sets','currentGame'}
+            and score['currentSetNumber'] is None and score['currentGame'] is None
+            and type(score['homeSetsWon']) is int and score['homeSetsWon']==0
+            and type(score['awaySetsWon']) is int and score['awaySetsWon']==0
+            and type(score['sets']) is list and not score['sets'])
+
+def failure_code(exc):
+    code=str(exc)
+    return code if isinstance(exc,ValueError) and re.fullmatch('[A-Z][A-Z0-9_]{2,79}',code) else 'SOURCE_FETCH_OR_SCHEMA_FAILED'
+
 def utc():return datetime.now(timezone.utc)
 def stamp(s):
     d=datetime.fromisoformat(s.replace('Z','+00:00'))
@@ -63,7 +116,8 @@ def metadata(doc,slug):
     candidates=[o for o in walk(doc) if o.get('slug')==slug and 'surface' in o and 'competitions' in o]
     if not candidates:raise ValueError('METADATA_MISSING')
     m=candidates[0]
-    if any(any(x.get(k)!=m.get(k) for k in ('surface','startDate','endDate','location','competitions')) for x in candidates):raise ValueError('METADATA_CONFLICT')
+    if any(any(x.get(k)!=m.get(k) for k in ('surface','startDate','endDate','location','timezone','tourLevel','competitions')) for x in candidates):raise ValueError('METADATA_CONFLICT')
+    m,supplement=reviewed_metadata(m)
     surface={'hard':'Hard','hard_indoor':'Hard','clay':'Clay','clay_indoor':'Clay','grass':'Grass'}.get(str(m['surface']).lower());level=m.get('tourLevel','')
     if surface not in ('Hard','Clay','Grass'):raise ValueError('UNSUPPORTED_SURFACE')
     if not re.fullmatch(r'(ATP|WTA) (250|500|1000|Finals)|Challenger|WTA 125K?',level):raise ValueError('UNSUPPORTED_SCORING_FORMAT')
@@ -71,16 +125,23 @@ def metadata(doc,slug):
     if not 0<=(end-start).days<=21:raise ValueError('INVALID_TOURNAMENT_DATES')
     scopes={CATEGORIES[(c.get('gender'),c.get('category'))] for c in m['competitions'] if c.get('type')=='singles' and (c.get('gender'),c.get('category')) in CATEGORIES}
     if not scopes:raise ValueError('UNSUPPORTED_COMPETITION')
-    return {'slug':slug,'name':m['officialName'] or m['name'],'names':list({str(m[k]) for k in ('name','officialName') if m.get(k)}),'key':key(m['location'].split(',')[0]),'country':key(m['location'].rsplit(',',1)[-1]),'surface':surface,'court_enclosure':('Indoor' if str(m['surface']).lower().endswith('_indoor') else 'Outdoor'),'timezone':str(m['timezone']),'from':start.isoformat(),'through':end.isoformat(),'scopes':sorted(scopes),'source':BASE+'/tournaments/'+slug,'best_of':3,'deciding_tiebreak_target':7,'format_source':CHALLENGER_RULES if any(r=='challenger' for t,r in scopes) else RULES}
+    return {'metadata_supplement':supplement,'slug':slug,'name':m['officialName'] or m['name'],'names':list({str(m[k]) for k in ('name','officialName') if m.get(k)}),'key':key(m['location'].split(',')[0]),'country':key(m['location'].rsplit(',',1)[-1]),'surface':surface,'court_enclosure':('Indoor' if str(m['surface']).lower().endswith('_indoor') else 'Outdoor'),'timezone':str(m['timezone']),'from':start.isoformat(),'through':end.isoformat(),'scopes':sorted(scopes),'source':BASE+'/tournaments/'+slug,'best_of':3,'deciding_tiebreak_target':7,'format_source':CHALLENGER_RULES if any(r=='challenger' for t,r in scopes) else RULES}
 def full_name(p):
     if not isinstance(p,dict) or not re.fullmatch('[a-z0-9-]{3,100}',str(p.get('id',''))):raise ValueError('PLAYER_ID_MISSING')
-    n=p.get('name','').strip()
+    n=p.get('name','')
+    if not isinstance(n,str):raise ValueError('FULL_PLAYER_NAME_REQUIRED')
+    n=n.strip()
+    alias=REVIEWED_PLAYER_NAMES.get(p['id'])
+    if alias:
+        if n not in alias['names'] or p.get('countryCode')!=alias['country']:
+            raise ValueError('VERIFIED_PLAYER_ALIAS_CONFLICT')
+        return alias['canonical']
     if ',' in n:
         family,given=n.split(',',1);n=given.strip()+' '+family.strip()
     if len(n)>100 or len(key(n).split())<2 or key(n) in ('tbd','qualifier','unknown') or '.' in n:raise ValueError('FULL_PLAYER_NAME_REQUIRED')
     return n
 def parse_match(r,m,now,source):
-    if r.get('status')!='scheduled' or r.get('startTimeConfirmed') is not True or r.get('winnerId') or r.get('score') or r.get('homeTeam') or r.get('awayTeam'):return None
+    if r.get('status')!='scheduled' or r.get('startTimeConfirmed') is not True or r.get('winnerId') or not unstarted_score(r.get('score')) or r.get('homeTeam') or r.get('awayTeam'):return None
     cat=(r.get('competitionGender'),r.get('competitionCategory'))
     if cat not in CATEGORIES or r.get('eventCategory')!=('Men\'s Singles' if cat[0]=='men' else 'Women\'s Singles'):return None
     tour,regime=CATEGORIES[cat]
@@ -115,21 +176,33 @@ def discover(now):
         url=BASE+'/tournaments/'+slug
         try:
             html,evidence=read(url);doc,_=documents(html);return slug,metadata(doc,slug),evidence
-        except Exception:return slug,None,{'url':url,'provider':'Tennis.com metadata','status':'unavailable','fetched_at':utc().isoformat()}
-    catalog={}
+        except Exception as exc:return slug,None,{'url':url,'provider':'Tennis.com metadata','status':'unavailable','failure_code':failure_code(exc),'fetched_at':utc().isoformat()}
+    catalog={};metadata_failures={};rejected=[]
     with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
         for slug,m,evidence in pool.map(fetch,sorted(slugs)[:60]):
             sources.append(evidence)
             if m:catalog[slug]=m
-            else:unknown.append(slug)
+            else:
+                unknown.append(slug);metadata_failures[slug]=evidence['failure_code']
     events=[]
     for r,slug,url in raw:
-        if slug not in catalog:continue
+        # Diagnose only prospective singles, not historical rows or doubles.
+        if r.get('status')!='scheduled' or r.get('eventCategory') not in ("Men's Singles","Women's Singles"):continue
+        try:
+            if not now<stamp(r['startTime'])<=now+timedelta(hours=24):continue
+        except (KeyError,ValueError,TypeError):
+            rejected.append({'tournament':slug,'match_id':str(r.get('matchScoreKey','')),'scope':str(r.get('competitionCategory','')),'reason':'INVALID_START_TIME'});continue
+        def reject(reason):
+            rejected.append({'tournament':slug,'match_id':str(r.get('matchScoreKey','')),'scope':str(r.get('competitionCategory','')),'reason':reason})
+        if slug not in catalog:
+            reject(metadata_failures.get(slug,'METADATA_DISCOVERY_CAPPED'));continue
         try:
             e=parse_match(r,catalog[slug],now,url)
             if e:events.append(e)
-        except (KeyError,TypeError,ValueError):continue
-    return events,list(catalog.values()),{'sources':sources,'unknown_tournaments':unknown,'discovery_capped':capped,'metadata_mode':'automatic','metadata_tournaments':len(catalog),'challenger_source_ok':all(s['status']=='ok' for s in sources[:len(days)])}
+            else:reject('FIXTURE_NOT_VERIFIED')
+        except (KeyError,TypeError,ValueError) as exc:reject(failure_code(exc))
+    rejected=list({(r['tournament'],r['match_id'],r['reason']):r for r in rejected}.values())
+    return events,list(catalog.values()),{'metadata_failures':metadata_failures,'rejected_scheduled_matches':rejected,'incomplete_scopes':sorted({r['scope'] for r in rejected}),'metadata_supplements':{slug:m['metadata_supplement'] for slug,m in catalog.items() if m['metadata_supplement']},'sources':sources,'unknown_tournaments':unknown,'discovery_capped':capped,'metadata_mode':'automatic','metadata_tournaments':len(catalog),'challenger_source_ok':all(s['status']=='ok' for s in sources[:len(days)])}
 def match_espn_metadata(event,tour,catalog):
     name=key(event.get('name',''));candidates=[m for m in catalog if name in {key(n) for n in m['names']} and any(s[0]==tour for s in m['scopes'])]
     if not candidates:
