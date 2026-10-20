@@ -29,6 +29,10 @@ def make_report(snapshot,*,venues=None,player_ids=None,match_records=None,
             weather={"status":"unavailable",
                      "reason":"VENUE_COORDINATES_UNVERIFIED" if venue is None else "WEATHER_FETCH_NOT_ENABLED"}
         ids=player_ids.get(fid)
+        if ids is None:
+            verified=scoped_fixture_identity(m)
+            if verified.get("status")=="source_verified":
+                ids=verified["players"]
         if not isinstance(ids,dict) or set(ids)!={"a","b"}:
             workload={"status":"unavailable","reason":"UNVERIFIED_PLAYER_IDENTITIES"}
             availability={"status":"unavailable","reason":"UNVERIFIED_PLAYER_IDENTITIES"}
