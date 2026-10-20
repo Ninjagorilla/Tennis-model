@@ -1,5 +1,6 @@
 """Verify and stage the sanitized, inference-only runtime. No pickle, refit or secrets."""
 import concurrent.futures,hashlib,json,shutil,sys,urllib.request
+from datetime import datetime,timezone
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 ENGINE=ROOT/'engine'
@@ -22,7 +23,7 @@ def stage(dest,offline=None):
                 raw=response.read(16000000)
             if len(raw)>=16000000:raise ValueError('DATA_TOO_LARGE')
         if hashlib.sha256(raw).hexdigest()!=item['sha256']:raise ValueError('HISTORICAL_INPUT_HASH_MISMATCH')
-        p.write_bytes(raw);p.with_suffix('.source.json').write_text(json.dumps({'url':item['url'],'sha256':item['sha256']}))
+        p.write_bytes(raw);p.with_suffix('.source.json').write_text(json.dumps({'url':item['url'],'sha256':item['sha256'],'retrieved_at':datetime.now(timezone.utc).isoformat()}))
     with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:list(pool.map(fetch,json.loads((ENGINE/'sources.json').read_text())))
     return manifest
 if __name__=='__main__':
