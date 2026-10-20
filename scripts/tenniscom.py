@@ -95,7 +95,9 @@ def parse_match(r,m,now,source):
     if 'qualif' in rnd.lower():regime+='_qualifying'
     return {'source_match_id':'tc:'+mid,'source_event_id':m['slug'],'tour':tour,'tournament':m['name'],'tournament_key':m['key'],'regime':regime,'surface':m['surface'],'court_enclosure':m.get('court_enclosure','Unknown'),'name_a':ps[0][0],'name_b':ps[1][0],'player_a':tour+':'+key(ps[0][0]),'player_b':tour+':'+key(ps[1][0]),'source_player_ids':[p[1] for p in ps],'starts_at':start.isoformat(),'start_verified':True,'event_source':source,'surface_source':m['source'],'format_source':m['format_source'],'event_scope':'singles','source_state':'scheduled','round':rnd[:80],'best_of':3,'deciding_tiebreak_target':7,'format_verified':True,'timing_kind':'SOURCE_SCHEDULED_ESTIMATE'}
 def discover(now):
-    days=sorted({now.date(),(now+timedelta(hours=24)).date()});sources=[];raw=[];slugs=set();unknown=[]
+    # Adjacent-day schedule views overlap across tournament timezones; fetch
+    # yesterday as discovery redundancy but keep strict future fixture filter.
+    days=sorted({(now-timedelta(days=1)).date(),now.date(),(now+timedelta(hours=24)).date()});sources=[];raw=[];slugs=set();unknown=[]
     for day in days:
         url=BASE+'/?date='+day.isoformat()
         try:
