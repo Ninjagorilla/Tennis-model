@@ -79,3 +79,20 @@ The NFL page at `nfl.html` shares this site without changing the tennis models. 
 **Live NFL probability publication remains gated.** The page shows execution health, cross-checked future fixture identities and validation evidence. The first-TD retrospective test improved aggregate log loss, but game-first Brier improvement is uncertain and its 2026-only subgroup worsened. No Champion promotion or profitable-betting claim is made. See `nfl/README.md` for the evidence and remaining acceptance criteria.
 
 The existing hourly public workflow runs the full NFL engine in temporary storage. Small daily/manual paper artifacts retain immutable pregame forecasts and a carried-forward grade ledger for 14 days; no raw historical inputs or binary model archives are retained. Game and first-TD outcomes are graded only when reconciled final labels exist. Player-stat bet grading is withheld without participation and exact contract rules. Duplicate hourly forecasts do not increase the effective game count. No billing changes, paid runners, subscriptions or betting-account connections are used. Artifact restore failures are surfaced, not interpreted as zero prior results.
+
+### Read a saved NFL run accurately
+
+A gated public list does not mean the models failed to execute. To reconstruct a
+private research report from a saved paper freeze and its receipt, run:
+
+```sh
+python nfl/report_run.py --freeze /path/to/paper/forecast_TIMESTAMP.json --receipt /path/to/receipt.json --output /path/to/report.md
+```
+
+This standard-library command checks the freeze hash, receipt linkage, pregame
+timing, model scope and protected runtime/parameter hashes against this checkout.
+It rejects offline diagnostics and inconsistent records. It reports archived
+Champion projections and first-TD Challenger outputs without treating them as a
+fresh run, verified sportsbook prices or an independent three-model average.
+The separate shadow scenario file is not authenticated by this command. No
+forecast publication, promotion or model changes occur.
