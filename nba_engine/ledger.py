@@ -8,8 +8,8 @@ def canonical(value):
 def freeze_forecast(forecast,evidence,market=None):
     asof=datetime.fromisoformat(forecast["asof_utc"].replace("Z","+00:00"))
     tip=datetime.fromisoformat(forecast["tipoff_utc"].replace("Z","+00:00"))
-    if asof.tzinfo is None or tip.tzinfo is None or asof>tip:
-        raise ValueError("Forecast must be frozen before tipoff")
+    if asof.tzinfo is None or tip.tzinfo is None or asof>=tip:
+        raise ValueError("Forecast must be frozen strictly before tipoff")
     if not evidence or not evidence.get("source") or not evidence.get("retrieved_at_utc"):
         raise ValueError("Evidence provenance required")
     retrieved=datetime.fromisoformat(evidence["retrieved_at_utc"].replace("Z","+00:00"))
