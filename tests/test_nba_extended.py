@@ -14,9 +14,23 @@ class ExtendedTests(unittest.TestCase):
         p=Player("7","Example",30,20,7,5,2)
         with self.assertRaises(ValueError):simulate([p,p],{},100)
     def test_grading(self):
-        r=grade([{"game_id":"1","asof_utc":"2026-01-01","tipoff_utc":"2026-01-02","home_win_probability":.8}],
+        r=grade([{"game_id":"1","asof_utc":"2026-01-01T12:00:00Z","tipoff_utc":"2026-01-02T12:00:00Z","home_win_probability":.8}],
                 [{"game_id":"1","home_won":True}])
         self.assertAlmostEqual(r["brier"],.04)
+    def test_missing_outcome_not_silently_dropped(self):
+        with self.assertRaises(ValueError):
+            grade([{"game_id":"1","asof_utc":"2026-01-01T12:00:00Z",
+                    "tipoff_utc":"2026-01-02T12:00:00Z","home_win_probability":.8}],[])
+    def test_duplicate_outcome_not_overwritten(self):
+        p=[{"game_id":"1","asof_utc":"2026-01-01T12:00:00Z",
+            "tipoff_utc":"2026-01-02T12:00:00Z","home_win_probability":.8}]
+        with self.assertRaises(ValueError):
+            grade(p,[{"game_id":"1","home_won":True},{"game_id":"1","home_won":False}])
+    def test_prediction_at_tipoff_forbidden(self):
+        p=[{"game_id":"1","asof_utc":"2026-01-02T12:00:00Z",
+            "tipoff_utc":"2026-01-02T12:00:00Z","home_win_probability":.8}]
+        with self.assertRaises(ValueError):
+            grade(p,[{"game_id":"1","home_won":True}])
     def test_no_holdout(self):
         with self.assertRaises(ValueError):walk_forward([],minimum_train=2)
     def test_token_required(self):
