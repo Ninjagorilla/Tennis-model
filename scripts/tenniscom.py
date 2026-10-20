@@ -71,7 +71,7 @@ def metadata(doc,slug):
     if not 0<=(end-start).days<=21:raise ValueError('INVALID_TOURNAMENT_DATES')
     scopes={CATEGORIES[(c.get('gender'),c.get('category'))] for c in m['competitions'] if c.get('type')=='singles' and (c.get('gender'),c.get('category')) in CATEGORIES}
     if not scopes:raise ValueError('UNSUPPORTED_COMPETITION')
-    return {'slug':slug,'name':m['officialName'] or m['name'],'names':list({str(m[k]) for k in ('name','officialName') if m.get(k)}),'key':key(m['location'].split(',')[0]),'country':key(m['location'].rsplit(',',1)[-1]),'surface':surface,'timezone':str(m['timezone']),'from':start.isoformat(),'through':end.isoformat(),'scopes':sorted(scopes),'source':BASE+'/tournaments/'+slug,'best_of':3,'deciding_tiebreak_target':7,'format_source':CHALLENGER_RULES if any(r=='challenger' for t,r in scopes) else RULES}
+    return {'slug':slug,'name':m['officialName'] or m['name'],'names':list({str(m[k]) for k in ('name','officialName') if m.get(k)}),'key':key(m['location'].split(',')[0]),'country':key(m['location'].rsplit(',',1)[-1]),'surface':surface,'court_enclosure':('Indoor' if str(m['surface']).lower().endswith('_indoor') else 'Outdoor'),'timezone':str(m['timezone']),'from':start.isoformat(),'through':end.isoformat(),'scopes':sorted(scopes),'source':BASE+'/tournaments/'+slug,'best_of':3,'deciding_tiebreak_target':7,'format_source':CHALLENGER_RULES if any(r=='challenger' for t,r in scopes) else RULES}
 def full_name(p):
     if not isinstance(p,dict) or not re.fullmatch('[a-z0-9-]{3,100}',str(p.get('id',''))):raise ValueError('PLAYER_ID_MISSING')
     n=p.get('name','').strip()
@@ -93,7 +93,7 @@ def parse_match(r,m,now,source):
     if not re.fullmatch(r'sr:sport_event:\d+',str(mid)):return None
     rnd=str(r.get('round',''))
     if 'qualif' in rnd.lower():regime+='_qualifying'
-    return {'source_match_id':'tc:'+mid,'source_event_id':m['slug'],'tour':tour,'tournament':m['name'],'tournament_key':m['key'],'regime':regime,'surface':m['surface'],'name_a':ps[0][0],'name_b':ps[1][0],'player_a':tour+':'+key(ps[0][0]),'player_b':tour+':'+key(ps[1][0]),'source_player_ids':[p[1] for p in ps],'starts_at':start.isoformat(),'start_verified':True,'event_source':source,'surface_source':m['source'],'format_source':m['format_source'],'event_scope':'singles','source_state':'scheduled','round':rnd[:80],'best_of':3,'deciding_tiebreak_target':7,'format_verified':True,'timing_kind':'SOURCE_SCHEDULED_ESTIMATE'}
+    return {'source_match_id':'tc:'+mid,'source_event_id':m['slug'],'tour':tour,'tournament':m['name'],'tournament_key':m['key'],'regime':regime,'surface':m['surface'],'court_enclosure':m['court_enclosure'],'name_a':ps[0][0],'name_b':ps[1][0],'player_a':tour+':'+key(ps[0][0]),'player_b':tour+':'+key(ps[1][0]),'source_player_ids':[p[1] for p in ps],'starts_at':start.isoformat(),'start_verified':True,'event_source':source,'surface_source':m['source'],'format_source':m['format_source'],'event_scope':'singles','source_state':'scheduled','round':rnd[:80],'best_of':3,'deciding_tiebreak_target':7,'format_verified':True,'timing_kind':'SOURCE_SCHEDULED_ESTIMATE'}
 def discover(now):
     days=sorted({now.date(),(now+timedelta(hours=24)).date()});sources=[];raw=[];slugs=set();unknown=[]
     for day in days:
