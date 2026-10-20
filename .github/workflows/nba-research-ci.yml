@@ -1,0 +1,19 @@
+name: NBA research checks
+on:
+  pull_request:
+    paths:
+      - 'nba_engine/**'
+      - 'tests/test_nba*.py'
+      - '.github/workflows/nba-research-ci.yml'
+  workflow_dispatch:
+jobs:
+  nba-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Isolated NBA tests
+        run: python -m unittest discover -s tests -p 'test_nba*.py' -v
