@@ -1,5 +1,5 @@
 """Public scheduled singles only; unknown surfaces/formats fail closed."""
-import concurrent.futures,hashlib,json,re,unicodedata,urllib.request
+import concurrent.futures,hashlib,json,os,re,unicodedata,urllib.request
 from datetime import datetime,timedelta,timezone
 from tenniscom import discover,match_espn_metadata
 from quality import deduplicate,identity
