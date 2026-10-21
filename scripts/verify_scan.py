@@ -40,6 +40,15 @@ def verify(snapshot,require_available=False):
     if (status=="available")!=any_ok:errors.append("STATUS_MISMATCH")
     if require_available and status!="available":errors.append("NO_AVAILABLE_SCAN")
     if status=="blocked":errors.append("BLOCKED_SCAN")
+    coverage=snapshot.get("coverage",{})
+    if not isinstance(coverage,dict):
+        errors.append("MALFORMED_COVERAGE")
+        coverage={}
+    manual=coverage.get("manual_challenger",{})
+    if isinstance(manual,dict) and manual.get("rejected",0):
+        errors.append("REJECTED_MANUAL_CHALLENGER_FIXTURES")
+    if snapshot.get("prediction_status")=="available" and not matches:
+        errors.append("AVAILABLE_WITHOUT_FIXTURES")
     details={
         "status":status,"fixture_count":len(matches),"model_predictions":count,
         "three_model_coverage":sum(all(e.get("results",{}).get(r,{}).get("status")=="ok" for r in ROLES) for e in matches),
