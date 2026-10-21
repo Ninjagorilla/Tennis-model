@@ -4,6 +4,7 @@ from collections import Counter
 from datetime import datetime,timezone
 from pathlib import Path
 from quality import fixture_key,challenge
+from fixture_ledger import publisher, window, TOURS
 
 ROLES=("champion","challenger","experimental")
 def verify(snapshot,require_available=False):
@@ -49,8 +50,38 @@ def verify(snapshot,require_available=False):
         errors.append("REJECTED_MANUAL_CHALLENGER_FIXTURES")
     if snapshot.get("prediction_status")=="available" and not matches:
         errors.append("AVAILABLE_WITHOUT_FIXTURES")
+    if coverage.get('status') not in ('COMPLETE','PARTIAL'):
+        errors.append('FAILED_OR_MISSING_LEDGER_GATE')
+    if status=='available':
+        try:
+            if coverage['status'] not in ('COMPLETE','PARTIAL') or snapshot.get('scan_status')!=coverage['status']:
+                raise ValueError('INVALID_COVERAGE_STATUS')
+            expected=window(coverage['window']['start_date'],coverage['window']['days'])
+            if coverage['window']!=expected or coverage['count_tolerance']!=0:
+                raise ValueError('INVALID_COVERAGE_WINDOW')
+            required={(tour,day) for day in expected['utc_dates'] for tour in TOURS}
+            counts=coverage['counts']
+            if len(counts)!=len(required) or {(r['tour'],r['utc_date']) for r in counts}!=required:
+                raise ValueError('MISSING_TOUR_DATE_COUNTS')
+            for row in counts:
+                values=list(row['source_counts'].values())
+                if any(n is not None and (type(n) is not int or n<0) for n in values):
+                    raise ValueError('INVALID_SOURCE_COUNTS')
+                if coverage['status']=='COMPLETE' and (row['status']!='COMPLETE' or len([n for n in values if n is not None])<2 or len(set(n for n in values if n is not None))!=1 or row['verified_count']!=max(n for n in values if n is not None)):
+                    raise ValueError('FALSE_COMPLETE_COVERAGE')
+            if coverage['status']=='PARTIAL' and not coverage['reasons']:
+                raise ValueError('PARTIAL_REASON_REQUIRED')
+            for match in matches:
+                evidence=match['verification']
+                providers={publisher(url) for url in evidence['source_urls']}
+                if len(providers)<2 or providers!=set(evidence['providers']):
+                    raise ValueError('TWO_INDEPENDENT_SOURCES_REQUIRED')
+        except (KeyError,ValueError,TypeError,AttributeError) as exc:
+            errors.append('UNVERIFIED_LEDGER_COVERAGE:'+str(exc))
     details={
         "status":status,"fixture_count":len(matches),"model_predictions":count,
+        "scan_status":coverage.get('status','FAILED'),"coverage_reasons":coverage.get('reasons',[]),
+        "counts":coverage.get('counts',[]),
         "three_model_coverage":sum(all(e.get("results",{}).get(r,{}).get("status")=="ok" for r in ROLES) for e in matches),
         "devils_advocate_reviews":sum(e.get("devils_advocate",{}).get("recommendation")=="review" for e in matches),
         "identity_diagnostics":coverage.get("identity_diagnostics",{}),
