@@ -34,6 +34,16 @@ jobs:
           python-version: '3.11'
       - name: Audit sanitized public files
         run: npm run audit
+      - name: Verify required recovery pipeline files
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          required = ['scripts/recovery_controller.py', 'scripts/verify_scan.py', 'scripts/forecast_ledger.py', 'scripts/gh_evidence.py', 'scripts/evidence_resilience.py', 'scripts/settlement_health.py', 'scripts/seven_day_tennis_audit.py']
+          missing = [name for name in required if not Path(name).is_file()]
+          if missing:
+              raise SystemExit('Missing required recovery components: ' + ', '.join(missing))
+          print('Recovery component preflight passed')
+          PY
       - name: Install pinned inference and test dependencies
         run: python -m pip install --no-cache-dir -r requirements.txt
       - name: Test publication, fixture and settlement gates
@@ -105,7 +115,10 @@ jobs:
         id: evidence_status
         if: always() && github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
         run: |
-          if [ -s work/tennis-forecast-ledger.jsonl ] && { [ "${{ steps.tennis_archive.outcome }}" != "success" ] || [ "${{ steps.evidence_repair.outcome }}" != "success" ] || [ "${{ steps.evidence_artifact.outcome }}" != "success" ]; }; then
+          if [ ! -s work/snapshot.json ]; then
+            echo 'alert=true' >> "$GITHUB_OUTPUT"
+            echo '::warning::Pipeline blocked before a fresh tennis snapshot was produced; archive and settlement state unverified.'
+          elif [ -s work/tennis-forecast-ledger.jsonl ] && { [ "${{ steps.tennis_archive.outcome }}" != "success" ] || [ "${{ steps.evidence_repair.outcome }}" != "success" ] || [ "${{ steps.evidence_artifact.outcome }}" != "success" ]; }; then
             echo 'alert=true' >> "$GITHUB_OUTPUT"
             echo "::warning::Evidence recovery degraded: inspect archived report, repair status, and artifact."
           else
