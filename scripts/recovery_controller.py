@@ -52,6 +52,9 @@ def live_scan():
     if not path.is_file():raise RuntimeError("SNAPSHOT_MISSING")
     snapshot=json.loads(path.read_text(encoding="utf8"))
     errors,details=evaluate(snapshot,require_available=os.getenv("REQUIRE_LIVE_SCAN")=="1")
+    if os.getenv("REQUIRE_CHALLENGER_COVERAGE")=="1":
+        from challenger_coverage_gate import assess
+        if assess(snapshot)["challenger_missing"]:errors.append("CHALLENGER_COVERAGE_MISSING")
     if errors:raise RuntimeError("SCAN_QUALITY_FAILED")
     return details
 
