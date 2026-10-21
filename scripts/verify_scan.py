@@ -49,21 +49,12 @@ def verify(snapshot,require_available=False):
         errors.append("REJECTED_MANUAL_CHALLENGER_FIXTURES")
     if snapshot.get("prediction_status")=="available" and not matches:
         errors.append("AVAILABLE_WITHOUT_FIXTURES")
-    coverage=snapshot.get("coverage",{})
-    if not isinstance(coverage,dict):
-        errors.append("MALFORMED_COVERAGE")
-        coverage={}
-    manual=coverage.get("manual_fixtures",coverage.get("manual_challenger",{}))
-    if isinstance(manual,dict) and manual.get("rejected",0):
-        errors.append("REJECTED_MANUAL_FIXTURES")
-    if status=="available" and not matches:
-        errors.append("AVAILABLE_WITHOUT_FIXTURES")
     details={
         "status":status,"fixture_count":len(matches),"model_predictions":count,
         "three_model_coverage":sum(all(e.get("results",{}).get(r,{}).get("status")=="ok" for r in ROLES) for e in matches),
         "devils_advocate_reviews":sum(e.get("devils_advocate",{}).get("recommendation")=="review" for e in matches),
-        "identity_diagnostics":snapshot.get("coverage",{}).get("identity_diagnostics",{}),
-        "missing_model_reasons":snapshot.get("coverage",{}).get("model_missing_reasons",{}),
+        "identity_diagnostics":coverage.get("identity_diagnostics",{}),
+        "missing_model_reasons":coverage.get("model_missing_reasons",{}),
         "generated_at":snapshot.get("generated_at"),
         "run_id":snapshot.get("build",{}).get("run_id")
     }

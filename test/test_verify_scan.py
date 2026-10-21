@@ -38,6 +38,20 @@ class ScanGateTests(unittest.TestCase):
      d=example();d["matches"][0]["results"]["champion"][field]=invalid
      errors,_=verify(d)
      self.assertIn("INVALID_PROBABILITY",errors)
+ def test_rejected_manual_challenger_blocks_scan(self):
+  d=example();d["coverage"]={"manual_challenger":{"accepted":1,"rejected":1}}
+  errors,_=verify(d)
+  self.assertIn("REJECTED_MANUAL_CHALLENGER_FIXTURES",errors)
+ def test_empty_available_snapshot_rejected(self):
+  d=example();d["matches"]=[]
+  for model in d["models"]:model["predictions"]=0
+  errors,_=verify(d)
+  self.assertIn("AVAILABLE_WITHOUT_FIXTURES",errors)
+ def test_malformed_coverage_reports_error(self):
+  d=example();d["coverage"]=None
+  errors,report=verify(d)
+  self.assertIn("MALFORMED_COVERAGE",errors)
+  self.assertEqual(report["identity_diagnostics"],{})
  def test_boolean_probabilities_fail_closed(self):
   d=example();d["matches"][0]["results"]["champion"]["p_a"]=True
   errors,_=verify(d)

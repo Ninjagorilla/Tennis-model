@@ -21,3 +21,5 @@ node_modules/
 __pycache__/
 runtime/
 private/
+# Retired one-off recovery input; never commit or use as a production slate.
+/data/manual_fixtures.json
