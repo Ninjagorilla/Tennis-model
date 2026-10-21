@@ -4,6 +4,7 @@ on:
     paths:
       - 'scripts/challenger_coverage_gate.py'
       - 'scripts/manual_challenger.py'
+      - 'test/test_manual_challenger.py'
       - 'scripts/collect.py'
       - 'scripts/recovery_controller.py'
       - '.github/workflows/tennis-independent.yml'
@@ -26,3 +27,4 @@ jobs:
           python-version: '3.11'
       - run: npm run audit
       - run: python -m unittest discover -s test -p 'test_challenger_coverage_gate.py' -v
+      - run: python -m unittest discover -s test -p 'test_manual_challenger.py' -v
