@@ -3,6 +3,10 @@ on:
   pull_request:
     paths:
       - 'scripts/challenger_coverage_gate.py'
+      - 'scripts/manual_challenger.py'
+      - 'scripts/collect.py'
+      - 'scripts/recovery_controller.py'
+      - '.github/workflows/tennis-independent.yml'
       - 'test/test_challenger_coverage_gate.py'
       - 'scripts/audit.mjs'
       - '.github/workflows/challenger-recovery-safeguards.yml'
