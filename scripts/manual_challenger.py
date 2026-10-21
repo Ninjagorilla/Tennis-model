@@ -16,8 +16,10 @@ def load(path,now):
         if t.tzinfo is None or checked.tzinfo is None:raise ValueError("TIMEZONE_REQUIRED")
         if not now<t<=now+timedelta(hours=24) or abs((now-checked).total_seconds())>3600:raise ValueError("STALE_FIXTURE")
         if x["surface"] not in ("Hard","Clay","Grass"):raise ValueError("INVALID_SURFACE")
-        if not str(x["source_url"]).startswith("https://"):raise ValueError("SOURCE_REQUIRED")
-        if len(x["source_player_ids"])!=2:raise ValueError("PLAYER_IDS_REQUIRED")
+        from urllib.parse import urlparse
+        source=urlparse(str(x["source_url"]))
+        if source.scheme!="https" or source.hostname not in ("atptour.com","www.atptour.com","challengertour.atptour.com"):raise ValueError("UNAPPROVED_SOURCE")
+        if len(x["source_player_ids"])!=2 or any(not str(p).strip() for p in x["source_player_ids"]):raise ValueError("PLAYER_IDS_REQUIRED")
         if any(len(x[k].split())<2 for k in ("name_a","name_b")):raise ValueError("FULL_NAMES_REQUIRED")
         if identity("ATP",x["name_a"])==identity("ATP",x["name_b"]):raise ValueError("DUPLICATE_PLAYER")
         out.append(dict(x,tour="ATP",regime="challenger",player_a=identity("ATP",x["name_a"]),player_b=identity("ATP",x["name_b"]),source_match_id="manual:"+str(x["source_match_id"]),event_source=x["source_url"],surface_source=x["source_url"],format_source="https://www.atptour.com/en/corporate/rulebook",best_of=3,deciding_tiebreak_target=7,court_enclosure=x.get("court_enclosure","Unknown"),round=x.get("round",""),start_verified=True,format_verified=True,event_scope="singles",source_state="scheduled",timing_kind="MANUAL_VERIFIED_ESTIMATE"))
