@@ -1,0 +1,30 @@
+name: Challenger recovery safeguards
+on:
+  pull_request:
+    paths:
+      - 'scripts/challenger_coverage_gate.py'
+      - 'scripts/manual_challenger.py'
+      - 'test/test_manual_challenger.py'
+      - 'scripts/collect.py'
+      - 'scripts/recovery_controller.py'
+      - '.github/workflows/tennis-independent.yml'
+      - 'test/test_challenger_coverage_gate.py'
+      - 'scripts/audit.mjs'
+      - '.github/workflows/challenger-recovery-safeguards.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.11'
+      - run: npm run audit
+      - run: python -m unittest discover -s test -p 'test_challenger_coverage_gate.py' -v
+      - run: python -m unittest discover -s test -p 'test_manual_challenger.py' -v

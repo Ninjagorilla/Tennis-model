@@ -27,6 +27,8 @@ jobs:
       - name: Install model dependencies
         run: python -m pip install --no-cache-dir -r requirements.txt
       - name: Run isolated tennis recovery
+        env:
+          REQUIRE_CHALLENGER_COVERAGE: '1'
         id: inference
         continue-on-error: true
         run: python scripts/recovery_controller.py

@@ -1,5 +1,5 @@
 """Public scheduled singles only; unknown surfaces/formats fail closed."""
-import concurrent.futures,hashlib,json,re,unicodedata,urllib.request
+import concurrent.futures,hashlib,json,re,unicodedata,urllib.request,os
 from datetime import datetime,timedelta,timezone
 from tenniscom import discover,match_espn_metadata
 from quality import deduplicate,identity
@@ -55,9 +55,14 @@ def collect(now=None):
                 identity=row['tour']+':'+row['source_match_id']
                 if identity in events and fingerprint(events[identity])!=fingerprint(row):conflicts.add(identity)
                 events[identity]=row
-    merged,identity_diagnostics=deduplicate([e for k,e in sorted(events.items()) if k not in conflicts]+extra)
+    manual=[]
+    manual_path=os.getenv('VERIFIED_CHALLENGER_FIXTURES')
+    if manual_path:
+        from manual_challenger import load
+        manual=load(manual_path,now)
+    merged,identity_diagnostics=deduplicate([e for k,e in sorted(events.items()) if k not in conflicts]+extra+manual)
     duplicate_conflicts=identity_diagnostics['identity_conflicts']
-    unavailable=[] if meta['challenger_source_ok'] else ['ATP Challenger']
+    unavailable=[] if (meta['challenger_source_ok'] or manual) else ['ATP Challenger']
     note='ATP, WTA, ATP Challenger and WTA 125 scheduled singles from public sources. Tournament metadata refreshes automatically each scan. Coverage remains partial; missing or conflicting facts are withheld.'
     return merged,{'sources':sources,'unknown_tournaments':sorted(unknown),'identity_diagnostics':identity_diagnostics,'conflicting_matches':len(conflicts)+duplicate_conflicts,'coverage':'partial','unavailable_scopes':unavailable,'note':note,**{k:meta[k] for k in ('metadata_mode','metadata_tournaments','discovery_capped')}}
 
