@@ -29,7 +29,7 @@ def load(now):
             if not all(isinstance(row[k],str) and row[k].startswith("https://") for k in ("event_source","surface_source","format_source")):raise ValueError()
             if not re.fullmatch(r"[a-zA-Z0-9:_-]{3,120}",str(row["source_match_id"])):raise ValueError()
             start=timestamp(row["starts_at"]);review=timestamp(row["reviewed_at"])
-            if not now<start<=now+timedelta(hours=24) or not now-timedelta(hours=12)<=review<=now:raise ValueError()
+            if not now<start<=now+timedelta(hours=48) or not now-timedelta(hours=12)<=review<=now:raise ValueError()
             identity=(row["tour"],row["source_match_id"])
             if identity in seen:raise ValueError()
             seen.add(identity)
