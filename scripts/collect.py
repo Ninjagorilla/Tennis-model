@@ -55,11 +55,11 @@ def collect(now=None):
                 identity=row['tour']+':'+row['source_match_id']
                 if identity in events and fingerprint(events[identity])!=fingerprint(row):conflicts.add(identity)
                 events[identity]=row
-    merged,identity_diagnostics=deduplicate([e for k,e in sorted(events.items()) if k not in conflicts]+extra)
+    # Challenger and WTA 125 fixtures are never taken from automatic feeds.\n    # They must be independently researched and entered into the reviewed ledger.\n    from manual_challenger import load as load_manual_challenger\n    manual,manual_status=load_manual_challenger(now)\n    main_only=[e for e in extra if e.get('regime','').split('_')[0] not in ('challenger','wta125')]\n    merged,identity_diagnostics=deduplicate([e for k,e in sorted(events.items()) if k not in conflicts]+main_only+manual)
     duplicate_conflicts=identity_diagnostics['identity_conflicts']
-    unavailable=[] if meta['challenger_source_ok'] else ['ATP Challenger']
-    note='ATP, WTA, ATP Challenger and WTA 125 scheduled singles from public sources. Tournament metadata refreshes automatically each scan. Coverage remains partial; missing or conflicting facts are withheld.'
-    return merged,{'sources':sources,'unknown_tournaments':sorted(unknown),'identity_diagnostics':identity_diagnostics,'conflicting_matches':len(conflicts)+duplicate_conflicts,'coverage':'partial','unavailable_scopes':unavailable,'note':note,**{k:meta[k] for k in ('metadata_mode','metadata_tournaments','discovery_capped')}}
+    unavailable=[] if manual_status['accepted'] else ['ATP Challenger (manual ledger empty or invalid)','WTA 125 (manual ledger empty or invalid)']
+    note='ATP/WTA main tour from public sources; ATP Challenger and WTA 125 ONLY from manually reviewed ledger. Missing manual fixtures are withheld, never auto-filled.'
+    return merged,{'sources':sources,'unknown_tournaments':sorted(unknown),'identity_diagnostics':identity_diagnostics,'conflicting_matches':len(conflicts)+duplicate_conflicts,'coverage':'partial','unavailable_scopes':unavailable,'manual_challenger':manual_status,'note':note,**{k:meta[k] for k in ('metadata_mode','metadata_tournaments','discovery_capped')}}
 
 def merge(rows):
     # Match across providers by exact normalized players and local tournament context.
