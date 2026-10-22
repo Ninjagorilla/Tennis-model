@@ -202,6 +202,17 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: python nfl/pipeline.py
+      - name: Retain immutable NFL game-level paper forecasts
+        if: always() && github.event_name != 'pull_request' && github.ref == 'refs/heads/main' && steps.nfl.outcome == 'success'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4 pinned
+        with:
+          name: nfl-full-paper-${{ github.run_id }}
+          path: |
+            work/nfl/paper/forecast_*.json
+            work/nfl/receipt.json
+            work/nfl_snapshot.json
+          retention-days: 14
+          if-no-files-found: error
       - name: Grade verified player-stat research thresholds
         if: steps.nfl.outcome == 'success'
         continue-on-error: true
