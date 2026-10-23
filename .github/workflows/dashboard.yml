@@ -118,6 +118,24 @@ jobs:
           if [ ! -s work/snapshot.json ]; then
             echo 'alert=true' >> "$GITHUB_OUTPUT"
             echo '::warning::Pipeline blocked before a fresh tennis snapshot was produced; archive and settlement state unverified.'
+          elif python - <<'PY'
+          import json,sys
+          try:
+              d=json.load(open('work/snapshot.json'))
+              sys.exit(0 if d.get('prediction_status')=='available' else 1)
+          except (OSError,ValueError,TypeError):
+              sys.exit(0)
+          PY
+          then
+            if [ ! -s work/tennis-forecast-ledger.jsonl ]; then
+              echo 'alert=true' >> "$GITHUB_OUTPUT"
+              echo '::warning::Available forecast snapshot has no immutable forecast ledger; recovery evidence is incomplete.'
+            elif [ "${{ steps.tennis_archive.outcome }}" != "success" ] || [ "${{ steps.evidence_repair.outcome }}" != "success" ] || [ "${{ steps.evidence_artifact.outcome }}" != "success" ]; then
+              echo 'alert=true' >> "$GITHUB_OUTPUT"
+              echo '::warning::Forecast evidence archive or repair failed.'
+            else
+              echo 'alert=false' >> "$GITHUB_OUTPUT"
+            fi
           elif [ -s work/tennis-forecast-ledger.jsonl ] && { [ "${{ steps.tennis_archive.outcome }}" != "success" ] || [ "${{ steps.evidence_repair.outcome }}" != "success" ] || [ "${{ steps.evidence_artifact.outcome }}" != "success" ]; }; then
             echo 'alert=true' >> "$GITHUB_OUTPUT"
             echo "::warning::Evidence recovery degraded: inspect archived report, repair status, and artifact."
