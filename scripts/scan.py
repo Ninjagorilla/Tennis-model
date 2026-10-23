@@ -9,6 +9,7 @@ from explanations import sanitize
 from quality import challenge
 from tennis_shadow_routing import apply_wta_shadow_guard
 NAMES={'champion':'SR-Elo 1.0','challenger':'SR-GLM 0.2','experimental':'Matchup Intelligence V2 (v3.4-A baseline)'}
+class LedgerBlocked(ValueError):pass
 def project(row):
     if not row or 'result' not in row:return {'status':'unavailable','reason':(row or {}).get('error','EXECUTION_UNAVAILABLE')}
     r=row['result'];p=r.get('p_a');q=r.get('p_b')
@@ -19,30 +20,48 @@ def scan():
     doc={'schema_version':2,'generated_at':start.isoformat(),'expires_at':(start+timedelta(minutes=90)).isoformat(),'prediction_status':'blocked','build':{'commit':os.getenv('GITHUB_SHA'),'run_id':os.getenv('GITHUB_RUN_ID')},'models':[],'matches':[],'coverage':{'coverage':'unavailable','note':'Scan did not complete.'},'limitations':['Frozen recovered model states: Champion 2026-10-05; Challenger 2026-09-26; v3.4-A fit 2026-10-10. No automatic retraining.','Historical point data is pinned to June 2026; experimental result updates extend through October 14. Current fixtures do not imply fully current ratings.','Research probabilities conditional on match completion. Experimental Matchup Intelligence V2 currently reproduces uncalibrated v3.4-A probabilities; unverified new factors are not included. No automatic promotion.','Partial fixture coverage. Scheduled times are estimates; refreshes are hourly and can be delayed.']}
     checks={};outputs={};events=[]
     try:
+        events,coverage=collect(now=start);doc['coverage']=coverage
+        if coverage.get('status') not in ('COMPLETE','PARTIAL') or not events:
+            raise LedgerBlocked('EMPTY_OR_UNVERIFIED_LEDGER')
         stage(runtime,os.getenv('OFFLINE_RUNTIME'))
         checks=preflight(runtime,dest/'preflight')
-        events,coverage=collect();doc['coverage']=coverage
         eligible=[r for r in ROLES if checks[r]['passed']==checks[r]['total']==4]
         if eligible and events:outputs=execute(runtime,events,start.date().isoformat(),dest/'matches',eligible)
         # No stale fixture survives a missing/changed/started second observation.
-        fresh,coverage=collect();doc['coverage']=coverage;current={fingerprint(e) for e in fresh}
+        fresh,coverage=collect(now=utc(),scan_window=coverage['window']);doc['coverage']=coverage
+        if coverage.get('status') not in ('COMPLETE','PARTIAL') or not fresh:
+            raise LedgerBlocked('LEDGER_RECHECK_FAILED')
+        current={fingerprint(e):e for e in fresh}
+        if set(current)!={fingerprint(e) for e in events}:
+            coverage['status']='PARTIAL';coverage['coverage']='partial'
+            coverage['reasons'].append('FIXTURES_CHANGED_AFTER_INFERENCE')
+            coverage['note']='PARTIAL: FIXTURES_CHANGED_AFTER_INFERENCE. '+coverage['note']
         for i,e in enumerate(events):
             if fingerprint(e) not in current:continue
             results={r:project(outputs.get(r,{}).get(i)) if r in eligible else {'status':'unavailable','reason':'PREFLIGHT_FAILED'} for r in ROLES}
             match={k:e[k] for k in ('source_match_id','tour','regime','tournament','tournament_key','best_of','deciding_tiebreak_target','surface','name_a','name_b','starts_at','round','event_source','surface_source','format_source')}|{'results':results}
+            match['verification']=current[fingerprint(e)]['verification']
             match=apply_wta_shadow_guard(match)
             match['court_enclosure']=e.get('court_enclosure','Unknown')
             match['devils_advocate']=challenge(match)
             doc['matches'].append(match)
         doc['coverage']['model_missing_reasons']={role:{reason:sum(e['results'][role].get('reason')==reason for e in doc['matches']) for reason in sorted({e['results'][role].get('reason') for e in doc['matches'] if e['results'][role]['status']!='ok'})} for role in ROLES}
         doc['prediction_status']='available' if any(r['status']=='ok' for e in doc['matches'] for r in e['results'].values()) else 'unavailable'
+    except LedgerBlocked as exc:
+        doc['failure_code']=str(exc)
     except Exception as exc:
         print('Scan blocked: '+type(exc).__name__,file=sys.stderr)
         doc['failure_code']='RUNTIME_OR_SCAN_FAILED'
+    if doc['prediction_status']!='available':
+        doc['matches']=[]
+        doc['coverage']['status']='FAILED';doc['coverage']['coverage']='failed'
+        doc['coverage'].setdefault('reasons',[]).append(doc.get('failure_code','NO_VERIFIED_PREDICTIONS'))
+        doc['coverage']['note']='FAILED: '+ '; '.join(doc['coverage']['reasons'])+'. '+doc['coverage'].get('note','')
+    doc['scan_status']=doc['coverage']['status']
     for role in ROLES:
         check=checks.get(role,{'passed':0,'total':4});count=sum(e['results'][role]['status']=='ok' for e in doc['matches'])
         doc['models'].append({'id':role,'name':NAMES[role],'preflight':check,'cloud_status':'verified' if check['passed']==4 else 'unavailable','predictions':count})
     end=utc();doc.update(generated_at=end.isoformat(),expires_at=(end+timedelta(minutes=90)).isoformat(),runtime_manifest_sha256=sha(ENGINE/'manifest.json'))
     Path('work/snapshot.json').write_text(json.dumps(doc,allow_nan=False,ensure_ascii=False),encoding='utf8')
-    print(json.dumps({'status':doc['prediction_status'],'matches':len(doc['matches']),'models':doc['models']}))
+    print(json.dumps({'status':doc['scan_status'],'prediction_status':doc['prediction_status'],'reasons':doc['coverage'].get('reasons',[]),'counts':doc['coverage'].get('counts',[]),'matches':len(doc['matches']),'models':doc['models']}))
 if __name__=='__main__':scan()

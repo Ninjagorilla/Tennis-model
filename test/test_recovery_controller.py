@@ -32,10 +32,10 @@ class RecoveryTests(unittest.TestCase):
      "models":[{"id":k,"predictions":0,"preflight":{"passed":4,"total":4}} for k in ("champion","challenger","experimental")],
      "matches":[],"coverage":{"sources":[{"status":"unavailable"}]}}
   errors,_=evaluate(d);self.assertIn("ALL_FIXTURE_SOURCES_UNAVAILABLE",errors)
- def test_healthy_empty_window_is_allowed(self):
+ def test_healthy_http_feed_does_not_verify_empty_ledger(self):
   now=datetime.now(timezone.utc).isoformat()
   d={"schema_version":2,"prediction_status":"unavailable","generated_at":now,
      "models":[{"id":k,"predictions":0,"preflight":{"passed":4,"total":4}} for k in ("champion","challenger","experimental")],
      "matches":[],"coverage":{"sources":[{"status":"ok"}]}}
-  errors,_=evaluate(d);self.assertEqual(errors,[])
+  errors,_=evaluate(d);self.assertIn('FAILED_OR_MISSING_LEDGER_GATE',errors)
 if __name__=="__main__":unittest.main()

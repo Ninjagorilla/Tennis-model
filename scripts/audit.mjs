@@ -7,12 +7,13 @@ const allowed=new Set(['.gitignore','MATCHUP_V2.md','.github/workflows/dashboard
 for(const p of ['.github/workflows/tennis-independent.yml','.gitattributes','scripts/tenniscom.py','scripts/explanations.py','scripts/quality.py','scripts/verify_scan.py','test/test_sources.py','test/test_quality.py','test/test_verify_scan.py'])allowed.add(p);
 // Newly reviewed, read-only gate workflows; keep exact allowlist rather than wildcarding.
 for(const p of ['.github/workflows/phoenix-promotion-gate.yml','.github/workflows/tennis-shadow-routing.yml','.github/workflows/nba-research-ci.yml','.github/workflows/nfl-verified-order.yml'])allowed.add(p);
-for(const p of ['data/manual_challenger_fixtures.json','docs/manual-challenger-entry-example.json'])allowed.add(p);
+for(const p of ['data/manual_challenger_fixtures.json','docs/manual-challenger-entry-example.json','docs/MANUAL_FIRST_SCANS.md'])allowed.add(p);
 for(const p of ['site/forecast-state.mjs','scripts/last-scan.mjs','test/dashboard.test.mjs','test/last-scan.test.mjs'])allowed.add(p);
 const nfl=JSON.parse(await readFile('nfl/manifest.json','utf8'));
 for(const n of ['.github/workflows/challenger-integration.yml','.github/workflows/nfl-integration.yml','nfl/manifest.json','scripts/nfl-status.mjs','test/nfl-status.test.mjs','site/nfl.html','site/nfl.css','site/nfl.js','site/nfl-quality.mjs','nfl/prop_outcomes.py','test/test_prop_outcomes.py','test/nfl-quality.test.mjs',...Object.keys(nfl.files)])allowed.add(n);
 for(const n of ["nba_engine/IMPLEMENTATION_STATUS.md","nba_engine/README.md","nba_engine/RESEARCH_V2.md","nba_engine/__init__.py","nba_engine/advanced.py","nba_engine/calibration.py","nba_engine/champion_designation.json","nba_engine/cli.py","nba_engine/core.py","nba_engine/evaluation.py","nba_engine/ledger.py","nba_engine/player_sim.py","nba_engine/possession_sim.py","nba_engine/providers.py","nba_engine/recovery.py","tests/test_nba_advanced.py","tests/test_nba_engine.py","tests/test_nba_extended.py","tests/test_nba_possession.py"])allowed.add(n);
 for(const p of ['nfl/verified_pbp_order.py','nfl/tests/test_verified_pbp_order.py'])allowed.add(p);
+for(const p of ['data/tennis_fixture_ledger.json','.github/workflows/order-of-play-diagnostic.yml'])allowed.add(p);
 const files=execFileSync('git',['ls-files','-z'],{encoding:'utf8'}).split('\0').filter(Boolean);
 const unexpected=files.filter(path=>!allowed.has(path) && !isSafeSourcePath(path));
 if(unexpected.length)throw Error('Unreviewed public files ('+unexpected.length+'):\n'+unexpected.join('\n'));

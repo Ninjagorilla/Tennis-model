@@ -1,0 +1,64 @@
+name: Order-of-play source diagnostic
+on:
+  workflow_dispatch:
+    inputs:
+      start_date:
+        description: First Pacific calendar date (YYYY-MM-DD)
+        required: true
+        type: string
+      days:
+        description: Number of Pacific calendar days (1-7)
+        default: '1'
+        type: string
+      atp_url:
+        description: ATP schedule URL (landing page follows up to three daily-schedule links)
+        default: https://www.atptour.com/en/scores/current
+        type: string
+      wta_url:
+        description: WTA event order-of-play URL; update for the event being checked
+        default: https://www.wtatennis.com/tournaments/2092/Ningbo/2026/order-of-play
+        type: string
+      tennis_url:
+        description: Tennis.com schedule URL; {date} requests every overlapping UTC date
+        default: 'https://www.tennis.com/?date={date}'
+        type: string
+  pull_request:
+    paths:
+      - '.github/workflows/order-of-play-diagnostic.yml'
+      - 'scripts/diagnose_order_of_play.py'
+permissions:
+  contents: read
+jobs:
+  diagnostic:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.11'
+      - name: Request source pages and report HTTP and row evidence
+        env:
+          START_DATE: ${{ inputs.start_date }}
+          DAYS: ${{ inputs.days }}
+          ATP_URL: ${{ inputs.atp_url }}
+          WTA_URL: ${{ inputs.wta_url }}
+          TENNIS_URL: ${{ inputs.tennis_url }}
+        run: |
+          if [ -n "$START_DATE" ]; then
+            python scripts/diagnose_order_of_play.py --start-date "$START_DATE" --days "${DAYS:-1}" --url "$ATP_URL" --url "$WTA_URL" --url "$TENNIS_URL"
+          else
+            python scripts/diagnose_order_of_play.py
+          fi
+      - name: Retain diagnostic JSON and summary
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: order-of-play-diagnostic-${{ github.run_id }}
+          path: |
+            work/order-of-play-diagnostic.json
+            work/order-of-play-diagnostic.md
+          retention-days: 14
+          if-no-files-found: error
