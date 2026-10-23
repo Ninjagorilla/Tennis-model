@@ -32,6 +32,10 @@ def scan():
             match={k:e[k] for k in ('source_match_id','tour','regime','tournament','tournament_key','best_of','deciding_tiebreak_target','surface','name_a','name_b','starts_at','round','event_source','surface_source','format_source')}|{'results':results}
             match=apply_wta_shadow_guard(match)
             match['court_enclosure']=e.get('court_enclosure','Unknown')
+            # Public provider athlete IDs are always source-scoped; these are
+            # independent of internal Elo/artifact player identities.
+            match['source_player_ids']=e.get('source_player_ids')
+            match['source_event_id']=e.get('source_event_id')
             match['devils_advocate']=challenge(match)
             doc['matches'].append(match)
         doc['coverage']['model_missing_reasons']={role:{reason:sum(e['results'][role].get('reason')==reason for e in doc['matches']) for reason in sorted({e['results'][role].get('reason') for e in doc['matches'] if e['results'][role]['status']!='ok'})} for role in ROLES}
