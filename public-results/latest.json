@@ -1,1 +1,383 @@
-{"schema_version": 2, "generated_at": "2026-11-14T02:29:21.290348+00:00", "expires_at": "2026-11-14T03:59:21.290348+00:00", "prediction_status": "available", "build": {"commit": "8e6b21f0630df3ff9a81477fd069876fcdc9b0c5", "run_id": "43546505149"}, "models": [{"id": "champion", "name": "SR-Elo 1.0", "preflight": {"passed": 4, "total": 4}, "cloud_status": "verified", "predictions": 1}, {"id": "challenger", "name": "SR-GLM 0.2", "preflight": {"passed": 4, "total": 4}, "cloud_status": "verified", "predictions": 1}, {"id": "experimental", "name": "Matchup Intelligence V2 (v3.4-A baseline)", "preflight": {"passed": 4, "total": 4}, "cloud_status": "verified", "predictions": 1}], "matches": [{"source_match_id": "186552", "tour": "ATP", "regime": "main", "tournament": "Bybit Stockholm Open", "tournament_key": "stockholm", "best_of": 3, "deciding_tiebreak_target": 7, "surface": "Hard", "name_a": "Taylor Fritz", "name_b": "Thiago Agustin Tirante", "starts_at": "2026-11-14T12:00:00+00:00", "round": "Final", "event_source": "https://site.api.espn.com/apis/site/v2/sports/tennis/atp/scoreboard", "surface_source": "https://www.tennis.com/tournaments/stockholm-open", "format_source": "https://www.wtatennis.com/news/3043764/tennis-explained-learn-the-game", "results": {"champion": {"status": "ok", "p_a": 0.7801152984750523, "p_b": 0.21988470152494766, "model_id": "ATP_CHAMPION_SRELO_1_0", "state_date": "2026-10-05", "artifact_sha256": "fd67cd921e2fd4465324fdf0a2a61169a5045ae5981b2d5ae9eb6ceaddd91f59", "research_only": true, "explanation": {"serve_a": 0.7064465077645145, "serve_b": 0.6216427161569997, "minimum_points": 24037.0, "sr_p_a": 0.8484522799616626, "elo_p_a": 0.6877370366805954, "elo_weight": 0.4252053513498954, "rating_a": 1984.4657962001538, "rating_b": 1847.3050217006526, "without_current_form_p_a": 0.780843548274462}, "v2_readiness": null}, "challenger": {"status": "ok", "p_a": 0.7364740850594582, "p_b": 0.2635259149405418, "model_id": "ATP_SR02_CORE_OBSERVED", "state_date": "2026-09-26", "artifact_sha256": "787cca6a089c4ddf945bf8ee233b016ab48f5c9271fe1bed326abd7dea5d23cb", "research_only": true, "explanation": {"serve_a": 0.6909155591253529, "serve_b": 0.6388349506008794, "minimum_points": 24037.0, "raw_serve_a": 0.6978051362056162, "raw_serve_b": 0.6313112799307848, "calibration_scale": 0.7828602155980732, "form_beta": 0.0, "a_global_serve": 0.5315527381954939, "a_surface_serve": 0.04797148748134169, "a_global_return": 0.24515078859258146, "a_surface_return": 0.06778077330342479, "b_global_serve": 0.3207720793103636, "b_surface_serve": 0.05629956487720632, "b_global_return": 0.15401454656693772, "b_surface_return": 0.06234810318441916}, "v2_readiness": null}, "experimental": {"status": "ok", "p_a": 0.7974231655737944, "p_b": 0.20257683442620555, "model_id": "EXPERIMENTAL_MATCHUP_INTELLIGENCE_V2_0_1", "state_date": "2026-10-10", "artifact_sha256": "fbd1999cab11789981caf4df399e9b6929f0ec30644b384a2dbb1c3e5fda2f7c", "research_only": true, "explanation": {"baseline_p_a": 0.7985126784810852, "dynamic_change_pp": -0.10895129072907572, "serve_a": 0.7181634379420683, "serve_b": 0.6237454284513895, "elo_weight": 0.42037176824765693, "a_serve_logit_shift": -0.001003127067450005, "a_return_logit_shift": 0.00044557692427632945, "b_serve_logit_shift": 0.001799430865851414, "b_return_logit_shift": 0.0011838274191119688, "a_effective_serve_points": 219.00101500855877, "a_effective_return_points": 234.27303270738767, "b_effective_serve_points": 98.17297880928842, "b_effective_return_points": 100.3342526246487}, "v2_readiness": {"version": "MATCHUP_INTELLIGENCE_V2_SHADOW_0_1", "status": "research_only", "registered_prediction_unchanged": true, "baseline_p_a": 0.7974231655737944, "candidate_delta_pp": null, "uncalibrated_diagnostic_only": true, "observed_feature_measures": {"surface": {"a": 0.52733155, "b": 0.51401141, "effective_n": 5243, "source_sha256": "97c6e3d08f2ccf544b7dbec4af820c06c21e367532b0155d4d70be755c8dc849", "evidence_type": "ARCHIVE_TOURNAMENT_DATE_PROXY"}, "style": {"a": 0.3394074, "b": 0.26818847, "effective_n": 16962, "source_sha256": "97c6e3d08f2ccf544b7dbec4af820c06c21e367532b0155d4d70be755c8dc849", "evidence_type": "ARCHIVE_TOURNAMENT_DATE_PROXY"}}, "verified_features": ["style", "surface"], "missing_features": {"indoor": "MISSING_OR_UNVERIFIED", "h2h": "MISSING_OR_UNVERIFIED", "fatigue": "MISSING_OR_UNVERIFIED", "injury": "MISSING_OR_UNVERIFIED", "weather": "MISSING_OR_UNVERIFIED", "physical": "MISSING_OR_UNVERIFIED"}, "evidence_digest": "278ac2052088aaaad993a9de703f09701effdceec235023e5778985c8b8da499", "eligible_for_promotion": false, "court_enclosure": "Indoor", "history_readiness": {"status": "HISTORICAL_DATE_PROXY_21D_EMBARGO", "archive_sources": 8, "player_a_archive_matches": 243, "player_b_archive_matches": 238, "surface_point_strength": {"a": 0.5273, "b": 0.514}, "serve_reliance_style_proxy": {"a": 0.3394, "b": 0.2682}, "h2h_completed_archive_matches": 0}, "physical_traits": {"status": "DESCRIPTIVE_NOT_PREDICTIVE", "players": {"a": {"handedness": "R", "height_cm": 196.0, "archive_observations": 251}, "b": {"handedness": "R", "height_cm": 185.0, "archive_observations": 255}}, "source_manifest_sha256": "97c6e3d08f2ccf544b7dbec4af820c06c21e367532b0155d4d70be755c8dc849"}}}}, "court_enclosure": "Indoor", "devils_advocate": {"status": "complete", "pick": "Taylor Fritz", "side": "a", "mean_available_probability": 0.771338, "opponent_probability": 0.228662, "model_spread_pp": 6.095, "missing_models": [], "flags": [], "reasons": [], "recommendation": "no_automatic_promotion"}}], "coverage": {"sources": [{"url": "https://www.tennis.com/?date=2026-11-14", "status": "ok", "fetched_at": "2026-11-14T02:29:20.891717+00:00", "sha256": "c30540bd8c64bc2763b590aed84202cf62305a756574f5748fc1738546c16173", "provider": "Tennis.com"}, {"url": "https://www.tennis.com/?date=2026-11-15", "status": "ok", "fetched_at": "2026-11-14T02:29:20.943396+00:00", "sha256": "6689f8eb67458299c8530d0a3e55de2f3037c7a5ae2e0267197d855fdaf33aee", "provider": "Tennis.com"}, {"url": "https://www.tennis.com/tournaments", "status": "ok", "fetched_at": "2026-11-14T02:29:20.989091+00:00", "sha256": "9b6fae21f22cc015f87ab2808d583f149b16ed58f1504a92319b06491eed1ff1", "provider": "Tennis.com"}, {"url": "https://www.tennis.com/tournaments/atp-challenger-hersonissos-3-greece", "status": "ok", "fetched_at": "2026-11-14T02:29:21.046265+00:00", "sha256": "88f7e5d1cdb4ef8b8cd83a2da66c72f00df7e570a3b60695384c1f2bc30b02d6", "provider": "Tennis.com"}, {"url": "https://www.tennis.com/tournaments/atp-challenger-monastir-tunisia", "status": "ok", "fetched_at": "2026-11-14T02:29:21.040294+00:00", "sha256": "951e350c864fd084bbf03be3a6c487b104567fb93a22d4c4901cda88fe678bcb", "provider": "Tennis.com"}, {"url": "https://www.tennis.com/tournaments/brisbane-3", "status": "ok", "fetched_at": "2026-11-14T02:29:21.033869+00:00", "sha256": "ad0d9d6b97b6a7c0046fb0cd689ea668de4bb266671080363e908a42601217ae", "provider": "Tennis.com"}, {"url": "https://www.tennis.com/tournaments/comet-orleans-open", "status": "ok", "fetched_at": "2026-11-14T02:29:21.047356+00:00", "sha256": "c87a563334d37c3d6584e38789047acf8ee5fdae603ea8cf5c1bb3e33add2395", "provider": "Tennis.com"}, {"url": "https://www.tennis.com/tournaments/cundinamarca-open", "provider": "Tennis.com metadata", "status": "unavailable", "fetched_at": "2026-11-14T02:29:21.096512+00:00"}, {"url": "https://www.tennis.com/tournaments/knoxville-challenger", "status": "ok", "fetched_at": "2026-11-14T02:29:21.098003+00:00", "sha256": "f06a9979d9a36c1a9fc41115b850517c92e5c029afdaada09b2f86eca1f3cb45", "provider": "Tennis.com"}, {"url": "https://www.tennis.com/tournaments/lima-challenger", "status": "ok", "fetched_at": "2026-11-14T02:29:21.114184+00:00", "sha256": "a3dd1f3ae5e46fda2aa3aa7321b0bc7e26cf1e7dab1cbbdcf538eaf3ed428d36", "provider": "Tennis.com"}, {"url": "https://www.tennis.com/tournaments/nitto-atp-finals", "status": "ok", "fetched_at": "2026-11-14T02:29:21.106750+00:00", "sha256": "4d5835af9a33f9e410fb32bc6a220e4da261c801784247780374c6c6d2fb8b0a", "provider": "Tennis.com"}, {"url": "https://www.tennis.com/tournaments/stockholm-open", "status": "ok", "fetched_at": "2026-11-14T02:29:21.143274+00:00", "sha256": "c00ce9a27335d5e7ca858969a0f042500274627a8b6b72ee3659c52c5c3db42d", "provider": "Tennis.com"}, {"url": "https://www.tennis.com/tournaments/unicharm-trophy-ehime", "status": "ok", "fetched_at": "2026-11-14T02:29:21.150277+00:00", "sha256": "23ba6a7ad0eaee77b913f6368f47923b11a4994c631fc7c26b8a5d1ccc590baa", "provider": "Tennis.com"}, {"url": "https://www.tennis.com/tournaments/wta-finals", "status": "ok", "fetched_at": "2026-11-14T02:29:21.164465+00:00", "sha256": "3db65c33d2b20330da3d35977bfd7ce0f8db22f23f790d874e31f94ee008a907", "provider": "Tennis.com"}, {"tour": "ATP", "url": "https://site.api.espn.com/apis/site/v2/sports/tennis/atp/scoreboard?dates=20261114", "status": "ok", "fetched_at": "2026-11-14T02:29:21.262909+00:00", "sha256": "fde96547f7df6d64948c9443626544c36227718d151c3bed4d6b48517d6fe614"}, {"tour": "ATP", "url": "https://site.api.espn.com/apis/site/v2/sports/tennis/atp/scoreboard?dates=20261115", "status": "ok", "fetched_at": "2026-11-14T02:29:21.289491+00:00", "sha256": "be0398ff5f9b5bd9c127ee1c72ff663010e7d45f242b31d38e20c6c6d4d7c217"}, {"tour": "WTA", "url": "https://site.api.espn.com/apis/site/v2/sports/tennis/wta/scoreboard?dates=20261114", "status": "ok", "fetched_at": "2026-11-14T02:29:21.280405+00:00", "sha256": "e62a748601fff917190275dda4de88fff7ec587fbaebe156b8650854d0962a0d"}, {"tour": "WTA", "url": "https://site.api.espn.com/apis/site/v2/sports/tennis/wta/scoreboard?dates=20261115", "status": "ok", "fetched_at": "2026-11-14T02:29:21.270505+00:00", "sha256": "cb096ef15e8d6d74a97e18f5a1260b586ba66bea60c36245b0c49b5726cc26d5"}], "unknown_tournaments": ["DIRECTV Open Presentado por Compesar", "FAGE WTA Finals Indian Wells", "cundinamarca-open"], "identity_diagnostics": {"duplicates_collapsed": 0, "identity_conflicts": 0}, "conflicting_matches": 0, "coverage": "partial", "unavailable_scopes": ["ATP Challenger (manual ledger empty or invalid)", "WTA 125 (manual ledger empty or invalid)"], "manual_challenger": {"status": "manual_only", "accepted": 0, "rejected": 0}, "note": "ATP/WTA main tour from public sources; ATP Challenger and WTA 125 ONLY from manually reviewed ledger. Missing manual fixtures are withheld, never auto-filled.", "metadata_mode": "automatic", "metadata_tournaments": 10, "discovery_capped": false, "model_missing_reasons": {"champion": {}, "challenger": {}, "experimental": {}}}, "limitations": ["Frozen recovered model states: Champion 2026-10-05; Challenger 2026-09-26; v3.4-A fit 2026-10-10. No automatic retraining.", "Historical point data is pinned to June 2026; experimental result updates extend through October 14. Current fixtures do not imply fully current ratings.", "Research probabilities conditional on match completion. Experimental Matchup Intelligence V2 currently reproduces uncalibrated v3.4-A probabilities; unverified new factors are not included. No automatic promotion.", "Partial fixture coverage. Scheduled times are estimates; refreshes are hourly and can be delayed."], "runtime_manifest_sha256": "75f10c2c2d6aefef24b799a7680821c84652829c4ab5f495ecd2b7607dc6b411"}
+{
+  "schema_version": 2,
+  "generated_at": "2026-11-14T03:14:29.711116+00:00",
+  "expires_at": "2026-11-14T04:44:29.711116+00:00",
+  "prediction_status": "available",
+  "build": {
+    "commit": "8e6b21f0630df3ff9a81477fd069876fcdc9b0c5",
+    "run_id": "43550497826"
+  },
+  "models": [
+    {
+      "id": "champion",
+      "name": "SR-Elo 1.0",
+      "preflight": {
+        "passed": 4,
+        "total": 4
+      },
+      "cloud_status": "verified",
+      "predictions": 1
+    },
+    {
+      "id": "challenger",
+      "name": "SR-GLM 0.2",
+      "preflight": {
+        "passed": 4,
+        "total": 4
+      },
+      "cloud_status": "verified",
+      "predictions": 1
+    },
+    {
+      "id": "experimental",
+      "name": "Matchup Intelligence V2 (v3.4-A baseline)",
+      "preflight": {
+        "passed": 4,
+        "total": 4
+      },
+      "cloud_status": "verified",
+      "predictions": 1
+    }
+  ],
+  "matches": [
+    {
+      "source_match_id": "186552",
+      "tour": "ATP",
+      "regime": "main",
+      "tournament": "Bybit Stockholm Open",
+      "tournament_key": "stockholm",
+      "best_of": 3,
+      "deciding_tiebreak_target": 7,
+      "surface": "Hard",
+      "name_a": "Taylor Fritz",
+      "name_b": "Thiago Agustin Tirante",
+      "starts_at": "2026-11-14T12:00:00+00:00",
+      "round": "Final",
+      "event_source": "https://site.api.espn.com/apis/site/v2/sports/tennis/atp/scoreboard",
+      "surface_source": "https://www.tennis.com/tournaments/stockholm-open",
+      "format_source": "https://www.wtatennis.com/news/3043764/tennis-explained-learn-the-game",
+      "results": {
+        "champion": {
+          "status": "ok",
+          "p_a": 0.7801152984750523,
+          "p_b": 0.21988470152494766,
+          "model_id": "ATP_CHAMPION_SRELO_1_0",
+          "state_date": "2026-10-05",
+          "artifact_sha256": "fd67cd921e2fd4465324fdf0a2a61169a5045ae5981b2d5ae9eb6ceaddd91f59",
+          "research_only": true,
+          "explanation": {
+            "serve_a": 0.7064465077645145,
+            "serve_b": 0.6216427161569997,
+            "minimum_points": 24037,
+            "sr_p_a": 0.8484522799616626,
+            "elo_p_a": 0.6877370366805954,
+            "elo_weight": 0.4252053513498954,
+            "rating_a": 1984.4657962001538,
+            "rating_b": 1847.3050217006526,
+            "without_current_form_p_a": 0.780843548274462
+          },
+          "v2_readiness": null
+        },
+        "challenger": {
+          "status": "ok",
+          "p_a": 0.7364740850594582,
+          "p_b": 0.2635259149405418,
+          "model_id": "ATP_SR02_CORE_OBSERVED",
+          "state_date": "2026-09-26",
+          "artifact_sha256": "787cca6a089c4ddf945bf8ee233b016ab48f5c9271fe1bed326abd7dea5d23cb",
+          "research_only": true,
+          "explanation": {
+            "serve_a": 0.6909155591253529,
+            "serve_b": 0.6388349506008794,
+            "minimum_points": 24037,
+            "raw_serve_a": 0.6978051362056162,
+            "raw_serve_b": 0.6313112799307848,
+            "calibration_scale": 0.7828602155980732,
+            "form_beta": 0,
+            "a_global_serve": 0.5315527381954939,
+            "a_surface_serve": 0.04797148748134169,
+            "a_global_return": 0.24515078859258146,
+            "a_surface_return": 0.06778077330342479,
+            "b_global_serve": 0.3207720793103636,
+            "b_surface_serve": 0.05629956487720632,
+            "b_global_return": 0.15401454656693772,
+            "b_surface_return": 0.06234810318441916
+          },
+          "v2_readiness": null
+        },
+        "experimental": {
+          "status": "ok",
+          "p_a": 0.7974231655737944,
+          "p_b": 0.20257683442620555,
+          "model_id": "EXPERIMENTAL_MATCHUP_INTELLIGENCE_V2_0_1",
+          "state_date": "2026-10-10",
+          "artifact_sha256": "fbd1999cab11789981caf4df399e9b6929f0ec30644b384a2dbb1c3e5fda2f7c",
+          "research_only": true,
+          "explanation": {
+            "baseline_p_a": 0.7985126784810852,
+            "dynamic_change_pp": -0.10895129072907572,
+            "serve_a": 0.7181634379420683,
+            "serve_b": 0.6237454284513895,
+            "elo_weight": 0.42037176824765693,
+            "a_serve_logit_shift": -0.001003127067450005,
+            "a_return_logit_shift": 0.00044557692427632945,
+            "b_serve_logit_shift": 0.001799430865851414,
+            "b_return_logit_shift": 0.0011838274191119688,
+            "a_effective_serve_points": 219.00101500855877,
+            "a_effective_return_points": 234.27303270738767,
+            "b_effective_serve_points": 98.17297880928842,
+            "b_effective_return_points": 100.3342526246487
+          },
+          "v2_readiness": {
+            "version": "MATCHUP_INTELLIGENCE_V2_SHADOW_0_1",
+            "status": "research_only",
+            "registered_prediction_unchanged": true,
+            "baseline_p_a": 0.7974231655737944,
+            "candidate_delta_pp": null,
+            "uncalibrated_diagnostic_only": true,
+            "observed_feature_measures": {
+              "surface": {
+                "a": 0.52733155,
+                "b": 0.51401141,
+                "effective_n": 5243,
+                "source_sha256": "97c6e3d08f2ccf544b7dbec4af820c06c21e367532b0155d4d70be755c8dc849",
+                "evidence_type": "ARCHIVE_TOURNAMENT_DATE_PROXY"
+              },
+              "style": {
+                "a": 0.3394074,
+                "b": 0.26818847,
+                "effective_n": 16962,
+                "source_sha256": "97c6e3d08f2ccf544b7dbec4af820c06c21e367532b0155d4d70be755c8dc849",
+                "evidence_type": "ARCHIVE_TOURNAMENT_DATE_PROXY"
+              }
+            },
+            "verified_features": [
+              "style",
+              "surface"
+            ],
+            "missing_features": {
+              "indoor": "MISSING_OR_UNVERIFIED",
+              "h2h": "MISSING_OR_UNVERIFIED",
+              "fatigue": "MISSING_OR_UNVERIFIED",
+              "injury": "MISSING_OR_UNVERIFIED",
+              "weather": "MISSING_OR_UNVERIFIED",
+              "physical": "MISSING_OR_UNVERIFIED"
+            },
+            "evidence_digest": "15d9077374cb883a409752985726d51756ad8c051ba8d6aa863f8146381f05af",
+            "eligible_for_promotion": false,
+            "court_enclosure": "Indoor",
+            "history_readiness": {
+              "status": "HISTORICAL_DATE_PROXY_21D_EMBARGO",
+              "archive_sources": 8,
+              "player_a_archive_matches": 243,
+              "player_b_archive_matches": 238,
+              "surface_point_strength": {
+                "a": 0.5273,
+                "b": 0.514
+              },
+              "serve_reliance_style_proxy": {
+                "a": 0.3394,
+                "b": 0.2682
+              },
+              "h2h_completed_archive_matches": 0
+            },
+            "physical_traits": {
+              "status": "DESCRIPTIVE_NOT_PREDICTIVE",
+              "players": {
+                "a": {
+                  "handedness": "R",
+                  "height_cm": 196,
+                  "archive_observations": 251
+                },
+                "b": {
+                  "handedness": "R",
+                  "height_cm": 185,
+                  "archive_observations": 255
+                }
+              },
+              "source_manifest_sha256": "97c6e3d08f2ccf544b7dbec4af820c06c21e367532b0155d4d70be755c8dc849"
+            }
+          }
+        }
+      },
+      "court_enclosure": "Indoor",
+      "devils_advocate": {
+        "status": "complete",
+        "pick": "Taylor Fritz",
+        "side": "a",
+        "mean_available_probability": 0.771338,
+        "opponent_probability": 0.228662,
+        "model_spread_pp": 6.095,
+        "missing_models": [],
+        "flags": [],
+        "reasons": [],
+        "recommendation": "no_automatic_promotion"
+      }
+    }
+  ],
+  "coverage": {
+    "sources": [
+      {
+        "url": "https://www.tennis.com/?date=2026-11-14",
+        "status": "ok",
+        "fetched_at": "2026-11-14T03:14:29.281007+00:00",
+        "sha256": "8009fe74a601ee71c7a0d5350112cd4ab91684d52298d1af99b284ada234bdd3",
+        "provider": "Tennis.com"
+      },
+      {
+        "url": "https://www.tennis.com/?date=2026-11-15",
+        "status": "ok",
+        "fetched_at": "2026-11-14T03:14:29.333720+00:00",
+        "sha256": "581df8618b15c47eefa6ca2f736e015a426461ed05ff405d6b01a82f4c60d42c",
+        "provider": "Tennis.com"
+      },
+      {
+        "url": "https://www.tennis.com/tournaments",
+        "status": "ok",
+        "fetched_at": "2026-11-14T03:14:29.359250+00:00",
+        "sha256": "9b6fae21f22cc015f87ab2808d583f149b16ed58f1504a92319b06491eed1ff1",
+        "provider": "Tennis.com"
+      },
+      {
+        "url": "https://www.tennis.com/tournaments/atp-challenger-hersonissos-3-greece",
+        "status": "ok",
+        "fetched_at": "2026-11-14T03:14:29.400025+00:00",
+        "sha256": "88f7e5d1cdb4ef8b8cd83a2da66c72f00df7e570a3b60695384c1f2bc30b02d6",
+        "provider": "Tennis.com"
+      },
+      {
+        "url": "https://www.tennis.com/tournaments/atp-challenger-monastir-tunisia",
+        "status": "ok",
+        "fetched_at": "2026-11-14T03:14:29.391433+00:00",
+        "sha256": "951e350c864fd084bbf03be3a6c487b104567fb93a22d4c4901cda88fe678bcb",
+        "provider": "Tennis.com"
+      },
+      {
+        "url": "https://www.tennis.com/tournaments/brisbane-3",
+        "status": "ok",
+        "fetched_at": "2026-11-14T03:14:29.385081+00:00",
+        "sha256": "0867d4c7932c4876ff0b25487305471f69879668ee49d0d40d37cb7f397b251e",
+        "provider": "Tennis.com"
+      },
+      {
+        "url": "https://www.tennis.com/tournaments/comet-orleans-open",
+        "status": "ok",
+        "fetched_at": "2026-11-14T03:14:29.409134+00:00",
+        "sha256": "c87a563334d37c3d6584e38789047acf8ee5fdae603ea8cf5c1bb3e33add2395",
+        "provider": "Tennis.com"
+      },
+      {
+        "url": "https://www.tennis.com/tournaments/cundinamarca-open",
+        "provider": "Tennis.com metadata",
+        "status": "unavailable",
+        "fetched_at": "2026-11-14T03:14:29.435043+00:00"
+      },
+      {
+        "url": "https://www.tennis.com/tournaments/knoxville-challenger",
+        "status": "ok",
+        "fetched_at": "2026-11-14T03:14:29.439380+00:00",
+        "sha256": "f06a9979d9a36c1a9fc41115b850517c92e5c029afdaada09b2f86eca1f3cb45",
+        "provider": "Tennis.com"
+      },
+      {
+        "url": "https://www.tennis.com/tournaments/lima-challenger",
+        "status": "ok",
+        "fetched_at": "2026-11-14T03:14:29.452525+00:00",
+        "sha256": "c03719a4d8c03a089eb47a66d3a1669937d4b85b0e0c4e519674198dccdd7715",
+        "provider": "Tennis.com"
+      },
+      {
+        "url": "https://www.tennis.com/tournaments/nitto-atp-finals",
+        "status": "ok",
+        "fetched_at": "2026-11-14T03:14:29.468180+00:00",
+        "sha256": "2e91374cce37bb771a21457ec1432297f0920301cda6ad17aa10fc38b6859d9c",
+        "provider": "Tennis.com"
+      },
+      {
+        "url": "https://www.tennis.com/tournaments/stockholm-open",
+        "status": "ok",
+        "fetched_at": "2026-11-14T03:14:29.483023+00:00",
+        "sha256": "c00ce9a27335d5e7ca858969a0f042500274627a8b6b72ee3659c52c5c3db42d",
+        "provider": "Tennis.com"
+      },
+      {
+        "url": "https://www.tennis.com/tournaments/unicharm-trophy-ehime",
+        "status": "ok",
+        "fetched_at": "2026-11-14T03:14:29.490006+00:00",
+        "sha256": "c0f6f4bd590afa18131df6b04ebded61533ddf2c2d7a48b5582960ce40bc7895",
+        "provider": "Tennis.com"
+      },
+      {
+        "url": "https://www.tennis.com/tournaments/wta-finals",
+        "status": "ok",
+        "fetched_at": "2026-11-14T03:14:29.497161+00:00",
+        "sha256": "73fe21e8374b5c9281be73fed91fdfc8356b8010f6a0d560a411a4fccda3e46e",
+        "provider": "Tennis.com"
+      },
+      {
+        "tour": "ATP",
+        "url": "https://site.api.espn.com/apis/site/v2/sports/tennis/atp/scoreboard?dates=20261114",
+        "status": "ok",
+        "fetched_at": "2026-11-14T03:14:29.583287+00:00",
+        "sha256": "bd23ea8bc38dd58721ae714c920d8ab8674a5fd01b1f537f4af3c7a3b678d013"
+      },
+      {
+        "tour": "ATP",
+        "url": "https://site.api.espn.com/apis/site/v2/sports/tennis/atp/scoreboard?dates=20261115",
+        "status": "ok",
+        "fetched_at": "2026-11-14T03:14:29.594257+00:00",
+        "sha256": "5d96d3160aa73911ccf6f266d4bc9d66c9c296ad7126a44ff65c217f96097664"
+      },
+      {
+        "tour": "WTA",
+        "url": "https://site.api.espn.com/apis/site/v2/sports/tennis/wta/scoreboard?dates=20261114",
+        "status": "ok",
+        "fetched_at": "2026-11-14T03:14:29.710085+00:00",
+        "sha256": "7d35f00c7ab6470944c0654b3b91da7f01d5ad99f5e1a7d60625a9ed58a67fcd"
+      },
+      {
+        "tour": "WTA",
+        "url": "https://site.api.espn.com/apis/site/v2/sports/tennis/wta/scoreboard?dates=20261115",
+        "status": "ok",
+        "fetched_at": "2026-11-14T03:14:29.560640+00:00",
+        "sha256": "ae45bee8617b72568680fabf45ff98a6f03bd77d58a289c237b2cd40e968836d"
+      }
+    ],
+    "unknown_tournaments": [
+      "DIRECTV Open Presentado por Compesar",
+      "FAGE WTA Finals Indian Wells",
+      "cundinamarca-open"
+    ],
+    "identity_diagnostics": {
+      "duplicates_collapsed": 0,
+      "identity_conflicts": 0
+    },
+    "conflicting_matches": 0,
+    "coverage": "partial",
+    "unavailable_scopes": [
+      "ATP Challenger (manual ledger empty or invalid)",
+      "WTA 125 (manual ledger empty or invalid)"
+    ],
+    "manual_challenger": {
+      "status": "manual_only",
+      "accepted": 0,
+      "rejected": 0
+    },
+    "note": "ATP/WTA main tour from public sources; ATP Challenger and WTA 125 ONLY from manually reviewed ledger. Missing manual fixtures are withheld, never auto-filled.",
+    "metadata_mode": "automatic",
+    "metadata_tournaments": 10,
+    "discovery_capped": false,
+    "model_missing_reasons": {
+      "champion": {},
+      "challenger": {},
+      "experimental": {}
+    }
+  },
+  "limitations": [
+    "Frozen recovered model states: Champion 2026-10-05; Challenger 2026-09-26; v3.4-A fit 2026-10-10. No automatic retraining.",
+    "Historical point data is pinned to June 2026; experimental result updates extend through October 14. Current fixtures do not imply fully current ratings.",
+    "Research probabilities conditional on match completion. Experimental Matchup Intelligence V2 currently reproduces uncalibrated v3.4-A probabilities; unverified new factors are not included. No automatic promotion.",
+    "Partial fixture coverage. Scheduled times are estimates; refreshes are hourly and can be delayed."
+  ],
+  "runtime_manifest_sha256": "75f10c2c2d6aefef24b799a7680821c84652829c4ab5f495ecd2b7607dc6b411"
+}
