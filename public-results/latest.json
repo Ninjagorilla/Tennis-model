@@ -1,1 +1,1181 @@
-{"schema_version": 2, "generated_at": "2026-11-25T01:08:11.647311+00:00", "expires_at": "2026-11-25T02:38:11.647311+00:00", "prediction_status": "available", "build": {"commit": "8e6b21f0630df3ff9a81477fd069876fcdc9b0c5", "run_id": "45523367873"}, "models": [{"id": "champion", "name": "SR-Elo 1.0", "preflight": {"passed": 4, "total": 4}, "cloud_status": "verified", "predictions": 0}, {"id": "challenger", "name": "SR-GLM 0.2", "preflight": {"passed": 4, "total": 4}, "cloud_status": "verified", "predictions": 5}, {"id": "experimental", "name": "Matchup Intelligence V2 (v3.4-A baseline)", "preflight": {"passed": 4, "total": 4}, "cloud_status": "verified", "predictions": 5}], "matches": [{"source_match_id": "186828", "tour": "WTA", "regime": "wta125", "tournament": "IEB+ Argentina Open", "tournament_key": "buenos aires", "best_of": 3, "deciding_tiebreak_target": 7, "surface": "Clay", "name_a": "Sol Ailin Larraya Guidi", "name_b": "Maria Lourdes Carle", "starts_at": "2026-11-25T18:00:00+00:00", "round": "Round 1", "event_source": "https://site.api.espn.com/apis/site/v2/sports/tennis/wta/scoreboard", "surface_source": "https://www.tennis.com/tournaments/ieb-argentina-open", "format_source": "https://www.wtatennis.com/news/3043764/tennis-explained-learn-the-game", "results": {"champion": {"status": "unavailable", "reason": "WTA_BLEND_DEMOTED_TO_SHADOW"}, "challenger": {"status": "ok", "p_a": 0.06739440362573813, "p_b": 0.9326055963742619, "model_id": "WTA_SR02_CORE_OBSERVED", "state_date": "2026-09-26", "artifact_sha256": "b49ade0de4f2676eeb2c93db3a9558b3272cd787b679c1b9750884a935543b6b", "research_only": true, "explanation": {"serve_a": 0.4557279667067677, "serve_b": 0.567401045419386, "minimum_points": 626.0, "raw_serve_a": 0.437636473211709, "raw_serve_b": 0.5852739974168196, "calibration_scale": 0.7540185601505588, "form_beta": 0.0, "a_global_serve": -0.05044971784963862, "a_surface_serve": -0.012622504065013194, "a_global_return": -0.08709469241414161, "a_surface_return": -0.021780016522887514, "b_global_serve": 0.07211810754532885, "b_surface_serve": 0.03867448869101255, "b_global_return": 0.27178401386944745, "b_surface_return": 0.04069839050913632}, "v2_readiness": null}, "experimental": {"status": "ok", "p_a": 0.3667662221480972, "p_b": 0.6332337778519028, "model_id": "EXPERIMENTAL_MATCHUP_INTELLIGENCE_V2_0_1", "state_date": "2026-10-10", "artifact_sha256": "9f0ce28379795fcaaa1f475345f7230c97d0e6e7945db4e5dc6b42f7c8575e3f", "research_only": true, "explanation": {"baseline_p_a": 0.36607842181778577, "dynamic_change_pp": 0.06878003303114055, "serve_a": 0.48133733252912747, "serve_b": 0.541543848180144, "elo_weight": 0.5830221408966149, "a_serve_logit_shift": -4.0482978079595414e-08, "a_return_logit_shift": -5.389515018259461e-08, "b_serve_logit_shift": -0.0008629347571232191, "b_return_logit_shift": -0.0008601452136395896, "a_effective_serve_points": 0.577100821339302, "a_effective_return_points": 0.5896464913684172, "b_effective_serve_points": 101.67372715328469, "b_effective_return_points": 100.36074230217733}, "v2_readiness": {"version": "MATCHUP_INTELLIGENCE_V2_SHADOW_0_1", "status": "research_only", "registered_prediction_unchanged": true, "baseline_p_a": 0.3667662221480972, "candidate_delta_pp": null, "uncalibrated_diagnostic_only": true, "observed_feature_measures": {"surface": {"a": 0.38783534, "b": 0.51471958, "effective_n": 46, "source_sha256": "6b49b40a35af5e5c62db2abc92f7902060d9273473e5b196a9b47d1051a8595b", "evidence_type": "ARCHIVE_TOURNAMENT_DATE_PROXY"}, "style": {"a": 0.1373728, "b": 0.02849453, "effective_n": 46, "source_sha256": "6b49b40a35af5e5c62db2abc92f7902060d9273473e5b196a9b47d1051a8595b", "evidence_type": "ARCHIVE_TOURNAMENT_DATE_PROXY"}}, "verified_features": ["style", "surface"], "missing_features": {"indoor": "MISSING_OR_UNVERIFIED", "h2h": "MISSING_OR_UNVERIFIED", "fatigue": "MISSING_OR_UNVERIFIED", "injury": "MISSING_OR_UNVERIFIED", "weather": "MISSING_OR_UNVERIFIED", "physical": "MISSING_OR_UNVERIFIED"}, "evidence_digest": "2892d3f183e276df75fceaaa613c440e342b94ce267dcff4b914007cfe7fac39", "eligible_for_promotion": false, "court_enclosure": "Outdoor", "history_readiness": {"status": "HISTORICAL_DATE_PROXY_21D_EMBARGO", "archive_sources": 8, "player_a_archive_matches": 1, "player_b_archive_matches": 151, "surface_point_strength": {"a": 0.3878, "b": 0.5147}, "serve_reliance_style_proxy": {"a": 0.1374, "b": 0.0285}, "h2h_completed_archive_matches": 0}, "physical_traits": {"status": "DESCRIPTIVE_NOT_PREDICTIVE", "players": {"a": {"handedness": "R", "height_cm": null, "archive_observations": 49}, "b": {"handedness": "R", "height_cm": null, "archive_observations": 230}}, "source_manifest_sha256": "6b49b40a35af5e5c62db2abc92f7902060d9273473e5b196a9b47d1051a8595b"}}}}, "wta_blend_shadow": {"status": "ok", "p_a": 0.14099717806812842, "p_b": 0.8590028219318716, "model_id": "WTA_CHAMPION_SRELO_1_0", "state_date": "2026-10-05", "artifact_sha256": "5d08c6e3c286cde229566848a4d0417d416586aede88bbb9bafae9b21b65a09a", "research_only": true, "explanation": {"serve_a": 0.4273110736003871, "serve_b": 0.5954477101030854, "minimum_points": 626.0, "sr_p_a": 0.012501822577007837, "elo_p_a": 0.2673938830863829, "elo_weight": 0.5041167435122763, "rating_a": 1534.877604945259, "rating_b": 1709.9652339035333, "without_current_form_p_a": 0.14101072470954634}, "v2_readiness": null, "role": "SHADOW", "not_for_action": true, "historical_metrics_citable": false}, "wta_selected": {"role": "SR_CHALLENGER_RESEARCH", "status": "ok", "selection_reason": "WTA_BLEND_DEMOTED_TO_SHADOW", "research_only": true, "model_id": "WTA_SR02_CORE_OBSERVED", "p_a": 0.06739440362573813, "p_b": 0.9326055963742619, "reason": null}, "court_enclosure": "Outdoor", "devils_advocate": {"status": "partial", "pick": "Maria Lourdes Carle", "side": "b", "mean_available_probability": 0.78292, "opponent_probability": 0.21708, "model_spread_pp": 29.937, "missing_models": ["champion"], "flags": ["INCOMPLETE_MODEL_COVERAGE", "HIGH_PROBABILITY_SPREAD"], "reasons": ["Model probabilities differ by at least 10 percentage points.", "One or more models did not return a valid prediction."], "recommendation": "review"}}, {"source_match_id": "186837", "tour": "WTA", "regime": "wta125", "tournament": "IEB+ Argentina Open", "tournament_key": "buenos aires", "best_of": 3, "deciding_tiebreak_target": 7, "surface": "Clay", "name_a": "Ipek Oz", "name_b": "Julia Riera", "starts_at": "2026-11-25T19:30:00+00:00", "round": "Round 2", "event_source": "https://site.api.espn.com/apis/site/v2/sports/tennis/wta/scoreboard", "surface_source": "https://www.tennis.com/tournaments/ieb-argentina-open", "format_source": "https://www.wtatennis.com/news/3043764/tennis-explained-learn-the-game", "results": {"champion": {"status": "unavailable", "reason": "WTA_BLEND_DEMOTED_TO_SHADOW"}, "challenger": {"status": "ok", "p_a": 0.38385162596042205, "p_b": 0.6161483740395779, "model_id": "WTA_SR02_CORE_OBSERVED", "state_date": "2026-09-26", "artifact_sha256": "b49ade0de4f2676eeb2c93db3a9558b3272cd787b679c1b9750884a935543b6b", "research_only": true, "explanation": {"serve_a": 0.5397504583426561, "serve_b": 0.561938776347944, "minimum_points": 8324.0, "raw_serve_a": 0.5361138603448204, "raw_serve_b": 0.5655369879984575, "calibration_scale": 0.7540185601505588, "form_beta": 0.0, "a_global_serve": 0.1853252850346276, "a_surface_serve": 0.02089033805311687, "a_global_return": 0.06940555122396928, "a_surface_return": 0.028153764789580416, "b_global_serve": 0.19407788949832205, "b_surface_serve": 0.04235157756221526, "b_global_return": 0.13138901247180035, "b_surface_return": 0.054913916146210794}, "v2_readiness": null}, "experimental": {"status": "ok", "p_a": 0.26669814349539234, "p_b": 0.7333018565046077, "model_id": "EXPERIMENTAL_MATCHUP_INTELLIGENCE_V2_0_1", "state_date": "2026-10-10", "artifact_sha256": "9f0ce28379795fcaaa1f475345f7230c97d0e6e7945db4e5dc6b42f7c8575e3f", "research_only": true, "explanation": {"baseline_p_a": 0.2668400778584532, "dynamic_change_pp": -0.014193436306086937, "serve_a": 0.5149547514084476, "serve_b": 0.5719630633061132, "elo_weight": 0.3761136264581464, "a_serve_logit_shift": -0.0004486434368240286, "a_return_logit_shift": 6.084195055605887e-05, "b_serve_logit_shift": -0.00031394244499380845, "b_return_logit_shift": 0.0001382126896452734, "a_effective_serve_points": 67.43056208082754, "a_effective_return_points": 68.11634203433589, "b_effective_serve_points": 186.6271868393808, "b_effective_return_points": 177.82508148302918}, "v2_readiness": {"version": "MATCHUP_INTELLIGENCE_V2_SHADOW_0_1", "status": "research_only", "registered_prediction_unchanged": true, "baseline_p_a": 0.26669814349539234, "candidate_delta_pp": null, "uncalibrated_diagnostic_only": true, "observed_feature_measures": {"surface": {"a": 0.48450443, "b": 0.50598091, "effective_n": 2010, "source_sha256": "6b49b40a35af5e5c62db2abc92f7902060d9273473e5b196a9b47d1051a8595b", "evidence_type": "ARCHIVE_TOURNAMENT_DATE_PROXY"}, "style": {"a": 0.1100499, "b": 0.10763859, "effective_n": 3366, "source_sha256": "6b49b40a35af5e5c62db2abc92f7902060d9273473e5b196a9b47d1051a8595b", "evidence_type": "ARCHIVE_TOURNAMENT_DATE_PROXY"}}, "verified_features": ["style", "surface"], "missing_features": {"indoor": "MISSING_OR_UNVERIFIED", "h2h": "MISSING_OR_UNVERIFIED", "fatigue": "MISSING_OR_UNVERIFIED", "injury": "MISSING_OR_UNVERIFIED", "weather": "MISSING_OR_UNVERIFIED", "physical": "MISSING_OR_UNVERIFIED"}, "evidence_digest": "0017c1444099b8410164c0ffa45e9381a6e29dc5ef7005f9700ed4859396ba92", "eligible_for_promotion": false, "court_enclosure": "Outdoor", "history_readiness": {"status": "HISTORICAL_DATE_PROXY_21D_EMBARGO", "archive_sources": 8, "player_a_archive_matches": 47, "player_b_archive_matches": 106, "surface_point_strength": {"a": 0.4845, "b": 0.506}, "serve_reliance_style_proxy": {"a": 0.11, "b": 0.1076}, "h2h_completed_archive_matches": 1}, "physical_traits": {"status": "DESCRIPTIVE_NOT_PREDICTIVE", "players": {"a": {"handedness": null, "height_cm": null, "archive_observations": 0}, "b": {"handedness": "R", "height_cm": null, "archive_observations": 216}}, "source_manifest_sha256": "6b49b40a35af5e5c62db2abc92f7902060d9273473e5b196a9b47d1051a8595b"}}}}, "wta_blend_shadow": {"status": "ok", "p_a": 0.32331798861034167, "p_b": 0.6766820113896583, "model_id": "WTA_CHAMPION_SRELO_1_0", "state_date": "2026-10-05", "artifact_sha256": "5d08c6e3c286cde229566848a4d0417d416586aede88bbb9bafae9b21b65a09a", "research_only": true, "explanation": {"serve_a": 0.5328968986888244, "serve_b": 0.5687110879807955, "minimum_points": 8324.0, "sr_p_a": 0.3168036103111968, "elo_p_a": 0.3343826051544718, "elo_weight": 0.37057740543322054, "rating_a": 1663.9464829396088, "rating_b": 1783.5388773426048, "without_current_form_p_a": 0.33006531167940756}, "v2_readiness": null, "role": "SHADOW", "not_for_action": true, "historical_metrics_citable": false}, "wta_selected": {"role": "SR_CHALLENGER_RESEARCH", "status": "ok", "selection_reason": "WTA_BLEND_DEMOTED_TO_SHADOW", "research_only": true, "model_id": "WTA_SR02_CORE_OBSERVED", "p_a": 0.38385162596042205, "p_b": 0.6161483740395779, "reason": null}, "court_enclosure": "Outdoor", "devils_advocate": {"status": "partial", "pick": "Julia Riera", "side": "b", "mean_available_probability": 0.674725, "opponent_probability": 0.325275, "model_spread_pp": 11.715, "missing_models": ["champion"], "flags": ["INCOMPLETE_MODEL_COVERAGE", "HIGH_PROBABILITY_SPREAD"], "reasons": ["Model probabilities differ by at least 10 percentage points.", "One or more models did not return a valid prediction."], "recommendation": "review"}}, {"source_match_id": "186838", "tour": "WTA", "regime": "wta125", "tournament": "IEB+ Argentina Open", "tournament_key": "buenos aires", "best_of": 3, "deciding_tiebreak_target": 7, "surface": "Clay", "name_a": "Ariana Geerlings", "name_b": "Alicia Herrero Linana", "starts_at": "2026-11-25T19:30:00+00:00", "round": "Round 2", "event_source": "https://site.api.espn.com/apis/site/v2/sports/tennis/wta/scoreboard", "surface_source": "https://www.tennis.com/tournaments/ieb-argentina-open", "format_source": "https://www.wtatennis.com/news/3043764/tennis-explained-learn-the-game", "results": {"champion": {"status": "unavailable", "reason": "WTA_BLEND_DEMOTED_TO_SHADOW"}, "challenger": {"status": "ok", "p_a": 0.5616229547414071, "p_b": 0.4383770452585929, "model_id": "WTA_SR02_CORE_OBSERVED", "state_date": "2026-09-26", "artifact_sha256": "b49ade0de4f2676eeb2c93db3a9558b3272cd787b679c1b9750884a935543b6b", "research_only": true, "explanation": {"serve_a": 0.5233170109510206, "serve_b": 0.5117746070444446, "minimum_points": 3252.0, "raw_serve_a": 0.5251977008806376, "raw_serve_b": 0.5098903649457865, "calibration_scale": 0.7540185601505588, "form_beta": 0.0, "a_global_serve": 0.09739874168889757, "a_surface_serve": 0.03953285579004874, "a_global_return": 0.18845526291455658, "a_surface_return": 0.05902849978465693, "b_global_serve": 0.11318731353281508, "b_surface_serve": 0.04906833337566514, "b_global_return": 0.12360054742239096, "b_surface_return": 0.03724952687771695}, "v2_readiness": null}, "experimental": {"status": "ok", "p_a": 0.5359440842443234, "p_b": 0.4640559157556766, "model_id": "EXPERIMENTAL_MATCHUP_INTELLIGENCE_V2_0_1", "state_date": "2026-10-10", "artifact_sha256": "9f0ce28379795fcaaa1f475345f7230c97d0e6e7945db4e5dc6b42f7c8575e3f", "research_only": true, "explanation": {"baseline_p_a": 0.5361096913852077, "dynamic_change_pp": -0.016560714088431627, "serve_a": 0.5309713057363994, "serve_b": 0.5258126604962132, "elo_weight": 0.44643481012658226, "a_serve_logit_shift": -3.2848433969504295e-07, "a_return_logit_shift": 3.0392535255207674e-06, "b_serve_logit_shift": 0.00034331470358455406, "b_return_logit_shift": -0.00011618170759623111, "a_effective_serve_points": 20.901212083942077, "a_effective_return_points": 21.772061738428786, "b_effective_serve_points": 99.38308695349056, "b_effective_return_points": 101.61135043418182}, "v2_readiness": {"version": "MATCHUP_INTELLIGENCE_V2_SHADOW_0_1", "status": "research_only", "registered_prediction_unchanged": true, "baseline_p_a": 0.5359440842443234, "candidate_delta_pp": null, "uncalibrated_diagnostic_only": true, "observed_feature_measures": {"surface": {"a": 0.4995926, "b": 0.50297656, "effective_n": 737, "source_sha256": "6b49b40a35af5e5c62db2abc92f7902060d9273473e5b196a9b47d1051a8595b", "evidence_type": "ARCHIVE_TOURNAMENT_DATE_PROXY"}, "style": {"a": 0.05101833, "b": 0.06959781, "effective_n": 737, "source_sha256": "6b49b40a35af5e5c62db2abc92f7902060d9273473e5b196a9b47d1051a8595b", "evidence_type": "ARCHIVE_TOURNAMENT_DATE_PROXY"}}, "verified_features": ["style", "surface"], "missing_features": {"indoor": "MISSING_OR_UNVERIFIED", "h2h": "MISSING_OR_UNVERIFIED", "fatigue": "MISSING_OR_UNVERIFIED", "injury": "MISSING_OR_UNVERIFIED", "weather": "MISSING_OR_UNVERIFIED", "physical": "MISSING_OR_UNVERIFIED"}, "evidence_digest": "8cfbeaba2cdc4955954b9c107e0a399b67f6b91a4357efdc3122fb7458ad1f6f", "eligible_for_promotion": false, "court_enclosure": "Outdoor", "history_readiness": {"status": "HISTORICAL_DATE_PROXY_21D_EMBARGO", "archive_sources": 8, "player_a_archive_matches": 10, "player_b_archive_matches": 24, "surface_point_strength": {"a": 0.4996, "b": 0.503}, "serve_reliance_style_proxy": {"a": 0.051, "b": 0.0696}, "h2h_completed_archive_matches": 0}, "physical_traits": {"status": "DESCRIPTIVE_NOT_PREDICTIVE", "players": {"a": {"handedness": null, "height_cm": null, "archive_observations": 0}, "b": {"handedness": "R", "height_cm": null, "archive_observations": 134}}, "source_manifest_sha256": "6b49b40a35af5e5c62db2abc92f7902060d9273473e5b196a9b47d1051a8595b"}}}}, "wta_blend_shadow": {"status": "ok", "p_a": 0.6314809202217833, "p_b": 0.36851907977821674, "model_id": "WTA_CHAMPION_SRELO_1_0", "state_date": "2026-10-05", "artifact_sha256": "5d08c6e3c286cde229566848a4d0417d416586aede88bbb9bafae9b21b65a09a", "research_only": true, "explanation": {"serve_a": 0.5262747802845698, "serve_b": 0.5088108020182376, "minimum_points": 3252.0, "sr_p_a": 0.5927538577879288, "elo_p_a": 0.6885598631771601, "elo_weight": 0.4042237464814236, "rating_a": 1789.4307918471386, "rating_b": 1651.603942985626, "without_current_form_p_a": 0.6314809202217833}, "v2_readiness": null, "role": "SHADOW", "not_for_action": true, "historical_metrics_citable": false}, "wta_selected": {"role": "SR_CHALLENGER_RESEARCH", "status": "ok", "selection_reason": "WTA_BLEND_DEMOTED_TO_SHADOW", "research_only": true, "model_id": "WTA_SR02_CORE_OBSERVED", "p_a": 0.5616229547414071, "p_b": 0.4383770452585929, "reason": null}, "court_enclosure": "Outdoor", "devils_advocate": {"status": "partial", "pick": "Ariana Geerlings", "side": "a", "mean_available_probability": 0.548784, "opponent_probability": 0.451216, "model_spread_pp": 2.568, "missing_models": ["champion"], "flags": ["INCOMPLETE_MODEL_COVERAGE", "FRAGILE_FAVORITE"], "reasons": ["The mean probability is below 60%, so the opponent has substantial modeled upset probability.", "One or more models did not return a valid prediction."], "recommendation": "review"}}, {"source_match_id": "186839", "tour": "WTA", "regime": "wta125", "tournament": "IEB+ Argentina Open", "tournament_key": "buenos aires", "best_of": 3, "deciding_tiebreak_target": 7, "surface": "Clay", "name_a": "Martina Trevisan", "name_b": "Veronika Erjavec", "starts_at": "2026-11-25T18:00:00+00:00", "round": "Round 2", "event_source": "https://site.api.espn.com/apis/site/v2/sports/tennis/wta/scoreboard", "surface_source": "https://www.tennis.com/tournaments/ieb-argentina-open", "format_source": "https://www.wtatennis.com/news/3043764/tennis-explained-learn-the-game", "results": {"champion": {"status": "unavailable", "reason": "WTA_BLEND_DEMOTED_TO_SHADOW"}, "challenger": {"status": "ok", "p_a": 0.34888407125712856, "p_b": 0.6511159287428714, "model_id": "WTA_SR02_CORE_OBSERVED", "state_date": "2026-09-26", "artifact_sha256": "b49ade0de4f2676eeb2c93db3a9558b3272cd787b679c1b9750884a935543b6b", "research_only": true, "explanation": {"serve_a": 0.5113656197632167, "serve_b": 0.5403167264084386, "minimum_points": 7905.0, "raw_serve_a": 0.5066308797287188, "raw_serve_b": 0.5450185096322827, "calibration_scale": 0.7540185601505588, "form_beta": 0.0, "a_global_serve": 0.1025054932853556, "a_surface_serve": 0.02395471767698885, "a_global_return": 0.18286531101011033, "a_surface_return": 0.04031690391220016, "b_global_serve": 0.2013518611972197, "b_surface_serve": 0.07759863620772778, "b_global_return": 0.17841565113535585, "b_surface_return": 0.04631422243218764}, "v2_readiness": null}, "experimental": {"status": "ok", "p_a": 0.2213752655345464, "p_b": 0.7786247344654535, "model_id": "EXPERIMENTAL_MATCHUP_INTELLIGENCE_V2_0_1", "state_date": "2026-10-10", "artifact_sha256": "9f0ce28379795fcaaa1f475345f7230c97d0e6e7945db4e5dc6b42f7c8575e3f", "research_only": true, "explanation": {"baseline_p_a": 0.2216327597687836, "dynamic_change_pp": -0.025749423423720996, "serve_a": 0.49872912950371606, "serve_b": 0.5637373914532102, "elo_weight": 0.3598925174592617, "a_serve_logit_shift": -0.0011236763733499253, "a_return_logit_shift": -0.00015728533163208153, "b_serve_logit_shift": 0.00016934250506560344, "b_return_logit_shift": -0.001002400330388345, "a_effective_serve_points": 89.37839312675995, "a_effective_return_points": 89.10972274599318, "b_effective_serve_points": 219.23474428641902, "b_effective_return_points": 222.67611031576263}, "v2_readiness": {"version": "MATCHUP_INTELLIGENCE_V2_SHADOW_0_1", "status": "research_only", "registered_prediction_unchanged": true, "baseline_p_a": 0.2213752655345464, "candidate_delta_pp": null, "uncalibrated_diagnostic_only": true, "observed_feature_measures": {"surface": {"a": 0.49197087, "b": 0.51823958, "effective_n": 3199, "source_sha256": "6b49b40a35af5e5c62db2abc92f7902060d9273473e5b196a9b47d1051a8595b", "evidence_type": "ARCHIVE_TOURNAMENT_DATE_PROXY"}, "style": {"a": 0.10015043, "b": 0.09839509, "effective_n": 6965, "source_sha256": "6b49b40a35af5e5c62db2abc92f7902060d9273473e5b196a9b47d1051a8595b", "evidence_type": "ARCHIVE_TOURNAMENT_DATE_PROXY"}}, "verified_features": ["style", "surface"], "missing_features": {"indoor": "MISSING_OR_UNVERIFIED", "h2h": "MISSING_OR_UNVERIFIED", "fatigue": "MISSING_OR_UNVERIFIED", "injury": "MISSING_OR_UNVERIFIED", "weather": "MISSING_OR_UNVERIFIED", "physical": "MISSING_OR_UNVERIFIED"}, "evidence_digest": "7495aba52ba5ef36478d10a1eb04689c712a85bf35632a942e9f4ee603f02218", "eligible_for_promotion": false, "court_enclosure": "Outdoor", "history_readiness": {"status": "HISTORICAL_DATE_PROXY_21D_EMBARGO", "archive_sources": 8, "player_a_archive_matches": 118, "player_b_archive_matches": 106, "surface_point_strength": {"a": 0.492, "b": 0.5182}, "serve_reliance_style_proxy": {"a": 0.1002, "b": 0.0984}, "h2h_completed_archive_matches": 0}, "physical_traits": {"status": "DESCRIPTIVE_NOT_PREDICTIVE", "players": {"a": {"handedness": "L", "height_cm": 160.0, "archive_observations": 139}, "b": {"handedness": "R", "height_cm": null, "archive_observations": 243}}, "source_manifest_sha256": "6b49b40a35af5e5c62db2abc92f7902060d9273473e5b196a9b47d1051a8595b"}}}}, "wta_blend_shadow": {"status": "ok", "p_a": 0.299115528966508, "p_b": 0.700884471033492, "model_id": "WTA_CHAMPION_SRELO_1_0", "state_date": "2026-10-05", "artifact_sha256": "5d08c6e3c286cde229566848a4d0417d416586aede88bbb9bafae9b21b65a09a", "research_only": true, "explanation": {"serve_a": 0.5032072023290527, "serve_b": 0.5484126286251895, "minimum_points": 7905.0, "sr_p_a": 0.2722177245997516, "elo_p_a": 0.344542199614979, "elo_weight": 0.3719045919253949, "rating_a": 1692.390587419604, "rating_b": 1804.1115131100737, "without_current_form_p_a": 0.30308873444616274}, "v2_readiness": null, "role": "SHADOW", "not_for_action": true, "historical_metrics_citable": false}, "wta_selected": {"role": "SR_CHALLENGER_RESEARCH", "status": "ok", "selection_reason": "WTA_BLEND_DEMOTED_TO_SHADOW", "research_only": true, "model_id": "WTA_SR02_CORE_OBSERVED", "p_a": 0.34888407125712856, "p_b": 0.6511159287428714, "reason": null}, "court_enclosure": "Outdoor", "devils_advocate": {"status": "partial", "pick": "Veronika Erjavec", "side": "b", "mean_available_probability": 0.71487, "opponent_probability": 0.28513, "model_spread_pp": 12.751, "missing_models": ["champion"], "flags": ["INCOMPLETE_MODEL_COVERAGE", "HIGH_PROBABILITY_SPREAD"], "reasons": ["Model probabilities differ by at least 10 percentage points.", "One or more models did not return a valid prediction."], "recommendation": "review"}}, {"source_match_id": "186840", "tour": "WTA", "regime": "wta125", "tournament": "IEB+ Argentina Open", "tournament_key": "buenos aires", "best_of": 3, "deciding_tiebreak_target": 7, "surface": "Clay", "name_a": "Carole Monnet", "name_b": "Solana Sierra", "starts_at": "2026-11-25T21:00:00+00:00", "round": "Round 2", "event_source": "https://site.api.espn.com/apis/site/v2/sports/tennis/wta/scoreboard", "surface_source": "https://www.tennis.com/tournaments/ieb-argentina-open", "format_source": "https://www.wtatennis.com/news/3043764/tennis-explained-learn-the-game", "results": {"champion": {"status": "unavailable", "reason": "WTA_BLEND_DEMOTED_TO_SHADOW"}, "challenger": {"status": "ok", "p_a": 0.29904559304290146, "p_b": 0.7009544069570985, "model_id": "WTA_SR02_CORE_OBSERVED", "state_date": "2026-09-26", "artifact_sha256": "b49ade0de4f2676eeb2c93db3a9558b3272cd787b679c1b9750884a935543b6b", "research_only": true, "explanation": {"serve_a": 0.5012256404963075, "serve_b": 0.5404981018179214, "minimum_points": 8419.0, "raw_serve_a": 0.4948054530754974, "raw_serve_b": 0.5468693818137786, "calibration_scale": 0.7540185601505588, "form_beta": 0.0, "a_global_serve": 0.08439196057182324, "a_surface_serve": 0.03545132881693584, "a_global_return": 0.1893471347842886, "a_surface_return": 0.03757058104521677, "b_global_serve": 0.2042354072355326, "b_surface_serve": 0.08591713149143548, "b_global_return": 0.17916751701479558, "b_surface_return": 0.08624944429194441}, "v2_readiness": null}, "experimental": {"status": "ok", "p_a": 0.21940898178594115, "p_b": 0.7805910182140589, "model_id": "EXPERIMENTAL_MATCHUP_INTELLIGENCE_V2_0_1", "state_date": "2026-10-10", "artifact_sha256": "9f0ce28379795fcaaa1f475345f7230c97d0e6e7945db4e5dc6b42f7c8575e3f", "research_only": true, "explanation": {"baseline_p_a": 0.2216489880408109, "dynamic_change_pp": -0.2240006254869753, "serve_a": 0.4826678432565861, "serve_b": 0.5558183161150916, "elo_weight": 0.36118034847186514, "a_serve_logit_shift": -0.00041984780869686267, "a_return_logit_shift": -0.0006719210521616094, "b_serve_logit_shift": 0.0011742643028048825, "b_return_logit_shift": 0.001983443545786067, "a_effective_serve_points": 233.84867839918923, "a_effective_return_points": 232.97879300593507, "b_effective_serve_points": 191.89045242393917, "b_effective_return_points": 173.15873834512436}, "v2_readiness": {"version": "MATCHUP_INTELLIGENCE_V2_SHADOW_0_1", "status": "research_only", "registered_prediction_unchanged": true, "baseline_p_a": 0.21940898178594115, "candidate_delta_pp": null, "uncalibrated_diagnostic_only": true, "observed_feature_measures": {"surface": {"a": 0.49485476, "b": 0.5201502, "effective_n": 3134, "source_sha256": "6b49b40a35af5e5c62db2abc92f7902060d9273473e5b196a9b47d1051a8595b", "evidence_type": "ARCHIVE_TOURNAMENT_DATE_PROXY"}, "style": {"a": 0.04749197, "b": 0.10502461, "effective_n": 6397, "source_sha256": "6b49b40a35af5e5c62db2abc92f7902060d9273473e5b196a9b47d1051a8595b", "evidence_type": "ARCHIVE_TOURNAMENT_DATE_PROXY"}}, "verified_features": ["style", "surface"], "missing_features": {"indoor": "MISSING_OR_UNVERIFIED", "h2h": "MISSING_OR_UNVERIFIED", "fatigue": "MISSING_OR_UNVERIFIED", "injury": "MISSING_OR_UNVERIFIED", "weather": "MISSING_OR_UNVERIFIED", "physical": "MISSING_OR_UNVERIFIED"}, "evidence_digest": "3ff0adf952831dd014c64374623a44c8003163ae4ce7fccb98bf6efeb6c9590c", "eligible_for_promotion": false, "court_enclosure": "Outdoor", "history_readiness": {"status": "HISTORICAL_DATE_PROXY_21D_EMBARGO", "archive_sources": 8, "player_a_archive_matches": 116, "player_b_archive_matches": 94, "surface_point_strength": {"a": 0.4949, "b": 0.5202}, "serve_reliance_style_proxy": {"a": 0.0475, "b": 0.105}, "h2h_completed_archive_matches": 2}, "physical_traits": {"status": "DESCRIPTIVE_NOT_PREDICTIVE", "players": {"a": {"handedness": "L", "height_cm": null, "archive_observations": 242}, "b": {"handedness": "R", "height_cm": null, "archive_observations": 244}}, "source_manifest_sha256": "6b49b40a35af5e5c62db2abc92f7902060d9273473e5b196a9b47d1051a8595b"}}}}, "wta_blend_shadow": {"status": "ok", "p_a": 0.25066172840013645, "p_b": 0.7493382715998635, "model_id": "WTA_CHAMPION_SRELO_1_0", "state_date": "2026-10-05", "artifact_sha256": "5d08c6e3c286cde229566848a4d0417d416586aede88bbb9bafae9b21b65a09a", "research_only": true, "explanation": {"serve_a": 0.49039414187421904, "serve_b": 0.5512391892728421, "minimum_points": 8419.0, "sr_p_a": 0.20721331408986515, "elo_p_a": 0.32454857161298395, "elo_weight": 0.37029291303776096, "rating_a": 1748.6468073621957, "rating_b": 1875.9725763031488, "without_current_form_p_a": 0.25420910983147166}, "v2_readiness": null, "role": "SHADOW", "not_for_action": true, "historical_metrics_citable": false}, "wta_selected": {"role": "SR_CHALLENGER_RESEARCH", "status": "ok", "selection_reason": "WTA_BLEND_DEMOTED_TO_SHADOW", "research_only": true, "model_id": "WTA_SR02_CORE_OBSERVED", "p_a": 0.29904559304290146, "p_b": 0.7009544069570985, "reason": null}, "court_enclosure": "Outdoor", "devils_advocate": {"status": "partial", "pick": "Solana Sierra", "side": "b", "mean_available_probability": 0.740773, "opponent_probability": 0.259227, "model_spread_pp": 7.964, "missing_models": ["champion"], "flags": ["INCOMPLETE_MODEL_COVERAGE"], "reasons": ["One or more models did not return a valid prediction."], "recommendation": "review"}}], "coverage": {"sources": [{"url": "https://www.tennis.com/?date=2026-11-25", "status": "ok", "fetched_at": "2026-11-25T01:08:11.372333+00:00", "sha256": "30fd7b48fc2bbe0757ca7047274f874a2f25caca16435fc2b925179b7a453d8b", "provider": "Tennis.com"}, {"url": "https://www.tennis.com/?date=2026-11-26", "status": "ok", "fetched_at": "2026-11-25T01:08:11.443672+00:00", "sha256": "1c27b61169f6055470910dca2022fc0637c1564b40d13766039724655d34c683", "provider": "Tennis.com"}, {"url": "https://www.tennis.com/tournaments", "status": "ok", "fetched_at": "2026-11-25T01:08:11.469453+00:00", "sha256": "b34efaaee0f06286825b2b2418585d7932d9c76569f00929ae48dc24eee706c9", "provider": "Tennis.com"}, {"url": "https://www.tennis.com/tournaments/atp-challenger-ankara-turkiye", "provider": "Tennis.com metadata", "status": "unavailable", "fetched_at": "2026-11-25T01:08:11.528022+00:00"}, {"url": "https://www.tennis.com/tournaments/atp-challenger-hersonissos-4-greece", "status": "ok", "fetched_at": "2026-11-25T01:08:11.493005+00:00", "sha256": "5e53e03982cf271f19e8c3e5e27c5365ce03b10a5687fc4dff3a0d9883dbdc47", "provider": "Tennis.com"}, {"url": "https://www.tennis.com/tournaments/atp-challenger-monastir-2-tunisia", "provider": "Tennis.com metadata", "status": "unavailable", "fetched_at": "2026-11-25T01:08:11.505312+00:00"}, {"url": "https://www.tennis.com/tournaments/atp-challenger-san-salvador-el-salvador", "provider": "Tennis.com metadata", "status": "unavailable", "fetched_at": "2026-11-25T01:08:11.518228+00:00"}, {"url": "https://www.tennis.com/tournaments/city-of-playford-tennis-international", "status": "ok", "fetched_at": "2026-11-25T01:08:11.550614+00:00", "sha256": "2a7184bb20e0705049b11859bb56608c38742cb346f1b47c4b408d56ed73795a", "provider": "Tennis.com"}, {"url": "https://www.tennis.com/tournaments/engie-open", "provider": "Tennis.com metadata", "status": "unavailable", "fetched_at": "2026-11-25T01:08:11.549747+00:00"}, {"url": "https://www.tennis.com/tournaments/ieb-argentina-open", "status": "ok", "fetched_at": "2026-11-25T01:08:11.557613+00:00", "sha256": "112e8e427a0e28223eee33a8c408898db9c940923fa0279a59843805b1c788bb", "provider": "Tennis.com"}, {"url": "https://www.tennis.com/tournaments/yokohama-keio-challenger", "status": "ok", "fetched_at": "2026-11-25T01:08:11.565576+00:00", "sha256": "62cf0045a6ad24287ea0ec260016fbe339375d1346972a87a1d14e5beb79656b", "provider": "Tennis.com"}, {"tour": "ATP", "url": "https://site.api.espn.com/apis/site/v2/sports/tennis/atp/scoreboard?dates=20261125", "status": "ok", "fetched_at": "2026-11-25T01:08:11.614905+00:00", "sha256": "58d697441bd97f2321f0cf5e10013371a49b585acbe74eca312cf3be9fc573e1"}, {"tour": "ATP", "url": "https://site.api.espn.com/apis/site/v2/sports/tennis/atp/scoreboard?dates=20261126", "status": "ok", "fetched_at": "2026-11-25T01:08:11.603714+00:00", "sha256": "58d697441bd97f2321f0cf5e10013371a49b585acbe74eca312cf3be9fc573e1"}, {"tour": "WTA", "url": "https://site.api.espn.com/apis/site/v2/sports/tennis/wta/scoreboard?dates=20261125", "status": "ok", "fetched_at": "2026-11-25T01:08:11.613448+00:00", "sha256": "f07b3dc8001996ddc575ab5a8ce5bcbf69902a069b46e1240aa183b96d7a78ba"}, {"tour": "WTA", "url": "https://site.api.espn.com/apis/site/v2/sports/tennis/wta/scoreboard?dates=20261126", "status": "ok", "fetched_at": "2026-11-25T01:08:11.646431+00:00", "sha256": "f07b3dc8001996ddc575ab5a8ce5bcbf69902a069b46e1240aa183b96d7a78ba"}], "unknown_tournaments": ["atp-challenger-ankara-turkiye", "atp-challenger-monastir-2-tunisia", "atp-challenger-san-salvador-el-salvador", "engie-open"], "identity_diagnostics": {"duplicates_collapsed": 0, "identity_conflicts": 0}, "conflicting_matches": 0, "coverage": "partial", "unavailable_scopes": ["ATP Challenger (manual ledger empty or invalid)", "WTA 125 (manual ledger empty or invalid)"], "manual_challenger": {"status": "manual_only", "accepted": 0, "rejected": 0}, "note": "ATP/WTA main tour from public sources; ATP Challenger and WTA 125 ONLY from manually reviewed ledger. Missing manual fixtures are withheld, never auto-filled.", "metadata_mode": "automatic", "metadata_tournaments": 4, "discovery_capped": false, "model_missing_reasons": {"champion": {"WTA_BLEND_DEMOTED_TO_SHADOW": 5}, "challenger": {}, "experimental": {}}}, "limitations": ["Frozen recovered model states: Champion 2026-10-05; Challenger 2026-09-26; v3.4-A fit 2026-10-10. No automatic retraining.", "Historical point data is pinned to June 2026; experimental result updates extend through October 14. Current fixtures do not imply fully current ratings.", "Research probabilities conditional on match completion. Experimental Matchup Intelligence V2 currently reproduces uncalibrated v3.4-A probabilities; unverified new factors are not included. No automatic promotion.", "Partial fixture coverage. Scheduled times are estimates; refreshes are hourly and can be delayed."], "runtime_manifest_sha256": "75f10c2c2d6aefef24b799a7680821c84652829c4ab5f495ecd2b7607dc6b411"}
+{
+  "schema_version": 2,
+  "generated_at": "2026-11-25T01:37:21.578218+00:00",
+  "expires_at": "2026-11-25T03:07:21.578218+00:00",
+  "prediction_status": "available",
+  "build": {
+    "commit": "8e6b21f0630df3ff9a81477fd069876fcdc9b0c5",
+    "run_id": "45526979061"
+  },
+  "models": [
+    {
+      "id": "champion",
+      "name": "SR-Elo 1.0",
+      "preflight": {
+        "passed": 4,
+        "total": 4
+      },
+      "cloud_status": "verified",
+      "predictions": 0
+    },
+    {
+      "id": "challenger",
+      "name": "SR-GLM 0.2",
+      "preflight": {
+        "passed": 4,
+        "total": 4
+      },
+      "cloud_status": "verified",
+      "predictions": 5
+    },
+    {
+      "id": "experimental",
+      "name": "Matchup Intelligence V2 (v3.4-A baseline)",
+      "preflight": {
+        "passed": 4,
+        "total": 4
+      },
+      "cloud_status": "verified",
+      "predictions": 5
+    }
+  ],
+  "matches": [
+    {
+      "source_match_id": "186828",
+      "tour": "WTA",
+      "regime": "wta125",
+      "tournament": "IEB+ Argentina Open",
+      "tournament_key": "buenos aires",
+      "best_of": 3,
+      "deciding_tiebreak_target": 7,
+      "surface": "Clay",
+      "name_a": "Sol Ailin Larraya Guidi",
+      "name_b": "Maria Lourdes Carle",
+      "starts_at": "2026-11-25T18:00:00+00:00",
+      "round": "Round 1",
+      "event_source": "https://site.api.espn.com/apis/site/v2/sports/tennis/wta/scoreboard",
+      "surface_source": "https://www.tennis.com/tournaments/ieb-argentina-open",
+      "format_source": "https://www.wtatennis.com/news/3043764/tennis-explained-learn-the-game",
+      "results": {
+        "champion": {
+          "status": "unavailable",
+          "reason": "WTA_BLEND_DEMOTED_TO_SHADOW"
+        },
+        "challenger": {
+          "status": "ok",
+          "p_a": 0.06739440362573813,
+          "p_b": 0.9326055963742619,
+          "model_id": "WTA_SR02_CORE_OBSERVED",
+          "state_date": "2026-09-26",
+          "artifact_sha256": "b49ade0de4f2676eeb2c93db3a9558b3272cd787b679c1b9750884a935543b6b",
+          "research_only": true,
+          "explanation": {
+            "serve_a": 0.4557279667067677,
+            "serve_b": 0.567401045419386,
+            "minimum_points": 626,
+            "raw_serve_a": 0.437636473211709,
+            "raw_serve_b": 0.5852739974168196,
+            "calibration_scale": 0.7540185601505588,
+            "form_beta": 0,
+            "a_global_serve": -0.05044971784963862,
+            "a_surface_serve": -0.012622504065013194,
+            "a_global_return": -0.08709469241414161,
+            "a_surface_return": -0.021780016522887514,
+            "b_global_serve": 0.07211810754532885,
+            "b_surface_serve": 0.03867448869101255,
+            "b_global_return": 0.27178401386944745,
+            "b_surface_return": 0.04069839050913632
+          },
+          "v2_readiness": null
+        },
+        "experimental": {
+          "status": "ok",
+          "p_a": 0.3667662221480972,
+          "p_b": 0.6332337778519028,
+          "model_id": "EXPERIMENTAL_MATCHUP_INTELLIGENCE_V2_0_1",
+          "state_date": "2026-10-10",
+          "artifact_sha256": "9f0ce28379795fcaaa1f475345f7230c97d0e6e7945db4e5dc6b42f7c8575e3f",
+          "research_only": true,
+          "explanation": {
+            "baseline_p_a": 0.36607842181778577,
+            "dynamic_change_pp": 0.06878003303114055,
+            "serve_a": 0.48133733252912747,
+            "serve_b": 0.541543848180144,
+            "elo_weight": 0.5830221408966149,
+            "a_serve_logit_shift": -4.0482978079595414e-8,
+            "a_return_logit_shift": -5.389515018259461e-8,
+            "b_serve_logit_shift": -0.0008629347571232191,
+            "b_return_logit_shift": -0.0008601452136395896,
+            "a_effective_serve_points": 0.577100821339302,
+            "a_effective_return_points": 0.5896464913684172,
+            "b_effective_serve_points": 101.67372715328469,
+            "b_effective_return_points": 100.36074230217733
+          },
+          "v2_readiness": {
+            "version": "MATCHUP_INTELLIGENCE_V2_SHADOW_0_1",
+            "status": "research_only",
+            "registered_prediction_unchanged": true,
+            "baseline_p_a": 0.3667662221480972,
+            "candidate_delta_pp": null,
+            "uncalibrated_diagnostic_only": true,
+            "observed_feature_measures": {
+              "surface": {
+                "a": 0.38783534,
+                "b": 0.51471958,
+                "effective_n": 46,
+                "source_sha256": "6b49b40a35af5e5c62db2abc92f7902060d9273473e5b196a9b47d1051a8595b",
+                "evidence_type": "ARCHIVE_TOURNAMENT_DATE_PROXY"
+              },
+              "style": {
+                "a": 0.1373728,
+                "b": 0.02849453,
+                "effective_n": 46,
+                "source_sha256": "6b49b40a35af5e5c62db2abc92f7902060d9273473e5b196a9b47d1051a8595b",
+                "evidence_type": "ARCHIVE_TOURNAMENT_DATE_PROXY"
+              }
+            },
+            "verified_features": [
+              "style",
+              "surface"
+            ],
+            "missing_features": {
+              "indoor": "MISSING_OR_UNVERIFIED",
+              "h2h": "MISSING_OR_UNVERIFIED",
+              "fatigue": "MISSING_OR_UNVERIFIED",
+              "injury": "MISSING_OR_UNVERIFIED",
+              "weather": "MISSING_OR_UNVERIFIED",
+              "physical": "MISSING_OR_UNVERIFIED"
+            },
+            "evidence_digest": "1ce70f421088b3f41c5c86820f37d0839a9b2da132d99ae863ca7dbcee5e94c4",
+            "eligible_for_promotion": false,
+            "court_enclosure": "Outdoor",
+            "history_readiness": {
+              "status": "HISTORICAL_DATE_PROXY_21D_EMBARGO",
+              "archive_sources": 8,
+              "player_a_archive_matches": 1,
+              "player_b_archive_matches": 151,
+              "surface_point_strength": {
+                "a": 0.3878,
+                "b": 0.5147
+              },
+              "serve_reliance_style_proxy": {
+                "a": 0.1374,
+                "b": 0.0285
+              },
+              "h2h_completed_archive_matches": 0
+            },
+            "physical_traits": {
+              "status": "DESCRIPTIVE_NOT_PREDICTIVE",
+              "players": {
+                "a": {
+                  "handedness": "R",
+                  "height_cm": null,
+                  "archive_observations": 49
+                },
+                "b": {
+                  "handedness": "R",
+                  "height_cm": null,
+                  "archive_observations": 230
+                }
+              },
+              "source_manifest_sha256": "6b49b40a35af5e5c62db2abc92f7902060d9273473e5b196a9b47d1051a8595b"
+            }
+          }
+        }
+      },
+      "wta_blend_shadow": {
+        "status": "ok",
+        "p_a": 0.14099717806812842,
+        "p_b": 0.8590028219318716,
+        "model_id": "WTA_CHAMPION_SRELO_1_0",
+        "state_date": "2026-10-05",
+        "artifact_sha256": "5d08c6e3c286cde229566848a4d0417d416586aede88bbb9bafae9b21b65a09a",
+        "research_only": true,
+        "explanation": {
+          "serve_a": 0.4273110736003871,
+          "serve_b": 0.5954477101030854,
+          "minimum_points": 626,
+          "sr_p_a": 0.012501822577007837,
+          "elo_p_a": 0.2673938830863829,
+          "elo_weight": 0.5041167435122763,
+          "rating_a": 1534.877604945259,
+          "rating_b": 1709.9652339035333,
+          "without_current_form_p_a": 0.14101072470954634
+        },
+        "v2_readiness": null,
+        "role": "SHADOW",
+        "not_for_action": true,
+        "historical_metrics_citable": false
+      },
+      "wta_selected": {
+        "role": "SR_CHALLENGER_RESEARCH",
+        "status": "ok",
+        "selection_reason": "WTA_BLEND_DEMOTED_TO_SHADOW",
+        "research_only": true,
+        "model_id": "WTA_SR02_CORE_OBSERVED",
+        "p_a": 0.06739440362573813,
+        "p_b": 0.9326055963742619,
+        "reason": null
+      },
+      "court_enclosure": "Outdoor",
+      "devils_advocate": {
+        "status": "partial",
+        "pick": "Maria Lourdes Carle",
+        "side": "b",
+        "mean_available_probability": 0.78292,
+        "opponent_probability": 0.21708,
+        "model_spread_pp": 29.937,
+        "missing_models": [
+          "champion"
+        ],
+        "flags": [
+          "INCOMPLETE_MODEL_COVERAGE",
+          "HIGH_PROBABILITY_SPREAD"
+        ],
+        "reasons": [
+          "Model probabilities differ by at least 10 percentage points.",
+          "One or more models did not return a valid prediction."
+        ],
+        "recommendation": "review"
+      }
+    },
+    {
+      "source_match_id": "186837",
+      "tour": "WTA",
+      "regime": "wta125",
+      "tournament": "IEB+ Argentina Open",
+      "tournament_key": "buenos aires",
+      "best_of": 3,
+      "deciding_tiebreak_target": 7,
+      "surface": "Clay",
+      "name_a": "Ipek Oz",
+      "name_b": "Julia Riera",
+      "starts_at": "2026-11-25T19:30:00+00:00",
+      "round": "Round 2",
+      "event_source": "https://site.api.espn.com/apis/site/v2/sports/tennis/wta/scoreboard",
+      "surface_source": "https://www.tennis.com/tournaments/ieb-argentina-open",
+      "format_source": "https://www.wtatennis.com/news/3043764/tennis-explained-learn-the-game",
+      "results": {
+        "champion": {
+          "status": "unavailable",
+          "reason": "WTA_BLEND_DEMOTED_TO_SHADOW"
+        },
+        "challenger": {
+          "status": "ok",
+          "p_a": 0.38385162596042205,
+          "p_b": 0.6161483740395779,
+          "model_id": "WTA_SR02_CORE_OBSERVED",
+          "state_date": "2026-09-26",
+          "artifact_sha256": "b49ade0de4f2676eeb2c93db3a9558b3272cd787b679c1b9750884a935543b6b",
+          "research_only": true,
+          "explanation": {
+            "serve_a": 0.5397504583426561,
+            "serve_b": 0.561938776347944,
+            "minimum_points": 8324,
+            "raw_serve_a": 0.5361138603448204,
+            "raw_serve_b": 0.5655369879984575,
+            "calibration_scale": 0.7540185601505588,
+            "form_beta": 0,
+            "a_global_serve": 0.1853252850346276,
+            "a_surface_serve": 0.02089033805311687,
+            "a_global_return": 0.06940555122396928,
+            "a_surface_return": 0.028153764789580416,
+            "b_global_serve": 0.19407788949832205,
+            "b_surface_serve": 0.04235157756221526,
+            "b_global_return": 0.13138901247180035,
+            "b_surface_return": 0.054913916146210794
+          },
+          "v2_readiness": null
+        },
+        "experimental": {
+          "status": "ok",
+          "p_a": 0.26669814349539234,
+          "p_b": 0.7333018565046077,
+          "model_id": "EXPERIMENTAL_MATCHUP_INTELLIGENCE_V2_0_1",
+          "state_date": "2026-10-10",
+          "artifact_sha256": "9f0ce28379795fcaaa1f475345f7230c97d0e6e7945db4e5dc6b42f7c8575e3f",
+          "research_only": true,
+          "explanation": {
+            "baseline_p_a": 0.2668400778584532,
+            "dynamic_change_pp": -0.014193436306086937,
+            "serve_a": 0.5149547514084476,
+            "serve_b": 0.5719630633061132,
+            "elo_weight": 0.3761136264581464,
+            "a_serve_logit_shift": -0.0004486434368240286,
+            "a_return_logit_shift": 0.00006084195055605887,
+            "b_serve_logit_shift": -0.00031394244499380845,
+            "b_return_logit_shift": 0.0001382126896452734,
+            "a_effective_serve_points": 67.43056208082754,
+            "a_effective_return_points": 68.11634203433589,
+            "b_effective_serve_points": 186.6271868393808,
+            "b_effective_return_points": 177.82508148302918
+          },
+          "v2_readiness": {
+            "version": "MATCHUP_INTELLIGENCE_V2_SHADOW_0_1",
+            "status": "research_only",
+            "registered_prediction_unchanged": true,
+            "baseline_p_a": 0.26669814349539234,
+            "candidate_delta_pp": null,
+            "uncalibrated_diagnostic_only": true,
+            "observed_feature_measures": {
+              "surface": {
+                "a": 0.48450443,
+                "b": 0.50598091,
+                "effective_n": 2010,
+                "source_sha256": "6b49b40a35af5e5c62db2abc92f7902060d9273473e5b196a9b47d1051a8595b",
+                "evidence_type": "ARCHIVE_TOURNAMENT_DATE_PROXY"
+              },
+              "style": {
+                "a": 0.1100499,
+                "b": 0.10763859,
+                "effective_n": 3366,
+                "source_sha256": "6b49b40a35af5e5c62db2abc92f7902060d9273473e5b196a9b47d1051a8595b",
+                "evidence_type": "ARCHIVE_TOURNAMENT_DATE_PROXY"
+              }
+            },
+            "verified_features": [
+              "style",
+              "surface"
+            ],
+            "missing_features": {
+              "indoor": "MISSING_OR_UNVERIFIED",
+              "h2h": "MISSING_OR_UNVERIFIED",
+              "fatigue": "MISSING_OR_UNVERIFIED",
+              "injury": "MISSING_OR_UNVERIFIED",
+              "weather": "MISSING_OR_UNVERIFIED",
+              "physical": "MISSING_OR_UNVERIFIED"
+            },
+            "evidence_digest": "0214efbf98f2b26764d06e3510e7162dff1f07b56f345caec2f550d3b7d5c47c",
+            "eligible_for_promotion": false,
+            "court_enclosure": "Outdoor",
+            "history_readiness": {
+              "status": "HISTORICAL_DATE_PROXY_21D_EMBARGO",
+              "archive_sources": 8,
+              "player_a_archive_matches": 47,
+              "player_b_archive_matches": 106,
+              "surface_point_strength": {
+                "a": 0.4845,
+                "b": 0.506
+              },
+              "serve_reliance_style_proxy": {
+                "a": 0.11,
+                "b": 0.1076
+              },
+              "h2h_completed_archive_matches": 1
+            },
+            "physical_traits": {
+              "status": "DESCRIPTIVE_NOT_PREDICTIVE",
+              "players": {
+                "a": {
+                  "handedness": null,
+                  "height_cm": null,
+                  "archive_observations": 0
+                },
+                "b": {
+                  "handedness": "R",
+                  "height_cm": null,
+                  "archive_observations": 216
+                }
+              },
+              "source_manifest_sha256": "6b49b40a35af5e5c62db2abc92f7902060d9273473e5b196a9b47d1051a8595b"
+            }
+          }
+        }
+      },
+      "wta_blend_shadow": {
+        "status": "ok",
+        "p_a": 0.32331798861034167,
+        "p_b": 0.6766820113896583,
+        "model_id": "WTA_CHAMPION_SRELO_1_0",
+        "state_date": "2026-10-05",
+        "artifact_sha256": "5d08c6e3c286cde229566848a4d0417d416586aede88bbb9bafae9b21b65a09a",
+        "research_only": true,
+        "explanation": {
+          "serve_a": 0.5328968986888244,
+          "serve_b": 0.5687110879807955,
+          "minimum_points": 8324,
+          "sr_p_a": 0.3168036103111968,
+          "elo_p_a": 0.3343826051544718,
+          "elo_weight": 0.37057740543322054,
+          "rating_a": 1663.9464829396088,
+          "rating_b": 1783.5388773426048,
+          "without_current_form_p_a": 0.33006531167940756
+        },
+        "v2_readiness": null,
+        "role": "SHADOW",
+        "not_for_action": true,
+        "historical_metrics_citable": false
+      },
+      "wta_selected": {
+        "role": "SR_CHALLENGER_RESEARCH",
+        "status": "ok",
+        "selection_reason": "WTA_BLEND_DEMOTED_TO_SHADOW",
+        "research_only": true,
+        "model_id": "WTA_SR02_CORE_OBSERVED",
+        "p_a": 0.38385162596042205,
+        "p_b": 0.6161483740395779,
+        "reason": null
+      },
+      "court_enclosure": "Outdoor",
+      "devils_advocate": {
+        "status": "partial",
+        "pick": "Julia Riera",
+        "side": "b",
+        "mean_available_probability": 0.674725,
+        "opponent_probability": 0.325275,
+        "model_spread_pp": 11.715,
+        "missing_models": [
+          "champion"
+        ],
+        "flags": [
+          "INCOMPLETE_MODEL_COVERAGE",
+          "HIGH_PROBABILITY_SPREAD"
+        ],
+        "reasons": [
+          "Model probabilities differ by at least 10 percentage points.",
+          "One or more models did not return a valid prediction."
+        ],
+        "recommendation": "review"
+      }
+    },
+    {
+      "source_match_id": "186838",
+      "tour": "WTA",
+      "regime": "wta125",
+      "tournament": "IEB+ Argentina Open",
+      "tournament_key": "buenos aires",
+      "best_of": 3,
+      "deciding_tiebreak_target": 7,
+      "surface": "Clay",
+      "name_a": "Ariana Geerlings",
+      "name_b": "Alicia Herrero Linana",
+      "starts_at": "2026-11-25T19:30:00+00:00",
+      "round": "Round 2",
+      "event_source": "https://site.api.espn.com/apis/site/v2/sports/tennis/wta/scoreboard",
+      "surface_source": "https://www.tennis.com/tournaments/ieb-argentina-open",
+      "format_source": "https://www.wtatennis.com/news/3043764/tennis-explained-learn-the-game",
+      "results": {
+        "champion": {
+          "status": "unavailable",
+          "reason": "WTA_BLEND_DEMOTED_TO_SHADOW"
+        },
+        "challenger": {
+          "status": "ok",
+          "p_a": 0.5616229547414071,
+          "p_b": 0.4383770452585929,
+          "model_id": "WTA_SR02_CORE_OBSERVED",
+          "state_date": "2026-09-26",
+          "artifact_sha256": "b49ade0de4f2676eeb2c93db3a9558b3272cd787b679c1b9750884a935543b6b",
+          "research_only": true,
+          "explanation": {
+            "serve_a": 0.5233170109510206,
+            "serve_b": 0.5117746070444446,
+            "minimum_points": 3252,
+            "raw_serve_a": 0.5251977008806376,
+            "raw_serve_b": 0.5098903649457865,
+            "calibration_scale": 0.7540185601505588,
+            "form_beta": 0,
+            "a_global_serve": 0.09739874168889757,
+            "a_surface_serve": 0.03953285579004874,
+            "a_global_return": 0.18845526291455658,
+            "a_surface_return": 0.05902849978465693,
+            "b_global_serve": 0.11318731353281508,
+            "b_surface_serve": 0.04906833337566514,
+            "b_global_return": 0.12360054742239096,
+            "b_surface_return": 0.03724952687771695
+          },
+          "v2_readiness": null
+        },
+        "experimental": {
+          "status": "ok",
+          "p_a": 0.5359440842443234,
+          "p_b": 0.4640559157556766,
+          "model_id": "EXPERIMENTAL_MATCHUP_INTELLIGENCE_V2_0_1",
+          "state_date": "2026-10-10",
+          "artifact_sha256": "9f0ce28379795fcaaa1f475345f7230c97d0e6e7945db4e5dc6b42f7c8575e3f",
+          "research_only": true,
+          "explanation": {
+            "baseline_p_a": 0.5361096913852077,
+            "dynamic_change_pp": -0.016560714088431627,
+            "serve_a": 0.5309713057363994,
+            "serve_b": 0.5258126604962132,
+            "elo_weight": 0.44643481012658226,
+            "a_serve_logit_shift": -3.2848433969504295e-7,
+            "a_return_logit_shift": 0.0000030392535255207674,
+            "b_serve_logit_shift": 0.00034331470358455406,
+            "b_return_logit_shift": -0.00011618170759623111,
+            "a_effective_serve_points": 20.901212083942077,
+            "a_effective_return_points": 21.772061738428786,
+            "b_effective_serve_points": 99.38308695349056,
+            "b_effective_return_points": 101.61135043418182
+          },
+          "v2_readiness": {
+            "version": "MATCHUP_INTELLIGENCE_V2_SHADOW_0_1",
+            "status": "research_only",
+            "registered_prediction_unchanged": true,
+            "baseline_p_a": 0.5359440842443234,
+            "candidate_delta_pp": null,
+            "uncalibrated_diagnostic_only": true,
+            "observed_feature_measures": {
+              "surface": {
+                "a": 0.4995926,
+                "b": 0.50297656,
+                "effective_n": 737,
+                "source_sha256": "6b49b40a35af5e5c62db2abc92f7902060d9273473e5b196a9b47d1051a8595b",
+                "evidence_type": "ARCHIVE_TOURNAMENT_DATE_PROXY"
+              },
+              "style": {
+                "a": 0.05101833,
+                "b": 0.06959781,
+                "effective_n": 737,
+                "source_sha256": "6b49b40a35af5e5c62db2abc92f7902060d9273473e5b196a9b47d1051a8595b",
+                "evidence_type": "ARCHIVE_TOURNAMENT_DATE_PROXY"
+              }
+            },
+            "verified_features": [
+              "style",
+              "surface"
+            ],
+            "missing_features": {
+              "indoor": "MISSING_OR_UNVERIFIED",
+              "h2h": "MISSING_OR_UNVERIFIED",
+              "fatigue": "MISSING_OR_UNVERIFIED",
+              "injury": "MISSING_OR_UNVERIFIED",
+              "weather": "MISSING_OR_UNVERIFIED",
+              "physical": "MISSING_OR_UNVERIFIED"
+            },
+            "evidence_digest": "9a7450150765a98b3ecd38ea710674c20165b5fdc228e4b5c2c58ea4dd2ae4ee",
+            "eligible_for_promotion": false,
+            "court_enclosure": "Outdoor",
+            "history_readiness": {
+              "status": "HISTORICAL_DATE_PROXY_21D_EMBARGO",
+              "archive_sources": 8,
+              "player_a_archive_matches": 10,
+              "player_b_archive_matches": 24,
+              "surface_point_strength": {
+                "a": 0.4996,
+                "b": 0.503
+              },
+              "serve_reliance_style_proxy": {
+                "a": 0.051,
+                "b": 0.0696
+              },
+              "h2h_completed_archive_matches": 0
+            },
+            "physical_traits": {
+              "status": "DESCRIPTIVE_NOT_PREDICTIVE",
+              "players": {
+                "a": {
+                  "handedness": null,
+                  "height_cm": null,
+                  "archive_observations": 0
+                },
+                "b": {
+                  "handedness": "R",
+                  "height_cm": null,
+                  "archive_observations": 134
+                }
+              },
+              "source_manifest_sha256": "6b49b40a35af5e5c62db2abc92f7902060d9273473e5b196a9b47d1051a8595b"
+            }
+          }
+        }
+      },
+      "wta_blend_shadow": {
+        "status": "ok",
+        "p_a": 0.6314809202217833,
+        "p_b": 0.36851907977821674,
+        "model_id": "WTA_CHAMPION_SRELO_1_0",
+        "state_date": "2026-10-05",
+        "artifact_sha256": "5d08c6e3c286cde229566848a4d0417d416586aede88bbb9bafae9b21b65a09a",
+        "research_only": true,
+        "explanation": {
+          "serve_a": 0.5262747802845698,
+          "serve_b": 0.5088108020182376,
+          "minimum_points": 3252,
+          "sr_p_a": 0.5927538577879288,
+          "elo_p_a": 0.6885598631771601,
+          "elo_weight": 0.4042237464814236,
+          "rating_a": 1789.4307918471386,
+          "rating_b": 1651.603942985626,
+          "without_current_form_p_a": 0.6314809202217833
+        },
+        "v2_readiness": null,
+        "role": "SHADOW",
+        "not_for_action": true,
+        "historical_metrics_citable": false
+      },
+      "wta_selected": {
+        "role": "SR_CHALLENGER_RESEARCH",
+        "status": "ok",
+        "selection_reason": "WTA_BLEND_DEMOTED_TO_SHADOW",
+        "research_only": true,
+        "model_id": "WTA_SR02_CORE_OBSERVED",
+        "p_a": 0.5616229547414071,
+        "p_b": 0.4383770452585929,
+        "reason": null
+      },
+      "court_enclosure": "Outdoor",
+      "devils_advocate": {
+        "status": "partial",
+        "pick": "Ariana Geerlings",
+        "side": "a",
+        "mean_available_probability": 0.548784,
+        "opponent_probability": 0.451216,
+        "model_spread_pp": 2.568,
+        "missing_models": [
+          "champion"
+        ],
+        "flags": [
+          "INCOMPLETE_MODEL_COVERAGE",
+          "FRAGILE_FAVORITE"
+        ],
+        "reasons": [
+          "The mean probability is below 60%, so the opponent has substantial modeled upset probability.",
+          "One or more models did not return a valid prediction."
+        ],
+        "recommendation": "review"
+      }
+    },
+    {
+      "source_match_id": "186839",
+      "tour": "WTA",
+      "regime": "wta125",
+      "tournament": "IEB+ Argentina Open",
+      "tournament_key": "buenos aires",
+      "best_of": 3,
+      "deciding_tiebreak_target": 7,
+      "surface": "Clay",
+      "name_a": "Martina Trevisan",
+      "name_b": "Veronika Erjavec",
+      "starts_at": "2026-11-25T18:00:00+00:00",
+      "round": "Round 2",
+      "event_source": "https://site.api.espn.com/apis/site/v2/sports/tennis/wta/scoreboard",
+      "surface_source": "https://www.tennis.com/tournaments/ieb-argentina-open",
+      "format_source": "https://www.wtatennis.com/news/3043764/tennis-explained-learn-the-game",
+      "results": {
+        "champion": {
+          "status": "unavailable",
+          "reason": "WTA_BLEND_DEMOTED_TO_SHADOW"
+        },
+        "challenger": {
+          "status": "ok",
+          "p_a": 0.34888407125712856,
+          "p_b": 0.6511159287428714,
+          "model_id": "WTA_SR02_CORE_OBSERVED",
+          "state_date": "2026-09-26",
+          "artifact_sha256": "b49ade0de4f2676eeb2c93db3a9558b3272cd787b679c1b9750884a935543b6b",
+          "research_only": true,
+          "explanation": {
+            "serve_a": 0.5113656197632167,
+            "serve_b": 0.5403167264084386,
+            "minimum_points": 7905,
+            "raw_serve_a": 0.5066308797287188,
+            "raw_serve_b": 0.5450185096322827,
+            "calibration_scale": 0.7540185601505588,
+            "form_beta": 0,
+            "a_global_serve": 0.1025054932853556,
+            "a_surface_serve": 0.02395471767698885,
+            "a_global_return": 0.18286531101011033,
+            "a_surface_return": 0.04031690391220016,
+            "b_global_serve": 0.2013518611972197,
+            "b_surface_serve": 0.07759863620772778,
+            "b_global_return": 0.17841565113535585,
+            "b_surface_return": 0.04631422243218764
+          },
+          "v2_readiness": null
+        },
+        "experimental": {
+          "status": "ok",
+          "p_a": 0.2213752655345464,
+          "p_b": 0.7786247344654535,
+          "model_id": "EXPERIMENTAL_MATCHUP_INTELLIGENCE_V2_0_1",
+          "state_date": "2026-10-10",
+          "artifact_sha256": "9f0ce28379795fcaaa1f475345f7230c97d0e6e7945db4e5dc6b42f7c8575e3f",
+          "research_only": true,
+          "explanation": {
+            "baseline_p_a": 0.2216327597687836,
+            "dynamic_change_pp": -0.025749423423720996,
+            "serve_a": 0.49872912950371606,
+            "serve_b": 0.5637373914532102,
+            "elo_weight": 0.3598925174592617,
+            "a_serve_logit_shift": -0.0011236763733499253,
+            "a_return_logit_shift": -0.00015728533163208153,
+            "b_serve_logit_shift": 0.00016934250506560344,
+            "b_return_logit_shift": -0.001002400330388345,
+            "a_effective_serve_points": 89.37839312675995,
+            "a_effective_return_points": 89.10972274599318,
+            "b_effective_serve_points": 219.23474428641902,
+            "b_effective_return_points": 222.67611031576263
+          },
+          "v2_readiness": {
+            "version": "MATCHUP_INTELLIGENCE_V2_SHADOW_0_1",
+            "status": "research_only",
+            "registered_prediction_unchanged": true,
+            "baseline_p_a": 0.2213752655345464,
+            "candidate_delta_pp": null,
+            "uncalibrated_diagnostic_only": true,
+            "observed_feature_measures": {
+              "surface": {
+                "a": 0.49197087,
+                "b": 0.51823958,
+                "effective_n": 3199,
+                "source_sha256": "6b49b40a35af5e5c62db2abc92f7902060d9273473e5b196a9b47d1051a8595b",
+                "evidence_type": "ARCHIVE_TOURNAMENT_DATE_PROXY"
+              },
+              "style": {
+                "a": 0.10015043,
+                "b": 0.09839509,
+                "effective_n": 6965,
+                "source_sha256": "6b49b40a35af5e5c62db2abc92f7902060d9273473e5b196a9b47d1051a8595b",
+                "evidence_type": "ARCHIVE_TOURNAMENT_DATE_PROXY"
+              }
+            },
+            "verified_features": [
+              "style",
+              "surface"
+            ],
+            "missing_features": {
+              "indoor": "MISSING_OR_UNVERIFIED",
+              "h2h": "MISSING_OR_UNVERIFIED",
+              "fatigue": "MISSING_OR_UNVERIFIED",
+              "injury": "MISSING_OR_UNVERIFIED",
+              "weather": "MISSING_OR_UNVERIFIED",
+              "physical": "MISSING_OR_UNVERIFIED"
+            },
+            "evidence_digest": "9538bf697d97451db3a87250a64fb517a5be623cddf50a0f2c15ffca709c0da2",
+            "eligible_for_promotion": false,
+            "court_enclosure": "Outdoor",
+            "history_readiness": {
+              "status": "HISTORICAL_DATE_PROXY_21D_EMBARGO",
+              "archive_sources": 8,
+              "player_a_archive_matches": 118,
+              "player_b_archive_matches": 106,
+              "surface_point_strength": {
+                "a": 0.492,
+                "b": 0.5182
+              },
+              "serve_reliance_style_proxy": {
+                "a": 0.1002,
+                "b": 0.0984
+              },
+              "h2h_completed_archive_matches": 0
+            },
+            "physical_traits": {
+              "status": "DESCRIPTIVE_NOT_PREDICTIVE",
+              "players": {
+                "a": {
+                  "handedness": "L",
+                  "height_cm": 160,
+                  "archive_observations": 139
+                },
+                "b": {
+                  "handedness": "R",
+                  "height_cm": null,
+                  "archive_observations": 243
+                }
+              },
+              "source_manifest_sha256": "6b49b40a35af5e5c62db2abc92f7902060d9273473e5b196a9b47d1051a8595b"
+            }
+          }
+        }
+      },
+      "wta_blend_shadow": {
+        "status": "ok",
+        "p_a": 0.299115528966508,
+        "p_b": 0.700884471033492,
+        "model_id": "WTA_CHAMPION_SRELO_1_0",
+        "state_date": "2026-10-05",
+        "artifact_sha256": "5d08c6e3c286cde229566848a4d0417d416586aede88bbb9bafae9b21b65a09a",
+        "research_only": true,
+        "explanation": {
+          "serve_a": 0.5032072023290527,
+          "serve_b": 0.5484126286251895,
+          "minimum_points": 7905,
+          "sr_p_a": 0.2722177245997516,
+          "elo_p_a": 0.344542199614979,
+          "elo_weight": 0.3719045919253949,
+          "rating_a": 1692.390587419604,
+          "rating_b": 1804.1115131100737,
+          "without_current_form_p_a": 0.30308873444616274
+        },
+        "v2_readiness": null,
+        "role": "SHADOW",
+        "not_for_action": true,
+        "historical_metrics_citable": false
+      },
+      "wta_selected": {
+        "role": "SR_CHALLENGER_RESEARCH",
+        "status": "ok",
+        "selection_reason": "WTA_BLEND_DEMOTED_TO_SHADOW",
+        "research_only": true,
+        "model_id": "WTA_SR02_CORE_OBSERVED",
+        "p_a": 0.34888407125712856,
+        "p_b": 0.6511159287428714,
+        "reason": null
+      },
+      "court_enclosure": "Outdoor",
+      "devils_advocate": {
+        "status": "partial",
+        "pick": "Veronika Erjavec",
+        "side": "b",
+        "mean_available_probability": 0.71487,
+        "opponent_probability": 0.28513,
+        "model_spread_pp": 12.751,
+        "missing_models": [
+          "champion"
+        ],
+        "flags": [
+          "INCOMPLETE_MODEL_COVERAGE",
+          "HIGH_PROBABILITY_SPREAD"
+        ],
+        "reasons": [
+          "Model probabilities differ by at least 10 percentage points.",
+          "One or more models did not return a valid prediction."
+        ],
+        "recommendation": "review"
+      }
+    },
+    {
+      "source_match_id": "186840",
+      "tour": "WTA",
+      "regime": "wta125",
+      "tournament": "IEB+ Argentina Open",
+      "tournament_key": "buenos aires",
+      "best_of": 3,
+      "deciding_tiebreak_target": 7,
+      "surface": "Clay",
+      "name_a": "Carole Monnet",
+      "name_b": "Solana Sierra",
+      "starts_at": "2026-11-25T21:00:00+00:00",
+      "round": "Round 2",
+      "event_source": "https://site.api.espn.com/apis/site/v2/sports/tennis/wta/scoreboard",
+      "surface_source": "https://www.tennis.com/tournaments/ieb-argentina-open",
+      "format_source": "https://www.wtatennis.com/news/3043764/tennis-explained-learn-the-game",
+      "results": {
+        "champion": {
+          "status": "unavailable",
+          "reason": "WTA_BLEND_DEMOTED_TO_SHADOW"
+        },
+        "challenger": {
+          "status": "ok",
+          "p_a": 0.29904559304290146,
+          "p_b": 0.7009544069570985,
+          "model_id": "WTA_SR02_CORE_OBSERVED",
+          "state_date": "2026-09-26",
+          "artifact_sha256": "b49ade0de4f2676eeb2c93db3a9558b3272cd787b679c1b9750884a935543b6b",
+          "research_only": true,
+          "explanation": {
+            "serve_a": 0.5012256404963075,
+            "serve_b": 0.5404981018179214,
+            "minimum_points": 8419,
+            "raw_serve_a": 0.4948054530754974,
+            "raw_serve_b": 0.5468693818137786,
+            "calibration_scale": 0.7540185601505588,
+            "form_beta": 0,
+            "a_global_serve": 0.08439196057182324,
+            "a_surface_serve": 0.03545132881693584,
+            "a_global_return": 0.1893471347842886,
+            "a_surface_return": 0.03757058104521677,
+            "b_global_serve": 0.2042354072355326,
+            "b_surface_serve": 0.08591713149143548,
+            "b_global_return": 0.17916751701479558,
+            "b_surface_return": 0.08624944429194441
+          },
+          "v2_readiness": null
+        },
+        "experimental": {
+          "status": "ok",
+          "p_a": 0.21940898178594115,
+          "p_b": 0.7805910182140589,
+          "model_id": "EXPERIMENTAL_MATCHUP_INTELLIGENCE_V2_0_1",
+          "state_date": "2026-10-10",
+          "artifact_sha256": "9f0ce28379795fcaaa1f475345f7230c97d0e6e7945db4e5dc6b42f7c8575e3f",
+          "research_only": true,
+          "explanation": {
+            "baseline_p_a": 0.2216489880408109,
+            "dynamic_change_pp": -0.2240006254869753,
+            "serve_a": 0.4826678432565861,
+            "serve_b": 0.5558183161150916,
+            "elo_weight": 0.36118034847186514,
+            "a_serve_logit_shift": -0.00041984780869686267,
+            "a_return_logit_shift": -0.0006719210521616094,
+            "b_serve_logit_shift": 0.0011742643028048825,
+            "b_return_logit_shift": 0.001983443545786067,
+            "a_effective_serve_points": 233.84867839918923,
+            "a_effective_return_points": 232.97879300593507,
+            "b_effective_serve_points": 191.89045242393917,
+            "b_effective_return_points": 173.15873834512436
+          },
+          "v2_readiness": {
+            "version": "MATCHUP_INTELLIGENCE_V2_SHADOW_0_1",
+            "status": "research_only",
+            "registered_prediction_unchanged": true,
+            "baseline_p_a": 0.21940898178594115,
+            "candidate_delta_pp": null,
+            "uncalibrated_diagnostic_only": true,
+            "observed_feature_measures": {
+              "surface": {
+                "a": 0.49485476,
+                "b": 0.5201502,
+                "effective_n": 3134,
+                "source_sha256": "6b49b40a35af5e5c62db2abc92f7902060d9273473e5b196a9b47d1051a8595b",
+                "evidence_type": "ARCHIVE_TOURNAMENT_DATE_PROXY"
+              },
+              "style": {
+                "a": 0.04749197,
+                "b": 0.10502461,
+                "effective_n": 6397,
+                "source_sha256": "6b49b40a35af5e5c62db2abc92f7902060d9273473e5b196a9b47d1051a8595b",
+                "evidence_type": "ARCHIVE_TOURNAMENT_DATE_PROXY"
+              }
+            },
+            "verified_features": [
+              "style",
+              "surface"
+            ],
+            "missing_features": {
+              "indoor": "MISSING_OR_UNVERIFIED",
+              "h2h": "MISSING_OR_UNVERIFIED",
+              "fatigue": "MISSING_OR_UNVERIFIED",
+              "injury": "MISSING_OR_UNVERIFIED",
+              "weather": "MISSING_OR_UNVERIFIED",
+              "physical": "MISSING_OR_UNVERIFIED"
+            },
+            "evidence_digest": "c198666e66208624c63213cfc2e077f59ab8bad82abaf584f95e0971e20b85c9",
+            "eligible_for_promotion": false,
+            "court_enclosure": "Outdoor",
+            "history_readiness": {
+              "status": "HISTORICAL_DATE_PROXY_21D_EMBARGO",
+              "archive_sources": 8,
+              "player_a_archive_matches": 116,
+              "player_b_archive_matches": 94,
+              "surface_point_strength": {
+                "a": 0.4949,
+                "b": 0.5202
+              },
+              "serve_reliance_style_proxy": {
+                "a": 0.0475,
+                "b": 0.105
+              },
+              "h2h_completed_archive_matches": 2
+            },
+            "physical_traits": {
+              "status": "DESCRIPTIVE_NOT_PREDICTIVE",
+              "players": {
+                "a": {
+                  "handedness": "L",
+                  "height_cm": null,
+                  "archive_observations": 242
+                },
+                "b": {
+                  "handedness": "R",
+                  "height_cm": null,
+                  "archive_observations": 244
+                }
+              },
+              "source_manifest_sha256": "6b49b40a35af5e5c62db2abc92f7902060d9273473e5b196a9b47d1051a8595b"
+            }
+          }
+        }
+      },
+      "wta_blend_shadow": {
+        "status": "ok",
+        "p_a": 0.25066172840013645,
+        "p_b": 0.7493382715998635,
+        "model_id": "WTA_CHAMPION_SRELO_1_0",
+        "state_date": "2026-10-05",
+        "artifact_sha256": "5d08c6e3c286cde229566848a4d0417d416586aede88bbb9bafae9b21b65a09a",
+        "research_only": true,
+        "explanation": {
+          "serve_a": 0.49039414187421904,
+          "serve_b": 0.5512391892728421,
+          "minimum_points": 8419,
+          "sr_p_a": 0.20721331408986515,
+          "elo_p_a": 0.32454857161298395,
+          "elo_weight": 0.37029291303776096,
+          "rating_a": 1748.6468073621957,
+          "rating_b": 1875.9725763031488,
+          "without_current_form_p_a": 0.25420910983147166
+        },
+        "v2_readiness": null,
+        "role": "SHADOW",
+        "not_for_action": true,
+        "historical_metrics_citable": false
+      },
+      "wta_selected": {
+        "role": "SR_CHALLENGER_RESEARCH",
+        "status": "ok",
+        "selection_reason": "WTA_BLEND_DEMOTED_TO_SHADOW",
+        "research_only": true,
+        "model_id": "WTA_SR02_CORE_OBSERVED",
+        "p_a": 0.29904559304290146,
+        "p_b": 0.7009544069570985,
+        "reason": null
+      },
+      "court_enclosure": "Outdoor",
+      "devils_advocate": {
+        "status": "partial",
+        "pick": "Solana Sierra",
+        "side": "b",
+        "mean_available_probability": 0.740773,
+        "opponent_probability": 0.259227,
+        "model_spread_pp": 7.964,
+        "missing_models": [
+          "champion"
+        ],
+        "flags": [
+          "INCOMPLETE_MODEL_COVERAGE"
+        ],
+        "reasons": [
+          "One or more models did not return a valid prediction."
+        ],
+        "recommendation": "review"
+      }
+    }
+  ],
+  "coverage": {
+    "sources": [
+      {
+        "url": "https://www.tennis.com/?date=2026-11-25",
+        "status": "ok",
+        "fetched_at": "2026-11-25T01:37:21.343069+00:00",
+        "sha256": "e5483a0b6831e00b5236cf6e987a8f8809d82efb0c984a5de1471088998852ca",
+        "provider": "Tennis.com"
+      },
+      {
+        "url": "https://www.tennis.com/?date=2026-11-26",
+        "status": "ok",
+        "fetched_at": "2026-11-25T01:37:21.372393+00:00",
+        "sha256": "209e4ccff16cd7d26ba1412d5bec645e92c5be4ed2607c1787e2bab93887b5e9",
+        "provider": "Tennis.com"
+      },
+      {
+        "url": "https://www.tennis.com/tournaments",
+        "status": "ok",
+        "fetched_at": "2026-11-25T01:37:21.390861+00:00",
+        "sha256": "b34efaaee0f06286825b2b2418585d7932d9c76569f00929ae48dc24eee706c9",
+        "provider": "Tennis.com"
+      },
+      {
+        "url": "https://www.tennis.com/tournaments/atp-challenger-ankara-turkiye",
+        "provider": "Tennis.com metadata",
+        "status": "unavailable",
+        "fetched_at": "2026-11-25T01:37:21.439613+00:00"
+      },
+      {
+        "url": "https://www.tennis.com/tournaments/atp-challenger-hersonissos-4-greece",
+        "status": "ok",
+        "fetched_at": "2026-11-25T01:37:21.424755+00:00",
+        "sha256": "5e53e03982cf271f19e8c3e5e27c5365ce03b10a5687fc4dff3a0d9883dbdc47",
+        "provider": "Tennis.com"
+      },
+      {
+        "url": "https://www.tennis.com/tournaments/atp-challenger-monastir-2-tunisia",
+        "provider": "Tennis.com metadata",
+        "status": "unavailable",
+        "fetched_at": "2026-11-25T01:37:21.417264+00:00"
+      },
+      {
+        "url": "https://www.tennis.com/tournaments/atp-challenger-san-salvador-el-salvador",
+        "provider": "Tennis.com metadata",
+        "status": "unavailable",
+        "fetched_at": "2026-11-25T01:37:21.423950+00:00"
+      },
+      {
+        "url": "https://www.tennis.com/tournaments/city-of-playford-tennis-international",
+        "status": "ok",
+        "fetched_at": "2026-11-25T01:37:21.477285+00:00",
+        "sha256": "a3f8201c321f56162efd846bbe7fafc588c6d16b40c3f7e8183cb2118e2922ef",
+        "provider": "Tennis.com"
+      },
+      {
+        "url": "https://www.tennis.com/tournaments/engie-open",
+        "provider": "Tennis.com metadata",
+        "status": "unavailable",
+        "fetched_at": "2026-11-25T01:37:21.463216+00:00"
+      },
+      {
+        "url": "https://www.tennis.com/tournaments/ieb-argentina-open",
+        "status": "ok",
+        "fetched_at": "2026-11-25T01:37:21.471653+00:00",
+        "sha256": "112e8e427a0e28223eee33a8c408898db9c940923fa0279a59843805b1c788bb",
+        "provider": "Tennis.com"
+      },
+      {
+        "url": "https://www.tennis.com/tournaments/yokohama-keio-challenger",
+        "status": "ok",
+        "fetched_at": "2026-11-25T01:37:21.463777+00:00",
+        "sha256": "af55ab2726a034da2712f13aa7d6c1be3526910cc2718faa47be6c98bedc84fe",
+        "provider": "Tennis.com"
+      },
+      {
+        "tour": "ATP",
+        "url": "https://site.api.espn.com/apis/site/v2/sports/tennis/atp/scoreboard?dates=20261125",
+        "status": "ok",
+        "fetched_at": "2026-11-25T01:37:21.516630+00:00",
+        "sha256": "10eddf69844a7f31aad646c46f49d29f28e8c6fefaebeb3ec9790887406c00a9"
+      },
+      {
+        "tour": "ATP",
+        "url": "https://site.api.espn.com/apis/site/v2/sports/tennis/atp/scoreboard?dates=20261126",
+        "status": "ok",
+        "fetched_at": "2026-11-25T01:37:21.530057+00:00",
+        "sha256": "10eddf69844a7f31aad646c46f49d29f28e8c6fefaebeb3ec9790887406c00a9"
+      },
+      {
+        "tour": "WTA",
+        "url": "https://site.api.espn.com/apis/site/v2/sports/tennis/wta/scoreboard?dates=20261125",
+        "status": "ok",
+        "fetched_at": "2026-11-25T01:37:21.564906+00:00",
+        "sha256": "499e3b095124df506da903a3af5ffaffb8591b1998d45149cacb69b339437331"
+      },
+      {
+        "tour": "WTA",
+        "url": "https://site.api.espn.com/apis/site/v2/sports/tennis/wta/scoreboard?dates=20261126",
+        "status": "ok",
+        "fetched_at": "2026-11-25T01:37:21.577262+00:00",
+        "sha256": "499e3b095124df506da903a3af5ffaffb8591b1998d45149cacb69b339437331"
+      }
+    ],
+    "unknown_tournaments": [
+      "atp-challenger-ankara-turkiye",
+      "atp-challenger-monastir-2-tunisia",
+      "atp-challenger-san-salvador-el-salvador",
+      "engie-open"
+    ],
+    "identity_diagnostics": {
+      "duplicates_collapsed": 0,
+      "identity_conflicts": 0
+    },
+    "conflicting_matches": 0,
+    "coverage": "partial",
+    "unavailable_scopes": [
+      "ATP Challenger (manual ledger empty or invalid)",
+      "WTA 125 (manual ledger empty or invalid)"
+    ],
+    "manual_challenger": {
+      "status": "manual_only",
+      "accepted": 0,
+      "rejected": 0
+    },
+    "note": "ATP/WTA main tour from public sources; ATP Challenger and WTA 125 ONLY from manually reviewed ledger. Missing manual fixtures are withheld, never auto-filled.",
+    "metadata_mode": "automatic",
+    "metadata_tournaments": 4,
+    "discovery_capped": false,
+    "model_missing_reasons": {
+      "champion": {
+        "WTA_BLEND_DEMOTED_TO_SHADOW": 5
+      },
+      "challenger": {},
+      "experimental": {}
+    }
+  },
+  "limitations": [
+    "Frozen recovered model states: Champion 2026-10-05; Challenger 2026-09-26; v3.4-A fit 2026-10-10. No automatic retraining.",
+    "Historical point data is pinned to June 2026; experimental result updates extend through October 14. Current fixtures do not imply fully current ratings.",
+    "Research probabilities conditional on match completion. Experimental Matchup Intelligence V2 currently reproduces uncalibrated v3.4-A probabilities; unverified new factors are not included. No automatic promotion.",
+    "Partial fixture coverage. Scheduled times are estimates; refreshes are hourly and can be delayed."
+  ],
+  "runtime_manifest_sha256": "75f10c2c2d6aefef24b799a7680821c84652829c4ab5f495ecd2b7607dc6b411"
+}
